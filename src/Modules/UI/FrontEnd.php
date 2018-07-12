@@ -19,7 +19,7 @@ namespace WRDSB\Staff\Modules\UI;
  * @package    WRDSB_Staff
  * @author     WRDSB <website@wrdsb.ca>
  */
-class Unauthenticated {
+class FrontEnd {
 
 	/**
 	 * The ID of this plugin.
@@ -63,7 +63,7 @@ class Unauthenticated {
 	 */
 	public function enqueue_styles() {
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/css/unauthenticated.css', array(), $this->version, 'all' );
+		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/css/front-end.css', array(), $this->version, 'all' );
 
 	}
 
@@ -74,7 +74,7 @@ class Unauthenticated {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/js/unauthenticated.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'assets/js/front-end.js', array( 'jquery' ), $this->version, false );
 
 	}
 

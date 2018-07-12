@@ -1,8 +1,8 @@
 <?php
 namespace WRDSB\Staff;
 
-use \WRDSB\Staff\Modules\UI\Authenticated;
-use \WRDSB\Staff\Modules\UI\Unauthenticated;
+use \WRDSB\Staff\Modules\UI\BackEnd;
+use \WRDSB\Staff\Modules\UI\FrontEnd;
 
 /**
  * The plugin bootstrap file
@@ -60,12 +60,12 @@ $container['plugin'] = function( $c ) {
 	return new Plugin( $c['plugin_name'], $c['version'] );
 };
 
-$container['authenticated_ui'] = function( $c ) {
-	return new Authenticated( $c['plugin'] );
+$container['back_end_ui'] = function( $c ) {
+	return new BackEnd( $c['plugin'] );
 };
 
-$container['unauthenticated_ui'] = function( $c ) {
-	return new Unauthenticated( $c['plugin'] );
+$container['front_end_ui'] = function( $c ) {
+	return new FrontEnd( $c['plugin'] );
 };
 
 register_activation_hook( __FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ) );
@@ -73,8 +73,8 @@ register_deactivation_hook( __FILE__, array( __NAMESPACE__ . '\\Deactivator', 'd
 
 $plugin = $container['plugin'];
 
-$authenticated_ui   = $container['authenticated_ui'];
-$unauthenticated_ui = $container['unauthenticated_ui'];
+$back_end_ui   = $container['back_end_ui'];
+$front_end_ui = $container['front_end_ui'];
 
 $plugin->register_hooks();
 
