@@ -1,8 +1,11 @@
 <?php
 namespace WRDSB\Staff;
 
-use \WRDSB\Staff\Modules\UI\BackEnd;
-use \WRDSB\Staff\Modules\UI\FrontEnd;
+use \WRDSB\Staff\Modules\UI\BackEnd as UI_BackEnd;
+use \WRDSB\Staff\Modules\UI\FrontEnd as UI_FrontEnd;
+
+use \WRDSB\Staff\Modules\ClassLists\Views\BackEnd as ClassLists_BackEnd;
+use \WRDSB\Staff\Modules\ClassLists\Views\FrontEnd as ClassLists_FrontEnd;
 
 /**
  * The plugin bootstrap file
@@ -12,9 +15,9 @@ use \WRDSB\Staff\Modules\UI\FrontEnd;
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://github.com/wrdsb
- * @since             1.0.0
- * @package           WRDSB_Staff
+ * @link    https://github.com/wrdsb
+ * @since   1.0.0
+ * @package WRDSB_Staff
  *
  * @wordpress-plugin
  * Plugin Name:       WRDSB Staff Features
@@ -29,8 +32,8 @@ use \WRDSB\Staff\Modules\UI\FrontEnd;
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (! defined('WPINC')) {
+    die;
 }
 
 require_once 'vendor/autoload.php';
@@ -38,7 +41,7 @@ require_once 'vendor/autoload.php';
 /**
  * Instantiate the container.
  */
-$container = get_container();
+$container = Plugin::get_container();
 
 /**
  * Current plugin name.
@@ -56,38 +59,35 @@ $container['version'] = '1.0.0';
  * Instantiate main plugin class.
  * Pass plugin name and version from container to constructor.
  */
-$container['plugin'] = function( $c ) {
-	return new Plugin( $c['plugin_name'], $c['version'] );
+$container['plugin'] = function ($c) {
+    return new Plugin($c['plugin_name'], $c['version']);
 };
 
-$container['back_end_ui'] = function( $c ) {
-	return new BackEnd( $c['plugin'] );
+$container['ui_back_end'] = function ($c) {
+    return new UI_BackEnd($c['plugin']);
 };
 
-$container['front_end_ui'] = function( $c ) {
-	return new FrontEnd( $c['plugin'] );
+$container['ui_front_end'] = function ($c) {
+    return new UI_FrontEnd($c['plugin']);
 };
 
-register_activation_hook( __FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ) );
-register_deactivation_hook( __FILE__, array( __NAMESPACE__ . '\\Deactivator', 'deactivate' ) );
+$container['class_lists_back_end'] = function ($c) {
+    return new ClassLists_BackEnd($c['plugin']);
+};
+
+$container['class_lists_front_end'] = function ($c) {
+    return new ClassLists_FrontEnd($c['plugin']);
+};
+
+register_activation_hook(__FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ));
+register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'deactivate' ));
 
 $plugin = $container['plugin'];
 
-$back_end_ui   = $container['back_end_ui'];
-$front_end_ui = $container['front_end_ui'];
+$ui_back_end  = $container['ui_back_end'];
+$ui_front_end = $container['ui_front_end'];
+
+$class_lists_back_end = $container['class_lists_back_end'];
+$class_lists_front_end = $container['class_lists_front_end'];
 
 $plugin->register_hooks();
-
-
-/**
- * Get plugin's container
- *
- * @return \Pimple\Container
- */
-function get_container() : \Pimple\Container {
-	static $container;
-	if ( ! $container ) {
-		$container = new \Pimple\Container();
-	}
-	return $container;
-}
