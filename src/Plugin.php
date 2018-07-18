@@ -91,7 +91,7 @@ class Plugin
      *
      * @return \Pimple\Container
      */
-    public static function get_container() : \Pimple\Container
+    public static function getContainer() : \Pimple\Container
     {
         static $container;
         if (! $container) {
@@ -107,7 +107,7 @@ class Plugin
      * @since     1.0.0
      * @return    string    The name of the plugin.
      */
-    public function get_plugin_name()
+    public function getPluginName()
     {
         return $this->plugin_name;
     }
@@ -118,7 +118,7 @@ class Plugin
      * @since     1.0.0
      * @return    string    The version number of the plugin.
      */
-    public function get_version()
+    public function getVersion()
     {
         return $this->version;
     }
@@ -133,9 +133,9 @@ class Plugin
      * @param    int                  $priority         Optional. The priority at which the function should be fired. Default is 10.
      * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1.
      */
-    public function add_action($hook, $component, $callback, $priority = 10, $accepted_args = 1)
+    public function addAction($hook, $component, $callback, $priority = 10, $accepted_args = 1)
     {
-        $this->actions = $this->add_hook($this->actions, $hook, $component, $callback, $priority, $accepted_args);
+        $this->actions = $this->addHook($this->actions, $hook, $component, $callback, $priority, $accepted_args);
     }
 
     /**
@@ -148,9 +148,9 @@ class Plugin
      * @param    int                  $priority         Optional. The priority at which the function should be fired. Default is 10.
      * @param    int                  $accepted_args    Optional. The number of arguments that should be passed to the $callback. Default is 1
      */
-    public function add_filter($hook, $component, $callback, $priority = 10, $accepted_args = 1)
+    public function addFilter($hook, $component, $callback, $priority = 10, $accepted_args = 1)
     {
-        $this->filters = $this->add_hook($this->filters, $hook, $component, $callback, $priority, $accepted_args);
+        $this->filters = $this->addHook($this->filters, $hook, $component, $callback, $priority, $accepted_args);
     }
 
     /**
@@ -167,7 +167,7 @@ class Plugin
      * @param    int                  $accepted_args    The number of arguments that should be passed to the $callback.
      * @return   array                                  The collection of actions and filters registered with WordPress.
      */
-    private function add_hook($hooks, $hook, $component, $callback, $priority, $accepted_args)
+    private function addHook($hooks, $hook, $component, $callback, $priority, $accepted_args)
     {
         $hooks[] = array(
             'hook'          => $hook,
@@ -185,14 +185,14 @@ class Plugin
      *
      * @since    1.0.0
      */
-    public function register_hooks()
+    public function registerHooks()
     {
         foreach ($this->filters as $hook) {
-            add_filter($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
+            addFilter($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
         }
 
         foreach ($this->actions as $hook) {
-            add_action($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
+            addAction($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
         }
     }
 }

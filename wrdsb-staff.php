@@ -41,7 +41,7 @@ require_once 'vendor/autoload.php';
 /**
  * Instantiate the container.
  */
-$container = Plugin::get_container();
+$container = Plugin::getContainer();
 
 /**
  * Current plugin name.
@@ -90,4 +90,4 @@ $ui_front_end = $container['ui_front_end'];
 $class_lists_back_end = $container['class_lists_back_end'];
 $class_lists_front_end = $container['class_lists_front_end'];
 
-$plugin->register_hooks();
+$plugin->registerHooks();

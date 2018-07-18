@@ -49,11 +49,11 @@ class BackEnd
      */
     public function __construct($plugin)
     {
-        $this->plugin_name = $plugin->get_plugin_name();
-        $this->version     = $plugin->get_version();
+        $this->plugin_name = $plugin->getPluginName();
+        $this->version     = $plugin->getVersion();
 
-        $plugin->add_action('admin_enqueue_scripts', $this, 'enqueue_styles');
-        $plugin->add_action('admin_enqueue_scripts', $this, 'enqueue_scripts');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueue_styles');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueue_scripts');
     }
 
     /**
@@ -61,7 +61,7 @@ class BackEnd
      *
      * @since    1.0.0
      */
-    public function enqueue_styles()
+    public function enqueueStyles()
     {
         wp_enqueue_style($this->plugin_name.'-classlists', plugin_dir_url(__FILE__) . 'assets/css/back-end.css', array(), $this->version, 'all');
     }
@@ -71,7 +71,7 @@ class BackEnd
      *
      * @since    1.0.0
      */
-    public function enqueue_scripts()
+    public function enqueueScripts()
     {
         wp_enqueue_script($this->plugin_name.'classlists', plugin_dir_url(__FILE__) . 'assets/js/back-end.js', array( 'jquery' ), $this->version, false);
     }
