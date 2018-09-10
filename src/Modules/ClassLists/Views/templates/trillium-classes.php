@@ -1,12 +1,13 @@
+<?php //require dirname(__FILE__) . '/../partials/header.php'; ?>
+<?php //require dirname(__FILE__) . '/../partials/body.php'; ?>
+
 <?php
-$class_code = $wp_query->query_vars['class-code'];
 //$school_code = 'CHC';
 $school_code = get_option('wrdsb_school_code');
-$page_title = $class_code . ' Class List';
-$access_time = current_time('mysql');
+$page_title = 'Classes';
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/trillium-enrolments/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/trillium-classes/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -20,10 +21,10 @@ $args = array(
     ),
     'cookies'     => array(),
     'body'        => json_encode(array(
-        "filter"  => "class_code eq '{$class_code}' and school_code eq '{$school_code}'",
+        "filter"  => "school_code eq '{$school_code}'",
         "search"  => "*",
         "select"  => "*",
-        "orderby" => "student_email",
+        "orderby" => "class_code",
         "top"     => 1000,
         "count"   => true
     )),
@@ -36,83 +37,70 @@ $args = array(
 
 $response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
-$enrolments = $response_object->value;
-$enrolments_count = $response_object->{'@odata.count'};
+$classes = $response_object->value;
+$classes_count = $response_object->{'@odata.count'};
 $page_min = 1;
-$page_max = count($enrolments);
+$page_max = count($classes);
 $pages = 1;
 
-while ($enrolments_count > $page_max) {
+while ($classes_count > $page_max) {
     $body = json_decode($args['body'], $assoc = true);
     $body["skip"] = $pages * 1000;
     $args['body'] = json_encode($body);
     $response = wp_remote_post($url, $args);
     $response_object = json_decode($response['body'], $assoc = false);
-    $enrolments = array_merge($enrolments, $response_object->value);
-    $page_max = count($enrolments);
+    $classes = array_merge($classes, $response_object->value);
+    $page_max = count($classes);
     $pages++;
 }
 
-$student_emails = array();
-foreach ($enrolments as $enrolment) {
-    $student_emails[] = "<div>{$enrolment->student_email},</div>";
-}
-$total_emails = count($student_emails);
-$last_email = $total_emails - 1;
-$student_emails[$last_email] = str_replace(',', '', $student_emails[$last_email]);
-
-$emails_list = '';
-foreach ($student_emails as $email) {
-    $emails_list .= $email;
-}
-
 ?>
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-us">
+
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title><?php echo $page_title; ?></title>
+    <title><?php echo $page_title; ?></title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <link href="https://s3.amazonaws.com/wrdsb-ui-assets/1/master.css" rel="stylesheet" media="all">
+    <link href="https://s3.amazonaws.com/wrdsb-ui-assets/1/master.css" rel="stylesheet" media="all">
 
-  <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-60x60.png" rel="apple-touch-icon" />
-  <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
-  <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
-  <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
+    <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-60x60.png" rel="apple-touch-icon" />
+    <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-76x76.png" rel="apple-touch-icon" sizes="76x76" />
+    <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-120x120.png" rel="apple-touch-icon" sizes="120x120" />
+    <link href="https://s3.amazonaws.com/wrdsb-ui-assets/<?php echo $GLOBALS['wrdsbvars']['asset_version']; ?>/images/icon-152x152.png" rel="apple-touch-icon" sizes="152x152" />
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
-  <script src="https://s3.amazonaws.com/wrdsb-theme/js/addtohomescreen.min.js"></script>
-  <script src="https://s3.amazonaws.com/wrdsb-theme/js/jquery.floatThead.min.js"></script>
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
+    <script src="https://s3.amazonaws.com/wrdsb-theme/js/addtohomescreen.min.js"></script>
+    <script src="https://s3.amazonaws.com/wrdsb-theme/js/jquery.floatThead.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    <![endif]-->
 
-  <script>
+    <script>
     $(document).ready(function(){
-      $('table.table-fixed-head').floatThead({
+        $('table.table-fixed-head').floatThead({
         useAbsolutePositioning: false
-      });
+        });
     });
 
     $("table").addClass("table table-striped table-bordered");
     $("table").wrap("<div class='table-responsive'></div>");
-  </script>
+    </script>
 
-  <?php wp_head(); ?>
+    <?php wp_head(); ?>
 
-  <!-- Google Analytics Tracking Code -->
-  <?php //if (wrdsb_i_am_a_staff_site()) { ?>
-  <script>
+    <!-- Google Analytics Tracking Code -->
+    <?php //if (wrdsb_i_am_a_staff_site()) { ?>
+    <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -120,8 +108,8 @@ foreach ($student_emails as $email) {
     ga('create', 'UA-16094689-22', 'auto');
     ga('require', 'linkid');
     ga('send', 'pageview');
-  </script>
-  <?php //} ?>
+    </script>
+    <?php //} ?>
 </head>
 
 <body id="top" class="layout layout-vertical layout-left-navigation layout-below-toolbar layout-below-footer">
@@ -207,13 +195,7 @@ foreach ($student_emails as $email) {
       Trillium
     </li>
     <li>
-      <a href="<?php echo get_option('home'); ?>/trillium/classes">Classes</a>
-    </li>
-    <li>
-      <a href="<?php echo get_option('home'); ?>/trillium/enrolments/?class-code=<?php echo $class_code; ?>"><?php echo $page_title; ?></a>
-    </li>
-    <li>
-      Email List
+      <?php echo $page_title; ?>
     </li>
   </ol>
 </div>
@@ -224,12 +206,15 @@ foreach ($student_emails as $email) {
       <div id="wrapper">
         <div class="content-wrapper">
           <div class="content custom-scrollbar">
-              <!-- CONTENT -->
-              <div class="content container">
-                <h3><?php echo $class_code ?></h3>
-                <?php echo $emails_list; ?>
-              </div>
-              <!-- CONTENT -->
+            <!-- CONTENT -->
+            <ul>
+            <?php
+            foreach ($classes as $class) {
+                echo '<li><a href="../enrolments/?class-code=' . $class->class_code . '">' . $class->class_code . '</a></li>';
+            }
+            ?>
+            </ul>
+            <!-- CONTENT -->
           </div> <!-- end content area -->
         </div>
       </div>

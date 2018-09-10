@@ -52,8 +52,8 @@ class BackEnd
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
 
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueue_styles');
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueue_scripts');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**

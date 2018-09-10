@@ -21,6 +21,7 @@ namespace WRDSB\Staff\Modules\ClassLists\Views;
  */
 class BackEnd
 {
+    private $plugin;
 
     /**
      * The ID of this plugin.
@@ -49,11 +50,12 @@ class BackEnd
      */
     public function __construct($plugin)
     {
+        $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
 
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueue_styles');
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueue_scripts');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
@@ -63,7 +65,13 @@ class BackEnd
      */
     public function enqueueStyles()
     {
-        wp_enqueue_style($this->plugin_name.'-classlists', plugin_dir_url(__FILE__) . 'assets/css/back-end.css', array(), $this->version, 'all');
+        wp_enqueue_style(
+            $this->plugin_name.'-classlists',
+            plugin_dir_url(__FILE__) . 'assets/css/back-end.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -73,6 +81,12 @@ class BackEnd
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script($this->plugin_name.'classlists', plugin_dir_url(__FILE__) . 'assets/js/back-end.js', array( 'jquery' ), $this->version, false);
+        wp_enqueue_script(
+            $this->plugin_name.'classlists',
+            plugin_dir_url(__FILE__) . 'assets/js/back-end.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
     }
 }

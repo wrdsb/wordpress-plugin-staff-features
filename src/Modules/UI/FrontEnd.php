@@ -52,8 +52,8 @@ class FrontEnd
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
 
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueue_styles');
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueue_scripts');
+        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
+        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**

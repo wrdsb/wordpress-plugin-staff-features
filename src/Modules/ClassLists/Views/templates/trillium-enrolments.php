@@ -52,20 +52,6 @@ while ($enrolments_count > $page_max) {
     $page_max = count($enrolments);
     $pages++;
 }
-
-$student_emails = array();
-foreach ($enrolments as $enrolment) {
-    $student_emails[] = "<div>{$enrolment->student_email},</div>";
-}
-$total_emails = count($student_emails);
-$last_email = $total_emails - 1;
-$student_emails[$last_email] = str_replace(',', '', $student_emails[$last_email]);
-
-$emails_list = '';
-foreach ($student_emails as $email) {
-    $emails_list .= $email;
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -122,6 +108,103 @@ foreach ($student_emails as $email) {
     ga('send', 'pageview');
   </script>
   <?php //} ?>
+
+<!-- jQuery -->
+<script type="text/javascript" src="https://wrdsbfuse.blob.core.windows.net/fuse/assets/node_modules/jquery/dist/jquery.min.js"></script>
+<!-- Icons.css -->
+<link type="text/css" rel="stylesheet" href="https://wrdsbfuse.blob.core.windows.net/fuse/assets/icons/fuse-icon-font/style.css">
+<!-- Data tables -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.css"/>
+<link type="text/css" rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.js"></script>
+
+<script type="text/javascript" class="init">
+    $(document).ready(function() {
+
+        var table = $('#sample-data-table').DataTable( {
+            dom: '<"dataTables_header"B>t<"dataTables_footer"i>',
+            columnDefs: [
+                {
+                    "targets": [ 2 ],
+                    "visible": false
+                },
+                {
+                    "targets": [ 3 ],
+                    "visible": false
+                }
+            ],
+            buttons: [
+                'columnsToggle',
+            ],
+            lengthMenu: [[-1], ["All"]],
+            responsive: true
+        } );
+
+        new $.fn.dataTable.Buttons( table, {
+            name: 'copy',
+            buttons: [
+                {
+                    extend: 'copy',
+                    text: 'Copy to clipboard',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            search: 'applied',
+                            order: 'applied'
+                        }
+                    },
+                    title: '<?php echo $page_title ?>',
+                    messageTop: 'Retrieved <?php echo $access_time; ?>'
+                }
+            ]
+        } );
+        table.buttons( 'copy', null ).containers().appendTo('#button-copy');
+
+        new $.fn.dataTable.Buttons( table, {
+            name: 'csv',
+            buttons: [
+                {
+                    extend: 'csv',
+                    text: 'Save as CSV',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            search: 'applied',
+                            order: 'applied'
+                        }
+                    },
+                    filename: '<?php echo str_replace(" ", "-", $page_title) ?>'
+                }
+            ]
+        } );
+        table.buttons( 'csv', null ).containers().appendTo('#button-csv');
+
+        new $.fn.dataTable.Buttons( table, {
+            name: 'pdf',
+            buttons: [
+                {
+                    extend: 'pdf',
+                    text: 'Save as PDF',
+                    exportOptions: {
+                        columns: ':visible',
+                        modifier: {
+                            search: 'applied',
+                            order: 'applied'
+                        }
+                    },
+                    title: '<?php echo $page_title ?>',
+                    messageTop: 'Retrieved <?php echo $access_time; ?>',
+                    filename: '<?php echo str_replace(" ", "-", $page_title) ?>'
+                }
+            ]
+        } );
+        table.buttons( 'pdf', null ).containers().appendTo('#button-pdf');
+
+    } );
+</script>
+
 </head>
 
 <body id="top" class="layout layout-vertical layout-left-navigation layout-below-toolbar layout-below-footer">
@@ -210,10 +293,7 @@ foreach ($student_emails as $email) {
       <a href="<?php echo get_option('home'); ?>/trillium/classes">Classes</a>
     </li>
     <li>
-      <a href="<?php echo get_option('home'); ?>/trillium/enrolments/?class-code=<?php echo $class_code; ?>"><?php echo $page_title; ?></a>
-    </li>
-    <li>
-      Email List
+      <?php echo $page_title; ?>
     </li>
   </ol>
 </div>
@@ -226,8 +306,78 @@ foreach ($student_emails as $email) {
           <div class="content custom-scrollbar">
               <!-- CONTENT -->
               <div class="content container">
-                <h3><?php echo $class_code ?></h3>
-                <?php echo $emails_list; ?>
+                <div class="row">
+                  <div class="col-">
+                    <div class="example ">
+
+                      <div class="description">
+                        <div class="description-text">
+                          <h3><?php echo $class_code; ?></h3>
+                          <p><a href="../enrolments-email-list/?class-code=<?php echo $class_code ?>">View comma-separated list of email addresses</a></p>
+                        </div>
+                        <div class="download-buttons" style="float:right">
+                          <span id="button-copy" class="nav-item"></span>
+                          <span id="button-csv" class="nav-item"></span>
+                          <span id="button-pdf" class="nav-item"></span>
+                        </div>
+                      </div>
+
+
+                      <table id="sample-data-table" class="table">
+                        <thead>
+                          <tr>
+                              <th class="secondary-text">
+                                  <div class="table-header">
+                                      <span class="column-title">Last Name</span>
+                                  </div>
+                              </th>
+                              <th class="secondary-text">
+                                  <div class="table-header">
+                                      <span class="column-title">First Name</span>
+                                  </div>
+                              </th>
+                              <th class="secondary-text">
+                                  <div class="table-header">
+                                      <span class="column-title">Sortable Name</span>
+                                  </div>
+                              </th>
+                              <th class="secondary-text">
+                                  <div class="table-header">
+                                      <span class="column-title">Full Name</span>
+                                  </div>
+                              </th>
+                              <th class="secondary-text">
+                                  <div class="table-header">
+                                      <span class="column-title">Email</span>
+                                  </div>
+                              </th>
+                              <th class="secondary-text">
+                                  <div class="table-header">
+                                      <span class="column-title">Student Number</span>
+                                  </div>
+                              </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <?php
+                          foreach ($enrolments as $enrolment) {
+                              ?>
+                              <tr>
+                                  <td><?php echo $enrolment->student_last_name; ?></td>
+                                  <td><?php echo $enrolment->student_first_name; ?></td>
+                                  <td><?php echo $enrolment->student_last_name; ?>, <?php echo $enrolment->student_first_name; ?></td>
+                                  <td><?php echo $enrolment->student_first_name; ?> <?php echo $enrolment->student_last_name; ?></td>
+                                  <td><?php echo $enrolment->student_email; ?></td>
+                                  <td><?php echo $enrolment->student_number; ?></td>
+                              </tr>
+                          <?php } ?>
+                        </tbody>
+                      </table>
+
+
+                    </div>
+                  </div>
+                </div>
               </div>
               <!-- CONTENT -->
           </div> <!-- end content area -->

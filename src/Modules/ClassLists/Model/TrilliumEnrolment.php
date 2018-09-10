@@ -19,7 +19,7 @@ namespace WRDSB\Staff\Modules\ClassLists\Model;
  * @package    WRDSB_Staff
  * @author     WRDSB <website@wrdsb.ca>
  */
-class TrilliumClass
+class TrilliumEnrolment
 {
     /**
      * Someting
@@ -32,6 +32,10 @@ class TrilliumClass
     {
         $this->class_code         = $data['class_code'];
         $this->school_code        = $data['school_code'];
+        $this->student_email      = $data['student_email'];
+        $this->student_first_name = $data['student_first_name'];
+        $this->student_last_name  = $data['student_last_name'];
+        $this->student_number     = $data['student_number'];
         $this->teacher_ein        = $data['teacher_ein'];
         $this->teacher_email      = $data['teacher_email'];
     }

@@ -21,6 +21,7 @@ namespace WRDSB\Staff\Modules\ClassLists\Views;
  */
 class FrontEnd
 {
+    private $plugin;
 
     /**
      * The ID of this plugin.
@@ -49,11 +50,17 @@ class FrontEnd
      */
     public function __construct($plugin)
     {
+        $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
 
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueue_styles');
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueue_scripts');
+        $this->addQueryVar();
+        $this->addRewriteRules();
+        $this->addViews();
+        $this->addPageTemplates();
+
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
@@ -63,7 +70,13 @@ class FrontEnd
      */
     public function enqueueStyles()
     {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'assets/css/front-end.css', array(), $this->version, 'all');
+        wp_enqueue_style(
+            $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'assets/css/front-end.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -73,6 +86,38 @@ class FrontEnd
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'assets/js/front-end.js', array( 'jquery' ), $this->version, false);
+        wp_enqueue_script(
+            $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'assets/js/front-end.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+    }
+
+    private function addQueryVar()
+    {
+        $this->plugin->addQueryVar('class-code');
+    }
+
+    private function addRewriteRules()
+    {
+        $this->plugin->addRewriteRule('^trillium/classes$', 'index.php?view=trillium-classes');
+        $this->plugin->addRewriteRule('^trillium/enrolments$', 'index.php?view=trillium-enrolments');
+        $this->plugin->addRewriteRule('^trillium/enrolments-email-list$', 'index.php?view=trillium-enrolments-emails');
+    }
+
+    private function addViews()
+    {
+        $this->plugin->addView('trillium-classes', 'trillium-classes');
+        $this->plugin->addView('trillium-enrolments', 'trillium-enrolments');
+        $this->plugin->addView('trillium-enrolments-emails', 'trillium-enrolments-emails');
+    }
+
+    private function addPageTemplates()
+    {
+        $this->plugin->addPageTemplate('trillium-classes', 'ClassLists/Views/templates/trillium-classes.php');
+        $this->plugin->addPageTemplate('trillium-enrolments', 'ClassLists/Views/templates/trillium-enrolments.php');
+        $this->plugin->addPageTemplate('trillium-enrolments-emails', 'ClassLists/Views/templates/trillium-enrolments-emails.php');
     }
 }

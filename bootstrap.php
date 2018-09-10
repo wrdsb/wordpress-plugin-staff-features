@@ -1,6 +1,8 @@
 <?php
 namespace WRDSB\Staff;
 
+use WRDSB\OptionsFramework as OptionsFramework;
+
 use \WRDSB\Staff\Modules\UI\BackEnd as UI_BackEnd;
 use \WRDSB\Staff\Modules\UI\FrontEnd as UI_FrontEnd;
 
@@ -82,6 +84,9 @@ $container['class_lists_front_end'] = function ($c) {
 register_activation_hook(__FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ));
 register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'deactivate' ));
 
+/**
+ * Bootstrap the plugin.
+ */
 $plugin = $container['plugin'];
 
 $ui_back_end  = $container['ui_back_end'];
