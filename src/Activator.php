@@ -21,7 +21,6 @@ namespace WRDSB\Staff;
  */
 class Activator
 {
-
     /**
      * Short Description. (use period)
      *

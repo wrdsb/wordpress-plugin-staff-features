@@ -21,7 +21,6 @@ namespace WRDSB\Staff;
  */
 class Deactivator
 {
-
     /**
      * Short Description. (use period)
      *
