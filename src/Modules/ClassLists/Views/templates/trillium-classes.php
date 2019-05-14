@@ -7,7 +7,7 @@ $school_code = get_option('wrdsb_school_code');
 $page_title = 'Classes';
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/trillium-classes/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/skinner-classes/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,

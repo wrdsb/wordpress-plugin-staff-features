@@ -6,7 +6,7 @@ $page_title = $class_code . ' Class List';
 $access_time = current_time('mysql');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/trillium-enrolments/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/skinner-enrolments/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -426,14 +426,6 @@ while ($enrolments_count > $page_max) {
   $admin_link  = '<a href="'.$siteurl.'/wp-login.php">Log into '.$sitename.'</a>';
   $staff_admin_link = ' &middot; Go to <a href="https://staff.wrdsb.ca/" target="_blank" javascript="ga(' . "'send', 'event', 'Page', 'click_banner', 'staff intranet', event.target.href,{'nonInteraction':1});" . '">Staff Intranet</a>';
   $school_handbook_link = '';
-
-  // customize links for school network
-  //if (($host[0] === 'schools' && wrdsb_i_am_a_school) || $host[0] === 'wplabs') { // for testing school pages
-  if ($host[0] === 'schools' && wrdsb_i_am_a_school) {
-    $fulldomain = explode('.',$_SERVER['HTTP_HOST']);
-    $admin_link  = '<a href="https://schools.wrdsb.ca/'.$fulldomain[0].'/wp-login.php">Log into '.$sitename.'</a>';
-    $school_handbook_link = ' &middot; Go to <a target="_blank" href="https://staff.wrdsb.ca/' .$fulldomain[0].'">'.strtoupper($fulldomain[0]).' School Handbook</a>';
-  }
 
   // customize links for staff network
   if ($host[0] === 'staff') {

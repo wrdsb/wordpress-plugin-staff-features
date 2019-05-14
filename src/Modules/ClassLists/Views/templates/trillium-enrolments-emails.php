@@ -6,7 +6,7 @@ $page_title = $class_code . ' Class List';
 $access_time = current_time('mysql');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/trillium-enrolments/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/skinner-enrolments/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
