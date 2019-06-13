@@ -65,14 +65,6 @@ $container['plugin'] = function ($c) {
     return new Plugin($c['plugin_name'], $c['version']);
 };
 
-$container['ui_back_end'] = function ($c) {
-    return new UI_BackEnd($c['plugin']);
-};
-
-$container['ui_front_end'] = function ($c) {
-    return new UI_FrontEnd($c['plugin']);
-};
-
 $container['class_lists_back_end'] = function ($c) {
     return new ClassLists_BackEnd($c['plugin']);
 };
@@ -88,9 +80,6 @@ register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'de
  * Bootstrap the plugin.
  */
 $plugin = $container['plugin'];
-
-$ui_back_end  = $container['ui_back_end'];
-$ui_front_end = $container['ui_front_end'];
 
 $class_lists_back_end = $container['class_lists_back_end'];
 $class_lists_front_end = $container['class_lists_front_end'];
