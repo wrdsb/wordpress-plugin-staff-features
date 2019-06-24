@@ -3,9 +3,6 @@ namespace WRDSB\Staff;
 
 use WRDSB\OptionsFramework as OptionsFramework;
 
-use \WRDSB\Staff\Modules\UI\BackEnd as UI_BackEnd;
-use \WRDSB\Staff\Modules\UI\FrontEnd as UI_FrontEnd;
-
 use \WRDSB\Staff\Modules\ClassLists\Views\BackEnd as ClassLists_BackEnd;
 use \WRDSB\Staff\Modules\ClassLists\Views\FrontEnd as ClassLists_FrontEnd;
 
