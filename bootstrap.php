@@ -6,6 +6,9 @@ use WRDSB\OptionsFramework as OptionsFramework;
 use \WRDSB\Staff\Modules\ClassLists\Views\BackEnd as ClassLists_BackEnd;
 use \WRDSB\Staff\Modules\ClassLists\Views\FrontEnd as ClassLists_FrontEnd;
 
+use \WRDSB\Staff\Modules\ContentSearch\Views\BackEnd as ContentSearch_BackEnd;
+use \WRDSB\Staff\Modules\ContentSearch\Views\FrontEnd as ContentSearch_FrontEnd;
+
 /**
  * The plugin bootstrap file
  *
@@ -70,6 +73,14 @@ $container['class_lists_front_end'] = function ($c) {
     return new ClassLists_FrontEnd($c['plugin']);
 };
 
+$container['content_search_back_end'] = function ($c) {
+    return new ContentSearch_BackEnd($c['plugin']);
+};
+
+$container['content_search_front_end'] = function ($c) {
+    return new ContentSearch_FrontEnd($c['plugin']);
+};
+
 register_activation_hook(__FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ));
 register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'deactivate' ));
 
@@ -80,5 +91,8 @@ $plugin = $container['plugin'];
 
 $class_lists_back_end = $container['class_lists_back_end'];
 $class_lists_front_end = $container['class_lists_front_end'];
+
+$content_search_back_end = $container['content_search_back_end'];
+$content_search_front_end = $container['content_search_front_end'];
 
 $plugin->registerHooks();
