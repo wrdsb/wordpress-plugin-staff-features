@@ -1,5 +1,5 @@
 <?php
-namespace WRDSB\Staff\Modules\UI;
+namespace WRDSB\Staff\Modules\ContentSearch\Views;
 
 /**
  * The public-facing functionality of the plugin.
@@ -21,6 +21,7 @@ namespace WRDSB\Staff\Modules\UI;
  */
 class FrontEnd
 {
+    private $plugin;
 
     /**
      * The ID of this plugin.
@@ -49,11 +50,17 @@ class FrontEnd
      */
     public function __construct($plugin)
     {
+        $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
 
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
+        $this->addQueryVar();
+        $this->addRewriteRules();
+        $this->addViews();
+        $this->addPageTemplates();
+
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
+        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
@@ -63,7 +70,13 @@ class FrontEnd
      */
     public function enqueueStyles()
     {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'assets/css/front-end.css', array(), $this->version, 'all');
+        wp_enqueue_style(
+            $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'assets/css/front-end.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -73,6 +86,33 @@ class FrontEnd
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'assets/js/front-end.js', array( 'jquery' ), $this->version, false);
+        wp_enqueue_script(
+            $this->plugin_name,
+            plugin_dir_url(__FILE__) . 'assets/js/front-end.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+    }
+
+    private function addQueryVar()
+    {
+        $this->plugin->addQueryVar('wp-posts-search');
+        $this->plugin->addQueryVar('wp-posts-search-skip');
+    }
+
+    private function addRewriteRules()
+    {
+        $this->plugin->addRewriteRule('^search/content$', 'index.php?view=search-wp-posts');
+    }
+
+    private function addViews()
+    {
+        $this->plugin->addView('search-wp-posts', 'search-wp-posts');
+    }
+
+    private function addPageTemplates()
+    {
+        $this->plugin->addPageTemplate('search-wp-posts', 'ContentSearch/Views/templates/search-wp-posts.php');
     }
 }

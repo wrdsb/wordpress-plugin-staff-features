@@ -1,5 +1,5 @@
 <?php
-namespace WRDSB\Staff\Modules\UI;
+namespace WRDSB\Staff\Modules\ContentSearch\Views;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -21,6 +21,7 @@ namespace WRDSB\Staff\Modules\UI;
  */
 class BackEnd
 {
+    private $plugin;
 
     /**
      * The ID of this plugin.
@@ -49,6 +50,7 @@ class BackEnd
      */
     public function __construct($plugin)
     {
+        $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
 
@@ -63,7 +65,13 @@ class BackEnd
      */
     public function enqueueStyles()
     {
-        wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'assets/css/back-end.css', array(), $this->version, 'all');
+        wp_enqueue_style(
+            $this->plugin_name.'-classlists',
+            plugin_dir_url(__FILE__) . 'assets/css/back-end.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -73,6 +81,12 @@ class BackEnd
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'assets/js/back-end.js', array( 'jquery' ), $this->version, false);
+        wp_enqueue_script(
+            $this->plugin_name.'classlists',
+            plugin_dir_url(__FILE__) . 'assets/js/back-end.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
     }
 }
