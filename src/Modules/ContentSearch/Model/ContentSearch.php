@@ -53,6 +53,7 @@ class ContentSearch
 
         $body = array(
             "filter"  => $this->filter,
+            "facets"  => $this->facets,
             "search"  => $this->search,
             "select"  => $this->select,
             "orderby" => $this->orderby,
@@ -70,6 +71,7 @@ class ContentSearch
 
         $response_object = json_decode($response['body'], $assoc = false);
 
+        $this->rawResponse  = $response_object;
         $this->totalResults = $response_object->{'@odata.count'};
         $this->results      = $response_object->value;
     }

@@ -1,46 +1,69 @@
 <?php
-    use WRDSB\Staff\Modules\ContentSearch\Model\ContentSearch as ContentSearch;
+use WRDSB\Staff\Modules\ContentSearch\Model\ContentSearch as ContentSearch;
 
-    $visibility_groups =['staff.wrdsb.ca:members'];
+$visibility_groups =['staff.wrdsb.ca:members'];
 
-    $search_query = $wp_query->query_vars['wp-posts-search']      ?? '*';
-    $skip         = $wp_query->query_vars['wp-posts-search-skip'] ?? 0;
-    $top          = 25;
+$user_sites = get_blogs_of_user(get_current_user_id(), false);
 
-    $search_params = [];
-    $search_params['target_url'] = 'https://wrdsb-codex.search.windows.net/indexes/lamson-wp-posts/docs/search?api-version=2016-09-01';
-    $search_params['api_key']    = WRDSB_CODEX_SEARCH_KEY;
+foreach ($user_sites as $site) {
+    $site_url = str_replace('http://', '', $site->siteurl);
+    $site_url = str_replace('https://', '', $site_url);
+    $site_url = str_replace('staff-dev.wrdsb.io', 'staff.wrdsb.ca', $site_url);
 
-    $search_params['count']   = true;
-    $search_params['filter']  = "(site_domain eq 'www.wrdsb.ca') or (site_domain eq 'staff.wrdsb.ca')";
-    $search_params['orderby'] = null;
-    $search_params['search']  = $search_query;
-    $search_params['select']  = '*';
-    $search_params['skip']    = $skip;
-    $search_params['top']     = $top;
+    $user_obj = new WP_User(get_current_user_id(), $site->userblog_id);
 
-    $search = new ContentSearch($search_params);
-    $search->run();
+    if ($user_obj->roles[0] == 'administrator') {
+        $visibility_group = $site_url.":admins";
+    } else {
+        $visibility_group = $site_url.":members";
+    }
+    array_push($visibility_groups, $visibility_group);
+}
+$visibility_groups_string = implode(", ", $visibility_groups);
 
-    $results_floor = $skip + 1;
-    $results_ceiling = min($skip + $top, $search->totalResults);
+$search_query = $wp_query->query_vars['wp-posts-search']      ?? '*';
+$skip         = $wp_query->query_vars['wp-posts-search-skip'] ?? 0;
+$top          = 25;
 
-    $current_page_number = ($skip / $top) + 1;
-    $total_pages         = ceil($search->totalResults / $top);
+$sites_filter = "(site_domain eq 'www.wrdsb.ca') or (site_domain eq 'staff.wrdsb.ca')";
+$visibility_filter = "visible_to/any(g:search.in(g, '{$visibility_groups_string}'))";
+$search_filter = "( {$sites_filter} ) and ( {$visibility_filter} )";
 
-    $previous2_page_skip = ($current_page_number - 3) * $top;
-    $previous1_page_skip = ($current_page_number - 2) * $top;
-    $next1_page_skip     = ($current_page_number + 0) * $top;
-    $next2_page_skip     = ($current_page_number + 1) * $top;
-    $last_page_skip      = ($total_pages - 1) * $top;
+$search_params = [];
+$search_params['target_url'] = 'https://wrdsb-codex.search.windows.net/indexes/lamson-wp-posts/docs/search?api-version=2016-09-01';
+$search_params['api_key']    = WRDSB_CODEX_SEARCH_KEY;
 
-    $base_page_link      = "/search/content/?wp-posts-search={$search_query}&wp-posts-search-skip=";
-    $first_page_link     = $base_page_link. '0';
-    $previous2_page_link = $base_page_link . $previous2_page_skip;
-    $previous1_page_link = $base_page_link . $previous1_page_skip;
-    $next1_page_link     = $base_page_link . $next1_page_skip;
-    $next2_page_link     = $base_page_link . $next2_page_skip;
-    $last_page_link      = $base_page_link . $last_page_skip;
+$search_params['count']   = true;
+$search_params['filter']  = $search_filter;
+$search_params['facets']  = ['site_name'];
+$search_params['orderby'] = null;
+$search_params['search']  = $search_query;
+$search_params['select']  = '*';
+$search_params['skip']    = $skip;
+$search_params['top']     = $top;
+
+$search = new ContentSearch($search_params);
+$search->run();
+
+$results_floor = $skip + 1;
+$results_ceiling = min($skip + $top, $search->totalResults);
+
+$current_page_number = ($skip / $top) + 1;
+$total_pages         = ceil($search->totalResults / $top);
+
+$previous2_page_skip = ($current_page_number - 3) * $top;
+$previous1_page_skip = ($current_page_number - 2) * $top;
+$next1_page_skip     = ($current_page_number + 0) * $top;
+$next2_page_skip     = ($current_page_number + 1) * $top;
+$last_page_skip      = ($total_pages - 1) * $top;
+
+$base_page_link      = "/search/content/?wp-posts-search={$search_query}&wp-posts-search-skip=";
+$first_page_link     = $base_page_link. '0';
+$previous2_page_link = $base_page_link . $previous2_page_skip;
+$previous1_page_link = $base_page_link . $previous1_page_skip;
+$next1_page_link     = $base_page_link . $next1_page_skip;
+$next2_page_link     = $base_page_link . $next2_page_skip;
+$last_page_link      = $base_page_link . $last_page_skip;
 ?>
 
 <!DOCTYPE html>
@@ -187,10 +210,10 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm-12 col-lg-12" role="main">
+    <div class="col-sm-8 col-lg-8" role="main">
         <!-- CONTENT -->
         <h1>You searched for: <?php echo $search_query; ?></h1>
-        <p><?php echo $search->totalResults; ?> total results (private results will been hidden).</p>
+        <p><?php echo $search->totalResults; ?> total results visible to you.</p>
         <?php if ($total_pages > 1) { ?>
             <p>
                 <?php if ($current_page_number > 1) { ?>
@@ -238,33 +261,23 @@
         <?php } ?>
 
         <?php foreach ($search->results as $post) { ?>
-            <?php $post_visible = false; ?>
-            <?php if (isset($post->visible_to)) { ?>
-                <?php foreach ($post->visible_to as $check) { ?>
-                    <?php if (in_array($check, $visibility_groups)) { ?>
-                        <?php $post_visible = true; ?>
-                    <?php } ?>
-                <?php } ?>
-            <?php } ?>
-            <?php if ($post_visible) { ?>
-                <?php
-                    $excerpt = wpautop($post->post_content);
-                    $excerpt = apply_filters('the_content', $excerpt);
-                    $excerpt = str_replace(']]>', ']]&gt;', $excerpt);
-                    $excerpt = substr($excerpt, strpos($excerpt, '<p>'), strpos($excerpt, '</p>') + 4);
-                    $excerpt = strip_tags($excerpt);
-                    if (strlen(preg_replace('/\s+/', '', $excerpt)) < 1) {
-                        $excerpt = "[No content or summary provided.]";
-                    }
-                ?>
-                <div>
-                    <p>
-                        <strong><a style="text-decoration:none" href="<?php echo $post->post_guid?>"><?php echo $post->post_title ?> | <?php echo $post->site_name; ?></strong></a>
-                        <br><?php echo $excerpt; ?>
-                        <br><small>Last updated <?php echo date("F j, Y", strtotime($post->post_modified)) .' at '. date("g:i a", strtotime($post->post_modified)); ?></small>
-                    </p>
-                </div>
-            <?php } ?>
+            <?php
+            $excerpt = wpautop($post->post_content);
+            $excerpt = apply_filters('the_content', $excerpt);
+            $excerpt = str_replace(']]>', ']]&gt;', $excerpt);
+            $excerpt = substr($excerpt, strpos($excerpt, '<p>'), strpos($excerpt, '</p>') + 4);
+            $excerpt = strip_tags($excerpt);
+            if (strlen(preg_replace('/\s+/', '', $excerpt)) < 1) {
+                $excerpt = "[No content or summary provided.]";
+            }
+            ?>
+            <div>
+                <p>
+                    <strong><a style="text-decoration:none" href="<?php echo $post->post_guid?>"><?php echo $post->post_title ?> | <?php echo $post->site_name; ?></strong></a>
+                    <br><?php echo $excerpt; ?>
+                    <br><small>Last updated <?php echo date("F j, Y", strtotime($post->post_modified)) .' at '. date("g:i a", strtotime($post->post_modified)); ?></small>
+                </p>
+            </div>
         <?php } ?>
 
         <?php if ($total_pages > 1) { ?>
@@ -313,7 +326,11 @@
             </p>
         <?php } ?>
         <!-- CONTENT -->
-      </div> <!-- end content area -->
+    </div> <!-- end content area -->
+    <div class="col-sm-4 col-lg-4" role="complementary">
+        <?php foreach ($search->rawResponse->{'@search.facets'}->site_name as $facet) {
+            echo '<div>'. $facet->value .'('. $facet->count .')</div>';
+        } ?>
     </div>
   </div>
 </div>
