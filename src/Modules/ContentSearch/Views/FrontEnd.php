@@ -99,6 +99,7 @@ class FrontEnd
     {
         $this->plugin->addQueryVar('wp-posts-search');
         $this->plugin->addQueryVar('wp-posts-search-skip');
+        $this->plugin->addQueryVar('search-filter-site-name');
     }
 
     private function addRewriteRules()
