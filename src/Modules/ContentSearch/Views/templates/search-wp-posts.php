@@ -25,7 +25,14 @@ $search_query = $wp_query->query_vars['wp-posts-search']      ?? '*';
 $skip         = $wp_query->query_vars['wp-posts-search-skip'] ?? 0;
 $top          = 25;
 
-$sites_filter = "(site_domain eq 'www.wrdsb.ca') or (site_domain eq 'staff.wrdsb.ca')";
+$default_sites_filter = "(site_domain eq 'www.wrdsb.ca') or (site_domain eq 'staff.wrdsb.ca')";
+if ($wp_query->query_vars['search-filter-site-name']) {
+    $sites_filter = "site_name eq '{$wp_query->query_vars['search-filter-site-name']}'";
+    $sites_filter_param = $wp_query->query_vars['search-filter-site-name'];
+} else {
+    $sites_filter = $default_sites_filter;
+    $sites_filter_param = false;
+}
 $visibility_filter = "visible_to/any(g:search.in(g, '{$visibility_groups_string}'))";
 $search_filter = "( {$sites_filter} ) and ( {$visibility_filter} )";
 
@@ -64,6 +71,17 @@ $previous1_page_link = $base_page_link . $previous1_page_skip;
 $next1_page_link     = $base_page_link . $next1_page_skip;
 $next2_page_link     = $base_page_link . $next2_page_skip;
 $last_page_link      = $base_page_link . $last_page_skip;
+
+if ($sites_filter_param) {
+    $sites_filter_param = '&search-filter-site-name='.$sites_filter_param;
+    
+    $first_page_link     .= $sites_filter_param;
+    $previous2_page_link .= $sites_filter_param;
+    $previous1_page_link .= $sites_filter_param;
+    $next1_page_link     .= $sites_filter_param;
+    $next2_page_link     .= $sites_filter_param;
+    $last_page_link      .= $sites_filter_param;
+}
 ?>
 
 <!DOCTYPE html>
@@ -213,7 +231,6 @@ $last_page_link      = $base_page_link . $last_page_skip;
     <div class="col-sm-8 col-lg-8" role="main">
         <!-- CONTENT -->
         <h1>You searched for: <?php echo $search_query; ?></h1>
-        <p><?php echo $search->totalResults; ?> total results visible to you.</p>
         <?php if ($total_pages > 1) { ?>
             <p>
                 <?php if ($current_page_number > 1) { ?>
@@ -328,9 +345,21 @@ $last_page_link      = $base_page_link . $last_page_skip;
         <!-- CONTENT -->
     </div> <!-- end content area -->
     <div class="col-sm-4 col-lg-4" role="complementary">
-        <?php foreach ($search->rawResponse->{'@search.facets'}->site_name as $facet) {
-            echo '<div>'. $facet->value .'('. $facet->count .')</div>';
-        } ?>
+        <strong><?php echo $search->totalResults; ?></strong> results visible to you on 
+        <?php if ($sites_filter_param) { ?>
+            <strong><?php echo urldecode($wp_query->query_vars['search-filter-site-name']); ?></strong>.
+
+            <div class="sub-menu-heading">Filter Results</div>
+            <p><a href="/search/content/?wp-posts-search=<?php echo $search_query; ?>">Include all sites</a></p>
+        <?php } else { ?>
+            <strong>all sites</strong>.
+
+            <div class="sub-menu-heading">Filter Results</div>
+            <?php foreach ($search->rawResponse->{'@search.facets'}->site_name as $facet) {
+                $filtered_link = $first_page_link . '&search-filter-site-name=' . urlencode($facet->value);
+                echo '<p><a href="'.$filtered_link.'">'. $facet->value .'</a> ('. $facet->count .')</p>';
+            } ?>
+        <?php } ?>
     </div>
   </div>
 </div>
