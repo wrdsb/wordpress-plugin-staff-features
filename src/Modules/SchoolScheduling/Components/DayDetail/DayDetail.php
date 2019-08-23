@@ -1,4 +1,5 @@
 <?php
+$date = $wp_query->query_vars['date'];
 $schoolCode = get_option('wrdsb_school_code');
 $pageTitle = "Days";
 $functionKey = CMA_DAY_QUERY_KEY;
@@ -11,7 +12,8 @@ function setCustomTitle()
 add_filter('pre_get_document_title', 'setCustomTitle');
 
 $body = array(
-    'schoolCode' => $schoolCode
+    'schoolCode' => $schoolCode,
+    'date' => $date,
 );
 
 $url = "https://wrdsb-cma.azurewebsites.net/api/day-query?code={$functionKey}";
@@ -36,7 +38,7 @@ $args = array(
 $response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
-$days = $response_object;
+$day = $response_object[0];
 ?>
 
 <?php get_header(); ?>
@@ -65,22 +67,20 @@ $days = $response_object;
     <div class="row">
         <div class="col-sm-12 col-lg-12" role="main">
             <!-- CONTENT -->
-            <table width="100%">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Day Template</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($days as $day) { ?>
-                        <tr>
-                            <td><a href="../day/<?php echo $day->date; ?>"><?php echo $day->date; ?></td>
-                            <td><?php echo $day->dayTemplate; ?></td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+            <div>
+                <strong>Date: </strong>
+                <?php echo $day->date; ?>
+            </div>
+
+            <div>
+                <strong>School Code: </strong>
+                <?php echo $day->schoolCode; ?>
+            </div>
+
+            <div>
+                <strong>Day Template: </strong>
+                <?php echo $day->dayTemplate; ?>
+            </div>
             <!-- /CONTENT -->
         </div>
     </div>

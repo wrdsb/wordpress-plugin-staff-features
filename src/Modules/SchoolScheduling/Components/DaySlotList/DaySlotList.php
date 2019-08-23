@@ -1,10 +1,20 @@
 <?php
-$template_title = "";
+$schoolCode = get_option('wrdsb_school_code');
+$pageTitle = "Day Slots";
+$functionKey = CMA_DAY_SLOT_QUERY_KEY;
+
+function setCustomTitle()
+{
+    $pageTitle = "Day Slots";
+    return $pageTitle;
+}
+add_filter('pre_get_document_title', 'setCustomTitle');
+
 $body = array(
     'schoolCode' => $schoolCode
 );
 
-$url = '';
+$url = "https://wrdsb-cma.azurewebsites.net/api/day-slot-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -14,7 +24,6 @@ $args = array(
     'headers'     => array(
         'Accept' => 'application/json',
         'Content-Type' => 'application/json',
-        'api-key' => WRDSB_CMA_SERVICE_KEY
     ),
     'cookies'     => array(),
     'body'        => json_encode($body),
@@ -24,10 +33,10 @@ $args = array(
     'stream'      => false,
     'filename'    => null
 );
-//$response = wp_remote_post($url, $args);
-//$response_object = json_decode($response['body'], $assoc = false);
+$response = wp_remote_post($url, $args);
+$response_object = json_decode($response['body'], $assoc = false);
 
-//$daySlots = $response_object;
+$daySlots = $response_object;
 ?>
 
 <?php get_header(); ?>
@@ -46,7 +55,7 @@ $args = array(
                 School Scheduling
             </li>
             <li>
-                <?php echo $template_title; ?>
+                <?php echo $pageTitle; ?>
             </li>
         </ol>
     </div>
@@ -60,7 +69,7 @@ $args = array(
                 <thead>
                     <tr>
                         <th>Label</th>
-                        <th>Set<th>
+                        <th>Set</th>
                         <th>Start Time</th>
                         <th>End Time</th>
                         <th colspan="2">1st Half</th>
@@ -68,7 +77,7 @@ $args = array(
                     </tr>
                     <tr>
                         <th>&nbsp;</th>
-                        <th>&nbsp;<th>
+                        <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>&nbsp;</th>
                         <th>Start</th>
@@ -80,8 +89,8 @@ $args = array(
                 <tbody>
                     <?php foreach ($daySlots as $daySlot) { ?>
                         <tr>
+                            <td><a href="../day-slot/<?php echo $daySlot->id; ?>"><?php echo $daySlot->label; ?></a></td>
                             <td><?php echo $daySlot->set; ?></td>
-                            <td><?php echo $daySlot->label; ?></td>
                             <td><?php echo $daySlot->startTime; ?></td>
                             <td><?php echo $daySlot->endTime; ?></td>
                             <td><?php echo $daySlot->firstHalfStartTime; ?></td>
@@ -92,6 +101,7 @@ $args = array(
                     <?php } ?>
                 </tbody>
             </table>
+            <!-- /CONTENT -->
         </div>
     </div>
 </div>

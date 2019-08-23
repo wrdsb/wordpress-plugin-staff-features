@@ -75,29 +75,43 @@ class SchoolSchedulingModule
 
     private function addQueryVar()
     {
-        //$this->plugin->addQueryVar('class-code');
+        $this->plugin->addQueryVar('id');
+        $this->plugin->addQueryVar('date');
     }
 
     private function addRewriteRules()
     {
         $this->plugin->addRewriteRule('^scheduling/day-slots$', 'index.php?view=day-slot-list');
+        $this->plugin->addRewriteRule('^scheduling/day-slot/([^/]*)/?', 'index.php?view=day-slot-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^scheduling/day-templates$', 'index.php?view=day-template-list');
+        $this->plugin->addRewriteRule('^scheduling/day-template/([^/]*)/?', 'index.php?view=day-template-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^scheduling/days$', 'index.php?view=day-list');
+        $this->plugin->addRewriteRule('^scheduling/day/([^/]*)/?', 'index.php?view=day-detail&date=$matches[1]');
     }
 
     private function addViews()
     {
         $this->plugin->addView('day-slot-list', 'day-slot-list');
+        $this->plugin->addView('day-slot-detail', 'day-slot-detail');
+
         $this->plugin->addView('day-template-list', 'day-template-list');
+        $this->plugin->addView('day-template-detail', 'day-template-detail');
+
         $this->plugin->addView('day-list', 'day-list');
+        $this->plugin->addView('day-detail', 'day-detail');
     }
 
     private function addPageTemplates()
     {
         $this->plugin->addPageTemplate('day-slot-list', 'SchoolScheduling/Components/DaySlotList/DaySlotList.php');
+        $this->plugin->addPageTemplate('day-slot-detail', 'SchoolScheduling/Components/DaySlotDetail/DaySlotDetail.php');
+
         $this->plugin->addPageTemplate('day-template-list', 'SchoolScheduling/Components/DayTemplateList/DayTemplateList.php');
+        $this->plugin->addPageTemplate('day-template-detail', 'SchoolScheduling/Components/DayTemplateDetail/DayTemplateDetail.php');
+
         $this->plugin->addPageTemplate('day-list', 'SchoolScheduling/Components/DayList/DayList.php');
+        $this->plugin->addPageTemplate('day-detail', 'SchoolScheduling/Components/DayDetail/DayDetail.php');
     }
 }
