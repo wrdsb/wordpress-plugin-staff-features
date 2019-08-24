@@ -1,9 +1,4 @@
 <?php
-$user_id = get_query_var('user');
-$date    = get_query_var('date');
-
-echo 'Employee Absence List works!';
 ?>
 
-<div>User: <?php echo $user_id; ?></div>
-<div>Date: <?php echo $date; ?></div>
+<h1>Employee Absence List</h1>

@@ -1,2 +1,4 @@
 <?php
-    echo 'Employee Absence New works!';
+?>
+
+<h1>Employee Absence New</h1>
