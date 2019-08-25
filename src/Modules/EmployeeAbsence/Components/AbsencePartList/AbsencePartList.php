@@ -1,10 +1,10 @@
 <?php
 $schoolCode = get_option('wrdsb_school_code');
-$functionKey = CMA_ABSENCE_QUERY_KEY;
+$functionKey = CMA_ABSENCE_SLOT_QUERY_KEY;
 
 function setCustomTitle()
 {
-    $pageTitle = "Employee Absence Detail";
+    $pageTitle = "Employee Absence Slot List";
     return $pageTitle;
 }
 add_filter('pre_get_document_title', 'setCustomTitle');
@@ -13,13 +13,19 @@ $body = array(
     'schoolCode' => $schoolCode,
 );
 
-if ($wp_query->query_vars['id']) {
-    $id = $wp_query->query_vars['id'];
-    $body['id'] = $id;
-    $pageTitle = "Employee Absence #{$id}";
+if ($wp_query->query_vars['date']) {
+    $date = $wp_query->query_vars['date'];
+    $body['date'] = $date;
+    $pageTitle = "Employee Absence Slots for {$date}";
+} elseif ($wp_query->query_vars['employee']) {
+    $employee = $wp_query->query_vars['employee'];
+    $body['employee'] = $employee;
+    $pageTitle = "Absence Slots for Employee #{$employee}";
+} else {
+    $pageTitle = "Employee Absence Slot List";
 }
 
-$url = "https://wrdsb-cma.azurewebsites.net/api/absence-query?code={$functionKey}";
+$url = "https://wrdsb-cma.azurewebsites.net/api/absence-slot-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -41,7 +47,7 @@ $args = array(
 $response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
-$day = $response_object[0];
+$day = $response_object;
 ?>
 
 <?php get_header(); ?>

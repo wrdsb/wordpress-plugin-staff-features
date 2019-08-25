@@ -83,9 +83,10 @@ class EmployeeAbsenceModule
     private function addRewriteRules()
     {
         $this->plugin->addRewriteRule('^employee/absence/types$', 'index.php?view=absence-type-list');
-        $this->plugin->addRewriteRule('^employee/absence/types/([^/]*)/?', 'index.php?view=absence-type-detail&id=$matches[1]');
+        $this->plugin->addRewriteRule('^employee/absence/type/([^/]*)/?', 'index.php?view=absence-type-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^employee/absence/slots$', 'index.php?view=absence-slot-list');
+        $this->plugin->addRewriteRule('^employee/absence/slots/([^/]*)/?', 'index.php?view=absence-slot-list&date=$matches[1]');
         $this->plugin->addRewriteRule('^employee/absence/slot/([^/]*)/?', 'index.php?view=absence-slot-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^employee/absences$', 'index.php?view=absence-list');
@@ -95,6 +96,7 @@ class EmployeeAbsenceModule
         $this->plugin->addRewriteRule('^employee/absence/([^/]*)/?', 'index.php?view=absence-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^employee/([^/]*)/absences', 'index.php?view=absence-list&employee=$matches[1]');
+        $this->plugin->addRewriteRule('^employee/([^/]*)/absence/slots', 'index.php?view=absence-slot-list&employee=$matches[1]');
     }
 
     private function addViews()
