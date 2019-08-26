@@ -1,5 +1,5 @@
 <?php
-namespace WRDSB\Staff\Modules\ClassLists\Views;
+namespace WRDSB\Staff\Modules\ClassLists;
 
 /**
  * The public-facing functionality of the plugin.
@@ -19,7 +19,7 @@ namespace WRDSB\Staff\Modules\ClassLists\Views;
  * @package    WRDSB_Staff
  * @author     WRDSB <website@wrdsb.ca>
  */
-class FrontEnd
+class ClassListsModule
 {
     private $plugin;
 
@@ -53,14 +53,17 @@ class FrontEnd
         $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
+    }
 
+    public function init()
+    {
         $this->addQueryVar();
         $this->addRewriteRules();
         $this->addViews();
         $this->addPageTemplates();
 
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
@@ -71,8 +74,22 @@ class FrontEnd
     public function enqueueStyles()
     {
         wp_enqueue_style(
-            $this->plugin_name,
+            'classLists',
             plugin_dir_url(__FILE__) . 'assets/css/front-end.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        wp_enqueue_style(
+            'dataTables',
+            'https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        wp_enqueue_style(
+            'dataTablesButtons',
+            'href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css',
             array(),
             $this->version,
             'all'
@@ -87,8 +104,29 @@ class FrontEnd
     public function enqueueScripts()
     {
         wp_enqueue_script(
-            $this->plugin_name,
+            'classLists',
             plugin_dir_url(__FILE__) . 'assets/js/front-end.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+        wp_enqueue_script(
+            'pdfMake',
+            'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+        wp_enqueue_script(
+            'vfsFonts',
+            'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+        wp_enqueue_script(
+            'dataTables',
+            'https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.js',
             array( 'jquery' ),
             $this->version,
             false
