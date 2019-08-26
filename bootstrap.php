@@ -3,11 +3,11 @@ namespace WRDSB\Staff;
 
 use WRDSB\OptionsFramework as OptionsFramework;
 
-use \WRDSB\Staff\Modules\ClassLists\Views\BackEnd as ClassLists_BackEnd;
-use \WRDSB\Staff\Modules\ClassLists\Views\FrontEnd as ClassLists_FrontEnd;
+use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 
-use \WRDSB\Staff\Modules\ContentSearch\Views\BackEnd as ContentSearch_BackEnd;
-use \WRDSB\Staff\Modules\ContentSearch\Views\FrontEnd as ContentSearch_FrontEnd;
+use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
+
+use \WRDSB\Staff\Modules\SchoolScheduling\SchoolSchedulingModule as SchoolSchedulingModule;
 
 use \WRDSB\Staff\Modules\EmployeeAbsence\EmployeeAbsenceModule as EmployeeAbsenceModule;
 
@@ -67,20 +67,16 @@ $container['plugin'] = function ($c) {
     return new Plugin($c['plugin_name'], $c['version']);
 };
 
-$container['class_lists_back_end'] = function ($c) {
-    return new ClassLists_BackEnd($c['plugin']);
+$container['ClassListsModule'] = function ($c) {
+    return new ClassListsModule($c['plugin']);
 };
 
-$container['class_lists_front_end'] = function ($c) {
-    return new ClassLists_FrontEnd($c['plugin']);
+$container['ContentSearchModule'] = function ($c) {
+    return new ContentSearchModule($c['plugin']);
 };
 
-$container['content_search_back_end'] = function ($c) {
-    return new ContentSearch_BackEnd($c['plugin']);
-};
-
-$container['content_search_front_end'] = function ($c) {
-    return new ContentSearch_FrontEnd($c['plugin']);
+$container['SchoolSchedulingModule'] = function ($c) {
+    return new SchoolSchedulingModule($c['plugin']);
 };
 
 $container['EmployeeAbsenceModule'] = function ($c) {
@@ -95,11 +91,19 @@ register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'de
  */
 $plugin = $container['plugin'];
 
-$class_lists_back_end = $container['class_lists_back_end'];
-$class_lists_front_end = $container['class_lists_front_end'];
+$schoolCode = get_option('wrdsb_school_code', false);
+$schoolSchedulingEnabledFor = ['JAM', 'SSS'];
+$employeeAbsenceEnabledFor = ['JAM', 'SSS'];
 
-$content_search_back_end = $container['content_search_back_end'];
-$content_search_front_end = $container['content_search_front_end'];
+$container['ContentSearchModule']->init();
+
+if ($schoolCode) {
+    $container['ClassListsModule']->init();
+}
+
+if ($schoolCode && in_array($schoolCode, $schoolSchedulingEnabledFor)) {
+    $container['SchoolSchedulingModule']->init();
+}
 
 $schoolCode = get_option('wrdsb_school_code', false);
 

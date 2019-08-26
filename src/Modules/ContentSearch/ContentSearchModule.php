@@ -1,5 +1,5 @@
 <?php
-namespace WRDSB\Staff\Modules\ClassLists\Views;
+namespace WRDSB\Staff\Modules\ContentSearch;
 
 /**
  * The public-facing functionality of the plugin.
@@ -19,7 +19,7 @@ namespace WRDSB\Staff\Modules\ClassLists\Views;
  * @package    WRDSB_Staff
  * @author     WRDSB <website@wrdsb.ca>
  */
-class FrontEnd
+class ContentSearchModule
 {
     private $plugin;
 
@@ -53,14 +53,17 @@ class FrontEnd
         $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
+    }
 
+    public function init()
+    {
         $this->addQueryVar();
         $this->addRewriteRules();
         $this->addViews();
         $this->addPageTemplates();
 
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
-        $plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
+        $this->plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
+        $this->plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
@@ -97,27 +100,23 @@ class FrontEnd
 
     private function addQueryVar()
     {
-        $this->plugin->addQueryVar('class-code');
+        $this->plugin->addQueryVar('wp-posts-search');
+        $this->plugin->addQueryVar('wp-posts-search-skip');
+        $this->plugin->addQueryVar('search-filter-site-name');
     }
 
     private function addRewriteRules()
     {
-        $this->plugin->addRewriteRule('^trillium/classes$', 'index.php?view=trillium-classes');
-        $this->plugin->addRewriteRule('^trillium/enrolments$', 'index.php?view=trillium-enrolments');
-        $this->plugin->addRewriteRule('^trillium/enrolments-email-list$', 'index.php?view=trillium-enrolments-emails');
+        $this->plugin->addRewriteRule('^search/content$', 'index.php?view=search-wp-posts');
     }
 
     private function addViews()
     {
-        $this->plugin->addView('trillium-classes', 'trillium-classes');
-        $this->plugin->addView('trillium-enrolments', 'trillium-enrolments');
-        $this->plugin->addView('trillium-enrolments-emails', 'trillium-enrolments-emails');
+        $this->plugin->addView('search-wp-posts', 'search-wp-posts');
     }
 
     private function addPageTemplates()
     {
-        $this->plugin->addPageTemplate('trillium-classes', 'ClassLists/Views/templates/trillium-classes.php');
-        $this->plugin->addPageTemplate('trillium-enrolments', 'ClassLists/Views/templates/trillium-enrolments.php');
-        $this->plugin->addPageTemplate('trillium-enrolments-emails', 'ClassLists/Views/templates/trillium-enrolments-emails.php');
+        $this->plugin->addPageTemplate('search-wp-posts', 'ContentSearch/Views/templates/search-wp-posts.php');
     }
 }
