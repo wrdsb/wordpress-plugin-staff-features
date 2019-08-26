@@ -62,39 +62,43 @@ while ($classes_count > $page_max) {
 <?php get_header(); ?>
 
 <div class="container container-top">
-    <?php
-        get_template_part('partials/header', 'masthead');
-        get_template_part('partials/header', 'navbar');
-    ?>
-    <div class="container container-breadcrumb" role="navigation">
-        <ol class="breadcrumb">
-            <li>
-                <a href="<?php echo get_option('home'); ?>">Home</a>
-            </li>
-            <li>
-              Trillium
-            </li>
-            <li>
-              <?php echo $page_title; ?>
-            </li>
-        </ol>
-    </div>
+    <?php get_template_part('partials/header', 'masthead'); ?>
+
+    <?php if (! current_user_can_view_content()) { ?>
+        <?php get_template_part('partials/content', 'unauthorized'); ?>
+    <?php } else { ?>
+        <?php get_template_part('partials/header', 'navbar'); ?>
+
+        <div class="container container-breadcrumb" role="navigation">
+            <ol class="breadcrumb">
+                <li>
+                    <a href="<?php echo get_option('home'); ?>">Home</a>
+                </li>
+                <li>
+                    Trillium
+                </li>
+                <li>
+                    <?php echo $page_title; ?>
+                </li>
+            </ol>
+        </div>
+    <?php } ?>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-8 col-lg-8" role="main">
-            <!-- CONTENT -->
-            <ul>
-            <?php
-            foreach ($classes as $class) {
-                echo '<li><a href="../enrolments/?class-code=' . $class->class_code . '">' . $class->class_code . '</a></li>';
-            }
-            ?>
-            </ul>
-            <!-- CONTENT -->
+<?php if (current_user_can_view_content()) { ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-lg-8" role="main">
+                <!-- CONTENT -->
+                <ul>
+                    <?php foreach ($classes as $class) {
+                        echo '<li><a href="../enrolments/?class-code=' . $class->class_code . '">' . $class->class_code . '</a></li>';
+                    } ?>
+                </ul>
+                <!-- CONTENT -->
             </div>
+        </div>
     </div>
-</div>
+<?php } ?>
 
 <?php get_footer();
