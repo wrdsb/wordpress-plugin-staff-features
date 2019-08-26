@@ -88,8 +88,4 @@ if ($schoolCode) {
     $container['ClassListsModule']->init();
 }
 
-if ($schoolCode && in_array($schoolCode, $employeeAbsenceEnabledFor)) {
-    $container['EmployeeAbsenceModule']->init();
-}
-
 $plugin->registerHooks();
