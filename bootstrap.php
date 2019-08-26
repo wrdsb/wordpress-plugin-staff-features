@@ -5,8 +5,7 @@ use WRDSB\OptionsFramework as OptionsFramework;
 
 use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 
-use \WRDSB\Staff\Modules\ContentSearch\Views\BackEnd as ContentSearch_BackEnd;
-use \WRDSB\Staff\Modules\ContentSearch\Views\FrontEnd as ContentSearch_FrontEnd;
+use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
 
 /**
  * The plugin bootstrap file
@@ -68,12 +67,8 @@ $container['ClassListsModule'] = function ($c) {
     return new ClassListsModule($c['plugin']);
 };
 
-$container['content_search_back_end'] = function ($c) {
-    return new ContentSearch_BackEnd($c['plugin']);
-};
-
-$container['content_search_front_end'] = function ($c) {
-    return new ContentSearch_FrontEnd($c['plugin']);
+$container['ContentSearchModule'] = function ($c) {
+    return new ContentSearchModule($c['plugin']);
 };
 
 register_activation_hook(__FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ));
@@ -87,6 +82,8 @@ $plugin = $container['plugin'];
 $schoolCode = get_option('wrdsb_school_code', false);
 $employeeAbsenceEnabledFor = ['JAM', 'SSS'];
 
+$container['ContentSearchModule']->init();
+
 if ($schoolCode) {
     $container['ClassListsModule']->init();
 }
@@ -94,8 +91,5 @@ if ($schoolCode) {
 if ($schoolCode && in_array($schoolCode, $employeeAbsenceEnabledFor)) {
     $container['EmployeeAbsenceModule']->init();
 }
-
-$content_search_back_end = $container['content_search_back_end'];
-$content_search_front_end = $container['content_search_front_end'];
 
 $plugin->registerHooks();
