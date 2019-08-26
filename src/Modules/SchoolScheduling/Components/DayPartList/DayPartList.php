@@ -1,11 +1,11 @@
 <?php
 $schoolCode = get_option('wrdsb_school_code');
-$pageTitle = "Day Slots";
-$functionKey = CMA_DAY_SLOT_QUERY_KEY;
+$pageTitle = "Day Parts";
+$functionKey = CMA_DAY_PART_QUERY_KEY;
 
 function setCustomTitle()
 {
-    $pageTitle = "Day Slots";
+    $pageTitle = "Day Parts";
     return $pageTitle;
 }
 add_filter('pre_get_document_title', 'setCustomTitle');
@@ -14,7 +14,7 @@ $body = array(
     'schoolCode' => $schoolCode
 );
 
-$url = "https://wrdsb-cma.azurewebsites.net/api/day-slot-query?code={$functionKey}";
+$url = "https://wrdsb-cma.azurewebsites.net/api/day-part-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -36,7 +36,7 @@ $args = array(
 $response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
-$daySlots = $response_object;
+$dayParts = $response_object;
 ?>
 
 <?php get_header(); ?>
@@ -87,16 +87,16 @@ $daySlots = $response_object;
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($daySlots as $daySlot) { ?>
+                    <?php foreach ($dayParts as $dayPart) { ?>
                         <tr>
-                            <td><a href="../day-slot/<?php echo $daySlot->id; ?>"><?php echo $daySlot->label; ?></a></td>
-                            <td><?php echo $daySlot->set; ?></td>
-                            <td><?php echo $daySlot->startTime; ?></td>
-                            <td><?php echo $daySlot->endTime; ?></td>
-                            <td><?php echo $daySlot->firstHalfStartTime; ?></td>
-                            <td><?php echo $daySlot->firstHalfEndTime; ?></td>
-                            <td><?php echo $daySlot->secondHalfStartTime; ?></td>
-                            <td><?php echo $daySlot->secondHalfEndTime; ?></td>
+                            <td><a href="../day-part/<?php echo $dayPart->id; ?>"><?php echo $dayPart->label; ?></a></td>
+                            <td><?php echo $dayPart->set; ?></td>
+                            <td><?php echo $dayPart->startTime; ?></td>
+                            <td><?php echo $dayPart->endTime; ?></td>
+                            <td><?php echo $dayPart->firstHalfStartTime; ?></td>
+                            <td><?php echo $dayPart->firstHalfEndTime; ?></td>
+                            <td><?php echo $dayPart->secondHalfStartTime; ?></td>
+                            <td><?php echo $dayPart->secondHalfEndTime; ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

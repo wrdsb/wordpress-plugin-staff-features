@@ -69,14 +69,14 @@ $dayTemplates = $response_object;
                 <thead>
                     <tr>
                         <th>Label</th>
-                        <th>Day Slots</th>
+                        <th>Day Parts</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($dayTemplates as $dayTemplate) { ?>
                         <tr>
                             <td><a href="../day-template/<?php echo $dayTemplate->id; ?>"><?php echo $dayTemplate->label; ?></a></td>
-                            <td><?php echo implode(", ", $dayTemplate->daySlots); ?></td>
+                            <td><?php echo implode(", ", $dayTemplate->dayParts); ?></td>
                         </tr>
                     <?php } ?>
                 </tbody>

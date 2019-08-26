@@ -61,9 +61,9 @@ $dayTemplate = $response_object[0];
     <?php echo $dayTemplate->label; ?>
 </div>
 
-<h2>Day Slots</h2>
-<?php foreach ($dayTemplate->daySlots as $daySlot) { ?>
+<h2>Day Parts</h2>
+<?php foreach ($dayTemplate->dayParts as $dayPart) { ?>
     <div>
-        <?php echo $daySlot; ?>
+        <?php echo $dayPart; ?>
     </div>
 <?php } ?>
