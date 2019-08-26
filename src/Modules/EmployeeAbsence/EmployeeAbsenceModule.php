@@ -37,8 +37,8 @@ class EmployeeAbsenceModule
         $this->addViews();
         $this->addPageTemplates();
 
-        $this->plugin->addAction('admin_enqueue_scripts', $this, 'enqueueStyles');
-        $this->plugin->addAction('admin_enqueue_scripts', $this, 'enqueueScripts');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
@@ -50,7 +50,7 @@ class EmployeeAbsenceModule
     {
         wp_enqueue_style(
             $this->plugin_name,
-            plugin_dir_url(__FILE__) . 'assets/css/front-end.css',
+            plugin_dir_url(__FILE__) . 'assets/css/employee-absence.css',
             array(),
             $this->version,
             'all'
@@ -66,8 +66,8 @@ class EmployeeAbsenceModule
     {
         wp_enqueue_script(
             $this->plugin_name,
-            plugin_dir_url(__FILE__) . 'assets/js/front-end.js',
-            array( 'jquery' ),
+            plugin_dir_url(__FILE__) . 'assets/js/employee-absence.js',
+            array('jquery'),
             $this->version,
             false
         );
@@ -92,6 +92,7 @@ class EmployeeAbsenceModule
         $this->plugin->addRewriteRule('^employee/absences$', 'index.php?view=absence-list');
         $this->plugin->addRewriteRule('^employee/absences/([^/]*)/?', 'index.php?view=absence-list&date=$matches[1]');
         $this->plugin->addRewriteRule('^employee/absence/new$', 'index.php?view=absence-new');
+        $this->plugin->addRewriteRule('^employee/absence/quick-add$', 'index.php?view=absence-quick-add');
         $this->plugin->addRewriteRule('^employee/absence/([^/]*)/edit', 'index.php?view=absence-edit&id=$matches[1]');
         $this->plugin->addRewriteRule('^employee/absence/([^/]*)/?', 'index.php?view=absence-detail&id=$matches[1]');
 
@@ -110,6 +111,7 @@ class EmployeeAbsenceModule
         $this->plugin->addView('absence-list', 'absence-list');
         $this->plugin->addView('absence-detail', 'absence-detail');
         $this->plugin->addView('absence-new', 'absence-new');
+        $this->plugin->addView('absence-quick-add', 'absence-quick-add');
         $this->plugin->addView('absence-edit', 'absence-edit');
     }
 
@@ -124,6 +126,7 @@ class EmployeeAbsenceModule
         $this->plugin->addPageTemplate('absence-list', 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php');
         $this->plugin->addPageTemplate('absence-detail', 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php');
         $this->plugin->addPageTemplate('absence-new', 'EmployeeAbsence/Components/AbsenceNew/AbsenceNew.php');
+        $this->plugin->addPageTemplate('absence-quick-add', 'EmployeeAbsence/Components/AbsenceQuickAdd/AbsenceQuickAdd.php');
         $this->plugin->addPageTemplate('absence-edit', 'EmployeeAbsence/Components/AbsenceEdit/AbsenceEdit.php');
     }
 }
