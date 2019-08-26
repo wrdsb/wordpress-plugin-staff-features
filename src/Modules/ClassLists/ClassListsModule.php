@@ -1,5 +1,5 @@
 <?php
-namespace WRDSB\Staff\Modules\ClassLists\Views;
+namespace WRDSB\Staff\Modules\ClassLists;
 
 /**
  * The public-facing functionality of the plugin.
@@ -19,7 +19,7 @@ namespace WRDSB\Staff\Modules\ClassLists\Views;
  * @package    WRDSB_Staff
  * @author     WRDSB <website@wrdsb.ca>
  */
-class FrontEnd
+class ClassListsModule
 {
     private $plugin;
 
@@ -53,14 +53,17 @@ class FrontEnd
         $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
+    }
 
+    public function init()
+    {
         $this->addQueryVar();
         $this->addRewriteRules();
         $this->addViews();
         $this->addPageTemplates();
 
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
-        $plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
     /**
