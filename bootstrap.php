@@ -3,8 +3,7 @@ namespace WRDSB\Staff;
 
 use WRDSB\OptionsFramework as OptionsFramework;
 
-use \WRDSB\Staff\Modules\ClassLists\Views\BackEnd as ClassLists_BackEnd;
-use \WRDSB\Staff\Modules\ClassLists\Views\FrontEnd as ClassLists_FrontEnd;
+use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 
 use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
 
@@ -64,12 +63,8 @@ $container['plugin'] = function ($c) {
     return new Plugin($c['plugin_name'], $c['version']);
 };
 
-$container['class_lists_back_end'] = function ($c) {
-    return new ClassLists_BackEnd($c['plugin']);
-};
-
-$container['class_lists_front_end'] = function ($c) {
-    return new ClassLists_FrontEnd($c['plugin']);
+$container['ClassListsModule'] = function ($c) {
+    return new ClassListsModule($c['plugin']);
 };
 
 $container['ContentSearchModule'] = function ($c) {
@@ -84,9 +79,17 @@ register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'de
  */
 $plugin = $container['plugin'];
 
+$schoolCode = get_option('wrdsb_school_code', false);
+$employeeAbsenceEnabledFor = ['JAM', 'SSS'];
+
 $container['ContentSearchModule']->init();
 
-$class_lists_back_end = $container['class_lists_back_end'];
-$class_lists_front_end = $container['class_lists_front_end'];
+if ($schoolCode) {
+    $container['ClassListsModule']->init();
+}
+
+if ($schoolCode && in_array($schoolCode, $employeeAbsenceEnabledFor)) {
+    $container['EmployeeAbsenceModule']->init();
+}
 
 $plugin->registerHooks();
