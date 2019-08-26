@@ -7,6 +7,8 @@ use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 
 use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
 
+use \WRDSB\Staff\Modules\SchoolScheduling\SchoolSchedulingModule as SchoolSchedulingModule;
+
 /**
  * The plugin bootstrap file
  *
@@ -71,6 +73,10 @@ $container['ContentSearchModule'] = function ($c) {
     return new ContentSearchModule($c['plugin']);
 };
 
+$container['SchoolSchedulingModule'] = function ($c) {
+    return new SchoolSchedulingModule($c['plugin']);
+};
+
 register_activation_hook(__FILE__, array( __NAMESPACE__ . '\\Activator', 'activate' ));
 register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'deactivate' ));
 
@@ -80,12 +86,17 @@ register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'de
 $plugin = $container['plugin'];
 
 $schoolCode = get_option('wrdsb_school_code', false);
+$schoolSchedulingEnabledFor = ['JAM', 'SSS'];
 $employeeAbsenceEnabledFor = ['JAM', 'SSS'];
 
 $container['ContentSearchModule']->init();
 
 if ($schoolCode) {
     $container['ClassListsModule']->init();
+}
+
+if ($schoolCode && in_array($schoolCode, $schoolSchedulingEnabledFor)) {
+    $container['SchoolSchedulingModule']->init();
 }
 
 $plugin->registerHooks();
