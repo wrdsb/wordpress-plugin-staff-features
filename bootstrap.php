@@ -105,10 +105,6 @@ if ($schoolCode && in_array($schoolCode, $schoolSchedulingEnabledFor)) {
     $container['SchoolSchedulingModule']->init();
 }
 
-$schoolCode = get_option('wrdsb_school_code', false);
-
-$employeeAbsenceEnabledFor = ['JAM', 'SSS'];
-
 if ($schoolCode && in_array($schoolCode, $employeeAbsenceEnabledFor)) {
     $container['EmployeeAbsenceModule']->init();
 }
