@@ -85,9 +85,9 @@ class EmployeeAbsenceModule
         $this->plugin->addRewriteRule('^employee/absence/types$', 'index.php?view=absence-type-list');
         $this->plugin->addRewriteRule('^employee/absence/type/([^/]*)/?', 'index.php?view=absence-type-detail&id=$matches[1]');
 
-        $this->plugin->addRewriteRule('^employee/absence/slots$', 'index.php?view=absence-slot-list');
-        $this->plugin->addRewriteRule('^employee/absence/slots/([^/]*)/?', 'index.php?view=absence-slot-list&date=$matches[1]');
-        $this->plugin->addRewriteRule('^employee/absence/slot/([^/]*)/?', 'index.php?view=absence-slot-detail&id=$matches[1]');
+        $this->plugin->addRewriteRule('^employee/absence/parts$', 'index.php?view=absence-part-list');
+        $this->plugin->addRewriteRule('^employee/absence/parts/([^/]*)/?', 'index.php?view=absence-part-list&date=$matches[1]');
+        $this->plugin->addRewriteRule('^employee/absence/part/([^/]*)/?', 'index.php?view=absence-part-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^employee/absences$', 'index.php?view=absence-list');
         $this->plugin->addRewriteRule('^employee/absences/([^/]*)/?', 'index.php?view=absence-list&date=$matches[1]');
@@ -97,7 +97,7 @@ class EmployeeAbsenceModule
         $this->plugin->addRewriteRule('^employee/absence/([^/]*)/?', 'index.php?view=absence-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^employee/([^/]*)/absences', 'index.php?view=absence-list&employee=$matches[1]');
-        $this->plugin->addRewriteRule('^employee/([^/]*)/absence/slots', 'index.php?view=absence-slot-list&employee=$matches[1]');
+        $this->plugin->addRewriteRule('^employee/([^/]*)/absence/parts', 'index.php?view=absence-part-list&employee=$matches[1]');
     }
 
     private function addViews()
@@ -105,8 +105,8 @@ class EmployeeAbsenceModule
         $this->plugin->addView('absence-type-list', 'absence-type-list');
         $this->plugin->addView('absence-type-detail', 'absence-type-detail');
 
-        $this->plugin->addView('absence-slot-list', 'absence-slot-list');
-        $this->plugin->addView('absence-slot-detail', 'absence-slot-detail');
+        $this->plugin->addView('absence-part-list', 'absence-part-list');
+        $this->plugin->addView('absence-part-detail', 'absence-part-detail');
 
         $this->plugin->addView('absence-list', 'absence-list');
         $this->plugin->addView('absence-detail', 'absence-detail');
@@ -120,8 +120,8 @@ class EmployeeAbsenceModule
         $this->plugin->addPageTemplate('absence-type-list', 'EmployeeAbsence/Components/AbsenceTypeList/AbsenceTypeList.php');
         $this->plugin->addPageTemplate('absence-type-detail', 'EmployeeAbsence/Components/AbsenceTypeDetail/AbsenceTypeDetail.php');
 
-        $this->plugin->addPageTemplate('absence-slot-list', 'EmployeeAbsence/Components/AbsenceSlotList/AbsenceSlotList.php');
-        $this->plugin->addPageTemplate('absence-slot-detail', 'EmployeeAbsence/Components/AbsenceSlotDetail/AbsenceSlotDetail.php');
+        $this->plugin->addPageTemplate('absence-part-list', 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php');
+        $this->plugin->addPageTemplate('absence-part-detail', 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php');
 
         $this->plugin->addPageTemplate('absence-list', 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php');
         $this->plugin->addPageTemplate('absence-detail', 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php');

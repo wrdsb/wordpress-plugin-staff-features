@@ -2,7 +2,7 @@
 namespace WRDSB\Staff\Modules\EmployeeAbsence\Model;
 
 /**
- * Define the "AbsenceSlot" class
+ * Define the "AbsencePart" class
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -11,7 +11,7 @@ namespace WRDSB\Staff\Modules\EmployeeAbsence\Model;
  * @subpackage WRDSB_Staff/EmployeeAbsence
  */
 
-class AbsenceSlot
+class AbsencePart
 {
 
     public function __construct($params)
@@ -19,7 +19,7 @@ class AbsenceSlot
         $this->ID = $params['ID'];
 
         $this->absenceID;
-        $this->slotID;
+        $this->partID;
 
         $this->roomNumber;
         $this->lessonPlanLocation;
@@ -39,7 +39,7 @@ class AbsenceSlot
 
     public static function get($id)
     {
-        $absence = new AbsenceSlot(
+        $absence = new AbsencePart(
             array(
                 'ID' => $id
             )

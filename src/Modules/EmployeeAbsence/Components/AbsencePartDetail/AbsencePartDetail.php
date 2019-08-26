@@ -16,10 +16,10 @@ $body = array(
 if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
     $body['id'] = $id;
-    $pageTitle = "Employee Absence Slot #{$id}";
+    $pageTitle = "Employee Absence Part #{$id}";
 }
 
-$url = "https://wrdsb-cma.azurewebsites.net/api/absence-slot-query?code={$functionKey}";
+$url = "https://wrdsb-cma.azurewebsites.net/api/absence-part-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,

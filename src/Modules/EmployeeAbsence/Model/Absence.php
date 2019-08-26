@@ -77,11 +77,11 @@ class Absence
         $this->save();
     }
 
-    public function getSlots()
+    public function getParts()
     {
-        $slots = array();
+        $parts = array();
 
-        return $slots;
+        return $parts;
     }
 
     private function setDeletedAt($timestamp)
