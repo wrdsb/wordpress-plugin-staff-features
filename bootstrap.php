@@ -86,6 +86,7 @@ register_deactivation_hook(__FILE__, array( __NAMESPACE__ . '\\Deactivator', 'de
 $plugin = $container['plugin'];
 
 $schoolCode = get_option('wrdsb_school_code', false);
+$schoolSchedulingEnabledFor = ['JAM', 'SSS'];
 $employeeAbsenceEnabledFor = ['JAM', 'SSS'];
 
 $container['ContentSearchModule']->init();
@@ -93,10 +94,6 @@ $container['ContentSearchModule']->init();
 if ($schoolCode) {
     $container['ClassListsModule']->init();
 }
-
-$schoolCode = get_option('wrdsb_school_code', false);
-
-$schoolSchedulingEnabledFor = ['JAM', 'SSS'];
 
 if ($schoolCode && in_array($schoolCode, $schoolSchedulingEnabledFor)) {
     $container['SchoolSchedulingModule']->init();
