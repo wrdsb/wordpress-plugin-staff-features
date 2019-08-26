@@ -81,8 +81,8 @@ class SchoolSchedulingModule
 
     private function addRewriteRules()
     {
-        $this->plugin->addRewriteRule('^scheduling/day-slots$', 'index.php?view=day-slot-list');
-        $this->plugin->addRewriteRule('^scheduling/day-slot/([^/]*)/?', 'index.php?view=day-slot-detail&id=$matches[1]');
+        $this->plugin->addRewriteRule('^scheduling/day-parts$', 'index.php?view=day-part-list');
+        $this->plugin->addRewriteRule('^scheduling/day-part/([^/]*)/?', 'index.php?view=day-part-detail&id=$matches[1]');
 
         $this->plugin->addRewriteRule('^scheduling/day-templates$', 'index.php?view=day-template-list');
         $this->plugin->addRewriteRule('^scheduling/day-template/([^/]*)/?', 'index.php?view=day-template-detail&id=$matches[1]');
@@ -93,8 +93,8 @@ class SchoolSchedulingModule
 
     private function addViews()
     {
-        $this->plugin->addView('day-slot-list', 'day-slot-list');
-        $this->plugin->addView('day-slot-detail', 'day-slot-detail');
+        $this->plugin->addView('day-part-list', 'day-part-list');
+        $this->plugin->addView('day-part-detail', 'day-part-detail');
 
         $this->plugin->addView('day-template-list', 'day-template-list');
         $this->plugin->addView('day-template-detail', 'day-template-detail');
@@ -105,8 +105,8 @@ class SchoolSchedulingModule
 
     private function addPageTemplates()
     {
-        $this->plugin->addPageTemplate('day-slot-list', 'SchoolScheduling/Components/DaySlotList/DaySlotList.php');
-        $this->plugin->addPageTemplate('day-slot-detail', 'SchoolScheduling/Components/DaySlotDetail/DaySlotDetail.php');
+        $this->plugin->addPageTemplate('day-part-list', 'SchoolScheduling/Components/DayPartList/DayPartList.php');
+        $this->plugin->addPageTemplate('day-part-detail', 'SchoolScheduling/Components/DayPartDetail/DayPartDetail.php');
 
         $this->plugin->addPageTemplate('day-template-list', 'SchoolScheduling/Components/DayTemplateList/DayTemplateList.php');
         $this->plugin->addPageTemplate('day-template-detail', 'SchoolScheduling/Components/DayTemplateDetail/DayTemplateDetail.php');

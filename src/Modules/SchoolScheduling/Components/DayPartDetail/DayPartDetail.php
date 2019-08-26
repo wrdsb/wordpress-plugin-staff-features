@@ -1,12 +1,12 @@
 <?php
 $id = $wp_query->query_vars['id'];
 $schoolCode = get_option('wrdsb_school_code');
-$pageTitle = "Day Slots";
-$functionKey = CMA_DAY_SLOT_QUERY_KEY;
+$pageTitle = "Day Parts";
+$functionKey = CMA_DAY_PART_QUERY_KEY;
 
 function setCustomTitle()
 {
-    $pageTitle = "Day Slots";
+    $pageTitle = "Day Parts";
     return $pageTitle;
 }
 add_filter('pre_get_document_title', 'setCustomTitle');
@@ -16,7 +16,7 @@ $body = array(
     'id' => $id,
 );
 
-$url = "https://wrdsb-cma.azurewebsites.net/api/day-slot-query?code={$functionKey}";
+$url = "https://wrdsb-cma.azurewebsites.net/api/day-part-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -38,56 +38,56 @@ $args = array(
 $response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
-$daySlot = $response_object[0];
+$dayPart = $response_object[0];
 ?>
 
 <div>
     <strong>CMA ID: </strong>
-    <?php echo $daySlot->id; ?>
+    <?php echo $dayPart->id; ?>
 </div>
 
 <div>
     <strong>School Code: </strong>
-    <?php echo $daySlot->schoolCode; ?>
+    <?php echo $dayPart->schoolCode; ?>
 </div>
 
 <div>
-    <strong>Day Slot Set: </strong>
-    <?php echo $daySlot->set; ?>
+    <strong>Day Part Set: </strong>
+    <?php echo $dayPart->set; ?>
 </div>
 
 <div>
     <strong>Label: </strong>
-    <?php echo $daySlot->label; ?>
+    <?php echo $dayPart->label; ?>
 </div>
 
 <div>
     <strong>Start Time: </strong>
-    <?php echo $daySlot->startTime; ?>
+    <?php echo $dayPart->startTime; ?>
 </div>
 
 <div>
     <strong>End Time: </strong>
-    <?php echo $daySlot->endTime; ?>
+    <?php echo $dayPart->endTime; ?>
 </div>
 
 <div>
     <strong>1st Half Start: </strong>
-    <?php echo $daySlot->firstHalfStartTime; ?>
+    <?php echo $dayPart->firstHalfStartTime; ?>
 </div>
 
 <div>
     <strong>1st Half End: </strong>
-    <?php echo $daySlot->firstHalfEndTime; ?>
+    <?php echo $dayPart->firstHalfEndTime; ?>
 </div>
 
 <div>
     <strong>2nd Half Start: </strong>
-    <?php echo $daySlot->secondHalfStartTime; ?>
+    <?php echo $dayPart->secondHalfStartTime; ?>
 </div>
 
 <div>
     <strong>2nd Half End: </strong>
-    <?php echo $daySlot->secondHalfEndTime; ?>
+    <?php echo $dayPart->secondHalfEndTime; ?>
 </div>
 
