@@ -68,7 +68,7 @@ $dayParts[] = $dayPart3;
         <div class="col-sm-12 col-lg-12" role="main">
             <!-- CONTENT -->
             <h1><?php echo $pageTitle; ?></h1>
-
+            date!
             teacher drop down
             select teacher
 
