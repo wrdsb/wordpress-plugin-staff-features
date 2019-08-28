@@ -34,7 +34,8 @@ if ($wp_query->query_vars['search-filter-site-name']) {
     $sites_filter_param = false;
 }
 $visibility_filter = "visible_to/any(g:search.in(g, '{$visibility_groups_string}'))";
-$search_filter = "( {$sites_filter} ) and ( {$visibility_filter} )";
+$publish_status_filter = "post_status eq 'publish'";
+$search_filter = "( {$sites_filter} ) and ( {$visibility_filter} ) and ( {$publish_status_filter} )";
 
 $search_params = [];
 $search_params['target_url'] = 'https://wrdsb-codex.search.windows.net/indexes/lamson-wp-posts/docs/search?api-version=2016-09-01';
