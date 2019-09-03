@@ -39,6 +39,8 @@ class EmployeeAbsenceModule
 
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
+
+        $this->plugin->addAction('admin_post_absence_form_submit', $this, 'absenceFormSubmit');
     }
 
     /**
@@ -71,6 +73,47 @@ class EmployeeAbsenceModule
             $this->version,
             false
         );
+    }
+
+    public function absenceFormSubmit()
+    {
+        //wp_redirect('your location');
+
+        print_r($_POST);
+
+        $submission = $_POST;
+        $functionKey = CMA_ABSENCE_FORM_SUBMIT_KEY;
+
+        $body = $submission;
+        
+        $url = "https://wrdsb-cma.azurewebsites.net/api/absence-form-submit?code={$functionKey}";
+        $args = array(
+            'timeout'     => 5,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'user-agent'  => 'cma/wordpress',
+            'blocking'    => true,
+            'headers'     => array(
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ),
+            'cookies'     => array(),
+            'body'        => json_encode($body),
+            'compress'    => false,
+            'decompress'  => true,
+            'sslverify'   => false,
+            'stream'      => false,
+            'filename'    => null
+        );
+        $response = wp_remote_post($url, $args);
+        $response_object = json_decode($response['body'], $assoc = false);
+
+        print_r($response_object);
+    }
+
+    private function absenceFormValidate($submission)
+    {
+        return true;
     }
 
     private function addQueryVar()
