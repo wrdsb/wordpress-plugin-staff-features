@@ -75,7 +75,7 @@ class ClassListsModule
     {
         wp_enqueue_style(
             'classLists',
-            plugin_dir_url(__FILE__) . 'assets/css/front-end.css',
+            plugin_dir_url(__FILE__) . 'Views/assets/css/front-end.css',
             array(),
             $this->version,
             'all'
@@ -105,7 +105,7 @@ class ClassListsModule
     {
         wp_enqueue_script(
             'classLists',
-            plugin_dir_url(__FILE__) . 'assets/js/front-end.js',
+            plugin_dir_url(__FILE__) . 'Views/assets/js/front-end.js',
             array( 'jquery' ),
             $this->version,
             false
