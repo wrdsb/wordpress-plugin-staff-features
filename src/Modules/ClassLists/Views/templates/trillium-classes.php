@@ -92,7 +92,7 @@ while ($classes_count > $page_max) {
                 <!-- CONTENT -->
                 <ul>
                     <?php foreach ($classes as $class) {
-                        echo '<li><a href="../enrolments/?class-code=' . $class->class_code . '">' . $class->class_code . '</a></li>';
+                        echo '<li><a href="../enrolments/?class-code='.$class->class_code.'">'.$class->class_code.'</a> - '.$class->teacher_name.'</li>';
                     } ?>
                 </ul>
                 <!-- CONTENT -->
