@@ -65,6 +65,8 @@ class Plugin
      */
     protected $filters;
 
+    protected $routes;
+
     /**
      * The array of widgets registered with WordPress.
      *
@@ -126,14 +128,61 @@ class Plugin
 
         $this->actions = array();
         $this->filters = array();
+        $this->routes = array();
 
         $this->widgets = array();
         $this->rewrite_rules = array();
         $this->query_vars = array();
         $this->views = array();
         $this->page_templates = array();
+    }
 
+    /**
+     * Init the plugin. Hooked to 'init'.
+     *
+     * @since    1.0.0
+     */
+    public function init()
+    {
         $this->addQueryVar('view');
+
+        add_action('do_parse_request', array($this, 'parseRequest'), 30, 3);
+
+        // Add an action hook to register all widgets
+        add_action('widgets_init', array($this, 'registerWidgets'), 10, 1);
+
+        // Add an action hook to register all rewrite rules
+        add_action('init', array($this, 'registerRewriteRules'), 10, 1);
+        
+        // Add a filter hook to register all query vars
+        add_filter('query_vars', array($this, 'registerQueryVars'), 10, 1);
+
+        // Add an action hook to get the current view (page template file)
+        add_action('template_include', array($this, 'currentView'), 10, 1);
+
+        add_action('init', array($this, 'addRewriteTags'), 10, 1);
+
+        add_action('init', array($this, 'addRewriteRules'), 10, 1);
+
+        add_action('admin_post_absence_form_submit', array($this, 'absenceFormSubmit'));
+    }
+
+    /**
+     * Register the filters and actions with WordPress.
+     *
+     * @since    1.0.0
+     */
+    public function registerHooks()
+    {
+        // Cycle through all filter hooks and register them.
+        foreach ($this->filters as $hook) {
+            add_filter($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
+        }
+
+        // Cycle through all action hooks and register them.
+        foreach ($this->actions as $hook) {
+            add_action($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
+        }
     }
 
     /**
@@ -234,33 +283,14 @@ class Plugin
     }
 
     /**
-     * Register the filters and actions with WordPress.
+     * Add a route to the router. Overwrites a route if it shares the same name as an already registered one.
      *
-     * @since    1.0.0
+     * @param string $name
+     * @param Route  $route
      */
-    public function registerHooks()
+    public function addRoute($name, Route $route)
     {
-        // Add an action hook to register all widgets
-        $this->addAction('widgets_init', $this, 'registerWidgets');
-
-        // Add an action hook to register all rewrite rules
-        $this->addAction('init', $this, 'registerRewriteRules');
-        
-        // Add a filter hook to register all query vars
-        $this->addFilter('query_vars', $this, 'registerQueryVars');
-
-        // Add an action hook to get the current view (page template file)
-        $this->addAction('template_include', $this, 'currentView');
-
-        // Cycle through all filter hooks and register them.
-        foreach ($this->filters as $hook) {
-            add_filter($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
-        }
-
-        // Cycle through all action hooks and register them.
-        foreach ($this->actions as $hook) {
-            add_action($hook['hook'], array( $hook['component'], $hook['callback'] ), $hook['priority'], $hook['accepted_args']);
-        }
+        $this->routes[$name] = $route;
     }
 
     /**
@@ -417,5 +447,156 @@ class Plugin
 
         //Fall back to original template
         return $template;
+    }
+
+    public function getCurrentURL()
+    {
+        $current_url = trim(esc_url_raw(add_query_arg([])), '/');
+
+        $home_path = trim(parse_url(home_url(), PHP_URL_PATH), '/');
+
+        if ($home_path && strpos($current_url, $home_path) === 0) {
+            $current_url = trim(substr($current_url, strlen($home_path)), '/');
+        }
+
+        return $current_url;
+    }
+
+    public function parseRequest($doParse, $environment, $extra_query_vars)
+    {
+        $container = Plugin::getContainer();
+        $current_url = $container['plugin']->getCurrentURL();
+        $routes = $container['routes'];
+        
+        if (empty($routes) || !is_array($routes) ) {
+            return $doParse;
+        }
+    
+        $urlParts = explode('?', $current_url, 2);
+        $urlPath = trim($urlParts[0], '/');
+        $urlVars = [];
+    
+        if (isset($urlParts[1])) {
+            parse_str($urlParts[1], $urlVars);
+        }
+    
+        $query_vars = null;
+    
+        foreach($routes as $pattern => $route) {
+            if (preg_match('~' . trim($pattern, '/') . '~', $urlPath, $matches)) {
+    
+                if (in_array($route['module'], $container['modules'])) {
+                    $container[$route['module']]->init();
+
+                    $routeVars = $route;
+                    $query_vars = array_merge($routeVars, $urlVars);
+                    $query_vars['matches'] = $matches;
+
+                    foreach ($route['matches'] as $key => $value) {
+                        $query_vars[$value] = $matches[$key];
+                    }
+
+                    $environment->query_vars = $query_vars;
+        
+                    $container['plugin']->registerHooks();
+        
+                    return false;
+                }
+            }
+        }
+    
+        return $doParse;
+    }
+
+    public function addRewriteTags()
+    {
+        add_rewrite_tag('%view%', '([^&]+)');
+        add_rewrite_tag('%class-code%', '([^&]+)');
+        add_rewrite_tag('%wp-posts-search%', '([^&]+)');
+        add_rewrite_tag('%wp-posts-search-skip%', '([^&]+)');
+        add_rewrite_tag('%search-filter-site-name%', '([^&]+)');
+        add_rewrite_tag('%id%', '([^&]+)');
+        add_rewrite_tag('%date%', '([^&]+)');
+        add_rewrite_tag('%employee%', '([^&]+)');
+    }
+
+    public function addRewriteRules()
+    {
+        add_rewrite_rule('^trillium/classes$',                 'index.php?view=trillium-classes', 'top');
+        add_rewrite_rule('^trillium/enrolments$',              'index.php?view=trillium-enrolments', 'top');
+        add_rewrite_rule('^trillium/enrolments-email-list$',   'index.php?view=trillium-enrolments-emails', 'top');
+    
+        add_rewrite_rule('^search/content$',                   'index.php?view=search-wp-posts', 'top');
+    
+        add_rewrite_rule('^employee/absence/types$',           'index.php?view=absence-type-list', 'top');
+        add_rewrite_rule('^employee/absence/type/([^/]*)/?',   'index.php?view=absence-type-detail&id=$matches[1]', 'top');
+    
+        add_rewrite_rule('^employee/absence/parts$',           'index.php?view=absence-part-list', 'top');
+        add_rewrite_rule('^employee/absence/parts/([^/]*)/?',  'index.php?view=absence-part-list&date=$matches[1]', 'top');
+        add_rewrite_rule('^employee/absence/part/([^/]*)/?',   'index.php?view=absence-part-detail&id=$matches[1]', 'top');
+    
+        add_rewrite_rule('^employee/absences$',                'index.php?view=absence-list', 'top');
+        add_rewrite_rule('^employee/absences/old$',            'index.php?view=absence-list', 'top');
+        add_rewrite_rule('^employee/absences/today$',          'index.php?view=absence-list', 'top');
+        add_rewrite_rule('^employee/absences/tomorrow$',       'index.php?view=absence-list', 'top');
+        add_rewrite_rule('^employee/absences/future$',         'index.php?view=absence-list', 'top');
+        add_rewrite_rule('^employee/absences/([^/]*)/?',       'index.php?view=absence-list&date=$matches[1]', 'top');
+        add_rewrite_rule('^employee/absence/new$',             'index.php?view=absence-new', 'top');
+        add_rewrite_rule('^employee/absence/quick-add$',       'index.php?view=absence-quick-add', 'top');
+        add_rewrite_rule('^employee/absence/([^/]*)/edit',     'index.php?view=absence-edit&id=$matches[1]', 'top');
+        add_rewrite_rule('^employee/absence/([^/]*)/?',        'index.php?view=absence-detail&id=$matches[1]', 'top');
+    
+        add_rewrite_rule('^employee/([^/]*)/absences',         'index.php?view=absence-list&employee=$matches[1]', 'top');
+        add_rewrite_rule('^employee/([^/]*)/absence/parts',    'index.php?view=absence-part-list&employee=$matches[1]', 'top');
+    
+        add_rewrite_rule('^scheduling/day-parts$',             'index.php?view=day-part-list', 'top');
+        add_rewrite_rule('^scheduling/day-part/([^/]*)/?',     'index.php?view=day-part-detail&id=$matches[1]', 'top');
+    
+        add_rewrite_rule('^scheduling/day-templates$',         'index.php?view=day-template-list', 'top');
+        add_rewrite_rule('^scheduling/day-template/([^/]*)/?', 'index.php?view=day-template-detail&id=$matches[1]', 'top');
+    
+        add_rewrite_rule('^scheduling/days$',                  'index.php?view=day-list', 'top');
+        add_rewrite_rule('^scheduling/day/([^/]*)/?',          'index.php?view=day-detail&date=$matches[1]', 'top');
+    }
+
+    public function absenceFormSubmit()
+    {
+        print_r($_POST);
+    
+        $submission = $_POST;
+        $functionKey = CMA_ABSENCE_FORM_SUBMIT_KEY;
+    
+        $body = $submission;
+        
+        $url = "https://wrdsb-cma.azurewebsites.net/api/absence-form-submit?code={$functionKey}";
+        $args = array(
+            'timeout'     => 5,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'user-agent'  => 'cma/wordpress',
+            'blocking'    => true,
+            'headers'     => array(
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ),
+            'cookies'     => array(),
+            'body'        => json_encode($body),
+            'compress'    => false,
+            'decompress'  => true,
+            'sslverify'   => false,
+            'stream'      => false,
+            'filename'    => null
+        );
+        $response = wp_remote_post($url, $args);
+        $response_object = json_decode($response['body'], $assoc = false);
+    
+        print_r($response_object);
+    
+        wp_redirect(home_url()."/employee/absence/{$response_object->id}");
+    }
+    
+    public function absenceFormValidate($submission)
+    {
+        return true;
     }
 }

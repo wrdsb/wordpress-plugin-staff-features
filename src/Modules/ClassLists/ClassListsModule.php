@@ -57,8 +57,6 @@ class ClassListsModule
 
     public function init()
     {
-        $this->addQueryVar();
-        $this->addRewriteRules();
         $this->addViews();
         $this->addPageTemplates();
 
@@ -131,18 +129,6 @@ class ClassListsModule
             $this->version,
             false
         );
-    }
-
-    private function addQueryVar()
-    {
-        $this->plugin->addQueryVar('class-code');
-    }
-
-    private function addRewriteRules()
-    {
-        $this->plugin->addRewriteRule('^trillium/classes$', 'index.php?view=trillium-classes');
-        $this->plugin->addRewriteRule('^trillium/enrolments$', 'index.php?view=trillium-enrolments');
-        $this->plugin->addRewriteRule('^trillium/enrolments-email-list$', 'index.php?view=trillium-enrolments-emails');
     }
 
     private function addViews()
