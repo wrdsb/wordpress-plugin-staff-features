@@ -35,66 +35,212 @@ if (! defined('WPINC')) {
     die;
 }
 
-if (! is_admin()) {
-    require_once 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
-    /**
-     * Instantiate the container.
-     */
-    $container = Plugin::getContainer();
+/**
+ * Instantiate the container.
+ */
+$container = Plugin::getContainer();
 
-    /**
-     * Current plugin name.
-     * Change this to your plugin's slug.
-     */
-    $container['plugin_name'] = 'wrdsb-staff';
+/**
+ * Current plugin name.
+ * Change this to your plugin's slug.
+ */
+$container['plugin_name'] = 'wrdsb-staff';
 
-    /**
-     * Current plugin version.
-     * Start at version 1.0.0 and use SemVer - https://semver.org
-     */
-    $container['version'] = '1.0.0';
+/**
+ * Current plugin version.
+ * Start at version 1.0.0 and use SemVer - https://semver.org
+ */
+$container['version'] = '1.0.0';
 
-    /**
-     * Instantiate main plugin class.
-     * Pass plugin name and version from container to constructor.
-     */
-    $container['plugin'] = function ($c) {
-        return new Plugin($c['plugin_name'], $c['version']);
-    };
+$container['schoolCode'] = get_option('wrdsb_school_code', false);
 
-    $container['ClassListsModule'] = function ($c) {
-        return new ClassListsModule($c['plugin']);
-    };
+$container['schoolSchedulingEnabledFor'] = ['JAM', 'SSS'];
 
-    $container['ContentSearchModule'] = function ($c) {
-        return new ContentSearchModule($c['plugin']);
-    };
+$container['employeeAbsenceEnabledFor'] = ['JAM', 'SSS'];
 
-    $container['EmployeeAbsenceModule'] = function ($c) {
-        return new EmployeeAbsenceModule($c['plugin']);
-    };
+$enabledModules = [
+    'ContentSearchModule',
+];
 
-    /**
-     * Bootstrap the plugin.
-     */
-    $plugin = $container['plugin'];
-
-    $schoolCode = get_option('wrdsb_school_code', false);
-
-    $container['ContentSearchModule']->init();
-
-    if ($schoolCode) {
-        $container['ClassListsModule']->init();
-    }
-
-    if ($schoolCode && in_array($schoolCode, $employeeAbsenceEnabledFor)) {
-        $container['EmployeeAbsenceModule']->init();
-    }
-    
-    $plugin->registerHooks();
+if ($container['schoolCode']) {
+    $enabledModules[] = 'ClassListsModule';
 }
 
+if ($container['schoolCode'] && in_array($container['schoolCode'], $container['schoolSchedulingEnabledFor'])) {
+    $enabledModules[] = 'SchoolSchedulingModule';
+}
+
+if ($container['schoolCode'] && in_array($container['schoolCode'], $container['employeeAbsenceEnabledFor'])) {
+    $enabledModules[] = 'EmployeeAbsenceModule';
+}
+
+$container['modules'] = $enabledModules;
+
+$container['routes'] = [
+    '^trillium/classes$' => [
+        'module' => 'ClassListsModule',
+        'view' => 'trillium-classes',
+        'template' => 'ClassLists/Views/templates/trillium-classes.php'
+    ],
+    '^trillium/enrolments$' => [
+        'module' => 'ClassListsModule',
+        'view' => 'trillium-enrolments',
+        'template' => 'ClassLists/Views/templates/trillium-enrolments.php'
+    ],
+    '^trillium/enrolments-email-list$' => [
+        'module' => 'ClassListsModule',
+        'view' => 'trillium-enrolments-emails',
+        'template' => 'ClassLists/Views/templates/trillium-enrolments-emails.php'
+    ],
+    '^search/content$' => [
+        'module' => 'ContentSearchModule',
+        'view' => 'search-wp-posts',
+        'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
+    ],
+    '^employee/absence/types$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-type-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceTypeList/AbsenceTypeList.php'
+    ],
+    '^employee/absence/type/([^/]*)/?' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-type-detail',
+        'template' => 'EmployeeAbsence/Components/AbsenceTypeDetail/AbsenceTypeDetail.php',
+    ],
+    '^employee/absence/parts$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-part-list',
+        'template' => 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php'
+    ],
+    '^employee/absence/parts/([^/]*)/?' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-part-list',
+        'template' => 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php'
+    ],
+    '^employee/absence/part/([^/]*)/?' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-part-detail',
+        'template' => 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php'
+    ],
+    '^employee/absences/old$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+    ],
+    '^employee/absences/today$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+    ],
+    '^employee/absences/tomorrow$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+    ],
+    '^employee/absences/future$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+    ],
+    '^employee/absences/([^/]*)/?' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+    ],
+    '^employee/absence/new$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-new',
+        'template' => 'EmployeeAbsence/Components/AbsenceNew/AbsenceNew.php'
+    ],
+    '^employee/absence/quick-add$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-quick-add',
+        'template' => 'EmployeeAbsence/Components/AbsenceQuickAdd/AbsenceQuickAdd.php'
+    ],
+    '^employee/absence/([^/]*)/edit' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-edit',
+        'template' => 'EmployeeAbsence/Components/AbsenceEdit/AbsenceEdit.php'
+    ],
+    '^employee/absence/([^/]*)/?' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-detail',
+        'template' => 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php'
+    ],
+    '^employee/([^/]*)/absences' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+    ],
+    '^employee/([^/]*)/absence/parts' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-part-list',
+        'template' => 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php'
+    ],
+    '^scheduling/day-parts$' => [
+        'module' => 'SchoolSchedulingModule',
+        'view' => 'day-part-list',
+        'template' => 'SchoolScheduling/Components/DayPartList/DayPartList.php'
+    ],
+    '^scheduling/day-part/([^/]*)/?' => [
+        'module' => 'SchoolSchedulingModule',
+        'view' => 'day-part-detail',
+        'template' => 'SchoolScheduling/Components/DayPartDetail/DayPartDetail.php'
+    ],
+    '^scheduling/day-templates$' => [
+        'module' => 'SchoolSchedulingModule',
+        'view' => 'day-template-list',
+        'template' => 'SchoolScheduling/Components/DayTemplateList/DayTemplateList.php'
+    ],
+    '^scheduling/day-template/([^/]*)/?' => [
+        'module' => 'SchoolSchedulingModule',
+        'view' => 'day-template-detail',
+        'template' => 'SchoolScheduling/Components/DayTemplateDetail/DayTemplateDetail.php'
+    ],
+    '^scheduling/days$' => [
+        'module' => 'SchoolSchedulingModule',
+        'view' => 'day-list',
+        'template' => 'SchoolScheduling/Components/DayList/DayList.php'
+    ],
+    '^scheduling/day/([^/]*)/?' => [
+        'module' => 'SchoolSchedulingModule',
+        'view' => 'day-detail',
+        'template' => 'SchoolScheduling/Components/DayDetail/DayDetail.php'
+    ]
+];
+
+/**
+ * Instantiate main plugin class.
+ * Pass plugin name and version from container to constructor.
+ */
+$container['plugin'] = function ($c) {
+    return new Plugin($c['plugin_name'], $c['version']);
+};
+
+$container['router'] = function ($c) {
+    return new Router();
+};
+
+$container['ClassListsModule'] = function ($c) {
+    return new ClassListsModule($c['plugin']);
+};
+
+$container['ContentSearchModule'] = function ($c) {
+    return new ContentSearchModule($c['plugin']);
+};
+
+$container['EmployeeAbsenceModule'] = function ($c) {
+    return new EmployeeAbsenceModule($c['plugin']);
+};
+
+/**
+ * Bootstrap the plugin.
+ */
+$plugin = $container['plugin'];
+$plugin->init();
+
 // Formerly WRDSB Kitchen Sink
-add_filter('send_password_change_email', '__return_false');
-add_filter('send_email_change_email', '__return_false');
+//add_filter('send_password_change_email', '__return_false');
+//add_filter('send_email_change_email', '__return_false');

@@ -1,5 +1,6 @@
 <?php
 $schoolCode = get_option('wrdsb_school_code');
+$school_code = strtolower($schoolCode);
 $functionKey = CMA_ABSENCE_FORM_INIT_KEY;
 
 function setCustomTitle()
@@ -15,7 +16,7 @@ $current_user = wp_get_current_user();
 $current_time = current_time('mysql');
 
 $body = array(
-    'schoolCode' => $schoolCode,
+    'school_code' => $school_code,
     'email' => $current_user->user_email
 );
 
@@ -41,7 +42,7 @@ $args = array(
 $response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
-$employee = $response_object[0];
+$employee = $response_object;
 $employeeSchedule = $employee->schedule;
 ?>
 
@@ -97,29 +98,40 @@ $employeeSchedule = $employee->schedule;
                     <div class="form-group col-md-12">
                         <label for="reason">Reason for absence</label>
                         <select name="reason" id="reason" class="form-control">
-                            <option onclick="disable('ecJob')">A295 Staff development (include Short Term Ed. Leave (STEL) # or Staff Development (SD) #)</option>
-                            <option onclick="disable('ecJob')">Board-mandated meeting (include Occasional Teacher (OT) allocation code)</option>
-                            <option onclick="disable('ecJob')">A201 School Activity/Field Trip (include OT request form and Off Campus #)</option>
-                            <option onclick="disable('ecJob')">A201 School Activity/Field Trip (internal coverage (on call) is expected) (specify FT/sport coached/club/event) (location)</option>
-                            <option onclick="disable('ecJob')">Coaching (team)</option>
-                            <option onclick="disable('ecJob')">Field Trip (destination)</option>
-                            <option onclick="disable('ecJob')">Meeting (location)</option>
-
-                            <option onclick="enable('ecJob')">A315 Personal Day</option>
-                            <option onclick="enable('ecJob')">A100 Personal Illness</option>
-                            <option onclick="enable('ecJob')">A400 Medical Appointments</option>
-                            <option onclick="enable('ecJob')">A256 Family Care (specify relationship (son, daughter, etc.))</option>
-                            <option onclick="disable('ecJob')">A212 Subject Association (specify subject)</option>
-                            <option onclick="disable('ecJob')">A276 Staff Development (Board) (specify title, location, and SD #)</option>
-                            <option onclick="disable('ecJob')">A326 Site Based 7-12 (School) (specify title, location)</option>
-                            <option onclick="enable('ecJob')">A280 Bereavement (specify)</option>
-                            <option onclick="enable('ecJob')">A400 Medical Appointment</option>
-                            <option onclick="disable('ecJob')">A321 NTIP New Teacher</option>
-                            <option onclick="disable('ecJob')">A322 NTIP Mentor</option>
-
-                            <option onclick="enable('ecJob')">Family Care Day (indicate family member and reason)</option>
-                            <option onclick="disable('ecJob')">Remedy Day</option>
-                            <option onclick="disable('ecJob')">Other (indicate reason)</option>
+                            <option>A100 - Personal Illness</option>
+                            <option>A400 - Medical Appointment</option>
+                            <option>School Activity:Coaching (team)</option>
+                            <option>School Activity:Field Trip - not SHSM(destination)</option>
+                            <option>School Activity:Meeting (purpose)</option>
+                            <option>A315 - Personal Day</option>
+                            <option>A256 - Family Care (specify relationship (son, daughter, etc.))</option>
+                            <option>A280 - Bereavement Family (specify)</option>
+                            <option>A105 - Bereavement Other Teaching (Specify Relationship)</option>
+                            <option>A240 - Religious Days (Comment Required)</option>
+                            <option>A324 - SITE BASED DAY Math</option>
+		                    <option>A325 - SITE BASED DAY Wellbeing</option>
+		                    <option>A326 - SITE BASED DAY Pathways to Success</option>
+	                    	<option>A327 - SITE BASED DAY  French</option>
+                            <option>A276 - Staff Development (Board) (specify title, location, and SD #)</option>
+                            <option>A328 - Special Education PD</option>
+                            <option>A212 - Subject Association (specify subject)</option>
+                            <option>A321 - NTIP New Teacher</option>
+                            <option>A322 - NTIP Mentor</option>
+                            <option>A295 - Staff development (include Short Term Ed. Leave (STEL) # or Staff Development (SD) #)</option>
+		                    <option>A241 - Third Party Billing (Comment Required)</option>
+		                    <option>A244 - Severe Weather</option>
+                            <option>A231 - Graduation - Teaching (Specify Relationship)</option>
+                            <option>A410 - Unpaid Day</option>
+                            <option>A270 - Jury Duty/Witness</option>
+                            <option>A205 - Lieu of Overtime</option>
+                            <option>A228 - Admin/Fed Rep Meeting</option>
+                            <option>A268 - Birth/Adoption Day</option>
+                            <option>A341 - Health and Safety PD</option>
+                            <option>A336 - BMS Training</option>
+                            <option>A110 - Misc Exams - Teaching Staff</option>
+                            <option>A335 - Specialist High Skills Major</option>
+                            <option>A542 - Secondary High Skills Program</option>  
+                            <option>Other (indicate reason)</option>
                         </select>
                     </div>
                 </div>
@@ -127,11 +139,11 @@ $employeeSchedule = $employee->schedule;
                 <div class="form-row">
                     <div class="form-group col-md-3">
                         <label for="ecJob">Easy Connect job number</label>
-                        <input type="number" name="ecJob" id="ecJob" class="form-control" aria-describedby="ecJobHelp" placeholder="123456" disabled>
+                        <input type="number" name="ecJob" id="ecJob" class="form-control" aria-describedby="ecJobHelp" placeholder="123456">
                     </div>
                     <div class="form-group col-md-9">
                         <label for="comments">Comments</label>
-                        <input type="text" name="comments" id="comments" class="form-control" aria-describedby="commentsHelp" disabled>
+                        <input type="text" name="comments" id="comments" class="form-control" aria-describedby="commentsHelp">
                     </div>
                 </div>
 
@@ -161,24 +173,28 @@ $employeeSchedule = $employee->schedule;
                     </label>
                 </label>
 
+                <?php $dayPartIndex = 0; ?>
                 <?php foreach ($employeeSchedule as $dayPart) { ?>
-                    <h4><?php echo $dayPart->label; ?></h4>
+                    <?php $dayPartIndex++; ?>
+
+                    <h4>Block <?php echo $dayPart->block; ?></h4>
+
                     <fieldset class="form-group col-md-12">
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <div class="col-md-6" style="padding-top:10px;">
                                 <div class="form-group col-md-4">
-                                    <label for="courseCode-<?php echo $dayPart->id; ?>">Class</label>
-                                    <input type="text" name="courseCode-<?php echo $dayPart->id; ?>" id="courseCode-<?php echo $dayPart->id; ?>" class="form-control" aria-describedby="courseCodeHelp" value="<?php echo $dayPart->courseCode; ?>">
+                                    <label for="courseCode_<?php echo $dayPartIndex; ?>">Class</label>
+                                    <input type="text" name="courseCode_<?php echo $dayPartIndex; ?>" id="courseCode_<?php echo $dayPartIndex; ?>" class="form-control" aria-describedby="courseCodeHelp" value="<?php echo $dayPart->classCode; ?>">
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="roomNumber-<?php echo $dayPart->id; ?>">Room Number</label>
-                                    <input type="text" name="roomNumber-<?php echo $dayPart->id; ?>" id="roomNumber-<?php echo $dayPart->id; ?>" class="form-control" aria-describedby="roomNumberHelp" value="<?php echo $dayPart->roomNumber; ?>">
+                                    <label for="roomNumber_<?php echo $dayPartIndex; ?>">Room Number</label>
+                                    <input type="text" name="roomNumber_<?php echo $dayPartIndex; ?>" id="roomNumber_<?php echo $dayPartIndex; ?>" class="form-control" aria-describedby="roomNumberHelp" value="<?php echo $dayPart->roomNumber; ?>">
                                 </div>
 
                                 <div class="form-group col-md-4">
-                                    <label for="lessonPlans-<?php echo $dayPart->id; ?>">Lesson plan is in:</label>
-                                    <select name="lessonPlans-<?php echo $dayPart->id; ?>" id="lessonPlans-<?php echo $dayPart->id; ?>" class="form-control">
+                                    <label for="lessonPlans_<?php echo $dayPartIndex; ?>">Lesson plan is in:</label>
+                                    <select name="lessonPlans_<?php echo $dayPartIndex; ?>" id="lessonPlans_<?php echo $dayPartIndex; ?>" class="form-control">
                                         <option>Main office</option>
                                         <option>Department desk</option>
                                         <option>Classroom desk</option>
@@ -188,32 +204,32 @@ $employeeSchedule = $employee->schedule;
                                 </div>
 
                                 <div class="col-md-12">
-                                    <label class="col-md-12">Medical?&nbsp;&nbsp;&nbsp;
+                                    <label class="col-md-12">Medical Plan of Care?&nbsp;&nbsp;&nbsp;
                                         <label class="radio-inline">
                                             <input
                                                 type="radio"
-                                                name="medical-<?php echo $dayPart->id; ?>"
-                                                id="medicalNo-<?php echo $dayPart->id; ?>"
+                                                name="medical_<?php echo $dayPartIndex; ?>"
+                                                id="medicalNo_<?php echo $dayPartIndex; ?>"
                                                 value="false"
                                                 checked
-                                                onclick="disable('medicalDetails-<?php echo $dayPart->id; ?>')">
+                                                onclick="disable('medicalDetails_<?php echo $dayPartIndex; ?>')">
                                                 No
                                         </label>
                                         <label class="radio-inline">
                                             <input
                                                 type="radio"
-                                                name="medical-<?php echo $dayPart->id; ?>"
-                                                id="medicalYes-<?php echo $dayPart->id; ?>"
+                                                name="medical_<?php echo $dayPartIndex; ?>"
+                                                id="medicalYes_<?php echo $dayPartIndex; ?>"
                                                 value="true"
-                                                onclick="enable('medicalDetails-<?php echo $dayPart->id; ?>')">
+                                                onclick="enable('medicalDetails_<?php echo $dayPartIndex; ?>')">
                                                 Yes
                                         </label>
                                     </label>
                                     <div class="form-group">
                                         <input
                                             type="text"
-                                            name="medicalDetails-<?php echo $dayPart->id; ?>"
-                                            id="medicalDetails-<?php echo $dayPart->id; ?>"
+                                            name="medicalDetails_<?php echo $dayPartIndex; ?>"
+                                            id="medicalDetails_<?php echo $dayPartIndex; ?>"
                                             placeholder="student one, student two"
                                             class="form-control"
                                             aria-describedby="medicalDetailsHelp"
@@ -227,31 +243,31 @@ $employeeSchedule = $employee->schedule;
                                         <label class="radio-inline">
                                             <input
                                                 type="radio"
-                                                name="behaviour-<?php echo $dayPart->id; ?>"
-                                                id="behaviourNo-<?php echo $dayPart->id; ?>"
+                                                name="safety_<?php echo $dayPartIndex; ?>"
+                                                id="safetyNo_<?php echo $dayPartIndex; ?>"
                                                 value="false"
                                                 checked
-                                                onclick="disable('behaviourDetails-<?php echo $dayPart->id; ?>')">
+                                                onclick="disable('safetyDetails_<?php echo $dayPartIndex; ?>')">
                                                 No
                                         </label>
                                         <label class="radio-inline">
                                             <input
                                                 type="radio"
-                                                name="behaviour-<?php echo $dayPart->id; ?>"
-                                                id="behaviourYes-<?php echo $dayPart->id; ?>"
+                                                name="safety_<?php echo $dayPartIndex; ?>"
+                                                id="safetyYes_<?php echo $dayPartIndex; ?>"
                                                 value="true"
-                                                onclick="enable('behaviourDetails-<?php echo $dayPart->id; ?>')">
+                                                onclick="enable('safetyDetails_<?php echo $dayPartIndex; ?>')">
                                                 Yes
                                         </label>
                                     </label>
                                     <div class="form-group">
                                         <input
                                             type="text"
-                                                name="behaviourDetails-<?php echo $dayPart->id; ?>"
-                                                id="behaviourDetails-<?php echo $dayPart->id; ?>"
+                                                name="safetyDetails_<?php echo $dayPartIndex; ?>"
+                                                id="safetyDetails_<?php echo $dayPartIndex; ?>"
                                                 placeholder="student one, student two"
                                                 class="form-control"
-                                                aria-describedby="behaviourDetailsHelp"
+                                                aria-describedby="safetyDetailsHelp"
                                                 disabled="disabled"
                                             >
                                     </div>
@@ -271,13 +287,13 @@ $employeeSchedule = $employee->schedule;
                                                     <label style="padding-top:10px;">First Half</label>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="coverageFirst-<?php echo $dayPart->id; ?>" id="coverageFirstYes-<?php echo $dayPart->id; ?>" value="true" checked>
+                                                            <input type="radio" name="coverageFirst_<?php echo $dayPartIndex; ?>" id="coverageFirstYes_<?php echo $dayPartIndex; ?>" value="true" checked>
                                                             Yes
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="coverageFirst-<?php echo $dayPart->id; ?>" id="coverageFirstNo-<?php echo $dayPart->id; ?>" value="false">
+                                                            <input type="radio" name="coverageFirst_<?php echo $dayPartIndex; ?>" id="coverageFirstNo_<?php echo $dayPartIndex; ?>" value="false">
                                                             No
                                                         </label>
                                                     </div>
@@ -288,13 +304,13 @@ $employeeSchedule = $employee->schedule;
                                                     <label style="padding-top:10px;">Second Half</label>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="coverageSecond-<?php echo $dayPart->id; ?>" id="coverageSecondYes-<?php echo $dayPart->id; ?>" value="true" checked>
+                                                            <input type="radio" name="coverageSecond_<?php echo $dayPartIndex; ?>" id="coverageSecondYes_<?php echo $dayPartIndex; ?>" value="true" checked>
                                                             Yes
                                                         </label>
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="coverageSecond-<?php echo $dayPart->id; ?>" id="coverageSecondNo-<?php echo $dayPart->id; ?>" value="false">
+                                                            <input type="radio" name="coverageSecond_<?php echo $dayPartIndex; ?>" id="coverageSecondNo_<?php echo $dayPartIndex; ?>" value="false">
                                                             No
                                                         </label>
                                                     </div>

@@ -1,5 +1,6 @@
 <?php
 $schoolCode = get_option('wrdsb_school_code');
+$current_user = wp_get_current_user();
 $functionKey = CMA_ABSENCE_QUERY_KEY;
 
 function setCustomTitle()
@@ -9,8 +10,11 @@ function setCustomTitle()
 }
 add_filter('pre_get_document_title', 'setCustomTitle');
 
+$pageTitle = "Employee Absence Detail";
+
 $body = array(
     'schoolCode' => $schoolCode,
+    'email' => $current_user->user_email
 );
 
 if ($wp_query->query_vars['id']) {
@@ -71,6 +75,8 @@ $day = $response_object[0];
         <div class="col-sm-12 col-lg-12" role="main">
             <!-- CONTENT -->
             <h1><?php echo $pageTitle; ?></h1>
+            <pre><?php print_r($wp_query); ?></pre>
+            <pre><?php print_r($response_object); ?></pre>
             <!-- /CONTENT -->
         </div>
     </div>

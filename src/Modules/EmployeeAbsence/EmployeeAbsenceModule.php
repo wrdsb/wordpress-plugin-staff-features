@@ -32,15 +32,11 @@ class EmployeeAbsenceModule
 
     public function init()
     {
-        $this->addQueryVar();
-        $this->addRewriteRules();
         $this->addViews();
         $this->addPageTemplates();
 
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
-
-        $this->plugin->addAction('admin_post_absence_form_submit', $this, 'absenceFormSubmit');
     }
 
     /**
@@ -73,74 +69,6 @@ class EmployeeAbsenceModule
             $this->version,
             false
         );
-    }
-
-    public function absenceFormSubmit()
-    {
-        //wp_redirect('your location');
-
-        print_r($_POST);
-
-        $submission = $_POST;
-        $functionKey = CMA_ABSENCE_FORM_SUBMIT_KEY;
-
-        $body = $submission;
-        
-        $url = "https://wrdsb-cma.azurewebsites.net/api/absence-form-submit?code={$functionKey}";
-        $args = array(
-            'timeout'     => 5,
-            'redirection' => 5,
-            'httpversion' => '1.0',
-            'user-agent'  => 'cma/wordpress',
-            'blocking'    => true,
-            'headers'     => array(
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-            ),
-            'cookies'     => array(),
-            'body'        => json_encode($body),
-            'compress'    => false,
-            'decompress'  => true,
-            'sslverify'   => false,
-            'stream'      => false,
-            'filename'    => null
-        );
-        $response = wp_remote_post($url, $args);
-        $response_object = json_decode($response['body'], $assoc = false);
-
-        print_r($response_object);
-    }
-
-    private function absenceFormValidate($submission)
-    {
-        return true;
-    }
-
-    private function addQueryVar()
-    {
-        $this->plugin->addQueryVar('id');
-        $this->plugin->addQueryVar('date');
-        $this->plugin->addQueryVar('employee');
-    }
-
-    private function addRewriteRules()
-    {
-        $this->plugin->addRewriteRule('^employee/absence/types$', 'index.php?view=absence-type-list');
-        $this->plugin->addRewriteRule('^employee/absence/type/([^/]*)/?', 'index.php?view=absence-type-detail&id=$matches[1]');
-
-        $this->plugin->addRewriteRule('^employee/absence/parts$', 'index.php?view=absence-part-list');
-        $this->plugin->addRewriteRule('^employee/absence/parts/([^/]*)/?', 'index.php?view=absence-part-list&date=$matches[1]');
-        $this->plugin->addRewriteRule('^employee/absence/part/([^/]*)/?', 'index.php?view=absence-part-detail&id=$matches[1]');
-
-        $this->plugin->addRewriteRule('^employee/absences$', 'index.php?view=absence-list');
-        $this->plugin->addRewriteRule('^employee/absences/([^/]*)/?', 'index.php?view=absence-list&date=$matches[1]');
-        $this->plugin->addRewriteRule('^employee/absence/new$', 'index.php?view=absence-new');
-        $this->plugin->addRewriteRule('^employee/absence/quick-add$', 'index.php?view=absence-quick-add');
-        $this->plugin->addRewriteRule('^employee/absence/([^/]*)/edit', 'index.php?view=absence-edit&id=$matches[1]');
-        $this->plugin->addRewriteRule('^employee/absence/([^/]*)/?', 'index.php?view=absence-detail&id=$matches[1]');
-
-        $this->plugin->addRewriteRule('^employee/([^/]*)/absences', 'index.php?view=absence-list&employee=$matches[1]');
-        $this->plugin->addRewriteRule('^employee/([^/]*)/absence/parts', 'index.php?view=absence-part-list&employee=$matches[1]');
     }
 
     private function addViews()
