@@ -490,11 +490,12 @@ class Plugin
 
                     $routeVars = $route;
                     $query_vars = array_merge($routeVars, $urlVars);
-                    $query_vars['current_url'] = $current_url;
-                    $query_vars['urlParts'] = $urlParts;
-                    $query_vars['urlPath'] = $urlPath;
-                    $query_vars['urlVars'] = $urlVars;
-                    $query_vars['vars'] = $extra_query_vars;
+                    $query_vars['matches'] = $matches;
+
+                    foreach ($route['matches'] as $key => $value) {
+                        $query_vars[$value] = $matches[$key];
+                    }
+
                     $environment->query_vars = $query_vars;
         
                     $container['plugin']->registerHooks();

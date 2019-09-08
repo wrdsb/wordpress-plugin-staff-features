@@ -1,4 +1,14 @@
 <?php
+$current_user = wp_get_current_user();
+$authorized = [
+    'janie_straus@wrdsb.ca',
+    'jason_denhart@wrdsb.ca',
+    'joene_kouvelos@wrdsb.ca',
+    'sandy_millar@wrdsb.ca',
+    'siobhan_watters@wrdsb.ca',
+    'james_schumann@wrdsb.ca'
+];
+
 $schoolCode = get_option('wrdsb_school_code');
 $functionKey = CMA_ABSENCE_QUERY_KEY;
 
@@ -13,7 +23,13 @@ $body = array(
     'schoolCode' => $schoolCode,
 );
 
-if ($wp_query->query_vars['date']) {
+if ($wp_query->query_vars['epoch']) {
+    $epoch = $wp_query->query_vars['epoch'];
+    $body['epoch'] = $epoch;
+    $body['today'] = date('Y-m-d');
+    $body['tomorrow'] = date('Y-m-d', mktime(0, 0, 0, date("m")  , date("d")+1, date("Y")));
+    $pageTitle = "Employee Absence List ({$epoch})";
+} elseif ($wp_query->query_vars['date']) {
     $date = $wp_query->query_vars['date'];
     $body['date'] = $date;
     $pageTitle = "Employee Absences for {$date}";
@@ -57,18 +73,29 @@ $day = $response_object;
         get_template_part('partials/header', 'masthead');
         get_template_part('partials/header', 'navbar');
     ?>
-    <div class="container container-breadcrumb" role="navigation">
-        <ol class="breadcrumb">
-            <li>
-                <a href="<?php echo get_option('home'); ?>">Home</a>
-            </li>
-            <li>
-                Employee Absences
-            </li>
-            <li>
-                <?php echo $pageTitle; ?>
-            </li>
-        </ol>
+</div>
+
+<?php if (! in_array($current_user->user_email, $authorized)) { ?>
+
+<div class="container">
+    <div class="row">
+        <h1>You are not authorized to view this page.</h1>
+    </div>
+</div>
+
+<?php } else { ?>
+
+<div class="container">
+    <div class="row">
+        <p>
+            <a href="<?php echo home_url(); ?>/employee/absences/old">Old</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="<?php echo home_url(); ?>/employee/absences/today">Today</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="<?php echo home_url(); ?>/employee/absences/tomorrow">Tomorrow</a>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <a href="<?php echo home_url(); ?>/employee/absences/future">Future</a>
+        </p>
     </div>
 </div>
 
@@ -93,7 +120,7 @@ $day = $response_object;
                     <?php foreach ($response_object as $form) { ?>
                         <tr>
                             <td width="20%">
-                                <p><a href="<?php echo $form->id; ?>"><?php echo $form->staffMember; ?></a></p>
+                                <p><a href="<?php echo home_url(); ?>/employee/absence/<?php echo $form->id; ?>"><?php echo $form->staffMember; ?></a></p>
                                 <p><?php echo $form->reason; ?></p>
                             </td>
                             <td>
@@ -101,7 +128,7 @@ $day = $response_object;
                                 <p><?php echo $form->absentFromTime; ?> - <?php echo $form->absentToTime; ?></p>
                                 <p>APTE: <?php echo $form->ecJob; ?></p>
                             </td>
-                            <td><?php echo ($form->lunch) ? 'Yes' : 'No'; ?></td>
+                            <td><?php echo ($form->lunch == "true") ? 'Yes' : 'No'; ?></td>
                             <td>
                                 <pre><?php echo $form->courseCode_1; ?></pre>
                                 <ul>
@@ -148,5 +175,7 @@ $day = $response_object;
         </div>
     </div>
 </div>
+
+<?php } ?>
 
 <?php get_footer();

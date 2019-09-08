@@ -124,30 +124,11 @@ $container['routes'] = [
         'view' => 'absence-part-detail',
         'template' => 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php'
     ],
-    '^employee/absences/old$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
-    ],
-    '^employee/absences/today$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
-    ],
-    '^employee/absences/tomorrow$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
-    ],
-    '^employee/absences/future$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
-    ],
     '^employee/absences/([^/]*)/?' => [
         'module' => 'EmployeeAbsenceModule',
         'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php',
+        'matches' => array('route', 'epoch')
     ],
     '^employee/absence/new$' => [
         'module' => 'EmployeeAbsenceModule',
@@ -167,7 +148,8 @@ $container['routes'] = [
     '^employee/absence/([^/]*)/?' => [
         'module' => 'EmployeeAbsenceModule',
         'view' => 'absence-detail',
-        'template' => 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php'
+        'template' => 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php',
+        'matches' => array('route', 'id')
     ],
     '^employee/([^/]*)/absences' => [
         'module' => 'EmployeeAbsenceModule',
