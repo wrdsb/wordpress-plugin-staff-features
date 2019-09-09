@@ -168,7 +168,7 @@ if ($sites_filter_param) {
                 ?>
                 <div>
                     <p>
-                        <strong><a style="text-decoration:none" href="<?php echo $post->post_guid?>"><?php echo $post->post_title ?> | <?php echo $post->site_name; ?></strong></a>
+                        <strong><a style="text-decoration:none" href="//<?php echo $post->site_url; ?>/?p=<?php echo $post->post_id; ?>"><?php echo $post->post_title ?> | <?php echo $post->site_name; ?></strong></a>
                         <br><?php echo $excerpt; ?>
                         <br><small>Last updated <?php echo date("F j, Y", strtotime($post->post_modified)) .' at '. date("g:i a", strtotime($post->post_modified)); ?></small>
                     </p>
