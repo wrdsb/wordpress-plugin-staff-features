@@ -57,8 +57,6 @@ class ClassListsModule
 
     public function init()
     {
-        $this->addQueryVar();
-        $this->addRewriteRules();
         $this->addViews();
         $this->addPageTemplates();
 
@@ -75,7 +73,7 @@ class ClassListsModule
     {
         wp_enqueue_style(
             'classLists',
-            plugin_dir_url(__FILE__) . 'assets/css/front-end.css',
+            plugin_dir_url(__FILE__) . 'Views/assets/css/front-end.css',
             array(),
             $this->version,
             'all'
@@ -105,7 +103,7 @@ class ClassListsModule
     {
         wp_enqueue_script(
             'classLists',
-            plugin_dir_url(__FILE__) . 'assets/js/front-end.js',
+            plugin_dir_url(__FILE__) . 'Views/assets/js/front-end.js',
             array( 'jquery' ),
             $this->version,
             false
@@ -131,18 +129,6 @@ class ClassListsModule
             $this->version,
             false
         );
-    }
-
-    private function addQueryVar()
-    {
-        $this->plugin->addQueryVar('class-code');
-    }
-
-    private function addRewriteRules()
-    {
-        $this->plugin->addRewriteRule('^trillium/classes$', 'index.php?view=trillium-classes');
-        $this->plugin->addRewriteRule('^trillium/enrolments$', 'index.php?view=trillium-enrolments');
-        $this->plugin->addRewriteRule('^trillium/enrolments-email-list$', 'index.php?view=trillium-enrolments-emails');
     }
 
     private function addViews()
