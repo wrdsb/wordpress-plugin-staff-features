@@ -60,10 +60,27 @@ $args = array(
     'stream'      => false,
     'filename'    => null
 );
-$response = wp_remote_post($url, $args);
-$response_object = json_decode($response['body'], $assoc = false);
 
-$day = $response_object;
+$retries = 0;
+$maxRetries = 5;
+
+while ($retries < $maxRetries) {
+    $backoff = 5 * $retries;
+    $args['timeout'] = $args['timeout'] + $backoff;
+    $response = wp_remote_post($url, $args);
+
+    if (is_array($response) && !empty($response) && $response["response"]["code"] == 200) {
+        break;
+    }
+    $retries++;
+}
+
+if (!empty($response) && $response["response"]["code"] == 200) {
+    $response_object = json_decode($response['body'], $assoc = false);
+} else {
+    $response_object = array();
+}
+
 ?>
 
 <?php get_header(); ?>
@@ -99,80 +116,86 @@ $day = $response_object;
     </div>
 </div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm-12 col-lg-12" role="main">
-            <!-- CONTENT -->
-            <h1><?php echo $pageTitle; ?></h1>
-            <table width="100%">
-                <thead>
-                    <tr>
-                        <th width="20%">Employee</th>
-                        <th>Absence Date</th>
-                        <th>Lunch</th>
-                        <th>Class 1</th>
-                        <th>Class 2</th>
-                        <th>Class 3</th>
-                        <th>Class 4</th>
+<div class="row">
+    <div class="col-sm-12 col-lg-12" role="main">
+        <!-- CONTENT -->
+        <h1><?php echo $pageTitle; ?></h1>
+        <table width="100%">
+            <thead>
+                <tr>
+                    <th width="20%">Employee</th>
+                    <th>Absence Date</th>
+                    <th>Lunch</th>
+                    <th>Class 1</th>
+                    <th>Class 2</th>
+                    <th>Class 3</th>
+                    <th>Class 4</th>
+                    <th>Processed?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($response_object as $form) { ?>
+                    <?php if ($form->entered !== "true") {
+                        echo '<tr id="'.$form->id.'-row" class="unentered">';
+                    } else {
+                        echo '<tr id="'.$form->id.'-row">';
+                    } ?>
+                        <td width="20%">
+                            <p><a href="<?php echo home_url(); ?>/employee/absence/<?php echo $form->id; ?>"><?php echo $form->staffMember; ?></a></p>
+                            <p><?php echo $form->reason; ?></p>
+                        </td>
+                        <td>
+                            <p><?php echo $form->absentOnDate; ?></p>
+                            <p><?php echo $form->absentFromTime; ?> - <?php echo $form->absentToTime; ?></p>
+                            <p>APTE: <?php echo $form->ecJob; ?></p>
+                        </td>
+                        <td><?php echo ($form->lunch == "true") ? 'Yes' : 'No'; ?></td>
+                        <td>
+                            <pre><?php echo $form->courseCode_1; ?></pre>
+                            <ul>
+                                <li>1st: <?php echo ($form->coverageFirst_1 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>2nd: <?php echo ($form->coverageSecond_1 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>Medical: <?php echo ($form->medical_1 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>Safety: <?php echo ($form->safety_1 == "true") ? 'Yes' : 'No'; ?></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <pre><?php echo $form->courseCode_2; ?></pre>
+                            <ul>
+                                <li>1st: <?php echo ($form->coverageFirst_2 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>2nd: <?php echo ($form->coverageSecond_2 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>Medical: <?php echo ($form->medical_2 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>Safety: <?php echo ($form->safety_2 == "true") ? 'Yes' : 'No'; ?></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <pre><?php echo $form->courseCode_3; ?></pre>
+                            <ul>
+                                <li>1st: <?php echo ($form->coverageFirst_3 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>2nd: <?php echo ($form->coverageSecond_3 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>Medical: <?php echo ($form->medical_3 == "true") ? 'Yes' : 'No'; ?></li>
+                                <li>Safety: <?php echo ($form->safety_3 == "true") ? 'Yes' : 'No'; ?></li>
+                            </ul>
+                        </td>
+                        <td>
+                            <?php if (strlen($form->courseCode_4) > 0) { ?>
+                                <pre><?php echo $form->courseCode_4; ?></pre>
+                                <ul>
+                                    <li>1st: <?php echo ($form->coverageFirst_4 == "true") ? 'Yes' : 'No'; ?></li>
+                                    <li>2nd: <?php echo ($form->coverageSecond_4 == "true") ? 'Yes' : 'No'; ?></li>
+                                    <li>Medical: <?php echo ($form->medical_4 == "true") ? 'Yes' : 'No'; ?></li>
+                                    <li>Safety: <?php echo ($form->safety_4 == "true") ? 'Yes' : 'No'; ?></li>
+                                </ul>
+                            <?php } ?>
+                        </td>
+                        <td style="text-align:center">
+                            <input type="checkbox" class="form-entered" data-form_id="<?php echo $form->id; ?>">
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($response_object as $form) { ?>
-                        <tr>
-                            <td width="20%">
-                                <p><a href="<?php echo home_url(); ?>/employee/absence/<?php echo $form->id; ?>"><?php echo $form->staffMember; ?></a></p>
-                                <p><?php echo $form->reason; ?></p>
-                            </td>
-                            <td>
-                                <p><?php echo $form->absentOnDate; ?></p>
-                                <p><?php echo $form->absentFromTime; ?> - <?php echo $form->absentToTime; ?></p>
-                                <p>APTE: <?php echo $form->ecJob; ?></p>
-                            </td>
-                            <td><?php echo ($form->lunch == "true") ? 'Yes' : 'No'; ?></td>
-                            <td>
-                                <pre><?php echo $form->courseCode_1; ?></pre>
-                                <ul>
-                                    <li>1st: <?php echo ($form->coverageFirst_1 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>2nd: <?php echo ($form->coverageSecond_1 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>Medical: <?php echo ($form->medical_1 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>Safety: <?php echo ($form->safety_1 == "true") ? 'Yes' : 'No'; ?></li>
-                                </ul>
-                            </td>
-                            <td>
-                                <pre><?php echo $form->courseCode_2; ?></pre>
-                                <ul>
-                                    <li>1st: <?php echo ($form->coverageFirst_2 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>2nd: <?php echo ($form->coverageSecond_2 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>Medical: <?php echo ($form->medical_2 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>Safety: <?php echo ($form->safety_2 == "true") ? 'Yes' : 'No'; ?></li>
-                                </ul>
-                            </td>
-                            <td>
-                                <pre><?php echo $form->courseCode_3; ?></pre>
-                                <ul>
-                                    <li>1st: <?php echo ($form->coverageFirst_3 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>2nd: <?php echo ($form->coverageSecond_3 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>Medical: <?php echo ($form->medical_3 == "true") ? 'Yes' : 'No'; ?></li>
-                                    <li>Safety: <?php echo ($form->safety_3 == "true") ? 'Yes' : 'No'; ?></li>
-                                </ul>
-                            </td>
-                            <td>
-                                <?php if (strlen($form->courseCode_4) > 0) { ?>
-                                    <pre><?php echo $form->courseCode_4; ?></pre>
-                                    <ul>
-                                        <li>1st: <?php echo ($form->coverageFirst_4 == "true") ? 'Yes' : 'No'; ?></li>
-                                        <li>2nd: <?php echo ($form->coverageSecond_4 == "true") ? 'Yes' : 'No'; ?></li>
-                                        <li>Medical: <?php echo ($form->medical_4 == "true") ? 'Yes' : 'No'; ?></li>
-                                        <li>Safety: <?php echo ($form->safety_4 == "true") ? 'Yes' : 'No'; ?></li>
-                                    </ul>
-                                <?php } ?>
-                            </td>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-            <!-- /CONTENT -->
-        </div>
+                <?php } ?>
+            </tbody>
+        </table>
+        <!-- /CONTENT -->
     </div>
 </div>
 
