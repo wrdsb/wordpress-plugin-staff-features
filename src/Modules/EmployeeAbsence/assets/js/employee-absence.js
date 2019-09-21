@@ -1,31 +1,32 @@
 (function($) {
 	'use strict';
 
-	/**
-	 * All of the code for your public-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
+	$(document).ready(function() {
+
+		$('.form-entered').click(function() {
+			var form_id = $(this).data('form_id');
+
+			console.log('Mark form as processed for form ID ' + form_id);
+
+			$.ajax({
+				method: 'POST',
+				url: `/wp-json/wrdsb/staff/employee/absence/form/${form_id}/processed`,
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
+				},
+				success: function(data, status, xhr) {
+					$('#' + form_id + '-checkbox').prop("checked", true);
+					$('#' + form_id + '-processed-ajax').text('Form Processed.');
+					console.log(status)
+				},
+				error: function(xhr, status, error) {
+					$('#' + form_id + '-checkbox').prop("checked", false);
+					$('#' + form_id + '-processed-ajax').text('Error. Please try again.');
+					console.log(status + ': ' + error)
+				},
+				complete: function(xhr, status) {
+				}
+			});
+		});
+	})
 })(jQuery);
