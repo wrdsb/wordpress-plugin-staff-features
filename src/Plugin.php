@@ -28,7 +28,6 @@ namespace WRDSB\Staff;
  */
 class Plugin
 {
-
     /**
      * The unique identifier of this plugin.
      *
@@ -46,6 +45,15 @@ class Plugin
      * @var      string    $version    The current version of the plugin.
      */
     protected $version;
+
+    /**
+     * Store this plugin's Dependency Injection Container.
+     *
+     * @since    1.0.0
+     * @access   protected
+     * @var      string    $plugin_name    The string used to uniquely identify this plugin.
+     */
+    protected $container;
 
     /**
      * The array of actions registered with WordPress.
@@ -121,10 +129,11 @@ class Plugin
      *
      * @since    1.0.0
      */
-    public function __construct($plugin_name, $version = '1.0.0')
+    public function __construct($container, $plugin_name, $version = '1.0.0')
     {
         $this->plugin_name = $plugin_name;
         $this->version     = $version;
+        $this->container   = $container;
 
         $this->actions = array();
         $this->filters = array();
@@ -193,13 +202,23 @@ class Plugin
      *
      * @return \Pimple\Container
      */
-    public static function getContainer()
+    public static function initContainer()
     {
         static $container;
         if (! $container) {
             $container = new \Pimple\Container();
         }
         return $container;
+    }
+
+    /**
+     * Get the plugin's Dependency Injection Container.
+     *
+     * @return \Pimple\Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
     }
 
     /**

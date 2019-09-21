@@ -69,6 +69,11 @@ class EmployeeAbsenceModule
             $this->version,
             false
         );
+
+        wp_localize_script($this->plugin_name, 'wpApiSettings', array(
+            'root' => esc_url_raw( rest_url() ),
+            'nonce' => wp_create_nonce('wp_rest')
+        ));
     }
 
     private function addViews()

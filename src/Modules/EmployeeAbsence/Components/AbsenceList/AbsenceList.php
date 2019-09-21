@@ -85,7 +85,7 @@ if (!empty($response) && $response["response"]["code"] == 200) {
 
 <?php get_header(); ?>
 
-<div class="container container-top">
+<div class="container-top">
     <?php
         get_template_part('partials/header', 'masthead');
         get_template_part('partials/header', 'navbar');
@@ -135,11 +135,7 @@ if (!empty($response) && $response["response"]["code"] == 200) {
             </thead>
             <tbody>
                 <?php foreach ($response_object as $form) { ?>
-                    <?php if ($form->entered !== "true") {
-                        echo '<tr id="'.$form->id.'-row" class="unentered">';
-                    } else {
-                        echo '<tr id="'.$form->id.'-row">';
-                    } ?>
+                    <?php echo '<tr id="'.$form->id.'-row">'; ?>
                         <td width="20%">
                             <p><a href="<?php echo home_url(); ?>/employee/absence/<?php echo $form->id; ?>"><?php echo $form->staffMember; ?></a></p>
                             <p><?php echo $form->reason; ?></p>
@@ -189,7 +185,16 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                             <?php } ?>
                         </td>
                         <td style="text-align:center">
-                            <input type="checkbox" class="form-entered" data-form_id="<?php echo $form->id; ?>">
+                            <label class="switch">
+                                <?php if ($form->processed === "true") {
+                                    $checkboxState = "checked";
+                                } else {
+                                    $checkboxState = "";
+                                } ?>
+                                <input id="<?php echo $form->id; ?>-checkbox" type="checkbox" class="form-entered" data-form_id="<?php echo $form->id; ?>" <?php echo $checkboxState; ?>>
+                                <span class="slider round"></span>
+                                <p id="<?php echo $form->id; ?>-processed-ajax"></p>
+                            </label>
                         </td>
                     </tr>
                 <?php } ?>
