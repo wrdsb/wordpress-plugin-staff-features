@@ -1,6 +1,16 @@
 <?php
+$current_user = wp_get_current_user();
+$authorized = [
+    'janie_straus@wrdsb.ca',
+    'jason_denhart@wrdsb.ca',
+    'joene_kouvelos@wrdsb.ca',
+    'sandy_millar@wrdsb.ca',
+    'siobhan_watters@wrdsb.ca',
+    'james_schumann@wrdsb.ca'
+];
 $schoolCode = get_option('wrdsb_school_code');
-//$functionKey = CMA_DAY_QUERY_KEY;
+$school_code = strtolower($schoolCode);
+$functionKey = CMA_ABSENCE_FORM_INIT_KEY;
 
 function setCustomTitle()
 {
@@ -11,6 +21,7 @@ add_filter('pre_get_document_title', 'setCustomTitle');
 
 $body = array(
     'schoolCode' => $schoolCode,
+    'email' => $current_user->user_email
 );
 
 $pageTitle = "Quick Add Employee Absence";

@@ -6,6 +6,8 @@ use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModul
 use \WRDSB\Staff\Modules\SchoolScheduling\SchoolSchedulingModule as SchoolSchedulingModule;
 use \WRDSB\Staff\Modules\EmployeeAbsence\EmployeeAbsenceModule as EmployeeAbsenceModule;
 
+use \WRDSB\Staff\Modules\EmployeeAbsence\Services\AbsenceFormAPI as AbsenceFormAPI;
+
 /**
  * The plugin bootstrap file
  *
@@ -40,7 +42,7 @@ require_once 'vendor/autoload.php';
 /**
  * Instantiate the container.
  */
-$container = Plugin::getContainer();
+$container = Plugin::initContainer();
 
 /**
  * Current plugin name.
@@ -198,7 +200,7 @@ $container['routes'] = [
  * Pass plugin name and version from container to constructor.
  */
 $container['plugin'] = function ($c) {
-    return new Plugin($c['plugin_name'], $c['version']);
+    return new Plugin($c, $c['plugin_name'], $c['version']);
 };
 
 $container['router'] = function ($c) {
@@ -226,3 +228,8 @@ $plugin->init();
 // Formerly WRDSB Kitchen Sink
 add_filter('send_password_change_email', '__return_false');
 add_filter('send_email_change_email', '__return_false');
+
+add_action( 'rest_api_init', function () {
+    $controller = new AbsenceFormAPI();
+    $controller->registerRoutes();
+});

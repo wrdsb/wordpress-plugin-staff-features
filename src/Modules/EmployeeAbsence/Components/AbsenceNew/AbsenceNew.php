@@ -39,11 +39,28 @@ $args = array(
     'stream'      => false,
     'filename'    => null
 );
-$response = wp_remote_post($url, $args);
-$response_object = json_decode($response['body'], $assoc = false);
 
-$employee = $response_object;
-$employeeSchedule = $employee->schedule;
+$retries = 0;
+$maxRetries = 5;
+
+while ($retries < $maxRetries) {
+    $backoff = 5 * $retries;
+    $args['timeout'] = $args['timeout'] + $backoff;
+    $response = wp_remote_post($url, $args);
+
+    if (is_array($response) && !empty($response) && $response["response"]["code"] == 200) {
+        break;
+    }
+    $retries++;
+}
+
+if (!empty($response) && $response["response"]["code"] == 200) {
+    $response_object = json_decode($response['body'], $assoc = false);
+    $employee = $response_object;
+    $employeeSchedule = $employee->schedule;
+} else {
+    $employeeSchedule = array();
+}
 ?>
 
 <?php get_header(); ?>
