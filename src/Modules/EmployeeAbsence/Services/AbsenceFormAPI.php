@@ -94,7 +94,7 @@ class AbsenceFormAPI extends WP_REST_Controller
                 ),
             ),
         ));
-        register_rest_route($this->api_namespace, '/form/(?P<id>[A-Za-z0-9-]+)/processed', array(
+        register_rest_route('wrdsb/staff/employee/absence', '/form/(?P<id>[A-Za-z0-9-]+)/processed', array(
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array( $this, 'markItemProcessed' ),
