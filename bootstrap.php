@@ -54,7 +54,7 @@ $container['plugin_name'] = 'wrdsb-staff';
  * Current plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-$container['version'] = '1.0.0';
+$container['version'] = '1.0.1';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
 
