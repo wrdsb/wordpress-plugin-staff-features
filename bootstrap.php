@@ -126,16 +126,22 @@ $container['routes'] = [
         'view' => 'absence-part-detail',
         'template' => 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php'
     ],
+    '^employee/absences/mine$' => [
+        'module' => 'EmployeeAbsenceModule',
+        'view' => 'absence-form-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php',
+        'matches' => array('route', 'mine')
+    ],
     '^employee/absences/([^/]*)/?' => [
         'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php',
+        'view' => 'absence-form-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php',
         'matches' => array('route', 'epoch')
     ],
     '^employee/absence/new$' => [
         'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-new',
-        'template' => 'EmployeeAbsence/Components/AbsenceNew/AbsenceNew.php'
+        'view' => 'absence-form-new',
+        'template' => 'EmployeeAbsence/Components/AbsenceFormNew/AbsenceFormNew.php'
     ],
     '^employee/absence/quick-add$' => [
         'module' => 'EmployeeAbsenceModule',
@@ -144,19 +150,20 @@ $container['routes'] = [
     ],
     '^employee/absence/([^/]*)/edit' => [
         'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-edit',
-        'template' => 'EmployeeAbsence/Components/AbsenceEdit/AbsenceEdit.php'
+        'view' => 'absence-form-edit',
+        'template' => 'EmployeeAbsence/Components/AbsenceFormEdit/AbsenceFormEdit.php'
     ],
     '^employee/absence/([^/]*)/?' => [
         'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-detail',
-        'template' => 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php',
+        'view' => 'absence-form-view',
+        'template' => 'EmployeeAbsence/Components/AbsenceFormView/AbsenceFormView.php',
         'matches' => array('route', 'id')
     ],
     '^employee/([^/]*)/absences' => [
         'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php'
+        'view' => 'absence-form-list',
+        'template' => 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php',
+        'matches' => array('route', 'employee')
     ],
     '^employee/([^/]*)/absence/parts' => [
         'module' => 'EmployeeAbsenceModule',
@@ -229,7 +236,7 @@ $plugin->init();
 add_filter('send_password_change_email', '__return_false');
 add_filter('send_email_change_email', '__return_false');
 
-add_action( 'rest_api_init', function () {
+add_action('rest_api_init', function () {
     $controller = new AbsenceFormAPI();
     $controller->registerRoutes();
 });

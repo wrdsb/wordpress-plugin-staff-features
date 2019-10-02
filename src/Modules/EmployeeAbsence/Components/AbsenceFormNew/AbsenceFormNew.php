@@ -166,7 +166,7 @@ if (!empty($response) && $response["response"]["code"] == 200) {
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
-                        <label for="absentOn">Date of Absence</label>
+                        <label for="absentOn">Date of Absence (dd/mm/yyyy)</label>
                         <input type="date" name="absentOnDate" id="absentOnDate" class="form-control" aria-describedby="absentOnHelp" placeholder="2019-01-31">
                     </div>
                     <!-- Ignore in calculations -->

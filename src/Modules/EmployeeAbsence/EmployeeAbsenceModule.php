@@ -84,11 +84,12 @@ class EmployeeAbsenceModule
         $this->plugin->addView('absence-part-list', 'absence-part-list');
         $this->plugin->addView('absence-part-detail', 'absence-part-detail');
 
-        $this->plugin->addView('absence-list', 'absence-list');
-        $this->plugin->addView('absence-detail', 'absence-detail');
-        $this->plugin->addView('absence-new', 'absence-new');
+        $this->plugin->addView('absence-form-list', 'absence-form-list');
+        $this->plugin->addView('absence-form-view', 'absence-form-view');
+        $this->plugin->addView('absence-form-new', 'absence-form-new');
+        $this->plugin->addView('absence-form-edit', 'absence-form-edit');
+
         $this->plugin->addView('absence-quick-add', 'absence-quick-add');
-        $this->plugin->addView('absence-edit', 'absence-edit');
     }
 
     private function addPageTemplates()
@@ -99,10 +100,11 @@ class EmployeeAbsenceModule
         $this->plugin->addPageTemplate('absence-part-list', 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php');
         $this->plugin->addPageTemplate('absence-part-detail', 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php');
 
-        $this->plugin->addPageTemplate('absence-list', 'EmployeeAbsence/Components/AbsenceList/AbsenceList.php');
-        $this->plugin->addPageTemplate('absence-detail', 'EmployeeAbsence/Components/AbsenceDetail/AbsenceDetail.php');
-        $this->plugin->addPageTemplate('absence-new', 'EmployeeAbsence/Components/AbsenceNew/AbsenceNew.php');
+        $this->plugin->addPageTemplate('absence-form-list', 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php');
+        $this->plugin->addPageTemplate('absence-form-view', 'EmployeeAbsence/Components/AbsenceFormView/AbsenceFormView.php');
+        $this->plugin->addPageTemplate('absence-form-new', 'EmployeeAbsence/Components/AbsenceFormNew/AbsenceFormNew.php');
+        $this->plugin->addPageTemplate('absence-form-edit', 'EmployeeAbsence/Components/AbsenceFormEdit/AbsenceFormEdit.php');
+
         $this->plugin->addPageTemplate('absence-quick-add', 'EmployeeAbsence/Components/AbsenceQuickAdd/AbsenceQuickAdd.php');
-        $this->plugin->addPageTemplate('absence-edit', 'EmployeeAbsence/Components/AbsenceEdit/AbsenceEdit.php');
     }
 }

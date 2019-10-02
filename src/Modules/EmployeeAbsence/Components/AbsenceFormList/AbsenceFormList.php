@@ -10,7 +10,7 @@ $authorized = [
 ];
 
 $schoolCode = get_option('wrdsb_school_code');
-$functionKey = CMA_ABSENCE_QUERY_KEY;
+$functionKey = CMA_ABSENCE_FORM_QUERY_KEY;
 
 function setCustomTitle()
 {
@@ -41,7 +41,7 @@ if ($wp_query->query_vars['epoch']) {
     $pageTitle = "Employee Absence List";
 }
 
-$url = "https://wrdsb-cma.azurewebsites.net/api/absence-query?code={$functionKey}";
+$url = "https://wrdsb-cma.azurewebsites.net/api/absence-form-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
