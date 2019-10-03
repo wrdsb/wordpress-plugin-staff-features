@@ -487,7 +487,7 @@ class Plugin
         $current_url = $container['plugin']->getCurrentURL();
         $routes = $container['routes'];
         
-        if (empty($routes) || !is_array($routes) ) {
+        if (empty($routes) || !is_array($routes)) {
             return $doParse;
         }
     
@@ -501,7 +501,7 @@ class Plugin
     
         $query_vars = null;
     
-        foreach($routes as $pattern => $route) {
+        foreach ($routes as $pattern => $route) {
             if (preg_match('~' . trim($pattern, '/') . '~', $urlPath, $matches)) {
     
                 if (in_array($route['module'], $container['modules'])) {

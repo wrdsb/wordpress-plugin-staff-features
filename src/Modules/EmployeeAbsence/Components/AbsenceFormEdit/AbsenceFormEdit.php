@@ -19,7 +19,7 @@ if ($wp_query->query_vars['id']) {
     $pageTitle = "Edit Employee Absence #{$id}";
 }
 
-$url = "https://wrdsb-cma.azurewebsites.net/api/absence-query?code={$functionKey}";
+$url = "https://wrdsb-cma.azurewebsites.net/api/absence-form-query?code={$functionKey}";
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
