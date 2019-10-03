@@ -126,12 +126,6 @@ $container['routes'] = [
         'view' => 'absence-part-detail',
         'template' => 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php'
     ],
-    '^employee/absences/mine$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-form-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php',
-        'matches' => array('route', 'mine')
-    ],
     '^employee/absences/([^/]*)/?' => [
         'module' => 'EmployeeAbsenceModule',
         'view' => 'absence-form-list',
