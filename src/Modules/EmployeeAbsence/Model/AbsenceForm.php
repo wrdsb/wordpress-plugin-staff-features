@@ -1,10 +1,11 @@
 <?php
 namespace WRDSB\Staff\Modules\EmployeeAbsence\Model;
 
-use WRDSB\Staff\Modules\EmployeeAbsence\EmployeeAbsenceModule as Module;
-use WRDSB\Staff\Modules\EmployeeAbsence\Services\AbsenceForm as Service;
-
 use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormCollection as Collection;
+
+use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormSearch as Search;
+use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormCommand as Command;
+use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormQuery as Query;
 
 /**
  * Define the "AbsenceForm" Model
@@ -18,9 +19,13 @@ use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormCollection as Collectio
 
 class AbsenceForm
 {
-    private $service;
-
     private $id;
+
+    private $createdAt;
+    private $updatedAt;
+    private $deleted;
+    private $deletedAt;
+
     private $saved;
     private $dirty;
 
@@ -74,16 +79,6 @@ class AbsenceForm
     private $coverageFirstHalf4;
     private $coverageSecondHalf4;
 
-    private static function getService(): Service
-    {
-        return Module::getAbsenceFormService();
-    }
-
-    private static function init(array $args): self
-    {
-
-    }
-
     /**
      * Returns the AbsenceForm with the specified id.
      *
@@ -96,8 +91,6 @@ class AbsenceForm
      */
     public static function get(string $id): self
     {
-        $form = $service->fetch($id);
-        return $form;
     }
 
     /**
@@ -221,9 +214,6 @@ class AbsenceForm
      */
     public static function patch(array $args): self
     {
-        $service = self::getService();
-
-        return true;
     }
 
     /**
@@ -236,7 +226,6 @@ class AbsenceForm
      */
     public static function delete(string $id): self
     {
-        return true;
     }
 
     /**
@@ -259,23 +248,107 @@ class AbsenceForm
      *
      * @return boolean
      */
-    //public function save(): bool
-    //{
-        //return true;
-    //}
+    public function save(): bool
+    {
+        $command = new Command('patch', $this);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            $this->dirty = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
-     * Marks a record as deleted.
+     * Marks a record as deleted and saves record.
      *
-     * delete() will return true or false depending on whether the record is successfully deleted or not.
+     * markDeleted() will return true or false depending on whether the record is successfully deleted or not.
      * The deleted record remains in storage, but is marked as deleted and the deletion is timestamped.
      *
      * @return boolean
      */
-    //public function delete()
-    //{
-        //$this->service->delete($this);
-    //}
+    public function markDeleted(): bool
+    {
+        $this->setDeleted();
+
+        $command = new Command('delete', $this);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            $this->dirty = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Marks a record as undeleted and saves record.
+     *
+     * markUndeleted() will return true or false depending on whether the record is successfully undeleted or not.
+     *
+     * @return boolean
+     */
+    public function markUndeleted(): bool
+    {
+        $this->setUndeleted();
+        
+        $command = new Command('patch', $this);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            $this->dirty = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Marks a record as processed and saves record.
+     *
+     * markProcessed() will return true or false depending on whether the record is successfully undeleted or not.
+     *
+     * @return boolean
+     */
+    public function markProcessed(): bool
+    {
+        $this->setProcessed();
+
+        $command = new Command('patch', $this);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            $this->dirty = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Marks a record as unprocessed and saves record.
+     *
+     * markUnprocessed() will return true or false depending on whether the record is successfully undeleted or not.
+     *
+     * @return boolean
+     */
+    public function markUnprocessed(): bool
+    {
+        $this->setUnprocessed();
+
+        $command = new Command('patch', $this);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            $this->dirty = false;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     //You can also use #update to do mass updates on a model. In the previous examples we’ve used
     //DataMapper::Resource#update to update a single resource. We can also use DataMapper::Model#update which
@@ -340,18 +413,44 @@ class AbsenceForm
         'Email to main office staff',
     );
 
-    public function isProcessed(): bool
+    public function fromJSON(string $json)
     {
-        return $this->processed;
+        $object = json_decode($json, $assoc = false);
+
+        foreach ($object as $property => $value) {
+            $this->$property = $value;
+        }
     }
-    public function markProcessed(): bool
+
+    private function setDeleted()
+    {
+        $current_time = current_time('mysql');
+        $this->deletedAt = $current_time;
+        $this->deleted = true;
+        $this->dirty = true;
+    }
+
+    private function setUndeleted()
+    {
+        $this->deletedAt = null;
+        $this->deleted = false;
+        $this->dirty = true;
+    }
+
+    private function setProcessed()
     {
         $this->processed = true;
-        return $this->processed;
+        $this->dirty = true;
     }
-    public function markUnprocessed(): bool
+
+    private function setUnprocessed()
     {
         $this->processed = false;
+        $this->dirty = true;
+    }
+
+    public function isProcessed(): bool
+    {
         return $this->processed;
     }
 
@@ -362,6 +461,7 @@ class AbsenceForm
     public function setID(string $id)
     {
         $this->id = $id;
+        $this->dirty = true;
     }
 
     public function getAction(): string
@@ -371,6 +471,7 @@ class AbsenceForm
     public function setAction(string $action)
     {
         $this->action = $action;
+        $this->dirty = true;
     }
 
     public function getSchoolCode(): string
@@ -380,6 +481,7 @@ class AbsenceForm
     public function setSchoolCode(string $schoolCode)
     {
         $this->schoolCode = $schoolCode;
+        $this->dirty = true;
     }
     
     public function getEmployeeEmail(): string
@@ -389,6 +491,7 @@ class AbsenceForm
     public function setEmployeeEmail(string $email)
     {
         $this->employeeEmail = $email;
+        $this->dirty = true;
     }
 
     public function getEmployeeName(): string
@@ -398,6 +501,7 @@ class AbsenceForm
     public function setEmployeeName(string $employeeName)
     {
         $this->employeeName = $employeeName;
+        $this->dirty = true;
     }
 
     public function getCreatedOn(): string
@@ -407,6 +511,7 @@ class AbsenceForm
     public function setCreatedOn(string $date)
     {
         $this->createdOn = $date;
+        $this->dirty = true;
     }
 
     public function getAbsenceReason(): string
@@ -416,6 +521,7 @@ class AbsenceForm
     public function setAbsenceReason(string $reason)
     {
         $this->absenceReason = $reason;
+        $this->dirty = true;
     }
 
     public function getECJob(): int
@@ -425,6 +531,7 @@ class AbsenceForm
     public function setECJob(int $ecJob)
     {
         $this->ECJob = $ecJob;
+        $this->dirty = true;
     }
 
     public function getComments(): string
@@ -434,6 +541,7 @@ class AbsenceForm
     public function setComments(string $comments)
     {
         $this->comments = $comments;
+        $this->dirty = true;
     }
 
     public function getAbsentOnDate(): string
@@ -443,6 +551,7 @@ class AbsenceForm
     public function setAbsentOnDate(string $absentOnDate)
     {
         $this->absentOnDate = $absentOnDate;
+        $this->dirty = true;
     }
 
     public function getAbsentFromTime(): string
@@ -452,6 +561,7 @@ class AbsenceForm
     public function setAbsentFromTime(string $absentFromTime)
     {
         $this->absentFromTime = $absentFromTime;
+        $this->dirty = true;
     }
 
     public function getAbsentToTime(): string
@@ -461,6 +571,7 @@ class AbsenceForm
     public function setAbsentToTime(string $absentToTime)
     {
         $this->$absentToTime = $absentToTime;
+        $this->dirty = true;
     }
 
     public function getLunch(): bool
@@ -470,6 +581,7 @@ class AbsenceForm
     public function setLunch(bool $lunch)
     {
         $this->lunch = $lunch;
+        $this->dirty = true;
     }
 
     public function getCourseCode1(): string
@@ -479,6 +591,7 @@ class AbsenceForm
     public function setCourseCode1(string $courseCode1)
     {
         $this->courseCode1 = $courseCode1;
+        $this->dirty = true;
     }
 
     public function getRoomNumber1(): string
@@ -488,6 +601,7 @@ class AbsenceForm
     public function setRoomNumber1(string $roomNumber1)
     {
         $this->roomNumber1 = $roomNumber1;
+        $this->dirty = true;
     }
 
     public function getLessonPlansLocation1(): string
@@ -497,6 +611,7 @@ class AbsenceForm
     public function setLessonPlansLocation1(string $lessonPlansLocation1)
     {
         $this->lessonPlansLocation1 = $lessonPlansLocation1;
+        $this->dirty = true;
     }
 
     public function getMedicalPlan1(): bool
@@ -506,6 +621,7 @@ class AbsenceForm
     public function setMedicalPlan1(bool $medicalPlan1)
     {
         $this->medicalPlan1 = $medicalPlan1;
+        $this->dirty = true;
     }
 
     public function getMedicalDetails1(): string
@@ -515,6 +631,7 @@ class AbsenceForm
     public function setMedicalDetails1(string $medicalDetails1)
     {
         $this->medicalDetails1 = $medicalDetails1;
+        $this->dirty = true;
     }
 
     public function getSafetyPlan1(): bool
@@ -524,6 +641,7 @@ class AbsenceForm
     public function setSafetyPlan1(bool $safetyPlan1)
     {
         $this->safetyPlan1 = $safetyPlan1;
+        $this->dirty = true;
     }
 
     public function getSafetyPlanDetails1(): string
@@ -533,6 +651,7 @@ class AbsenceForm
     public function setSafetyPlanDetails1(string $safetyPlanDetails1)
     {
         $this->safetyPlanDetails1 = $safetyPlanDetails1;
+        $this->dirty = true;
     }
 
     public function getCoverageFirstHalf1(): bool
@@ -542,6 +661,7 @@ class AbsenceForm
     public function setCoverageFirstHalf1(bool $coverageFirstHalf1)
     {
         $this->coverageFirstHalf1 = $coverageFirstHalf1;
+        $this->dirty = true;
     }
 
     public function getCoverageSecondHalf1(): bool
@@ -551,6 +671,7 @@ class AbsenceForm
     public function setCoverageSecondHalf1(bool $coverageSecondHalf1)
     {
         $this->coverageSecondHalf1 = $coverageSecondHalf1;
+        $this->dirty = true;
     }
 
     public function getCourseCode2(): string
@@ -560,6 +681,7 @@ class AbsenceForm
     public function setCourseCode2(string $courseCode2)
     {
         $this->courseCode2 = $courseCode2;
+        $this->dirty = true;
     }
 
     public function getRoomNumber2(): string
@@ -569,6 +691,7 @@ class AbsenceForm
     public function setRoomNumber2(string $roomNumber2)
     {
         $this->roomNumber2 = $roomNumber2;
+        $this->dirty = true;
     }
 
     public function getLessonPlansLocation2(): string
@@ -578,6 +701,7 @@ class AbsenceForm
     public function setLessonPlansLocation2(string $lessonPlansLocation2)
     {
         $this->lessonPlansLocation2 = $lessonPlansLocation2;
+        $this->dirty = true;
     }
 
     public function getMedicalPlan2(): bool
@@ -587,6 +711,7 @@ class AbsenceForm
     public function setMedicalPlan2(bool $medicalPlan2)
     {
         $this->medicalPlan2 = $medicalPlan2;
+        $this->dirty = true;
     }
 
     public function getMedicalDetails2(): string
@@ -596,6 +721,7 @@ class AbsenceForm
     public function setMedicalDetails2(string $medicalDetails2)
     {
         $this->medicalDetails2 = $medicalDetails2;
+        $this->dirty = true;
     }
 
     public function getSafetyPlan2(): bool
@@ -605,6 +731,7 @@ class AbsenceForm
     public function setSafetyPlan2(bool $safetyPlan2)
     {
         $this->safetyPlan2 = $safetyPlan2;
+        $this->dirty = true;
     }
 
     public function getSafetyPlanDetails2(): string
@@ -614,6 +741,7 @@ class AbsenceForm
     public function setSafetyPlanDetails2(string $safetyPlanDetails2)
     {
         $this->safetyPlanDetails2 = $safetyPlanDetails2;
+        $this->dirty = true;
     }
 
     public function getCoverageFirstHalf2(): bool
@@ -623,6 +751,7 @@ class AbsenceForm
     public function setCoverageFirstHalf2(bool $coverageFirstHalf2)
     {
         $this->coverageFirstHalf2 = $coverageFirstHalf2;
+        $this->dirty = true;
     }
 
     public function getCoverageSecondHalf2(): bool
@@ -632,6 +761,7 @@ class AbsenceForm
     public function setCoverageSecondHalf2(bool $coverageSecondHalf2)
     {
         $this->coverageSecondHalf2 = $coverageSecondHalf2;
+        $this->dirty = true;
     }
 
     public function getCourseCode3(): string
@@ -641,6 +771,7 @@ class AbsenceForm
     public function setCourseCode3(string $courseCode3)
     {
         $this->courseCode3 = $courseCode3;
+        $this->dirty = true;
     }
 
     public function getRoomNumber3(): string
@@ -650,6 +781,7 @@ class AbsenceForm
     public function setRoomNumber3(string $roomNumber3)
     {
         $this->roomNumber3 = $roomNumber3;
+        $this->dirty = true;
     }
 
     public function getLessonPlansLocation3(): string
@@ -659,6 +791,7 @@ class AbsenceForm
     public function setLessonPlansLocation3(string $lessonPlansLocation3)
     {
         $this->lessonPlansLocation3 = $lessonPlansLocation3;
+        $this->dirty = true;
     }
 
     public function getMedicalPlan3(): bool
@@ -668,6 +801,7 @@ class AbsenceForm
     public function setMedicalPlan3(bool $medicalPlan3)
     {
         $this->medicalPlan3 = $medicalPlan3;
+        $this->dirty = true;
     }
 
     public function getMedicalDetails3(): string
@@ -677,6 +811,7 @@ class AbsenceForm
     public function setMedicalDetails3(string $medicalDetails3)
     {
         $this->medicalDetails3 = $medicalDetails3;
+        $this->dirty = true;
     }
 
     public function getSafetyPlan3(): bool
@@ -686,6 +821,7 @@ class AbsenceForm
     public function setSafetyPlan3(bool $safetyPlan3)
     {
         $this->safetyPlan3 = $safetyPlan3;
+        $this->dirty = true;
     }
 
     public function getSafetyPlanDetails3(): string
@@ -695,6 +831,7 @@ class AbsenceForm
     public function setSafetyPlanDetails3(string $safetyPlanDetails3)
     {
         $this->safetyPlanDetails3 = $safetyPlanDetails3;
+        $this->dirty = true;
     }
 
     public function getCoverageFirstHalf3(): bool
@@ -704,6 +841,7 @@ class AbsenceForm
     public function setCoverageFirstHalf3(bool $coverageFirstHalf3)
     {
         $this->coverageFirstHalf3 = $coverageFirstHalf3;
+        $this->dirty = true;
     }
 
     public function getCoverageSecondHalf3(): bool
@@ -713,6 +851,7 @@ class AbsenceForm
     public function setCoverageSecondHalf3(bool $coverageSecondHalf3)
     {
         $this->coverageSecondHalf3 = $coverageSecondHalf3;
+        $this->dirty = true;
     }
 
     public function getCourseCode4(): string
@@ -722,6 +861,7 @@ class AbsenceForm
     public function setCourseCode4(string $courseCode4)
     {
         $this->courseCode4 = $courseCode4;
+        $this->dirty = true;
     }
 
     public function getRoomNumber4(): string
@@ -731,6 +871,7 @@ class AbsenceForm
     public function setRoomNumber4(string $roomNumber4)
     {
         $this->roomNumber4 = $roomNumber4;
+        $this->dirty = true;
     }
 
     public function getLessonPlansLocation4(): string
@@ -740,6 +881,7 @@ class AbsenceForm
     public function setLessonPlansLocation4(string $lessonPlansLocation4)
     {
         $this->lessonPlansLocation4 = $lessonPlansLocation4;
+        $this->dirty = true;
     }
 
     public function getMedicalPlan4(): bool
@@ -749,6 +891,7 @@ class AbsenceForm
     public function setMedicalPlan4(bool $medicalPlan4)
     {
         $this->medicalPlan4 = $medicalPlan4;
+        $this->dirty = true;
     }
 
     public function getMedicalDetails4(): string
@@ -758,6 +901,7 @@ class AbsenceForm
     public function setMedicalDetails4(string $medicalDetails4)
     {
         $this->medicalDetails4 = $medicalDetails4;
+        $this->dirty = true;
     }
 
     public function getSafetyPlan4(): bool
@@ -767,6 +911,7 @@ class AbsenceForm
     public function setSafetyPlan4(bool $safetyPlan4)
     {
         $this->safetyPlan4 = $safetyPlan4;
+        $this->dirty = true;
     }
 
     public function getSafetyPlanDetails4(): string
@@ -776,6 +921,7 @@ class AbsenceForm
     public function setSafetyPlanDetails4(string $safetyPlanDetails4)
     {
         $this->safetyPlanDetails4 = $safetyPlanDetails4;
+        $this->dirty = true;
     }
 
     public function getCoverageFirstHalf4(): bool
@@ -785,6 +931,7 @@ class AbsenceForm
     public function setCoverageFirstHalf4(bool $coverageFirstHalf4)
     {
         $this->coverageFirstHalf4 = $coverageFirstHalf4;
+        $this->dirty = true;
     }
 
     public function getCoverageSecondHalf4(): bool
@@ -794,5 +941,6 @@ class AbsenceForm
     public function setCoverageSecondHalf4(bool $coverageSecondHalf4)
     {
         $this->coverageSecondHalf4 = $coverageSecondHalf4;
+        $this->dirty = true;
     }
 }
