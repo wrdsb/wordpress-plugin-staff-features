@@ -1,8 +1,13 @@
 <?php
 namespace WRDSB\Staff\Modules\EmployeeAbsence\Model;
 
+use WRDSB\Staff\Modules\EmployeeAbsence\EmployeeAbsenceModule as Module;
+use WRDSB\Staff\Modules\EmployeeAbsence\Services\AbsenceForm as Service;
+
+use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormCollection as Collection;
+
 /**
- * Define the "AbsenceForm" class
+ * Define the "AbsenceForm" Model
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -13,8 +18,14 @@ namespace WRDSB\Staff\Modules\EmployeeAbsence\Model;
 
 class AbsenceForm
 {
+    private $service;
+
     private $id;
+    private $saved;
+    private $dirty;
+
     private $action;
+    private $processed;
     private $schoolCode;
     private $employeeEmail;
     private $employeeName;
@@ -62,7 +73,229 @@ class AbsenceForm
     private $safetyPlanDetails4;
     private $coverageFirstHalf4;
     private $coverageSecondHalf4;
+
+    private static function getService(): Service
+    {
+        return Module::getAbsenceFormService();
+    }
+
+    private static function init(array $args): self
+    {
+
+    }
+
+    /**
+     * Returns the AbsenceForm with the specified id.
+     *
+     * Examples:
+     *     AbsenceForm::get('1')    # get the AbsenceForm with id '1'.
+     *     AbsenceForm::get('DFW')  # get the AbsenceForm with id 'DFW'.
+     *
+     * @param string $id The id of the AbsenceForm to be returned.
+     * @return AbsenceForm The AbenceForm whose id matches the id provided.
+     */
+    public static function get(string $id): self
+    {
+        $form = $service->fetch($id);
+        return $form;
+    }
+
+    /**
+     * Returns the first AbsenceForm matching the properties provided.
+     *
+     * In the case of multiple property arguments,
+     * AbsenceForms are sorted by first argument, then second argument, etc.
+     *
+     * Examples:
+     *     AbsenceForm::first(array('name' => 'Metro'))  # first matching record with the name 'Metro'
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceForm The first AbenceForm found matching the arguments provided.
+     */
+    public static function first(array $args): self
+    {
+    }
+
+    /**
+     * Returns the last AbsenceForm matching the properties provided.
+     *
+     * In the case of multiple property arguments,
+     * AbsenceForms are sorted by first argument, then second argument, etc.
+     *
+     * Examples:
+     *     AbsenceForm::last(array('name' => 'Metro'))  # first matching record with the name 'Metro'
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceForm The last AbenceForm found matching the arguments provided.
+     */
+    public static function last(array $args): self
+    {
+    }
+
+    /**
+     * Returns a collection of all AbsenceForm objects matching the properties provided.
+     *
+     * If no arguments are provided, a collection of all AbsenceForm objects are returned.
+     *
+     * Examples:
+     *     AbsenceForm::all()                            # all AbsenceForms
+     *     AbsenceForm::all(array('processed' => true))  # all AbsenceForms that are processed
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceFormCollection A collection of all AbenceForms found matching the arguments provided.
+     */
+    public static function all(array $args = []): Collection
+    {
+    }
+
+    /**
+     * Instantiates a new AbsenceForm object and saves it in a single operation.
+     *
+     * If you want to create a new resource with some given attributes and then
+     * save it all in one go, you can use the create() method.
+     *
+     * If the creation was successful, create() will return the newly created resource.
+     * If it failed, it will return a new resource that is initialized with the given attributes
+     * and possible default values declared for that resource, but that’s not yet saved.
+     *
+     * To find out wether the creation was successful or not, you can call isSaved() on
+     * the returned resource. It will return true if the resource was successfully persisted,
+     * or false otherwise.
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceForm
+     */
+    public static function create(array $args): self
+    {
+    }
+
+    /**
+     * Finds or creates the first AbsenceForm object matching the provided arguments.
+     *
+     * If you want to either find the first resource matching some given criteria or
+     * just create that resource if it can’t be found, you can use firstOrCreate().
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceForm
+     */
+    public static function firstOrCreate(array $args): self
+    {
+    }
+
+    /**
+     * Finds or instantiates (without saving) the first AbsenceForm object matching the provided arguments.
+     *
+     * If you want to either find the first resource matching some given criteria or
+     * instatiate that resource if it can’t be found, you can use firstOrNew().
+     *
+     * Just like create() has an accompanying firstOrCreate method, new() has its firstOrNew() counterpart as well.
+     * The only difference with firstOrNew() is that it returns a new unsaved resource in case it couldn’t find
+     * one for the given query criteria.
+     *
+     * Apart from that, firstOrNew() behaves just like firstOrCreate and accepts the same parameters.
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceForm
+     */
     
+    public static function firstOrNew(array $args): self
+    {
+    }
+
+    /**
+     * Updates a record's properties and persists those changes in one call.
+     *
+     * If you want to update a resource with some given attributes and then
+     * save it all in one go, you can use the update() method.
+     *
+     * If the update was successful, update() will return the updated resource.
+     * If it failed, it will return a new resource that is initialized with the given attributes
+     * and possible default values declared for that resource, but that’s not yet saved.
+     *
+     * To find out wether the update was successful or not, you can call isSaved() on
+     * the returned resource. It will return true if the resource was successfully persisted,
+     * or false otherwise.
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return AbsenceForm
+     */
+    public static function patch(array $args): self
+    {
+        $service = self::getService();
+
+        return true;
+    }
+
+    /**
+     * Marks a record as deleted.
+     *
+     * delete() will return true or false depending on whether the record is successfully deleted or not.
+     * The deleted record remains in storage, but is marked as deleted and the deletion is timestamped.
+     *
+     * @return boolean
+     */
+    public static function delete(string $id): self
+    {
+        return true;
+    }
+
+    /**
+     * Updates the AbsenceForm object's properties and persists those changes in one call.
+     *
+     * update() will return true if the record saves and false if the save fails, exactly like the save() method.
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return boolean
+     */
+    //public function update(array $args): bool
+    //{
+        //return true;
+    //}
+
+    /**
+     * Persists the current state of the AbsenceForm.
+     *
+     * The call to save() will return true if saving succeeds, or false in case something went wrong.
+     *
+     * @return boolean
+     */
+    //public function save(): bool
+    //{
+        //return true;
+    //}
+
+    /**
+     * Marks a record as deleted.
+     *
+     * delete() will return true or false depending on whether the record is successfully deleted or not.
+     * The deleted record remains in storage, but is marked as deleted and the deletion is timestamped.
+     *
+     * @return boolean
+     */
+    //public function delete()
+    //{
+        //$this->service->delete($this);
+    //}
+
+    //You can also use #update to do mass updates on a model. In the previous examples we’ve used
+    //DataMapper::Resource#update to update a single resource. We can also use DataMapper::Model#update which
+    //is available as a class method on our models. Calling it will update all instances of the model
+    //with the same values.
+    //Zoo.update(:name => 'Funky Town Municipal Zoo')
+    //This will set all Zoo instances’ name property to ‘Funky Town Municipal Zoo’.
+    //Internally it does the equivalent of:
+    //Zoo.all.update(:name => 'Funky Town Municipal Zoo')
+    //This shows that actually, #update is also available on any DataMapper::Collection and performs a mass update
+    //on that collection when being called. You typically retrieve a DataMapper::Collection from either
+    //a call to SomeModel.all or a call to a relationship accessor for any 1:n or m:n relationship.
+    //You can also use #destroy to do mass deletes on a model. In the previous examples we’ve used
+    //DataMapper::Resource#destroy to destroy a single resource. We can also use DataMapper::Model#destroy
+    //which is available as a class method on our models. Calling it will remove all instances of that model
+    //from the repository.
+    //This shows that actually, #destroy is also available on any DataMapper::Collection and performs a
+    //mass delete on that collection when being called. You typically retrieve a DataMapper::Collection
+    //from either a call to SomeModel.all or a call to a relationship accessor for any 1:n or m:n relationship.
+
     const ABSENCE_TYPES = array(
         'A100 - Personal Illness',
         'A400 - Medical Appointment',
@@ -106,6 +339,21 @@ class AbsenceForm
         'Classroom desk',
         'Email to main office staff',
     );
+
+    public function isProcessed(): bool
+    {
+        return $this->processed;
+    }
+    public function markProcessed(): bool
+    {
+        $this->processed = true;
+        return $this->processed;
+    }
+    public function markUnprocessed(): bool
+    {
+        $this->processed = false;
+        return $this->processed;
+    }
 
     public function getID(): string
     {

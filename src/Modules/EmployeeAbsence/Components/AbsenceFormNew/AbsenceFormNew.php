@@ -65,29 +65,25 @@ if (!empty($response) && $response["response"]["code"] == 200) {
 
 <?php get_header(); ?>
 
-<div class="container container-top">
+<div class="container-top">
     <?php
         get_template_part('partials/header', 'masthead');
         get_template_part('partials/header', 'navbar');
     ?>
-    <div class="container container-breadcrumb" role="navigation">
-        <ol class="breadcrumb">
-            <li>
-                <a href="<?php echo get_option('home'); ?>">Home</a>
-            </li>
-            <li>
-                Employee Absences
-            </li>
-            <li>
-                <?php echo $pageTitle; ?>
-            </li>
-        </ol>
-    </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-lg-12" role="main">
+        <div class="col-sm-2 col-lg-2" role="complementary">
+            <div class="sidebar-left widget-area" role="complementary">
+                <div class="sub-menu-heading"><span>Online Pink Sheets</span></div>
+                <div class="textwidget">
+                    <p><a href="/jam/employee/absence/new">New Pink Sheet</a></p>
+                    <p><a href="/jam/employee/me/absences">View My Pink Sheets</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-10 col-lg-10" role="main">
             <!-- CONTENT -->
             <h1><?php echo $pageTitle; ?></h1>
 
@@ -126,17 +122,17 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                             <option>A105 - Bereavement Other Teaching (Specify Relationship)</option>
                             <option>A240 - Religious Days (Comment Required)</option>
                             <option>A324 - SITE BASED DAY Math</option>
-		                    <option>A325 - SITE BASED DAY Wellbeing</option>
-		                    <option>A326 - SITE BASED DAY Pathways to Success</option>
-	                    	<option>A327 - SITE BASED DAY  French</option>
+                            <option>A325 - SITE BASED DAY Wellbeing</option>
+                            <option>A326 - SITE BASED DAY Pathways to Success</option>
+                            <option>A327 - SITE BASED DAY  French</option>
                             <option>A276 - Staff Development (Board) (specify title, location, and SD #)</option>
                             <option>A328 - Special Education PD</option>
                             <option>A212 - Subject Association (specify subject)</option>
                             <option>A321 - NTIP New Teacher</option>
                             <option>A322 - NTIP Mentor</option>
                             <option>A295 - Staff development (include Short Term Ed. Leave (STEL) # or Staff Development (SD) #)</option>
-		                    <option>A241 - Third Party Billing (Comment Required)</option>
-		                    <option>A244 - Severe Weather</option>
+                            <option>A241 - Third Party Billing (Comment Required)</option>
+                            <option>A244 - Severe Weather</option>
                             <option>A231 - Graduation - Teaching (Specify Relationship)</option>
                             <option>A410 - Unpaid Day</option>
                             <option>A270 - Jury Duty/Witness</option>

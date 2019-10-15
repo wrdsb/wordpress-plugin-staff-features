@@ -6,7 +6,7 @@ use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModul
 use \WRDSB\Staff\Modules\SchoolScheduling\SchoolSchedulingModule as SchoolSchedulingModule;
 use \WRDSB\Staff\Modules\EmployeeAbsence\EmployeeAbsenceModule as EmployeeAbsenceModule;
 
-use \WRDSB\Staff\Modules\EmployeeAbsence\Services\AbsenceFormAPI as AbsenceFormAPI;
+use \WRDSB\Staff\Modules\EmployeeAbsence\REST\AbsenceForm as AbsenceFormRESTController;
 
 /**
  * The plugin bootstrap file
@@ -231,6 +231,6 @@ add_filter('send_password_change_email', '__return_false');
 add_filter('send_email_change_email', '__return_false');
 
 add_action('rest_api_init', function () {
-    $controller = new AbsenceFormAPI();
+    $controller = new AbsenceFormRESTController();
     $controller->registerRoutes();
 });
