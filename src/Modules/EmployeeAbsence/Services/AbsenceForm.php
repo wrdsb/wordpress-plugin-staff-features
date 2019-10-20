@@ -149,8 +149,10 @@ class AbsenceForm
         $request->run();
 
         if ($request->success) {
+            $responseString = json_encode($request->response);
+
             $form = new Model;
-            $form.fromJSON($request->response);
+            $form->fromJSON($responseString);
 
             $command->setState('success');
             $command->setStatus($request->status);

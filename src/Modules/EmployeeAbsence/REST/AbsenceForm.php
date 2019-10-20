@@ -196,13 +196,15 @@ class AbsenceForm extends WP_REST_Controller
     {
         $id = $this->getFormID($request);
 
-        $deleted_form = Model::delete($id);
+        $command = Model::delete($id);
+        $command_json = \json_encode($command);
 
-        if ($deleted_form->isSaved()) {
-            return new WP_REST_Response($deleted_form, 200);
+        //TODO: Send back a JSON response which is more useful to the client.
+        if ($command->getState() === 'success') {
+            return new WP_REST_Response($command_json, 200);
         } else {
             //TODO: Does this constructor work?
-            return new WP_REST_Response('Error deleting form.', 500);
+            return new WP_REST_Response($command_json, 500);
         }
     }
 

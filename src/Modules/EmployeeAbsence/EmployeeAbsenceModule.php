@@ -41,7 +41,7 @@ class EmployeeAbsenceModule
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
-    public static function getAbsenceFormService(): AbsenceFormService
+    public static function getAbsenceFormCommandService(): AbsenceFormService
     {
         $absenceFormService = new AbsenceFormService;
         return $absenceFormService;

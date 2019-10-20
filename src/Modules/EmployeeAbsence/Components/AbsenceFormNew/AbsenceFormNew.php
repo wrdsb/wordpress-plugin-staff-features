@@ -3,6 +3,15 @@ $schoolCode = get_option('wrdsb_school_code');
 $school_code = strtolower($schoolCode);
 $functionKey = CMA_ABSENCE_FORM_INIT_KEY;
 
+$authorized = [
+    'janie_straus@wrdsb.ca',
+    'jason_denhart@wrdsb.ca',
+    'joene_kouvelos@wrdsb.ca',
+    'sandy_millar@wrdsb.ca',
+    'siobhan_watters@wrdsb.ca',
+    'james_schumann@wrdsb.ca'
+];
+
 function setCustomTitle()
 {
     $pageTitle = "New Employee Absence";
@@ -80,6 +89,9 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                 <div class="textwidget">
                     <p><a href="/jam/employee/absence/new">New Pink Sheet</a></p>
                     <p><a href="/jam/employee/me/absences">View My Pink Sheets</a></p>
+                    <?php if (in_array($current_user->user_email, $authorized)) { ?>
+                        <p><a href="/jam/employee/absences/today">View All Pink Sheets</a></p>
+                    <?php } ?>
                 </div>
             </div>
         </div>

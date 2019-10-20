@@ -28,5 +28,29 @@
 				}
 			});
 		});
+
+		$('.form-trash').click(function() {
+			var form_id = $(this).data('form_id');
+
+			console.log('Mark form as trashed for form ID ' + form_id);
+
+			$.ajax({
+				method: 'DELETE',
+				url: `/wp-json/wrdsb/staff/employee/absence/form/${form_id}`,
+				beforeSend: function (xhr) {
+					xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
+				},
+				success: function(data, status, xhr) {
+					$('#' + form_id + '-row').remove();
+					console.log(status)
+				},
+				error: function(xhr, status, error) {
+					$('#' + form_id + '-actions-notifications').text('Error. Please try again.');
+					console.log(status + ': ' + error)
+				},
+				complete: function(xhr, status) {
+				}
+			});
+		});
 	})
 })(jQuery);

@@ -17,7 +17,7 @@ use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormCollection as Collectio
  * @subpackage WRDSB_Staff/EmployeeAbsence
  */
 
-class AbsenceFormCommand
+class AbsenceFormCommand implements \JsonSerializable
 {
     private $payload;
     private $operation;
@@ -35,13 +35,28 @@ class AbsenceFormCommand
         return Module::getAbsenceFormCommandService();
     }
 
-    public function __construct(string $operation, Model $form)
+    public function __construct(string $operation, string $id, Model $form = null)
     {
-        $this->operation = $operation;
-        $this->payload   = $form;
+        if ($form) {
+            $this->operation = $operation;
+            $this->payload   = $form;
+            $this->service   = self::getService();
+            $this->state     = 'pending';
+        } elseif ($operation === 'delete') {
+            $form = new Model;
+            $form->setID($id);
+            $form->setSchoolCode('JAM');
 
-        $this->service = self::getService();
-        $this->state   = 'pending';
+            $this->operation = $operation;
+            $this->payload   = $form;
+            $this->service   = self::getService();
+            $this->state     = 'pending';
+        } else {
+            $this->operation = 'error';
+            $this->state = 'error';
+            $this->status = 500;
+            $this->error = 'Bad request.';
+        }
     }
 
     public function run()
@@ -49,26 +64,44 @@ class AbsenceFormCommand
         switch ($this->operation) {
             case 'patch':
                 $temp = $this->service->patch($this);
+                $this->state = $temp->getState();
+                $this->status = $temp->getStatus();
+                $this->rawResponse = $temp->getRawResponse();
+                $this->totalResults = $temp->getTotalResults();
+                $this->results = $temp->getResults();
+                $this->error = $temp->getError();
                 break;
             
             case 'replace':
                 $temp = $this->service->replace($this);
+                $this->state = $temp->getState();
+                $this->status = $temp->getStatus();
+                $this->rawResponse = $temp->getRawResponse();
+                $this->totalResults = $temp->getTotalResults();
+                $this->results = $temp->getResults();
+                $this->error = $temp->getError();
                 break;
             
             case 'delete':
                 $temp = $this->service->delete($this);
+                $this->state = $temp->getState();
+                $this->status = $temp->getStatus();
+                $this->rawResponse = $temp->getRawResponse();
+                $this->totalResults = $temp->getTotalResults();
+                $this->results = $temp->getResults();
+                $this->error = $temp->getError();
                 break;
             
             default:
+                // operation is error. no change in state or status.
                 break;
         }
+    }
 
-        $this->state = $temp->getState();
-        $this->status = $temp->getStatus();
-        $this->rawResponse = $temp->getRawResponse();
-        $this->totalResults = $temp->getTotalResults();
-        $this->results = $temp->getResults();
-        $this->error = $temp->getError();
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
     }
 
     public function getPayload(): Model
@@ -101,7 +134,7 @@ class AbsenceFormCommand
 
     public function getError(): string
     {
-        return $this->error;
+        return $this->error ?? 'None';
     }
     public function setError(string $error)
     {

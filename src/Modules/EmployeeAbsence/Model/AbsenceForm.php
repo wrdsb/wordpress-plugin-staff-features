@@ -17,7 +17,7 @@ use WRDSB\Staff\Modules\EmployeeAbsence\Model\AbsenceFormQuery as Query;
  * @subpackage WRDSB_Staff/EmployeeAbsence
  */
 
-class AbsenceForm
+class AbsenceForm implements \JsonSerializable
 {
     private $id;
 
@@ -78,6 +78,16 @@ class AbsenceForm
     private $safetyPlanDetails4;
     private $coverageFirstHalf4;
     private $coverageSecondHalf4;
+
+    public function __construct()
+    {
+    }
+
+    public function jsonSerialize()
+    {
+        $vars = get_object_vars($this);
+        return $vars;
+    }
 
     /**
      * Returns the AbsenceForm with the specified id.
@@ -224,8 +234,16 @@ class AbsenceForm
      *
      * @return boolean
      */
-    public static function delete(string $id): self
+    public static function delete(string $id): Command
     {
+        $command = new Command('delete', $id);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            return $command;
+        } else {
+            return $command;
+        }
     }
 
     /**
@@ -413,9 +431,9 @@ class AbsenceForm
         'Email to main office staff',
     );
 
-    public function fromJSON(string $json)
+    public function fromJSON(string $jsonString)
     {
-        $object = json_decode($json, $assoc = false);
+        $object = json_decode($jsonString, $assoc = false);
 
         foreach ($object as $property => $value) {
             $this->$property = $value;
