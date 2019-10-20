@@ -1,6 +1,8 @@
 <?php
 namespace WRDSB\Staff\Modules\EmployeeAbsence;
 
+use WRDSB\Staff\Modules\EmployeeAbsence\Services\AbsenceForm as AbsenceFormService;
+
 class EmployeeAbsenceModule
 {
     private $plugin;
@@ -37,6 +39,12 @@ class EmployeeAbsenceModule
 
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
+    }
+
+    public static function getAbsenceFormCommandService(): AbsenceFormService
+    {
+        $absenceFormService = new AbsenceFormService;
+        return $absenceFormService;
     }
 
     /**
