@@ -3,10 +3,9 @@ namespace WRDSB\Staff;
 
 use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
-use \WRDSB\Staff\Modules\SchoolScheduling\SchoolSchedulingModule as SchoolSchedulingModule;
-use \WRDSB\Staff\Modules\EmployeeAbsence\EmployeeAbsenceModule as EmployeeAbsenceModule;
+use \WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as QuartermasterModule;
 
-use \WRDSB\Staff\Modules\EmployeeAbsence\REST\AbsenceForm as AbsenceFormRESTController;
+use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoanForm as DeviceLoanFormRESTController;
 
 /**
  * The plugin bootstrap file
@@ -58,9 +57,6 @@ $container['version'] = '1.2.0';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
 
-$container['schoolSchedulingEnabledFor'] = ['JAM', 'SSS'];
-
-$container['employeeAbsenceEnabledFor'] = ['JAM', 'SSS'];
 
 $enabledModules = [
     'ContentSearchModule',
@@ -68,14 +64,7 @@ $enabledModules = [
 
 if ($container['schoolCode']) {
     $enabledModules[] = 'ClassListsModule';
-}
-
-if ($container['schoolCode'] && in_array($container['schoolCode'], $container['schoolSchedulingEnabledFor'])) {
-    $enabledModules[] = 'SchoolSchedulingModule';
-}
-
-if ($container['schoolCode'] && in_array($container['schoolCode'], $container['employeeAbsenceEnabledFor'])) {
-    $enabledModules[] = 'EmployeeAbsenceModule';
+    $enabledModules[] = 'QuartermasterModule';
 }
 
 $container['modules'] = $enabledModules;
@@ -101,99 +90,20 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
-    '^employee/absence/types$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-type-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceTypeList/AbsenceTypeList.php'
+    '^quartermaster/device-loans/active$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loans-active-list',
+        'template' => 'Quartermaster/Components/DeviceLoanFormList/ActiveList.php'
     ],
-    '^employee/absence/type/([^/]*)/?' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-type-detail',
-        'template' => 'EmployeeAbsence/Components/AbsenceTypeDetail/AbsenceTypeDetail.php',
+    '^quartermaster/device-loans/returned$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loans-returned-list',
+        'template' => 'Quartermaster/Components/DeviceLoanFormList/ReturnedList.php',
     ],
-    '^employee/absence/parts$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-part-list',
-        'template' => 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php'
-    ],
-    '^employee/absence/parts/([^/]*)/?' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-part-list',
-        'template' => 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php'
-    ],
-    '^employee/absence/part/([^/]*)/?' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-part-detail',
-        'template' => 'EmployeeAbsence/Components/AbsencePartDetail/AbsencePartDetail.php'
-    ],
-    '^employee/absences/([^/]*)/?' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-form-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php',
-        'matches' => array('route', 'epoch')
-    ],
-    '^employee/absence/new$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-form-new',
-        'template' => 'EmployeeAbsence/Components/AbsenceFormNew/AbsenceFormNew.php'
-    ],
-    '^employee/absence/quick-add$' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-quick-add',
-        'template' => 'EmployeeAbsence/Components/AbsenceQuickAdd/AbsenceQuickAdd.php'
-    ],
-    '^employee/absence/([^/]*)/edit' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-form-edit',
-        'template' => 'EmployeeAbsence/Components/AbsenceFormEdit/AbsenceFormEdit.php',
-        'matches' => array('route', 'id')
-    ],
-    '^employee/absence/([^/]*)/?' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-form-view',
-        'template' => 'EmployeeAbsence/Components/AbsenceFormView/AbsenceFormView.php',
-        'matches' => array('route', 'id')
-    ],
-    '^employee/([^/]*)/absences' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-form-list',
-        'template' => 'EmployeeAbsence/Components/AbsenceFormList/AbsenceFormList.php',
-        'matches' => array('route', 'employee')
-    ],
-    '^employee/([^/]*)/absence/parts' => [
-        'module' => 'EmployeeAbsenceModule',
-        'view' => 'absence-part-list',
-        'template' => 'EmployeeAbsence/Components/AbsencePartList/AbsencePartList.php'
-    ],
-    '^scheduling/day-parts$' => [
-        'module' => 'SchoolSchedulingModule',
-        'view' => 'day-part-list',
-        'template' => 'SchoolScheduling/Components/DayPartList/DayPartList.php'
-    ],
-    '^scheduling/day-part/([^/]*)/?' => [
-        'module' => 'SchoolSchedulingModule',
-        'view' => 'day-part-detail',
-        'template' => 'SchoolScheduling/Components/DayPartDetail/DayPartDetail.php'
-    ],
-    '^scheduling/day-templates$' => [
-        'module' => 'SchoolSchedulingModule',
-        'view' => 'day-template-list',
-        'template' => 'SchoolScheduling/Components/DayTemplateList/DayTemplateList.php'
-    ],
-    '^scheduling/day-template/([^/]*)/?' => [
-        'module' => 'SchoolSchedulingModule',
-        'view' => 'day-template-detail',
-        'template' => 'SchoolScheduling/Components/DayTemplateDetail/DayTemplateDetail.php'
-    ],
-    '^scheduling/days$' => [
-        'module' => 'SchoolSchedulingModule',
-        'view' => 'day-list',
-        'template' => 'SchoolScheduling/Components/DayList/DayList.php'
-    ],
-    '^scheduling/day/([^/]*)/?' => [
-        'module' => 'SchoolSchedulingModule',
-        'view' => 'day-detail',
-        'template' => 'SchoolScheduling/Components/DayDetail/DayDetail.php'
+    '^quartermaster/device-loans/all$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loans-all-list',
+        'template' => 'Quartermaster/Components/DeviceLoanFormList/AllList.php',
     ]
 ];
 
@@ -217,8 +127,8 @@ $container['ContentSearchModule'] = function ($c) {
     return new ContentSearchModule($c['plugin']);
 };
 
-$container['EmployeeAbsenceModule'] = function ($c) {
-    return new EmployeeAbsenceModule($c['plugin']);
+$container['QuartermasterModule'] = function ($c) {
+    return new QuartermasterModule($c['plugin']);
 };
 
 /**
@@ -232,6 +142,6 @@ add_filter('send_password_change_email', '__return_false');
 add_filter('send_email_change_email', '__return_false');
 
 add_action('rest_api_init', function () {
-    $controller = new AbsenceFormRESTController();
+    $controller = new DeviceLoanFormRESTController();
     $controller->registerRoutes();
 });
