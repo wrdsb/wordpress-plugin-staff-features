@@ -101,7 +101,7 @@ while ($forms_count > $page_max) {
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="https://staff-dev.wrdsb.io/mrg/quartermaster/device-loans/all">LFH Device Loans</a></span>
+                            <span><a href="<?php echo home_url(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
