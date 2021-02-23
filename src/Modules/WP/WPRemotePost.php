@@ -21,6 +21,11 @@ namespace WRDSB\Staff\Modules\WP;
  */
 class WPRemotePost
 {
+    public static $successCodes = array(
+        200,
+        202
+    );
+    
     public static $defaultHeaders = array(
         'Accept'       => 'application/json',
         'Content-Type' => 'application/json'
@@ -71,7 +76,7 @@ class WPRemotePost
             $args['timeout'] = $args['timeout'] + $backoff;
             $response  = wp_remote_post($this->url, $args);
         
-            if (is_array($response) && !empty($response) && $response["response"]["code"] == 200) {
+            if (is_array($response) && !empty($response) && in_array($response["response"]["code"], self::$successCodes)) {
                 break;
             }
             $retries++;
@@ -82,9 +87,9 @@ class WPRemotePost
             $this->status = 500;
             $this->response = $response;
             $this->error = $response->get_error_message();
-        } elseif (!empty($response) && $response["response"]["code"] == 200) {
+        } elseif (!empty($response) && in_array($response["response"]["code"], self::$successCodes)) {
             $this->success = true;
-            $this->status = 200;
+            $this->status = $response["response"]["code"];
             $this->response = json_decode($response['body'], $assoc = false);
             $this->error = null;
         } else {
