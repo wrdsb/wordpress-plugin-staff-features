@@ -60,3 +60,17 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.form-group-inline {
+    width: 100%;
+    display: flex;
+}
+
+.form-element-inline {
+    width: 100%;
+    display: flex;
+}
+
+.form-element-inline input {
+    width: 100%;
+}
