@@ -90,6 +90,11 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
+    '^quartermaster/device-loans/new$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loans-new',
+        'template' => 'Quartermaster/Components/DeviceLoanForm/DeviceLoanForm.php'
+    ],
     '^quartermaster/device-loans/active$' => [
         'module' => 'QuartermasterModule',
         'view' => 'device-loans-active-list',
