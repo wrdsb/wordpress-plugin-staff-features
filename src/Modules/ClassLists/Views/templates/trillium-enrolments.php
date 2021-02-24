@@ -64,7 +64,7 @@ while ($enrolments_count > $page_max) {
 
 <?php get_header(); ?>
 
-<div class="container container-top">
+<div class="container-top">
     <?php get_template_part('partials/header', 'masthead'); ?>
 
     <?php if (! current_user_can_view_content()) { ?>
@@ -94,11 +94,36 @@ while ($enrolments_count > $page_max) {
 <?php if (current_user_can_view_content()) { ?>
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-lg-12" role="main">
+            <div class="col-sm-3 col-lg-3" role="complementary">
+                <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
+                    <div class="sub-navbar-header">
+                        <button type="button" class="navbar-toggle toggle-subnav" data-toggle="collapse" data-target=".sub-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <span class="navbar-brand">Subnav</span>
+                    </div>
+                    <div class="collapse sub-navbar-collapse">
+                        <div class="sub-menu-heading">
+                            <span><a href="<?php echo home_url(); ?>/trillium/classes">Class Lists</a></span>
+                        </div>
+                        <div class="sub-menu-items">
+                            <ul>
+                                <ul>
+                                    <li><a href="<?php echo home_url(); ?>/trillium/classes">List Classes</a></li>
+                                </ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-lg-9" role="main">
+                <h1><?php echo $class_code; ?></h1>
                 <!-- CONTENT -->
                 <div class="description">
                     <div class="description-text">
-                        <h3><?php echo $class_code; ?></h3>
                         <p><a href="../enrolments-email-list/?class-code=<?php echo $class_code ?>">View comma-separated list of email addresses</a></p>
                     </div>
                     <div class="download-buttons" style="float:right">
