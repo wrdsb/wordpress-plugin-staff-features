@@ -125,7 +125,6 @@ while ($forms_count > $page_max) {
                         <span id="button-pdf" class="nav-item"></span>
                     </div>
                 </div>
-                <h1><?php echo $pageTitle; ?></h1>
                 <table id="sample-data-table" class="table" width="100%">
                     <thead>
                         <tr>
