@@ -1,6 +1,8 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
+use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
 use WRDSB\Staff\Modules\Quartermaster\Services\DeviceLoanForms as DeviceLoanFormsService;
 
 class QuartermasterModule
@@ -41,6 +43,13 @@ class QuartermasterModule
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
+    // TODO: Make this return the same instance, ie Singleton, every time
+    public static function getQuartermasterService(): Service
+    {
+        $quartermasterService = new Service;
+        return $quartermasterService;
+    }
+
     public static function getDeviceLoanFormsCommandService(): DeviceLoanFormsService
     {
         $deviceLoanFormsService = new DeviceLoanFormsService;
@@ -54,21 +63,21 @@ class QuartermasterModule
      */
     public function enqueueStyles()
     {
-        wp_enqueue_style(
+        WPCore::wpEnqueueStyle(
             'device-loans',
-            plugin_dir_url(__FILE__) . 'assets/css/device-loans.css',
+            WPCore::pluginDirURL(__FILE__) . 'assets/css/device-loans.css',
             array(),
             $this->version,
             'all'
         );
-        wp_enqueue_style(
+        WPCore::wpEnqueueStyle(
             'dataTables',
             'https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.css',
             array(),
             $this->version,
             'all'
         );
-        wp_enqueue_style(
+        WPCore::wpEnqueueStyle(
             'dataTablesButtons',
             'https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css',
             array(),
@@ -84,38 +93,38 @@ class QuartermasterModule
      */
     public function enqueueScripts()
     {
-        wp_enqueue_script(
+        WPCore::wpEnqueueScript(
             $this->plugin_name,
-            plugin_dir_url(__FILE__) . 'assets/js/device-loans.js',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/device-loans.js',
             array('jquery'),
             $this->version,
             false
         );
-        wp_enqueue_script(
+        WPCore::wpEnqueueScript(
             'pdfMake',
             'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js',
             array( 'jquery' ),
             $this->version,
             false
         );
-        wp_enqueue_script(
+        WPCore::wpEnqueueScript(
             'vfsFonts',
             'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js',
             array( 'jquery' ),
             $this->version,
             false
         );
-        wp_enqueue_script(
+        WPCore::wpEnqueueScript(
             'dataTables',
             'https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.js',
             array( 'jquery' ),
             $this->version,
             false
         );
-        wp_localize_script($this->plugin_name, 'wpApiSettings', array(
-            'root' => esc_url_raw( rest_url() ),
+        WPCore::wpLocalizeScript($this->plugin_name, 'wpApiSettings', array(
+            'root' => WPCore::escURLRaw(WPCore::restURL() ),
             //'root' => 'https://staff-dev.wrdsb.io/wp-json/',
-            'nonce' => wp_create_nonce('wp_rest')
+            'nonce' => WPCore::wpCreateNonce('wp_rest')
         ));
     }
 
