@@ -1,7 +1,7 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\Model;
-
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCollection as Collection;
 
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterSearch as Search;
