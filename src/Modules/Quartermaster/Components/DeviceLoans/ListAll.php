@@ -1,11 +1,14 @@
 <?php
+namespace WRDSB\Staff\Modules\Quartermaster\Model;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+
 $schoolCode = strtoupper(get_option('wrdsb_school_code'));
 $access_time = current_time('mysql');
-$page_title = "Active Device Loans";
+$page_title = "All Device Loans";
 
 function setCustomTitle()
 {
-    $page_title = "Active Device Loans";
+    $page_title = "All Device Loans";
     return $page_title;
 }
 add_filter('pre_get_document_title', 'setCustomTitle');
@@ -25,7 +28,7 @@ $args = array(
     ),
     'cookies'     => array(),
     'body'        => json_encode(array(
-        "filter"  => "schoolCode eq '{$schoolCode}' and wasReturned eq false",
+        "filter"  => "schoolCode eq '{$schoolCode}'",
         "search"  => "*",
         "select"  => "*",
         "orderby" => "loanedToName",
@@ -173,14 +176,18 @@ while ($forms_count > $page_max) {
                                     <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
                                 </td>
                                 <td>
-                                    <button type="button" 
-                                      id="<?php echo $id; ?>-return"
-                                      class="form-return"
-                                      data-blog_id="<?php echo get_current_blog_id(); ?>"
-                                      data-form_id="<?php echo $id; ?>">
-                                      Return Device
-                                    </button>
-                                    <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php if ($form->wasReturned == true) { ?>
+                                        <?php echo date("F j, Y", strtotime($form->returnedAt)); ?>
+                                    <?php } else { ?>
+                                        <button type="button" 
+                                            id="<?php echo $id; ?>-return"
+                                            class="form-return"
+                                            data-blog_id="<?php echo get_current_blog_id(); ?>"
+                                            data-form_id="<?php echo $id; ?>">
+                                            Return Device
+                                        </button>
+                                        <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>

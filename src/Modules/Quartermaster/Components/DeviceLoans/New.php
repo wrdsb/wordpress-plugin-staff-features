@@ -1,4 +1,7 @@
 <?php
+namespace WRDSB\Staff\Modules\Quartermaster\Model;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+
 $schoolCode = get_option('wrdsb_school_code');
 $school_code = strtolower($schoolCode);
 
@@ -141,8 +144,8 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                                 <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="loanedToNumber">Student&nbsp;Number</label>
-                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" readonly tabindex="-1">
+                                <label for="loanedToLocation">Student&nbsp;Location</label>
+                                <input type="text" name="loanedToLocation" id="loanedToLocation" class="form-control" aria-describedby="loanedToLocationHelp" readonly tabindex="-1">
                             </div>
                         </div>
                     </fieldset>
@@ -150,30 +153,23 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                     <h3>Device Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
+                            <div class="form-group col-md-3">
+                                <label for="assetID">Device Barcode</label>
+                                <input type="text" name="assetID" id="assetID" class="form-control" aria-describedby="assetIDHelp">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="assetType">Device Type</label>
+                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" readonly tabindex="-1">
+                            </div>
                             <div class="form-group col-md-6">
-                                <label for="submittedAssetID">Device Asset ID</label>
-                                <input type="text" name="submittedAssetID" id="submittedAssetID" class="form-control" aria-describedby="submittedAssetIDHelp">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="deviceType">Device Type</label>
-                                <input type="text" name="deviceType" id="deviceType" class="form-control" aria-describedby="deviceTypeHelp" readonly tabindex="-1">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="serialNumber">Serial Number</label>
-                                <input type="text" name="serialNumber" id="serialNumber" class="form-control" aria-describedby="serialNumberHelp" readonly tabindex="-1">
+                                <label for="assetModel">Device Model</label>
+                                <input type="text" name="assetModel" id="assetModel" class="form-control" aria-describedby="assetModelHelp" readonly tabindex="-1">
                             </div>
                         </div>
 
                         <div class="form-row col-md-12">
-                            <div class="form-group">
-                                <label style="padding-top:15px;">Is&nbsp;SEA&nbsp;Device?&nbsp;&nbsp;&nbsp;
-                                    <label class="radio-inline">
-                                        <input type="radio" name="isSEADevice" id="isSEADeviceNo" value="false" checked> No
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="isSEADevice" id="isSEADeviceYes" value="true"> Yes
-                                    </label>
-                                </label>
+                            <div>
+                                Spec Ed / SEA warning
                             </div>
                             <div class="form-group-inline">
                                 <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;

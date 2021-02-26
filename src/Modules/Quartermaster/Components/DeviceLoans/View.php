@@ -1,15 +1,9 @@
 <?php
-$current_user = wp_get_current_user();
-$authorized = [
-    'janie_straus@wrdsb.ca',
-    'jason_denhart@wrdsb.ca',
-    'joene_kouvelos@wrdsb.ca',
-    'sandy_millar@wrdsb.ca',
-    'siobhan_watters@wrdsb.ca',
-    'james_schumann@wrdsb.ca'
-];
+namespace WRDSB\Staff\Modules\Quartermaster\Model;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
-$schoolCode = get_option('wrdsb_school_code');
+$currentUser = WPCore::getCurrentUser();
+$schoolCode = WPCore::getOption('wrdsb_school_code');
 $functionKey = CMA_ABSENCE_FORM_QUERY_KEY;
 
 function setCustomTitle()
@@ -50,7 +44,7 @@ $args = array(
     'stream'      => false,
     'filename'    => null
 );
-$response = wp_remote_post($url, $args);
+$response = WPCore::wpRemotePost($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
 $form = $response_object[0];

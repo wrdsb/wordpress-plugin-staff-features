@@ -1,4 +1,7 @@
 <?php
+namespace WRDSB\Staff\Modules\Quartermaster\Model;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+
 $schoolCode = strtoupper(get_option('wrdsb_school_code'));
 $access_time = current_time('mysql');
 $page_title = "Returned Devices";
