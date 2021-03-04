@@ -511,9 +511,9 @@ class Plugin
                     $query_vars = array_merge($routeVars, $urlVars);
                     $query_vars['matches'] = $matches;
 
-                    //foreach ($route['matches'] as $key => $value) {
-                        //$query_vars[$value] = $matches[$key];
-                    //}
+                    foreach ($route['matches'] as $key => $value) {
+                        $query_vars[$value] = $matches[$key];
+                    }
 
                     $environment->query_vars = $query_vars;
         
