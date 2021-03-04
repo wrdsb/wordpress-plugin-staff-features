@@ -22,7 +22,7 @@ class QuartermasterModule
      * The version of this plugin.
      *
      * @since    1.0.0
-     * @access   private
+     * @access   private 
      * @var      string    $version    The current version of this plugin.
      */
     private $version;
@@ -41,6 +41,26 @@ class QuartermasterModule
 
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
+    }
+
+    public static function getCodexSearchKey() {
+        $key = defined('WRDSB_CODEX_SEARCH_KEY') ? WRDSB_CODEX_SEARCH_KEY : false;
+        return $key;
+    }
+
+    public static function getQuartermasterCommandKey() {
+        $key = defined('WRDSB_QUARTERMASTER_COMMAND_KEY') ? WRDSB_QUARTERMASTER_COMMAND_KEY : false;
+        return $key;
+    }
+
+    public static function getQuartermasterQueryKey() {
+        $key = defined('WRDSB_QUARTERMASTER_QUERY_KEY') ? WRDSB_QUARTERMASTER_QUERY_KEY : false;
+        return $key;
+    }
+
+    public static function getDeviceLoansQueryKey() {
+        $key = defined('WRDSB_QUARTERMASTER_QUERY_KEY') ? WRDSB_QUARTERMASTER_QUERY_KEY : false;
+        return $key;
     }
 
     // TODO: Make this return the same instance, ie Singleton, every time
@@ -130,17 +150,35 @@ class QuartermasterModule
 
     private function addViews()
     {
-        $this->plugin->addView('device-loans-new', 'device-loans-new');
-        $this->plugin->addView('device-loans-active-list', 'device-loans-active-list');
-        $this->plugin->addView('device-loans-returned-list', 'device-loans-returned-list');
-        $this->plugin->addView('device-loans-all-list', 'device-loans-all-list');
+        $this->plugin->addView('device-assignment-new', 'device-assignment-new');
+        $this->plugin->addView('device-assignment-edit', 'device-assignment-edit');
+        $this->plugin->addView('device-assignment-view', 'device-assignment-view');
+        $this->plugin->addView('device-assignments-list-all', 'device-assignments-list-all');
+        $this->plugin->addView('device-assignments-list', 'device-assignments-list');
+
+        $this->plugin->addView('device-loan-new', 'device-loan-new');
+        $this->plugin->addView('device-loan-edit', 'device-loan-edit');
+        $this->plugin->addView('device-loan-view', 'device-loan-view');
+        $this->plugin->addView('device-loans-list-active', 'device-loans-list-active');
+        $this->plugin->addView('device-loans-list-returned', 'device-loans-list-returned');
+        $this->plugin->addView('device-loans-list-all', 'device-loans-list-all');
+        $this->plugin->addView('device-loans-list', 'device-loans-list');
     }
 
     private function addPageTemplates()
     {
-        $this->plugin->addPageTemplate('device-loans-new', 'Quartermaster/Components/DeviceLoanForm/DeviceLoanForm.php');
-        $this->plugin->addPageTemplate('device-loans-active-list', 'Quartermaster/Components/DeviceLoanFormList/ActiveList.php');
-        $this->plugin->addPageTemplate('device-loans-returned-list', 'Quartermaster/Components/DeviceLoanFormList/ReturnedList.php');
-        $this->plugin->addPageTemplate('device-loans-all-list', 'Quartermaster/Components/DeviceLoanFormList/AllList.php');
+        $this->plugin->addPageTemplate('device-loan-new', 'Quartermaster/Components/DeviceAssignments/New.php');
+        $this->plugin->addPageTemplate('device-loan-edit', 'Quartermaster/Components/DeviceAssignments/Edit.php');
+        $this->plugin->addPageTemplate('device-loan-view', 'Quartermaster/Components/DeviceAssignments/View.php');
+        $this->plugin->addPageTemplate('device-loans-list-all', 'Quartermaster/Components/DeviceAssignments/ListAll.php');
+        $this->plugin->addPageTemplate('device-loans-list', 'Quartermaster/Components/DeviceAssignments/List.php');
+
+        $this->plugin->addPageTemplate('device-loan-new', 'Quartermaster/Components/DeviceLoans/New.php');
+        $this->plugin->addPageTemplate('device-loan-edit', 'Quartermaster/Components/DeviceLoans/Edit.php');
+        $this->plugin->addPageTemplate('device-loan-view', 'Quartermaster/Components/DeviceLoans/View.php');
+        $this->plugin->addPageTemplate('device-loans-list-active', 'Quartermaster/Components/DeviceLoans/ListActive.php');
+        $this->plugin->addPageTemplate('device-loans-list-returned', 'Quartermaster/Components/DeviceLoans/ListReturned.php');
+        $this->plugin->addPageTemplate('device-loans-list-all', 'Quartermaster/Components/DeviceLoans/ListAll.php');
+        $this->plugin->addPageTemplate('device-loans-list', 'Quartermaster/Components/DeviceLoans/List.php');
     }
 }
