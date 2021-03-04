@@ -546,36 +546,6 @@ class Plugin
         add_rewrite_rule('^trillium/enrolments-email-list$',   'index.php?view=trillium-enrolments-emails', 'top');
     
         add_rewrite_rule('^search/content$',                   'index.php?view=search-wp-posts', 'top');
-    
-        add_rewrite_rule('^employee/absence/types$',           'index.php?view=absence-type-list', 'top');
-        add_rewrite_rule('^employee/absence/type/([^/]*)/?',   'index.php?view=absence-type-detail&id=$matches[1]', 'top');
-    
-        add_rewrite_rule('^employee/absence/parts$',           'index.php?view=absence-part-list', 'top');
-        add_rewrite_rule('^employee/absence/parts/([^/]*)/?',  'index.php?view=absence-part-list&date=$matches[1]', 'top');
-        add_rewrite_rule('^employee/absence/part/([^/]*)/?',   'index.php?view=absence-part-detail&id=$matches[1]', 'top');
-    
-        add_rewrite_rule('^employee/absences$',                'index.php?view=absence-list', 'top');
-        add_rewrite_rule('^employee/absences/old$',            'index.php?view=absence-list', 'top');
-        add_rewrite_rule('^employee/absences/today$',          'index.php?view=absence-list', 'top');
-        add_rewrite_rule('^employee/absences/tomorrow$',       'index.php?view=absence-list', 'top');
-        add_rewrite_rule('^employee/absences/future$',         'index.php?view=absence-list', 'top');
-        add_rewrite_rule('^employee/absences/([^/]*)/?',       'index.php?view=absence-list&date=$matches[1]', 'top');
-        add_rewrite_rule('^employee/absence/new$',             'index.php?view=absence-new', 'top');
-        add_rewrite_rule('^employee/absence/quick-add$',       'index.php?view=absence-quick-add', 'top');
-        add_rewrite_rule('^employee/absence/([^/]*)/edit',     'index.php?view=absence-edit&id=$matches[1]', 'top');
-        add_rewrite_rule('^employee/absence/([^/]*)/?',        'index.php?view=absence-detail&id=$matches[1]', 'top');
-    
-        add_rewrite_rule('^employee/([^/]*)/absences',         'index.php?view=absence-list&employee=$matches[1]', 'top');
-        add_rewrite_rule('^employee/([^/]*)/absence/parts',    'index.php?view=absence-part-list&employee=$matches[1]', 'top');
-    
-        add_rewrite_rule('^scheduling/day-parts$',             'index.php?view=day-part-list', 'top');
-        add_rewrite_rule('^scheduling/day-part/([^/]*)/?',     'index.php?view=day-part-detail&id=$matches[1]', 'top');
-    
-        add_rewrite_rule('^scheduling/day-templates$',         'index.php?view=day-template-list', 'top');
-        add_rewrite_rule('^scheduling/day-template/([^/]*)/?', 'index.php?view=day-template-detail&id=$matches[1]', 'top');
-    
-        add_rewrite_rule('^scheduling/days$',                  'index.php?view=day-list', 'top');
-        add_rewrite_rule('^scheduling/day/([^/]*)/?',          'index.php?view=day-detail&date=$matches[1]', 'top');
     }
 
     public function absenceFormSubmit()
