@@ -2,6 +2,7 @@
 namespace WRDSB\Staff\Modules\Quartermaster\Services;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
+use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterSearch as Search;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCommand as Command;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
@@ -17,45 +18,37 @@ use WRDSB\Staff\Modules\WP\WPRemotePost as WPRemotePost;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class QuartermasterService
-{
-    public function __construct()
-    {
+class QuartermasterService {
+    public function __construct() {
     }
 
-    public function search(Search $search): Search
-    {
+    public function search(Search $search): Search {
         $search = $this->searchRequest($search);
         return $search;
     }
 
-    public function fetch(Query $query): Query
-    {
+    public function fetch(Query $query): Query {
         $query = $this->queryRequest($query);
         return $query;
     }
 
-    public function patch(Command $command): Command
-    {
+    public function patch(Command $command): Command {
         $command = $this->storeRequest($command);
         return $command;
     }
 
-    public function replace(Command $command): Command
-    {
+    public function replace(Command $command): Command {
         $command = $this->storeRequest($command);
         return $command;
     }
 
-    public function delete(Command $command): Command
-    {
+    public function delete(Command $command): Command {
         $command = $this->storeRequest($command);
         return $command;
     }
 
-    private function searchRequest(Search $search): Search
-    {
-        $searchKey = WRDSB_CODEX_SEARCH_KEY;
+    private function searchRequest(Search $search): Search {
+        $searchKey = Module::getCodexSearchKey();
         $url = '';
 
         $headers = array(
@@ -99,42 +92,41 @@ class QuartermasterService
         return $search;
     }
 
-    private function queryRequest(Query $query): Query
-    {
-        $functionKey = QUARTERMASTER_DEVICE_LOAN_SUBMISSION_QUERY_KEY;
-        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/absence-query?code={$functionKey}";
+    private function queryRequest(Query $query): Query {
+        $functionKey = Module::getQuartermasterQueryKey();
+        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/quartermaster-query?code={$functionKey}";
         $body = array(
+            'dataType' => $query->getDataType(),
             'id' => $query->getID()
         );
 
         $request = new WPRemotePost(array(
+            'headers' => array(),
             'url' => $url,
             'body' => json_encode($body),
         ));
         $request->run();
 
         if ($request->success) {
-            $item = new Model;
-            $item.fromJSON($request->response);
-
             $query->setState('success');
             $query->setStatus($request->status);
             $query->setRawResponse($request->response);
-            $query->setTotalResults(1);
-            $query->setResults($item);
+            $query->setError('');
         } else {
             $query->setState('failure');
             $query->setStatus($request->status);
+            $query->setRawResponse($request->response);
             $query->setError($request->error);
+            error_log('Quartermaster Serivce: ' . $request->status);
+            error_log('Quartermaster Service: ' . $request->error);
         }
         
         return $query;
     }
 
-    private function storeRequest(Command $command): Command
-    {
-        $functionKey = QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY;
-        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/device-loan-submissions-command?code={$functionKey}";
+    private function storeRequest(Command $command): Command {
+        $functionKey = Module::getQuartermasterCommandKey();
+        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
         $body = array(
             'jobType' => 'Quartermaster.DeviceLoanSubmission.Store',
             'operation' => $command->getOperation(),
