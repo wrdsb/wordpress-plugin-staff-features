@@ -165,16 +165,16 @@ while ($forms_count > $page_max) {
                             <?php $parts = explode(",", $form->powerAppsId); ?>
                             <?php $id = $parts[0]; ?>
                             <?php echo '<tr id="'.$id.'-row">'; ?>
-                                <td width="20%">
+                                <td width="20%" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
                                     <?php echo $form->loanedToName; ?>
                                 </td>
-                                <td>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
                                     <?php echo $form->deviceType; ?>
                                 </td>
-                                <td>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
                                     <?php echo $form->correctedAssetID; ?>
                                 </td>
-                                <td>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
                                     <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
                                 </td>
                                 <td>
