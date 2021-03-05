@@ -63,6 +63,11 @@ class QuartermasterModule
         return $key;
     }
 
+    public static function getDeviceLoanFormsCommandKey() {
+        $key = defined('QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY') ? QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY : false;
+        return $key;
+    }
+
     // TODO: Make this return the same instance, ie Singleton, every time
     public static function getQuartermasterService(): Service
     {
@@ -137,6 +142,13 @@ class QuartermasterModule
         WPCore::wpEnqueueScript(
             'dataTables',
             'https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.js',
+            array( 'jquery' ),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'jqueryUI',
+            'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
             array( 'jquery' ),
             $this->version,
             false
