@@ -1,101 +1,52 @@
 <?php
-namespace WRDSB\Staff\Modules\Quartermaster\Model;
+namespace WRDSB\Staff\Modules\Quartermaster\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 
-$schoolCode = get_option('wrdsb_school_code');
-$school_code = strtolower($schoolCode);
-
-$current_user = wp_get_current_user();
-$current_time = current_time('mysql');
-
-$functionKey = QUARTERMASTER_DEVICE_LOAN_FORM_INIT_KEY;
-
-$page_title = "New Device Loan";
+$apiKey = Module::getCodexSearchKey();
+$schoolCode = WPCore::getOption('wrdsb_school_code');
+$current_user = WPCore::getCurrentUser();
+$current_time = WPCore::currentTime();
 
 function setCustomTitle()
 {
-    $page_title = "New Device Loan";
-    return $page_title;
+    $pageTitle = "New Device Loan";
+    return $pageTitle;
 }
-add_filter('pre_get_document_title', 'setCustomTitle');
-
-$body = array(
-    'school_code' => $school_code,
-    'email' => $current_user->user_email
-);
-
-$url = "https://wrdsb-quartermaster.azurewebsites.net/api/device-loan-form-init?code={$functionKey}";
-$args = array(
-    'timeout'     => 5,
-    'redirection' => 5,
-    'httpversion' => '1.0',
-    'user-agent'  => 'WordPress/' . $wp_version . '; ' . home_url(),
-    'blocking'    => true,
-    'headers'     => array(
-        'Accept' => 'application/json',
-        'Content-Type' => 'application/json',
-    ),
-    'cookies'     => array(),
-    'body'        => json_encode($body),
-    'compress'    => false,
-    'decompress'  => true,
-    'sslverify'   => false,
-    'stream'      => false,
-    'filename'    => null
-);
-
-$retries = 0;
-$maxRetries = 5;
-
-while ($retries < $maxRetries) {
-    $backoff = 5 * $retries;
-    $args['timeout'] = $args['timeout'] + $backoff;
-    $response = wp_remote_post($url, $args);
-
-    if (is_array($response) && !empty($response) && $response["response"]["code"] == 200) {
-        break;
-    }
-    $retries++;
-}
-
-if (!empty($response) && $response["response"]["code"] == 200) {
-    $response_object = json_decode($response['body'], $assoc = false);
-    $employee = $response_object;
-    $employeeSchedule = $employee->schedule;
-} else {
-    $employeeSchedule = array();
-}
+WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
+$pageTitle = "New Device Loan";
 ?>
 
-<?php get_header(); ?>
+<?php WPCore::getHeader(); ?>
 
 <div class="container-top">
-    <?php get_template_part('partials/header', 'masthead'); ?>
+    <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if (! current_user_can_view_content()) { ?>
-        <?php get_template_part('partials/content', 'unauthorized'); ?>
+    <?php if (! WPCore::currentUserCanViewContent()) { ?>
+        <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
-        <?php get_template_part('partials/header', 'navbar'); ?>
+        <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
 
         <div class="container container-breadcrumb" role="navigation">
             <ol class="breadcrumb">
                 <li>
-                    <a href="<?php echo get_option('home'); ?>">Home</a>
+                    <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
                     Device Loans
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+                    <?php echo $pageTitle; ?>
                 </li>
             </ol>
         </div>
     <?php } ?>
 </div>
 
-<?php if (current_user_can_view_content()) { ?>
+<?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
         <div class="row">
+
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -109,14 +60,14 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo home_url(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
+                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
                                     <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform" target="_blank">New Device Loan</a></li>
-                                    <li><a href="<?php echo home_url(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
-                                    <li><a href="<?php echo home_url(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
-                                    <li><a href="<?php echo home_url(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -124,11 +75,12 @@ if (!empty($response) && $response["response"]["code"] == 200) {
             </div>
 
             <div class="col-sm-9 col-lg-9" role="main">
+                <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
-                <h1><?php echo $page_title; ?></h1>
+                <h2><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">Cancel</a></h2>
 
-                <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-                    <input type="hidden" name="action" value="absence_form_submit">
+                <form action="<?php echo WPCore::escURL(WPCore::adminURL('admin-post.php')); ?>" method="post">
+                    <input type="hidden" name="action" value="device_loan_form_submit">
                     <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
 
@@ -144,8 +96,28 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                                 <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="loanedToLocation">Student&nbsp;Location</label>
-                                <input type="text" name="loanedToLocation" id="loanedToLocation" class="form-control" aria-describedby="loanedToLocationHelp" readonly tabindex="-1">
+                                <label for="loanedToNumber">Student&nbsp;Number</label>
+                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" readonly tabindex="-1">
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <label class="col-md-12">Received by:&nbsp;&nbsp;&nbsp;
+                                <label class="radio-inline">
+                                    <input type="radio" name="receivedByRole" id="receivedByRoleStudent" value="student" checked> Student
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="receivedByRole" id="receivedByRoleOther" value="other"> Other
+                                </label>
+                            </label>
+                        </div>
+                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-7">
+                                <label for="receivedByName">Received By Name</label>
+                                <input type="text" name="receivedByName" id="receivedByName" class="form-control" aria-describedby="receivedByNameHelp">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="receivedByRelationship">Relationship to Student</label>
+                                <input type="text" name="receivedByRelationship" id="receivedByRelationship" class="form-control" aria-describedby="receivedByRelationshipHelp">
                             </div>
                         </div>
                     </fieldset>
@@ -167,23 +139,17 @@ if (!empty($response) && $response["response"]["code"] == 200) {
                             </div>
                         </div>
 
-                        <div class="form-row col-md-12">
-                            <div>
-                                Spec Ed / SEA warning
+                        <div class="form-row col-md-12"  style="padding-top:15px;">
+                            <div class="form-group col-md-12" id="seaDeviceWarning">
+                                This is a Spec Ed / SEA device. Please be certain you want to loan it to this student.
                             </div>
-                            <div class="form-group-inline">
-                                <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;
-                                    <label class="form-element-inline">
-                                        <input type="text" name="peripheralsProvided" id="peripheralsProvided" class="form-control" aria-describedby="peripheralsProvidedHelp">
-                                    </label>
-                                </label>
+                            <div class="form-group col-md-12">
+                                <label for="peripheralsProvided">Peripherals Provided</label>
+                                <input type="text" name="peripheralsProvided" id="peripheralsProvided" class="form-control" aria-describedby="peripheralsProvidedHelp">
                             </div>
-                            <div class="form-group-inline">
-                                <label class="form-element-inline" style="padding-top:15px;">Notes&nbsp;&nbsp;&nbsp;
-                                    <label class="form-element-inline">
-                                        <input type="text" name="notes" id="notes" class="form-control" aria-describedby="notesHelp">
-                                    </label>
-                                </label>
+                            <div class="form-group col-md-12">
+                                <label for="notes">Notes</label>
+                                <input type="text" name="notes" id="notes" class="form-control" aria-describedby="notesHelp">
                             </div>
                         </div>
                     </fieldset>
@@ -219,4 +185,4 @@ if (!empty($response) && $response["response"]["code"] == 200) {
     }
 </script>
 
-<?php get_footer();
+<?php WPCore::getFooter();
