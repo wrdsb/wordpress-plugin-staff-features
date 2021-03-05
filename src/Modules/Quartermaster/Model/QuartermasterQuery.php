@@ -15,8 +15,8 @@ use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class QuartermasterQuery
-{
+class QuartermasterQuery {
+    private $dataType;
     private $id;
 
     private $service;
@@ -27,87 +27,80 @@ class QuartermasterQuery
     private $totalResults;
     private $results;
 
-    private static function getService(): Service
-    {
+    private static function getService(): Service {
         return Module::getQuartermasterService();
     }
 
-    public function __construct(string $id)
-    {
+    public function __construct(string $dataType, string $id) {
+        $this->dataType = $dataType;
         $this->id = $id;
 
         $this->service = self::getService();
         $this->state   = 'pending';
     }
 
-    public function run()
-    {
+    public function run() {
         $temp = $this->service->fetch($this);
 
         $this->state = $temp->getState();
         $this->status = $temp->getStatus();
         $this->rawResponse = $temp->getRawResponse();
-        $this->totalResults = $temp->getTotalResults();
-        $this->results = $temp->getResults();
         $this->error = $temp->getError();
+
+        if ($this->getState() === 'success') {
+            $responseObject = $this->rawResponse;
+            $results = $responseObject->records;
+            $this->results = $results;
+            $this->totalResults = count($results);
+        }
     }
 
-    public function getID(): string
-    {
+    public function getDataType(): string {
+        return $this->dataType;
+    }
+    public function getID(): string {
         return $this->id;
     }
 
-    public function getState(): string
-    {
+    public function getState(): string {
         return $this->state;
     }
-    public function setState(string $state)
-    {
+    public function setState(string $state) {
         $this->state = $state;
     }
 
-    public function getStatus(): int
-    {
+    public function getStatus(): int {
         return $this->status;
     }
-    public function setStatus(int $status)
-    {
+    public function setStatus(int $status) {
         $this->status = $status;
     }
 
-    public function getError(): string
-    {
+    public function getError(): string {
         return $this->error;
     }
-    public function setError(string $error)
-    {
+    public function setError(string $error) {
         $this->error = $error;
     }
 
-    public function getRawResponse()
-    {
+    public function getRawResponse() {
         return $this->rawResponse;
     }
-    public function setRawResponse($rawResponse)
-    {
+    public function setRawResponse($rawResponse) {
         $this->rawResponse = $rawResponse;
     }
 
-    public function getTotalResults()
-    {
+    public function getTotalResults() {
         return $this->totalResults;
     }
-    public function setTotalResults($totalResults)
-    {
+    public function setTotalResults($totalResults) {
         $this->totalResults = $totalResults;
     }
 
-    public function getResults()
-    {
+    public function getResults() {
         return $this->results;
     }
-    public function setResults($results)
-    {
+    public function setResults($results) {
         $this->results = $results;
     }
 }
