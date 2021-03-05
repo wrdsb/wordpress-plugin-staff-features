@@ -261,7 +261,7 @@ class Asset extends WP_REST_Controller
             return true;
         }
 
-        $user = WPCore::wpGetCurrentUser();
+        $user = WPCore::getCurrentUser();
         if (empty($user)) return false;
 
         $blogID = $this->getBlogID($request);
