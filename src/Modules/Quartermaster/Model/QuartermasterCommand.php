@@ -15,8 +15,7 @@ use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class QuartermasterCommand implements \JsonSerializable
-{
+class QuartermasterCommand implements \JsonSerializable {
     private $operation;
     private $payload;
 
@@ -28,13 +27,11 @@ class QuartermasterCommand implements \JsonSerializable
     private $totalResults;
     private $results;
 
-    private static function getService(): Service
-    {
+    private static function getService(): Service {
         return Module::getQuartermasterService();
     }
 
-    public function __construct(string $operation, string $id, array $object = null)
-    {
+    public function __construct(string $operation, string $id, array $object = null) {
         if ($object) {
             $this->operation = $operation;
             $this->payload   = $object;
@@ -56,8 +53,7 @@ class QuartermasterCommand implements \JsonSerializable
         }
     }
 
-    public function run()
-    {
+    public function run() {
         switch ($this->operation) {
             case 'patch':
                 $temp = $this->service->patch($this);
@@ -95,73 +91,58 @@ class QuartermasterCommand implements \JsonSerializable
         }
     }
 
-    public function jsonSerialize()
-    {
+    public function jsonSerialize() {
         $vars = get_object_vars($this);
         return $vars;
     }
 
-    public function getPayload()
-    {
+    public function getPayload() {
         return $this->payload;
     }
 
-    public function getOperation(): string
-    {
+    public function getOperation(): string {
         return $this->operation;
     }
 
-    public function getState(): string
-    {
+    public function getState(): string {
         return $this->state;
     }
-    public function setState(string $state)
-    {
+    public function setState(string $state) {
         $this->state = $state;
     }
 
-    public function getStatus(): int
-    {
+    public function getStatus(): int {
         return $this->status;
     }
-    public function setStatus(int $status)
-    {
+    public function setStatus(int $status) {
         $this->status = $status;
     }
 
-    public function getError(): string
-    {
+    public function getError(): string {
         return $this->error ?? 'None';
     }
-    public function setError(string $error)
-    {
+    public function setError(string $error) {
         $this->error = $error;
     }
 
-    public function getRawResponse()
-    {
+    public function getRawResponse() {
         return $this->rawResponse;
     }
-    public function setRawResponse($rawResponse)
-    {
+    public function setRawResponse($rawResponse) {
         $this->rawResponse = $rawResponse;
     }
 
-    public function getTotalResults()
-    {
+    public function getTotalResults() {
         return $this->totalResults;
     }
-    public function setTotalResults($totalResults)
-    {
+    public function setTotalResults($totalResults) {
         $this->totalResults = $totalResults;
     }
 
-    public function getResults()
-    {
+    public function getResults() {
         return $this->results;
     }
-    public function setResults($results)
-    {
+    public function setResults($results) {
         $this->results = $results;
     }
 }
