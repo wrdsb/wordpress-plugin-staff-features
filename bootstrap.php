@@ -90,73 +90,20 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
-
-    '^quartermaster/device-assignment/new$' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-assignment-new',
-        'template' => 'Quartermaster/Components/DeviceAssignments/New.php'
-    ],
-    '^quartermaster/device-assignment/([^/]*)/edit' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-assignment-edit',
-        'template' => 'Quartermaster/Components/DeviceAssignments/Edit.php',
-        'matches' => array('route', 'id')
-    ],
-    '^quartermaster/device-assignment/([^/]*)/?' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-assignment-view',
-        'template' => 'Quartermaster/Components/DeviceAssignments/View.php',
-        'matches' => array('route', 'id')
-    ],
-    '^quartermaster/device-assignments/all$' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-assignments-list-all',
-        'template' => 'Quartermaster/Components/DeviceAssignments/ListAll.php',
-    ],
-    '^quartermaster/device-assignments/([^/]*)/?' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-assignments-list',
-        'template' => 'Quartermaster/Components/DeviceAssignments/List.php',
-        'matches' => array('route', 'epoch')
-    ],
-
-    '^quartermaster/device-loan/new$' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-loan-new',
-        'template' => 'Quartermaster/Components/DeviceLoans/New.php'
-    ],
-    '^quartermaster/device-loan/([^/]*)/edit' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-loan-edit',
-        'template' => 'Quartermaster/Components/DeviceLoans/Edit.php',
-        'matches' => array('route', 'id')
-    ],
-    '^quartermaster/device-loan/([^/]*)/?' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-loan-view',
-        'template' => 'Quartermaster/Components/DeviceLoans/View.php',
-        'matches' => array('route', 'id')
-    ],
     '^quartermaster/device-loans/active$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-list-active',
-        'template' => 'Quartermaster/Components/DeviceLoans/ListActive.php'
+        'view' => 'device-loans-active-list',
+        'template' => 'Quartermaster/Components/DeviceLoanFormList/ActiveList.php'
     ],
     '^quartermaster/device-loans/returned$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-list-returned',
-        'template' => 'Quartermaster/Components/DeviceLoans/ListReturned.php',
+        'view' => 'device-loans-returned-list',
+        'template' => 'Quartermaster/Components/DeviceLoanFormList/ReturnedList.php',
     ],
     '^quartermaster/device-loans/all$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-list-all',
-        'template' => 'Quartermaster/Components/DeviceLoans/ListAll.php',
-    ],
-    '^quartermaster/device-loans/([^/]*)/?' => [
-        'module' => 'QuartermasterModule',
-        'view' => 'device-loans-list',
-        'template' => 'Quartermaster/Components/DeviceLoans/List.php',
-        'matches' => array('route', 'epoch')
+        'view' => 'device-loans-all-list',
+        'template' => 'Quartermaster/Components/DeviceLoanFormList/AllList.php',
     ]
 ];
 

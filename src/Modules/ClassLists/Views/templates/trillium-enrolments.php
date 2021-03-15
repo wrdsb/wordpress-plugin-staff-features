@@ -92,99 +92,73 @@ while ($enrolments_count > $page_max) {
 </div>
 
 <?php if (current_user_can_view_content()) { ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-3 col-lg-3" role="complementary">
-                <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
-                    <div class="sub-navbar-header">
-                        <button type="button" class="navbar-toggle toggle-subnav" data-toggle="collapse" data-target=".sub-navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <span class="navbar-brand">Subnav</span>
-                    </div>
-                    <div class="collapse sub-navbar-collapse">
-                        <div class="sub-menu-heading">
-                            <span><a href="<?php echo home_url(); ?>/trillium/classes">Class Lists</a></span>
-                        </div>
-                        <div class="sub-menu-items">
-                            <ul>
-                                <ul>
-                                    <li><a href="<?php echo home_url(); ?>/trillium/classes">List Classes</a></li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-9 col-lg-9" role="main">
-                <h1><?php echo $class_code; ?></h1>
-                <!-- CONTENT -->
-                <div class="description">
-                    <div class="description-text">
-                        <p><a href="../enrolments-email-list/?class-code=<?php echo $class_code ?>">View comma-separated list of email addresses</a></p>
-                    </div>
-                    <div class="download-buttons" style="float:right">
-                        <span id="button-copy" class="nav-item"></span>
-                        <span id="button-csv" class="nav-item"></span>
-                        <span id="button-pdf" class="nav-item"></span>
-                    </div>
-                </div>
+    <div class="row">
 
-                <table id="sample-data-table" class="table">
-                    <thead>
-                        <tr>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Last Name</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">First Name</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Sortable Name</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Full Name</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Email</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Student Number</span>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($enrolments as $enrolment) {
-                            ?>
-                            <tr>
-                                <td><?php echo $enrolment->student_last_name; ?></td>
-                                <td><?php echo $enrolment->student_first_name; ?></td>
-                                <td><?php echo $enrolment->student_last_name; ?>, <?php echo $enrolment->student_first_name; ?></td>
-                                <td><?php echo $enrolment->student_first_name; ?> <?php echo $enrolment->student_last_name; ?></td>
-                                <td><?php echo $enrolment->student_email; ?></td>
-                                <td><?php echo $enrolment->student_number; ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-                <!-- CONTENT -->
+        <div class="col-sm-12 col-lg-12" role="main">
+            <!-- CONTENT -->
+            <div class="description">
+                <div class="description-text">
+                    <h3><?php echo $class_code; ?></h3>
+                    <p><a href="../enrolments-email-list/?class-code=<?php echo $class_code ?>">View comma-separated list of email addresses</a></p>
+                </div>
+                <div class="download-buttons" style="float:right">
+                    <span id="button-copy" class="nav-item"></span>
+                    <span id="button-csv" class="nav-item"></span>
+                    <span id="button-pdf" class="nav-item"></span>
+                </div>
             </div>
+
+            <table id="sample-data-table" class="table">
+                <thead>
+                    <tr>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Last Name</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">First Name</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Sortable Name</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Full Name</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Email</span>
+                            </div>
+                        </th>
+                        <th class="secondary-text">
+                            <div class="table-header">
+                                <span class="column-title">Student Number</span>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($enrolments as $enrolment) {
+                        ?>
+                        <tr>
+                            <td><?php echo $enrolment->student_last_name; ?></td>
+                            <td><?php echo $enrolment->student_first_name; ?></td>
+                            <td><?php echo $enrolment->student_last_name; ?>, <?php echo $enrolment->student_first_name; ?></td>
+                            <td><?php echo $enrolment->student_first_name; ?> <?php echo $enrolment->student_last_name; ?></td>
+                            <td><?php echo $enrolment->student_email; ?></td>
+                            <td><?php echo $enrolment->student_number; ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <!-- CONTENT -->
         </div>
     </div>
 <?php } ?>
