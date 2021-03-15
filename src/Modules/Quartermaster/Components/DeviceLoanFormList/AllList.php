@@ -1,19 +1,14 @@
 <?php
-namespace WRDSB\Staff\Modules\Quartermaster\Model;
-use WRDSB\Staff\Modules\WP\WPCore as WPCore;
-use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
-
-$apiKey = Module::getCodexSearchKey();
-$schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
-$access_time = WPCore::currentTime();
-$page_title = "Active Device Loans";
+$schoolCode = strtoupper(get_option('wrdsb_school_code'));
+$access_time = current_time('mysql');
+$page_title = "All Device Loans";
 
 function setCustomTitle()
 {
-    $page_title = "Active Device Loans";
+    $page_title = "All Device Loans";
     return $page_title;
 }
-WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
+add_filter('pre_get_document_title', 'setCustomTitle');
 
 global $wp_version;
 $url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
@@ -21,16 +16,16 @@ $args = array(
     'timeout'     => 5,
     'redirection' => 5,
     'httpversion' => '1.0',
-    'user-agent'  => 'WordPress/' . $wp_version . '; ' . WPCore::homeURL(),
+    'user-agent'  => 'WordPress/' . $wp_version . '; ' . home_url(),
     'blocking'    => true,
     'headers'     => array(
         'Accept' => 'application/json',
         'Content-Type' => 'application/json',
-        'api-key' => $apiKey
+        'api-key' => WRDSB_CODEX_SEARCH_KEY
     ),
     'cookies'     => array(),
     'body'        => json_encode(array(
-        "filter"  => "schoolCode eq '{$schoolCode}' and wasReturned eq false",
+        "filter"  => "schoolCode eq '{$schoolCode}'",
         "search"  => "*",
         "select"  => "*",
         "orderby" => "loanedToName",
@@ -44,7 +39,7 @@ $args = array(
     'filename'    => null
 );
 
-$response = WPCore::wpRemotePost($url, $args);
+$response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 $forms = $response_object->value;
 $forms_count = $response_object->{'@odata.count'};
@@ -56,7 +51,7 @@ while ($forms_count > $page_max) {
     $body = json_decode($args['body'], $assoc = true);
     $body["skip"] = $pages * 1000;
     $args['body'] = json_encode($body);
-    $response = WPCore::wpRemotePost($url, $args);
+    $response = wp_remote_post($url, $args);
     $response_object = json_decode($response['body'], $assoc = false);
     $forms = array_merge($forms, $response_object->value);
     $page_max = count($forms);
@@ -64,20 +59,20 @@ while ($forms_count > $page_max) {
 }
 ?>
 
-<?php WPCore::getHeader(); ?>
+<?php get_header(); ?>
 
 <div class="container-top">
-    <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
+    <?php get_template_part('partials/header', 'masthead'); ?>
 
-    <?php if (! WPCore::currentUserCanViewContent()) { ?>
-        <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
+    <?php if (! current_user_can_view_content()) { ?>
+        <?php get_template_part('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
-        <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
+        <?php get_template_part('partials/header', 'navbar'); ?>
 
         <div class="container container-breadcrumb" role="navigation">
             <ol class="breadcrumb">
                 <li>
-                    <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
+                    <a href="<?php echo get_option('home'); ?>">Home</a>
                 </li>
                 <li>
                     Device Loans
@@ -90,7 +85,7 @@ while ($forms_count > $page_max) {
     <?php } ?>
 </div>
 
-<?php if (WPCore::currentUserCanViewContent()) { ?>
+<?php if (current_user_can_view_content()) { ?>
     <div class="container">
         <div class="row">
             <div class="col-sm-3 col-lg-3" role="complementary">
@@ -106,14 +101,14 @@ while ($forms_count > $page_max) {
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
+                            <span><a href="https://staff-dev.wrdsb.io/mrg/quartermaster/device-loans/all">LFH Device Loans</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform" target="_blank">Create New Device Loan</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
+                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform" target="_blank">New Device Loan</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
+                                    <li><a href="<?php echo home_url(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -130,6 +125,7 @@ while ($forms_count > $page_max) {
                         <span id="button-pdf" class="nav-item"></span>
                     </div>
                 </div>
+                <h1><?php echo $pageTitle; ?></h1>
                 <table id="sample-data-table" class="table" width="100%">
                 <thead>
                         <tr>
@@ -165,27 +161,31 @@ while ($forms_count > $page_max) {
                             <?php $parts = explode(",", $form->powerAppsId); ?>
                             <?php $id = $parts[0]; ?>
                             <?php echo '<tr id="'.$id.'-row">'; ?>
-                                <td width="20%" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td width="20%">
                                     <?php echo $form->loanedToName; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td>
                                     <?php echo $form->deviceType; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td>
                                     <?php echo $form->correctedAssetID; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td>
                                     <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
                                 </td>
                                 <td>
-                                    <button type="button" 
-                                      id="<?php echo $id; ?>-return"
-                                      class="form-return"
-                                      data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                      data-form_id="<?php echo $id; ?>">
-                                      Return Device
-                                    </button>
-                                    <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php if ($form->wasReturned == true) { ?>
+                                        <?php echo date("F j, Y", strtotime($form->returnedAt)); ?>
+                                    <?php } else { ?>
+                                        <button type="button" 
+                                            id="<?php echo $id; ?>-return"
+                                            class="form-return"
+                                            data-blog_id="<?php echo get_current_blog_id(); ?>"
+                                            data-form_id="<?php echo $id; ?>">
+                                            Return Device
+                                        </button>
+                                        <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -197,4 +197,4 @@ while ($forms_count > $page_max) {
     </div>
 <?php } ?>
 
-<?php WPCore::getFooter();
+<?php get_footer();

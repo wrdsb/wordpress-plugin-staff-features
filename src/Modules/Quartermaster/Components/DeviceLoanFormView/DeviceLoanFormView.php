@@ -1,11 +1,15 @@
 <?php
-namespace WRDSB\Staff\Modules\Quartermaster\Model;
-use WRDSB\Staff\Modules\WP\WPCore as WPCore;
-use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
+$current_user = wp_get_current_user();
+$authorized = [
+    'janie_straus@wrdsb.ca',
+    'jason_denhart@wrdsb.ca',
+    'joene_kouvelos@wrdsb.ca',
+    'sandy_millar@wrdsb.ca',
+    'siobhan_watters@wrdsb.ca',
+    'james_schumann@wrdsb.ca'
+];
 
-$apiKey = Module::getCodexSearchKey();
-$currentUser = WPCore::getCurrentUser();
-$schoolCode = WPCore::getOption('wrdsb_school_code');
+$schoolCode = get_option('wrdsb_school_code');
 $functionKey = CMA_ABSENCE_FORM_QUERY_KEY;
 
 function setCustomTitle()
@@ -13,7 +17,7 @@ function setCustomTitle()
     $pageTitle = "Employee Absence Detail";
     return $pageTitle;
 }
-WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
+add_filter('pre_get_document_title', 'setCustomTitle');
 
 $pageTitle = "Employee Absence Detail";
 
@@ -46,18 +50,18 @@ $args = array(
     'stream'      => false,
     'filename'    => null
 );
-$response = WPCore::wpRemotePost($url, $args);
+$response = wp_remote_post($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
 
 $form = $response_object[0];
 ?>
 
-<?php WPCore::getHeader(); ?>
+<?php get_header(); ?>
 
 <div class="container-top">
     <?php
-        WPCore::getTemplatePart('partials/header', 'masthead');
-        WPCore::getTemplatePart('partials/header', 'navbar');
+        get_template_part('partials/header', 'masthead');
+        get_template_part('partials/header', 'navbar');
     ?>
 </div>
 
@@ -206,4 +210,4 @@ $form = $response_object[0];
     </div>
 </div>
 
-<?php WPCore::getFooter();
+<?php get_footer();
