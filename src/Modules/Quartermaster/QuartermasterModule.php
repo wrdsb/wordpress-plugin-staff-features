@@ -2,6 +2,7 @@
 namespace WRDSB\Staff\Modules\Quartermaster;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
+use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
 use WRDSB\Staff\Modules\Quartermaster\Services\DeviceLoanForms as DeviceLoanFormsService;
 
 class QuartermasterModule {
@@ -64,6 +65,12 @@ class QuartermasterModule {
         return $key;
     }
 
+    // TODO: Make this return the same instance, ie Singleton, every time
+    public static function getQuartermasterService(): Service {
+        $quartermasterService = new Service;
+        return $quartermasterService;
+    }
+    
     public static function getDeviceLoanFormsCommandService(): DeviceLoanFormsService {
         $deviceLoanFormsService = new DeviceLoanFormsService;
         return $deviceLoanFormsService;
