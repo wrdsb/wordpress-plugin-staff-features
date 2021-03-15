@@ -5,11 +5,7 @@ use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCollection as Collecti
 
 use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormSearch as Search;
 use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCommand as Command;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormQuery as Query;
-
-//use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormSearch as Search;
-//use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCommand as Command;
-//use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
+use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
 
 /**
  * Define the "DeviceLoanForm" Model

@@ -87,8 +87,6 @@ $loan = Model::get($id);
             <div class="col-sm-9 col-lg-9" role="main">
                 <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
-                <h2><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $loan->getID(); ?>/edit">Edit this Device Loan</a></h2>
-
                 <form action="" method="post">
                     <h3>Student Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
