@@ -7,6 +7,7 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $access_time = WPCore::currentTime();
 $page_title = "Active Device Loans";
+$userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
 function setCustomTitle()
 {
@@ -80,7 +81,7 @@ while ($forms_count > $page_max) {
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    Device Loans
+                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">Device Loans</a>
                 </li>
                 <li>
                     <?php echo $page_title; ?>
@@ -178,14 +179,16 @@ while ($forms_count > $page_max) {
                                     <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
                                 </td>
                                 <td>
-                                    <button type="button" 
-                                      id="<?php echo $id; ?>-return"
-                                      class="form-return"
-                                      data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                      data-form_id="<?php echo $id; ?>">
-                                      Return Device
-                                    </button>
-                                    <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php if ($userIsAdmin) { ?>
+                                        <button type="button" 
+                                        id="<?php echo $id; ?>-return"
+                                        class="form-return"
+                                        data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                        data-form_id="<?php echo $id; ?>">
+                                        Return Device
+                                        </button>
+                                        <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>
