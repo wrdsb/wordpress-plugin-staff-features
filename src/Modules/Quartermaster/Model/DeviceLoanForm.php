@@ -26,7 +26,7 @@ class DeviceLoanForm implements \JsonSerializable {
     private $deleted;
 
     private $saved;
-    private bool $dirty;
+    private $dirty;
 
     private $powerAppsId;
     private $changeDetectionHash;
