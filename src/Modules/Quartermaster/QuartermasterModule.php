@@ -154,6 +154,8 @@ class QuartermasterModule {
     }
 
     private function addViews() {
+        $this->plugin->addView('device-loan-new', 'device-loan-new');
+        $this->plugin->addView('device-loan-edit', 'device-loan-edit');
         $this->plugin->addView('device-loan-view', 'device-loan-view');
         $this->plugin->addView('device-loans-list-active', 'device-loans-list-active');
         $this->plugin->addView('device-loans-list-returned', 'device-loans-list-returned');
@@ -161,6 +163,8 @@ class QuartermasterModule {
     }
 
     private function addPageTemplates() {
+        $this->plugin->addPageTemplate('device-loan-new', 'Quartermaster/Components/DeviceLoans/New.php');
+        $this->plugin->addPageTemplate('device-loan-edit', 'Quartermaster/Components/DeviceLoans/Edit.php');
         $this->plugin->addPageTemplate('device-loan-view', 'Quartermaster/Components/DeviceLoans/View.php');
         $this->plugin->addPageTemplate('device-loans-list-active', 'Quartermaster/Components/DeviceLoans/ListActive.php');
         $this->plugin->addPageTemplate('device-loans-list-returned', 'Quartermaster/Components/DeviceLoans/ListReturned.php');
