@@ -1,5 +1,6 @@
 <?php
 namespace WRDSB\Staff\Modules\WP;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 /**
  * The admin-specific functionality of the plugin.
@@ -74,7 +75,7 @@ class WPRemotePost
         while ($retries < $maxRetries) {
             $backoff = 5 * $retries;
             $args['timeout'] = $args['timeout'] + $backoff;
-            $response  = wp_remote_post($this->url, $args);
+            $response  = WPCore::wpRemotePost($this->url, $args);
         
             if (is_array($response) && !empty($response) && in_array($response["response"]["code"], self::$successCodes)) {
                 break;
@@ -82,7 +83,7 @@ class WPRemotePost
             $retries++;
         }
         
-        if (is_wp_error($response)) {
+        if (WPCore::isWPError($response)) {
             $this->success = false;
             $this->status = 500;
             $this->response = $response;
