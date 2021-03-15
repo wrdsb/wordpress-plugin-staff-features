@@ -90,21 +90,27 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
+    '^quartermaster/device-loan/([^/]*)/?' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loan-view',
+        'template' => 'Quartermaster/Components/DeviceLoans/View.php',
+        'matches' => array('route', 'id')
+    ],
     '^quartermaster/device-loans/active$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-active-list',
-        'template' => 'Quartermaster/Components/DeviceLoanFormList/ActiveList.php'
+        'view' => 'device-loans-list-active',
+        'template' => 'Quartermaster/Components/DeviceLoans/ListActive.php'
     ],
     '^quartermaster/device-loans/returned$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-returned-list',
-        'template' => 'Quartermaster/Components/DeviceLoanFormList/ReturnedList.php',
+        'view' => 'device-loans-list-returned',
+        'template' => 'Quartermaster/Components/DeviceLoans/ListReturned.php',
     ],
     '^quartermaster/device-loans/all$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-all-list',
-        'template' => 'Quartermaster/Components/DeviceLoanFormList/AllList.php',
-    ]
+        'view' => 'device-loans-list-all',
+        'template' => 'Quartermaster/Components/DeviceLoans/ListAll.php',
+    ],
 ];
 
 /**

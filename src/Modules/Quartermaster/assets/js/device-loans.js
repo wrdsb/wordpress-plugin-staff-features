@@ -2,6 +2,64 @@
 	'use strict';
 
 	$(document).ready(function() {
+        console.log('document ready');
+
+        $('#receivedByBlock').hide();
+
+        $('input[name="receivedByRole"]').click(function () {
+            if ($(this).attr("value") === "student") {
+                $("#receivedByBlock").hide('slow');
+            }
+            if ($(this).attr("value") === "other") {
+                $("#receivedByBlock").show('slow');
+
+            }
+        });
+
+        //$('input[name="receivedByRole"]').trigger('click');  // trigger the event
+
+        $('#seaDeviceWarning').hide();
+
+        var availableTags = [
+            "Choice 1",
+            "Choice 2",
+            "Choice 3",
+            "Choice 4",
+            "Choice 5",
+            "Choice 6",
+            "Choice 7",
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4",
+            "Option 5",
+            "Option 6",
+            "Option 7"
+        ];
+
+        $("#loanedToName").autocomplete({
+            autoFocus: true,
+            delay: 500,
+            minLength: 3,
+            source: availableTags
+        });
+
+        $("#loanedToName").on("autocompleteselect", function(event, ui) {
+            $('input[name="loanedToEmail"]').val("something");
+            $('input[name="loanedToNumber"]').val("something else");
+        });
+
+        $("#assetID").autocomplete({
+            autoFocus: true,
+            delay: 500,
+            minLength: 3,
+            source: availableTags
+        });
+
+        $("#assetID").on("autocompleteselect", function(event, ui) {
+            $('input[name="assetType"]').val("something");
+            $('input[name="assetModel"]').val("something else");
+        });
 
 		var table = $('#sample-data-table').DataTable( {
             dom: '<"dataTables_header"Bi>t<"dataTables_footer"i>',
