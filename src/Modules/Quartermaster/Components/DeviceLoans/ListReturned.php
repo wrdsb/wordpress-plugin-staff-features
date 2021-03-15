@@ -7,6 +7,7 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $access_time = WPCore::currentTime();
 $page_title = "Returned Devices";
+$userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
 function setCustomTitle()
 {
