@@ -80,7 +80,7 @@ while ($forms_count > $page_max) {
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    Device Loans
+                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">Device Loans</a>
                 </li>
                 <li>
                     <?php echo $page_title; ?>
