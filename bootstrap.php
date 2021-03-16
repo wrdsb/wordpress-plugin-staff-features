@@ -90,32 +90,32 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
-    '^quartermaster/device-assignment/new$' => [
+    '^quartermaster/asset-assignment/new$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-assignment-new',
-        'template' => 'Quartermaster/Components/DeviceAssignments/New.php'
+        'view' => 'asset-assignment-new',
+        'template' => 'Quartermaster/Components/AssetAssignments/New.php'
     ],
-    '^quartermaster/device-assignment/([^/]*)/edit' => [
+    '^quartermaster/asset-assignment/([^/]*)/edit' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-assignment-edit',
-        'template' => 'Quartermaster/Components/DeviceAssignments/Edit.php',
+        'view' => 'asset-assignment-edit',
+        'template' => 'Quartermaster/Components/AssetAssignments/Edit.php',
         'matches' => array('route', 'id')
     ],
-    '^quartermaster/device-assignment/([^/]*)/?' => [
+    '^quartermaster/asset-assignment/([^/]*)/?' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-assignment-view',
-        'template' => 'Quartermaster/Components/DeviceAssignments/View.php',
+        'view' => 'asset-assignment-view',
+        'template' => 'Quartermaster/Components/AssetAssignments/View.php',
         'matches' => array('route', 'id')
     ],
-    '^quartermaster/device-assignments/all$' => [
+    '^quartermaster/asset-assignments/all$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-assignments-list-all',
-        'template' => 'Quartermaster/Components/DeviceAssignments/ListAll.php',
+        'view' => 'asset-assignments-list-all',
+        'template' => 'Quartermaster/Components/AssetAssignments/ListAll.php',
     ],
-    '^quartermaster/device-assignments/([^/]*)/?' => [
+    '^quartermaster/asset-assignments/([^/]*)/?' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-assignments-list',
-        'template' => 'Quartermaster/Components/DeviceAssignments/List.php',
+        'view' => 'asset-assignments-list',
+        'template' => 'Quartermaster/Components/AssetAssignments/List.php',
         'matches' => array('route', 'epoch')
     ],
     '^quartermaster/device-loan/([^/]*)/?' => [
