@@ -7,6 +7,7 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $access_time = WPCore::currentTime();
 $page_title = "All Device Loans";
+$currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
 function setCustomTitle()
@@ -192,6 +193,7 @@ while ($forms_count > $page_max) {
                                                     id="<?php echo $id; ?>-return"
                                                     data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
                                                     data-form_id="<?php echo $id; ?>"
+                                                    data-user_email="<?php echo $currentUser->user_email; ?>",
                                                     class="form-control form-return"
                                                     aria-describedby="returnDeviceHelp"
                                                     placeholder="Return Device">

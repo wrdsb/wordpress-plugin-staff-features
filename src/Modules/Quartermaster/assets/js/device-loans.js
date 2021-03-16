@@ -140,18 +140,21 @@
         table.buttons( 'pdf', null ).containers().appendTo('#button-pdf');
 
 		$('.form-return').on("change", function() {
-            $('#' + form_id + '-status').attr('class', 'glyphicon glyphicon-cloud-upload');
-
             var blog_id = $(this).data('blog_id');
 			var form_id = $(this).data('form_id');
+            var user_email = $(this).data('user_email');
 			console.log(`Mark device as returned for form ${form_id} on blog ${blog_id}`);
+
+            $('#' + form_id + '-status').attr('class', 'glyphicon glyphicon-cloud-upload');
             
             var returnDate = $(this).val();
-            var returnedAt = returnDate;
+            var returnedAt = returnDate.concat(' ', '00:00:00');
+            var returnedBy = user_email;
             var body = {
-                returnedAt: returnDate
+                returnedAt: returnedAt,
+                returnedBy: returnedBy
             };
-            console.log(`returnedAt: ${returnedAt}`);
+            console.log(`returnedAt: ${returnedAt}, by ${returnedBy}`);
 
             $.ajax({
                 method: 'POST',

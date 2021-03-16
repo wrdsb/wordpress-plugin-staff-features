@@ -220,12 +220,13 @@ class DeviceLoanForm extends WP_REST_Controller
     {
         $current_time = current_time('mysql');
         $id = $this->getFormID($request);
+        $body = $request->get_json_params();
 
         $patch = array(
             'id' => $id,
             'wasReturned' => true,
-            'returnedAt' => $current_time,
-            'returnedBy' => ''
+            'returnedAt' => $body['returnedAt'],
+            'returnedBy' => $body['returnedBy'],
         );
         
         $command = Model::patch($id, $patch);
