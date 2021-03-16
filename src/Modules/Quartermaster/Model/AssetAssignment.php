@@ -17,18 +17,63 @@ use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
  */
 
 class AssetAssignment implements \JsonSerializable {
+    private $createdAt;
+    private $updatedAt;
+    private $deletedAt;
+    private $deleted;
+
+    private $createdBy;
+    private $updatedBy;
+    private $deletedBy;
+
     private $id;
+    //private $saved;
+    //private $dirty;
+    private $changeDetectionHash;
+
+    private $assetID;
+
+    private $assignedBy;
+    
+    private $assignedToPerson;
+    private $assignedToBusinessUnit;
+    private $receivedBy;
+
+    private $startDate;
+    private $endDate;
+
+    private $untrackedAssestsIncluded;
+    private $notes;
+    
 
     public function __construct() {
-        $this->id = '';
-
         $this->createdAt = '';
         $this->updatedAt = '';
         $this->deletedAt = '';
         $this->deleted = false;
 
-        $this->saved = false;
-        $this->dirty = true;
+        $this->createdBy = '';
+        $this->updatedBy = '';
+        $this->deletedBy = '';
+    
+        $this->id = '';
+        //$this->saved = false;
+        //$this->dirty = true;
+        $this->changeDetectionHash = '';
+
+        $this->assetID = '';
+    
+        $this->assignedBy = '';
+        
+        $this->assignedToPerson = '';
+        $this->assignedToBusinessUnit = '';
+        $this->receivedBy = '';
+    
+        $this->startDate = '';
+        $this->endDate = '';
+    
+        $this->untrackedAssestsIncluded = '';
+        $this->notes = '';
     }
 
     public function jsonSerialize() {
@@ -159,8 +204,7 @@ class AssetAssignment implements \JsonSerializable {
         }
     }
 
-    public function fromJSON(string $jsonString)
-    {
+    public function fromJSON(string $jsonString) {
         $object = json_decode($jsonString, $assoc = false);
 
         foreach ($object as $property => $value) {
@@ -168,39 +212,31 @@ class AssetAssignment implements \JsonSerializable {
         }
     }
 
-    private function setDeleted()
-    {
+    private function setDeleted() {
         $current_time = WPCore::currentTime();
         $this->deletedAt = $current_time;
         $this->deleted = true;
         //$this->dirty = true;
     }
 
-    private function setUndeleted()
-    {
+    private function setUndeleted() {
         $this->deletedAt = null;
         $this->deleted = false;
         //$this->dirty = true;
     }
 
-    public function getID(): string
-    {
-        return $this->id;
-    }
-    public function setID(string $id)
-    {
-        $this->id = $id;
-        //$this->dirty = true;
-    }
-
-    public function getDirty(): string
-    {
-        return $this->dirty;
-    }
-    public function setDirty(bool $dirty)
-    {
-        $this->dirty = $dirty;
-    }
+    //public function getSaved(): string {
+        //return $this->saved;
+    //}
+    //public function setSaved(bool $saved) {
+        //$this->saved = $saved;
+    //}
+    //public function getDirty(): string {
+        //return $this->dirty;
+    //}
+    //public function setDirty(bool $dirty) {
+        //$this->dirty = $dirty;
+    //}
 
     public function getCreatedAt(): string {
         return $this->createdAt;
@@ -218,7 +254,63 @@ class AssetAssignment implements \JsonSerializable {
         return $this->deleted;
     }
 
-    public function getSaved(): string {
-        return $this->saved;
+    public function getCreatedBy(): string {
+        return $this->createdBy;
+    }
+
+    public function getUpdatedBy(): string {
+        return $this->updatedBy;
+    }
+
+    public function getDeletedBy(): string {
+        return $this->deletedBy;
+    }
+
+    public function getID(): string {
+        return $this->id;
+    }
+    public function setID(string $id) {
+        $this->id = $id;
+        //$this->dirty = true;
+    }
+
+    public function getChangeDetectionHash(): string {
+        return $this->changeDetectionHash;
+    }
+
+    public function getAssetID(): string {
+        return $this->assetID;
+    }
+
+    public function getAssignedBy(): string {
+        return $this->assignedBy;
+    }
+    
+    public function getAssignedToPerson(): string {
+        return $this->assignedToPerson;
+    }
+
+    public function assignedToBusinessUnit(): string {
+        return $this->assignedToBusinessUnit;
+    }
+
+    public function getReceivedBy(): string {
+        return $this->receivedBy;
+    }
+
+    public function getStartDate(): string {
+        return $this->startDate;
+    }
+
+    public function getEndDate(): string {
+        return $this->endDate;
+    }
+
+    public function getUntrackedAssestsIncluded(): string {
+        return $this->untrackedAssestsIncluded;
+    }
+
+    public function getNotes(): string {
+        return $this->notes;
     }
 }
