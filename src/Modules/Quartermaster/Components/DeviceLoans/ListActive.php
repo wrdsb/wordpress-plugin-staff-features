@@ -180,14 +180,22 @@ while ($forms_count > $page_max) {
                                 </td>
                                 <td>
                                     <?php if ($userIsAdmin) { ?>
-                                        <button type="button" 
-                                        id="<?php echo $id; ?>-return"
-                                        class="form-return"
-                                        data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                        data-form_id="<?php echo $id; ?>">
-                                        Return Device
-                                        </button>
-                                        <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                        <div class="input-group date" data-date-format="yyyy-mm-dd">
+                                            <input
+                                                type="text"
+                                                size="12"
+                                                name="<?php echo $id; ?>-return"
+                                                id="<?php echo $id; ?>-return"
+                                                data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                data-form_id="<?php echo $id; ?>"
+                                                class="form-control form-return"
+                                                aria-describedby="returnDeviceHelp"
+                                                placeholder="Return Device">
+                                            <div class="input-group-addon" >
+                                                <span id="<?php echo $id; ?>-status" class="glyphicon glyphicon-th"></span>
+                                            </div>
+                                        </div>
+                                        <p id="<?php echo $id; ?>-actions-notifications" style="display:none;"></p>
                                     <?php } ?>
                                 </td>
                             </tr>

@@ -4,6 +4,12 @@
 	$(document).ready(function() {
         console.log('document ready');
 
+        $(".input-group.date").datepicker({
+            format: "yyyy-mm-dd",
+            todayHighlight: true,
+            autoclose: true
+        });
+
         $('#receivedByBlock').hide();
 
         $('input[name="receivedByRole"]').click(function () {
@@ -133,34 +139,47 @@
         } );
         table.buttons( 'pdf', null ).containers().appendTo('#button-pdf');
 
-		$('.form-return').click(function() {
+		$('.form-return').on("change", function() {
+            $('#' + form_id + '-status').attr('class', 'glyphicon glyphicon-cloud-upload');
+
             var blog_id = $(this).data('blog_id');
 			var form_id = $(this).data('form_id');
-
 			console.log(`Mark device as returned for form ${form_id} on blog ${blog_id}`);
+            
+            var returnDate = $(this).val();
+            var returnedAt = returnDate;
+            var body = {
+                returnedAt: returnDate
+            };
+            console.log(`returnedAt: ${returnedAt}`);
 
-			$.ajax({
-				method: 'POST',
-				url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/${form_id}/return`,
+            $.ajax({
+                method: 'POST',
+                url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/${form_id}/return`,
+                data: JSON.stringify(body),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 xhrFields: {
                     withCredentials: true
                 },
-				beforeSend: function (xhr) {
-					xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
-				},
-				success: function(data, status, xhr) {
-                    $('#' + form_id + '-return').remove();
-					$('#' + form_id + '-actions-notifications').text('Accepted for processing.');
-					console.log(status)
-				},
-				error: function(xhr, status, error) {
-					$('#' + form_id + '-actions-notifications').text('Error. Please try again.');
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
+                },
+                success: function(data, status, xhr) {
+                    $('#' + form_id + '-status').attr('class', 'glyphicon glyphicon-ok-circle');
+                    $('#' + form_id + '-actions-notifications').hide();
+                    console.log(status)
+                },
+                error: function(xhr, status, error) {
+                    $('#' + form_id + '-status').attr('class', 'glyphicon glyphicon-remove-circle');
+                    $('#' + form_id + '-actions-notifications').text('Error. Please try again.');
+                    $('#' + form_id + '-actions-notifications').show();
                     console.log(xhr);
-					console.log(status + ': ' + error)
-				},
-				complete: function(xhr, status) {
-				}
-			});
+                    console.log(status + ': ' + error)
+                },
+                complete: function(xhr, status) {
+                }
+            });
 		});
 	})
 })(jQuery);

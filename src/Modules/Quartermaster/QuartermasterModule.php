@@ -90,6 +90,13 @@ class QuartermasterModule {
             'all'
         );
         WPCore::wpEnqueueStyle(
+            'datepicker',
+            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        WPCore::wpEnqueueStyle(
             'dataTables',
             'https://cdn.datatables.net/v/dt/jszip-2.5.0/dt-1.10.18/b-1.5.2/b-colvis-1.5.1/b-flash-1.5.2/b-html5-1.5.2/b-print-1.5.2/cr-1.5.0/fh-3.1.4/r-2.2.2/datatables.min.css',
             array(),
@@ -144,6 +151,13 @@ class QuartermasterModule {
             'https://code.jquery.com/ui/1.12.1/jquery-ui.js',
             array( 'jquery' ),
             $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'datepicker',
+            'https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js',
+            array( 'jquery' ),
+            $this->verion,
             false
         );
         WPCore::wpLocalizeScript($this->plugin_name, 'wpApiSettings', array(
