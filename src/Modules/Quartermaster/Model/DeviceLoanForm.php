@@ -410,9 +410,9 @@ class DeviceLoanForm implements \JsonSerializable {
     }
 
     /**
-     * Marks a record as processed and saves record.
+     * Marks a record as returned and saves record.
      *
-     * markProcessed() will return true or false depending on whether the record is successfully undeleted or not.
+     * markReturned() will return true or false depending on whether the record is successfully undeleted or not.
      *
      * @return boolean
      */
