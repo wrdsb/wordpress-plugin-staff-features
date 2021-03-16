@@ -183,16 +183,14 @@ $loan = Model::get($id);
                     </div>
 
                     <div class="form-row col-md-12">
-                        <?php if ($loan->getWasReturned() == true) { ?>
-                            <div class="form-group col-md-6">
-                                <label for="returnedBy">Returned By</label>
-                                <input type="text" name="returnedBy" id="returnedBy" class="form-control" aria-describedby="returnedByHelp" value="<?php echo $loan->getReturnedBy(); ?>" readonly>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="returnedAt">Date/Time Returned</label>
-                                <input type="text" name="returnedAt" id="returnedAt" class="form-control" aria-describedby="returnedAtHelp" value="<?php echo $loan->getReturnedAt(); ?>" readonly>
-                            </div>
-                        <?php } ?>
+                        <div class="form-group col-md-6">
+                            <label for="returnedBy">Returned By</label>
+                            <input type="text" name="returnedBy" id="returnedBy" class="form-control" aria-describedby="returnedByHelp" value="<?php echo $loan->getReturnedBy(); ?>" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="returnedAt">Date/Time Returned</label>
+                            <input type="text" name="returnedAt" id="returnedAt" class="form-control" aria-describedby="returnedAtHelp" value="<?php echo $loan->getReturnedAt(); ?>" readonly>
+                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
