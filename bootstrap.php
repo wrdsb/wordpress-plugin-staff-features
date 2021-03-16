@@ -23,7 +23,7 @@ use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoanForm as DeviceLoanFormREST
  * Plugin Name:       WRDSB Staff Features
  * Plugin URI:        https://github.com/wrdsb/wordpress-plugin-staff-features
  * Description:       An omnibus plugin to provide features unique to our wrdsbstaff WordPress install.
- * Version:           1.0.0
+ * Version:           1.3.1
  * Author:            WRDSB
  * Author URI:        https://github.com/wrdsb
  * License:           GPL-3.0+
@@ -53,7 +53,7 @@ $container['plugin_name'] = 'wrdsb-staff';
  * Current plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-$container['version'] = '1.2.0';
+$container['version'] = '1.3.1';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
 
@@ -90,21 +90,27 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
+    '^quartermaster/device-loan/([^/]*)/?' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loan-view',
+        'template' => 'Quartermaster/Components/DeviceLoans/View.php',
+        'matches' => array('route', 'id')
+    ],
     '^quartermaster/device-loans/active$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-active-list',
-        'template' => 'Quartermaster/Components/DeviceLoanFormList/ActiveList.php'
+        'view' => 'device-loans-list-active',
+        'template' => 'Quartermaster/Components/DeviceLoans/ListActive.php'
     ],
     '^quartermaster/device-loans/returned$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-returned-list',
-        'template' => 'Quartermaster/Components/DeviceLoanFormList/ReturnedList.php',
+        'view' => 'device-loans-list-returned',
+        'template' => 'Quartermaster/Components/DeviceLoans/ListReturned.php',
     ],
     '^quartermaster/device-loans/all$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'device-loans-all-list',
-        'template' => 'Quartermaster/Components/DeviceLoanFormList/AllList.php',
-    ]
+        'view' => 'device-loans-list-all',
+        'template' => 'Quartermaster/Components/DeviceLoans/ListAll.php',
+    ],
 ];
 
 /**

@@ -1,14 +1,12 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\Model;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
-use WRDSB\Staff\Modules\Quartermaster\Services\DeviceLoanForms as Service;
-
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCollection as Collection;
+use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
 
 /**
- * Define the "DeviceLoanFormQuery" Model
+ * Define the "QuartermasterSearch" Model
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -17,10 +15,8 @@ use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCollection as Collecti
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class DeviceLoanFormQuery
+class QuartermasterSearch
 {
-    private $id;
-
     private $service;
     private $state;
     private $status;
@@ -29,22 +25,34 @@ class DeviceLoanFormQuery
     private $totalResults;
     private $results;
 
-    private static function getService(): Service
+    private static function getService($service): Service
     {
-        return Module::getAbsenceFormQueryService();
+        return Module::getQuartermasterService($service);
     }
 
-    public function __construct(string $id)
+    public function __construct($params)
     {
-        $this->id = $id;
+        $this->count        = $params['count']        ?? true;
+        $this->facets       = $params['facets']       ?? null;
+        $this->filter       = $params['filter']       ?? null;
+        $this->orderby      = $params['orderby']      ?? null;
+        $this->search       = $params['search']       ?? '*';
+        $this->searchFields = $params['searchFields'] ?? null;
+        $this->select       = $params['select']       ?? '*';
+        $this->skip         = $params['skip']         ?? 0;
+        $this->top          = $params['top']          ?? 50;
 
-        $this->service = self::getService();
+        $this->highlight        = $params['highlight']        ?? null;
+        $this->highlightPreTag  = $params['highlightPreTag']  ?? null;
+        $this->highlightPostTag = $params['highlightPostTag'] ?? null;
+
+        $this->service = self::getService($params['service']);
         $this->state   = 'pending';
     }
 
     public function run()
     {
-        $temp = $this->service->fetch($this);
+        $temp = $this->service->search($this);
 
         $this->state = $temp->getState();
         $this->status = $temp->getStatus();
@@ -52,11 +60,6 @@ class DeviceLoanFormQuery
         $this->totalResults = $temp->getTotalResults();
         $this->results = $temp->getResults();
         $this->error = $temp->getError();
-    }
-
-    public function getID(): string
-    {
-        return $this->id;
     }
 
     public function getState(): string
@@ -111,5 +114,22 @@ class DeviceLoanFormQuery
     public function setResults($results)
     {
         $this->results = $results;
+    }
+
+    public function find(string $scope, string $by, string $valule, string $schoolCode = 'any')
+    {
+        switch ($scope) {
+            case 'all':
+                # code...
+                break;
+            
+            case 'first':
+                # code...
+                break;
+            
+            default:
+                # code...
+                break;
+        }
     }
 }

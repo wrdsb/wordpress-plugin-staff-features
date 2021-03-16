@@ -1,18 +1,15 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\Services;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
-
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCollection as ModelCollection;
-
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormSearch as Search;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCommand as Command;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormQuery as Query;
+use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterSearch as Search;
+use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCommand as Command;
+use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
 use WRDSB\Staff\Modules\WP\WPRemotePost as WPRemotePost;
 
 /**
- * Define the "DeviceLoans" Service
+ * Define the main Quartermaster Service
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -21,7 +18,7 @@ use WRDSB\Staff\Modules\WP\WPRemotePost as WPRemotePost;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class DeviceLoanForms {
+class QuartermasterService {
     public function __construct() {
     }
 
@@ -78,14 +75,14 @@ class DeviceLoanForms {
         $request->run();
 
         if ($request->success) {
-            $forms = new ModelCollection;
-            $forms.fromJSON($request->response);
+            $items = new ModelCollection;
+            $items.fromJSON($request->response);
 
             $search->setState('success');
             $search->setStatus($request->status);
             $search->setRawResponse($request->response);
             $search->setTotalResults(1);
-            $search->setResults($forms);
+            $search->setResults($items);
         } else {
             $search->setState('failure');
             $search->setStatus($request->status);
@@ -95,9 +92,41 @@ class DeviceLoanForms {
         return $search;
     }
 
+    private function queryRequest(Query $query): Query {
+        $functionKey = Module::getQuartermasterQueryKey();
+        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/quartermaster-query?code={$functionKey}";
+        $body = array(
+            'dataType' => $query->getDataType(),
+            'id' => $query->getID()
+        );
+
+        $request = new WPRemotePost(array(
+            'headers' => array(),
+            'url' => $url,
+            'body' => json_encode($body),
+        ));
+        $request->run();
+
+        if ($request->success) {
+            $query->setState('success');
+            $query->setStatus($request->status);
+            $query->setRawResponse($request->response);
+            $query->setError('');
+        } else {
+            $query->setState('failure');
+            $query->setStatus($request->status);
+            $query->setRawResponse($request->response);
+            $query->setError($request->error);
+            error_log('Quartermaster Serivce: ' . $request->status);
+            error_log('Quartermaster Service: ' . $request->error);
+        }
+        
+        return $query;
+    }
+
     private function storeRequest(Command $command): Command {
-        $functionKey = Module::getDeviceLoanFormsCommandKey();
-        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/device-loan-submissions-command?code={$functionKey}";
+        $functionKey = Module::getQuartermasterCommandKey();
+        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
         $body = array(
             'jobType' => 'Quartermaster.DeviceLoanSubmission.Store',
             'operation' => $command->getOperation(),
@@ -114,14 +143,14 @@ class DeviceLoanForms {
         if ($request->success) {
             $responseString = json_encode($request->response);
 
-            $form = new Model;
-            $form->fromJSON($responseString);
+            $item = new Model;
+            $item->fromJSON($responseString);
 
             $command->setState('success');
             $command->setStatus($request->status);
             $command->setRawResponse($request->response);
             $command->setTotalResults(1);
-            $command->setResults($form);
+            $command->setResults($item);
         } else {
             $command->setState('failure');
             $command->setStatus($request->status);

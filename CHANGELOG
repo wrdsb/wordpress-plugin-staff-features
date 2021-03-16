@@ -1,0 +1,2 @@
+* link "Device Loans" breadcrumb to "All Device Loans" view
+* only display 'Return Device' button for admins (issue #34)
