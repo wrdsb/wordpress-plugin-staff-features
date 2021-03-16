@@ -154,6 +154,12 @@ class QuartermasterModule {
     }
 
     private function addViews() {
+        $this->plugin->addView('device-assignment-new', 'device-assignment-new');
+        $this->plugin->addView('device-assignment-edit', 'device-assignment-edit');
+        $this->plugin->addView('device-assignment-view', 'device-assignment-view');
+        $this->plugin->addView('device-assignments-list-all', 'device-assignments-list-all');
+        $this->plugin->addView('device-assignments-list', 'device-assignments-list');
+
         $this->plugin->addView('device-loan-view', 'device-loan-view');
         $this->plugin->addView('device-loans-list-active', 'device-loans-list-active');
         $this->plugin->addView('device-loans-list-returned', 'device-loans-list-returned');
@@ -161,6 +167,12 @@ class QuartermasterModule {
     }
 
     private function addPageTemplates() {
+        $this->plugin->addPageTemplate('device-assignment-new', 'Quartermaster/Components/DeviceAssignments/New.php');
+        $this->plugin->addPageTemplate('device-assignment-edit', 'Quartermaster/Components/DeviceAssignments/Edit.php');
+        $this->plugin->addPageTemplate('device-assignment-view', 'Quartermaster/Components/DeviceAssignments/View.php');
+        $this->plugin->addPageTemplate('device-assignments-list-all', 'Quartermaster/Components/DeviceAssignments/ListAll.php');
+        $this->plugin->addPageTemplate('device-assignments-list', 'Quartermaster/Components/DeviceAssignments/List.php');
+
         $this->plugin->addPageTemplate('device-loan-view', 'Quartermaster/Components/DeviceLoans/View.php');
         $this->plugin->addPageTemplate('device-loans-list-active', 'Quartermaster/Components/DeviceLoans/ListActive.php');
         $this->plugin->addPageTemplate('device-loans-list-returned', 'Quartermaster/Components/DeviceLoans/ListReturned.php');

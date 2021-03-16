@@ -90,6 +90,34 @@ $container['routes'] = [
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
+    '^quartermaster/device-assignment/new$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-assignment-new',
+        'template' => 'Quartermaster/Components/DeviceAssignments/New.php'
+    ],
+    '^quartermaster/device-assignment/([^/]*)/edit' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-assignment-edit',
+        'template' => 'Quartermaster/Components/DeviceAssignments/Edit.php',
+        'matches' => array('route', 'id')
+    ],
+    '^quartermaster/device-assignment/([^/]*)/?' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-assignment-view',
+        'template' => 'Quartermaster/Components/DeviceAssignments/View.php',
+        'matches' => array('route', 'id')
+    ],
+    '^quartermaster/device-assignments/all$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-assignments-list-all',
+        'template' => 'Quartermaster/Components/DeviceAssignments/ListAll.php',
+    ],
+    '^quartermaster/device-assignments/([^/]*)/?' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-assignments-list',
+        'template' => 'Quartermaster/Components/DeviceAssignments/List.php',
+        'matches' => array('route', 'epoch')
+    ],
     '^quartermaster/device-loan/([^/]*)/?' => [
         'module' => 'QuartermasterModule',
         'view' => 'device-loan-view',
