@@ -10,11 +10,11 @@ $school_code = strtolower($schoolCode);
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
 
-$page_title = "New Device Loan";
+$page_title = "New Asset Assignment";
 
 function setCustomTitle()
 {
-    $page_title = "New Device Loan";
+    $page_title = "New Asset Assignment";
     return $page_title;
 }
 WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
@@ -36,7 +36,7 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    Device Loans
+                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a>
                 </li>
                 <li>
                     <?php echo $page_title; ?>
@@ -62,14 +62,12 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
+                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform" target="_blank">New Device Loan</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
+                                <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/new">Create New Asset Assignment</a></li>
+                                <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">View All Asset Assignments</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -85,11 +83,35 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                     <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
 
+                    <h3>Assignment Info</h3>
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
+                                <label class="radio-inline">
+                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="false" checked> Permanent
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="true" > Temporary
+                                </label>
+                            </label>
+                        </div>
+                        <div id="isTemporaryBlock" class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-5">
+                                <label for="startDate">Start Date</label>
+                                <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="endDate">End Date</label>
+                                <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp">
+                            </div>
+                        </div>
+                    </fieldset>
+
                     <h3>Student Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
-                                <label for="loanedToName">Loaned To</label>
+                                <label for="loanedToName">Assigned To</label>
                                 <input type="text" name="loanedToName" id="loanedToName" class="form-control" aria-describedby="loanedToNameHelp">
                             </div>
                             <div class="form-group col-md-4">
@@ -97,8 +119,32 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                                 <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
+                                <label for="loanedToNumber">Student&nbsp;Number</label>
+                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" readonly tabindex="-1">
+                            </div>
+                        </div>
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <label class="col-md-9">Received by&nbsp;&nbsp;&nbsp;
+                                <label class="radio-inline">
+                                    <input type="radio" name="receivedByRole" id="receivedByRoleStudent" value="student" checked> Student
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="receivedByRole" id="receivedByRoleOther" value="other" > Other
+                                </label>
+                            </label>
+                            <div class="form-group col-md-3">
                                 <label for="loanedToLocation">Student&nbsp;Location</label>
                                 <input type="text" name="loanedToLocation" id="loanedToLocation" class="form-control" aria-describedby="loanedToLocationHelp" readonly tabindex="-1">
+                            </div>
+                        </div>
+                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-7">
+                                <label for="receivedByName">Received By Name</label>
+                                <input type="text" name="receivedByName" id="receivedByName" class="form-control" aria-describedby="receivedByNameHelp">
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="receivedByRelationship">Relationship to Student</label>
+                                <input type="text" name="receivedByRelationship" id="receivedByRelationship" class="form-control" aria-describedby="receivedByRelationshipHelp">
                             </div>
                         </div>
                     </fieldset>
@@ -111,19 +157,26 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                                 <input type="text" name="assetID" id="assetID" class="form-control" aria-describedby="assetIDHelp">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="assetType">Device Type</label>
-                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" readonly tabindex="-1">
+                                <label for="serialNumber">Serial Number</label>
+                                <input type="text" name="serialNumber" id="serialNumber" class="form-control" aria-describedby="serialNumberHelp" value="" readonly tabindex="-1">
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="assetModel">Device Model</label>
-                                <input type="text" name="assetModel" id="assetModel" class="form-control" aria-describedby="assetModelHelp" readonly tabindex="-1">
+                            <div class="form-group col-md-3">
+                                <label for="assetType">Device Type</label>
+                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="" readonly tabindex="-1">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="location">Device Location</label>
+                                <input type="text" name="location" id="location" class="form-control" aria-describedby="locationHelp" value="" readonly tabindex="-1">
+                            </div>
+                            <div class="form-group col-md-12" id="seaDeviceWarning">
+                                This is a Spec Ed / SEA device. Please be certain you want to assign it to this student.
                             </div>
                         </div>
+                    </fieldset>
 
-                        <div class="form-row col-md-12">
-                            <div>
-                                Spec Ed / SEA warning
-                            </div>
+                    <h3>Additional Info</h3>
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                        <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group-inline">
                                 <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;
                                     <label class="form-element-inline">
@@ -141,9 +194,9 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                         </div>
                     </fieldset>
 
-                    <div class="form-row col-md-12">
+                    <div class="form-row col-md-12" style="padding-top:10px;padding-bottom:28px;">
                         <div class="form-group col-md-6">
-                            <label for="loanedBy">Loaned By</label>
+                            <label for="loanedBy">Assigned By</label>
                             <input type="text" name="loanedBy" id="loanedBy" class="form-control" aria-describedby="loanedByHelp" value="<?php echo $current_user->display_name; ?>" readonly tabindex="-1">
                         </div>
                         <div class="form-group col-md-3">

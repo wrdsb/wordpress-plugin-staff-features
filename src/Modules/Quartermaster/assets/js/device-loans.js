@@ -12,7 +12,17 @@
             }
             if ($(this).attr("value") === "other") {
                 $("#receivedByBlock").show('slow');
+            }
+        });
 
+        $('#isTemporaryBlock').hide();
+
+        $('input[name="isTemporary"]').click(function () {
+            if ($(this).attr("value") === "false") {
+                $("#isTemporaryBlock").hide('slow');
+            }
+            if ($(this).attr("value") === "true") {
+                $("#isTemporaryBlock").show('slow');
             }
         });
 
