@@ -85,11 +85,13 @@ $container['routes'] = [
         'view' => 'trillium-enrolments-emails',
         'template' => 'ClassLists/Views/templates/trillium-enrolments-emails.php'
     ],
+
     '^search/content$' => [
         'module' => 'ContentSearchModule',
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
     ],
+
     '^quartermaster/asset-assignment/new$' => [
         'module' => 'QuartermasterModule',
         'view' => 'asset-assignment-new',
@@ -112,11 +114,17 @@ $container['routes'] = [
         'view' => 'asset-assignments-list-all',
         'template' => 'Quartermaster/Components/AssetAssignments/ListAll.php',
     ],
-    '^quartermaster/asset-assignments/([^/]*)/?' => [
+
+    '^quartermaster/device-loan/new$' => [
         'module' => 'QuartermasterModule',
-        'view' => 'asset-assignments-list',
-        'template' => 'Quartermaster/Components/AssetAssignments/List.php',
-        'matches' => array('route', 'epoch')
+        'view' => 'device-loan-new',
+        'template' => 'Quartermaster/Components/DeviceLoans/New.php'
+    ],
+    '^quartermaster/device-loan/([^/]*)/edit' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loan-edit',
+        'template' => 'Quartermaster/Components/DeviceLoans/Edit.php',
+        'matches' => array('route', 'id')
     ],
     '^quartermaster/device-loan/([^/]*)/?' => [
         'module' => 'QuartermasterModule',

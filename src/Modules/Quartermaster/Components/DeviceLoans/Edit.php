@@ -6,22 +6,24 @@ use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
 
 $apiKey = Module::getDeviceLoansQueryKey();
 $schoolCode = WPCore::getOption('wrdsb_school_code');
+$current_user = WPCore::getCurrentUser();
+$current_time = WPCore::currentTime();
 
 function setCustomTitle()
 {
-    $pageTitle = "Device Loan Detail";
+    $pageTitle = "Edit Device Loan";
     return $pageTitle;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
-$pageTitle = "Device Loan Detail";
+$pageTitle = "Edit Device Loan";
 
 $body = array(
-    'schoolCode' => $schoolCode
+    'schoolCode' => $schoolCode,
 );
 
 if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
-    $pageTitle = "Device Loan #{$id}";
+    $pageTitle = "Edit Device Loan #{$id}";
 }
 
 $loan = Model::get($id);
@@ -43,7 +45,7 @@ $loan = Model::get($id);
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">Device Loans</a>
+                    Device Loans
                 </li>
                 <li>
                     <?php echo $pageTitle; ?>
@@ -87,78 +89,72 @@ $loan = Model::get($id);
             <div class="col-sm-9 col-lg-9" role="main">
                 <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
-                <h2><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $loan->getID(); ?>/edit">Edit this Device Loan</a></h2>
+                <h2><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $loan->getID(); ?>">Cancel Editing</a></h2>
 
-                <form action="" method="post">
+                <form action="<?php echo WPCore::escURL(WPCore::adminURL('admin-post.php')); ?>" method="post">
+                    <input type="hidden" name="action" value="device_loan_form_submit">
+                    <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
+                    <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
+                    <input type="hidden" name="id" value="<?php echo $formID ?>">
+
                     <h3>Student Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="loanedToName">Loaned To</label>
-                                <input type="text" name="loanedToName" id="loanedToName" class="form-control" aria-describedby="loanedToNameHelp" value="<?php echo $loan->getLoanedToName(); ?>" readonly>
+                                <input type="text" name="loanedToName" id="loanedToName" class="form-control" aria-describedby="loanedToNameHelp" value="<?php echo $loan->getLoanedToName(); ?>">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="loanedToEmail">Email</label>
-                                <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" value="<?php echo $loan->getLoanedToEmail(); ?>" readonly>
+                                <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" value="<?php echo $loan->getLoanedToEmail(); ?>">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="loanedToNumber">Student&nbsp;Number</label>
-                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" value="<?php echo $loan->getLoanedToNumber(); ?>" readonly>
+                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" value="<?php echo $loan->getLoanedToNumber(); ?>">
                             </div>
                         </div>
-                        <?php if ($loan->getReceivedByRole()) { ?>
-                            <div class="form-row col-md-12" style="padding-top:15px;">
-                                <label class="col-md-12">Received by:&nbsp;&nbsp;&nbsp;</label><?php echo $loan->getReceivedByRole() ?>
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <label class="col-md-12">Received by:&nbsp;&nbsp;&nbsp;
+                                <label class="radio-inline">
+                                    <input type="radio" name="receivedByRole" id="receivedByRoleStudent" value="student" <?php if ($loan->getReceivedByRole() == 'student') {echo 'checked';} ?>> Student
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="receivedByRole" id="receivedByRoleOther" value="other" <?php if ($loan->getReceivedByRole() != 'student') {echo 'checked';} ?>> Other
+                                </label>
+                            </label>
+                        </div>
+                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-7">
+                                <label for="receivedByName">Received By Name</label>
+                                <input type="text" name="receivedByName" id="receivedByName" class="form-control" aria-describedby="receivedByNameHelp" value="<?php echo $loan->getReceivedByName; ?>" readonly>
                             </div>
-                            <?php if ($loan->getReceivedByRole() != 'student') { ?>
-                                <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
-                                    <div class="form-group col-md-7">
-                                        <label for="receivedByName">Received By Name</label>
-                                        <input type="text" name="receivedByName" id="receivedByName" class="form-control" aria-describedby="receivedByNameHelp" value="<?php echo $loan->getReceivedByName(); ?>" readonly>
-                                    </div>
-                                    <div class="form-group col-md-5">
-                                        <label for="receivedByRelationship">Relationship to Student</label>
-                                        <input type="text" name="receivedByRelationship" id="receivedByRelationship" class="form-control" aria-describedby="receivedByRelationshipHelp" value="<?php echo $loan->getReceivedByRelationship(); ?>" readonly>
-                                    </div>
-                                </div>
-                            <?php } ?>
-                        <?php } else { ?>
-                            <div class="form-row col-md-12" style="padding-top:15px;">
-                                <div class="form-group col-md-7">
-                                    <label for="receivedBy">Received By</label>
-                                    <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $loan->getReceivedBy(); ?>" readonly>
-                                </div>
+                            <div class="form-group col-md-5">
+                                <label for="receivedByRelationship">Relationship to Student</label>
+                                <input type="text" name="receivedByRelationship" id="receivedByRelationship" class="form-control" aria-describedby="receivedByRelationshipHelp" value="<?php echo $loan->getReceivedByRelationship(); ?>" readonly>
                             </div>
-                        <?php } ?>
+                        </div>
                     </fieldset>
 
                     <h3>Device Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-3">
-                                <label for="correctedAssetID">Device Barcode</label>
-                                <input type="text" name="correctedAssetID" id="correctedAssetID" class="form-control" aria-describedby="correctedAssetIDHelp" value="<?php echo $loan->getCorrectedAssetID(); ?>" readonly>
+                                <label for="assetID">Device Barcode</label>
+                                <input type="text" name="assetID" id="assetID" class="form-control" aria-describedby="assetIDHelp" value="<?php echo $loan->getCorrectedAssetID(); ?>" readonly>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="deviceType">Device Type</label>
-                                <input type="text" name="deviceType" id="deviceType" class="form-control" aria-describedby="deviceTypeHelp" value="<?php echo $loan->getDeviceType(); ?>" readonly>
+                                <label for="assetType">Device Type</label>
+                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="<?php echo $loan->getDeviceType(); ?>" readonly>
                             </div>
-                            <?php if (strlen($loan->getSerialNumber()) > 0) { ?>
-                                <div class="form-group col-md-6">
-                                    <label for="serialNumber">Serial Number</label>
-                                    <input type="text" name="serialNumber" id="serialNumber" class="form-control" aria-describedby="serialNumberHelp" value="<?php echo $loan->getSerialNumber(); ?>" readonly>
-                                </div>
-                            <?php } else { ?>
-                                <div class="form-group col-md-6">
-                                    <label for="assetModel">Device Model</label>
-                                    <input type="text" name="assetModel" id="assetModel" class="form-control" aria-describedby="assetModelHelp" value="<?php echo $loan->getDeviceModel(); ?>" readonly>
-                                </div>
-                            <?php } ?>
+                            <div class="form-group col-md-6">
+                                <label for="assetModel">Device Model</label>
+                                <input type="text" name="assetModel" id="assetModel" class="form-control" aria-describedby="assetModelHelp" value="<?php echo $loan->getDeviceModel(); ?>" readonly>
+                            </div>
                         </div>
 
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-12" id="seaDeviceWarning">
-                                <label for="peripheralsProvided">Is Spec. Ed. / SEA device?</label> <?php echo $loan->getIsSEADevice(); ?>
+                                This is a Spec Ed / SEA device. Please be certain you want to loan it to this student.
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="peripheralsProvided">Peripherals Provided</label>
@@ -196,11 +192,23 @@ $loan = Model::get($id);
                             <input type="text" name="returnedAt" id="returnedAt" class="form-control" aria-describedby="returnedAtHelp" value="<?php echo $loan->getReturnedAt(); ?>" readonly>
                         </div>
                     </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 <!-- /CONTENT -->
             </div>
+        
         </div>
     </div>
 <?php } ?>
+
+<script>
+    function disable(id) {
+        document.getElementById(id).disabled = true;
+    }
+    function enable(id) {
+        document.getElementById(id).disabled = false;
+    }
+</script>
 
 <?php WPCore::getFooter();
