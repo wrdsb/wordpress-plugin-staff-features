@@ -168,7 +168,7 @@ while ($forms_count > $page_max) {
                             <?php $parts = explode(",", $form->powerAppsId); ?>
                             <?php $id = $parts[0]; ?>
                             <?php echo '<tr id="'.$id.'-row">'; ?>
-                                <td width="20%" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
                                     <?php echo $form->loanedToName; ?>
                                 </td>
                                 <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
@@ -186,7 +186,11 @@ while ($forms_count > $page_max) {
                                     <?php } else { ?>
                                         <?php if ($userIsAdmin) { ?>
                                             <div class="input-group date" data-date-format="yyyy-mm-dd">
-                                                <input
+                                                <button id="<?php echo $id; ?>-return-button" data-form_id="<?php echo $id; ?>" class="btn btn-default return-button" type="button">
+                                                    Return Device
+                                                </button>
+
+                                                <input style="display:none;"
                                                     type="text"
                                                     size="12"
                                                     name="<?php echo $id; ?>-return"
@@ -196,10 +200,21 @@ while ($forms_count > $page_max) {
                                                     data-user_email="<?php echo $currentUser->user_email; ?>",
                                                     class="form-control form-return"
                                                     aria-describedby="returnDeviceHelp"
-                                                    placeholder="Return Device">
-                                                <div class="input-group-addon" >
-                                                    <span id="<?php echo $id; ?>-status" class="glyphicon glyphicon-th"></span>
-                                                </div>
+                                                    placeholder="YYYY-MM-DD">
+
+                                                <span id="<?php echo $id; ?>-after" class="input-group-btn" style="display:none;">
+                                                    <button style="display:none;"
+                                                        id="<?php echo $id; ?>-after-button"
+                                                        data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                        data-form_id="<?php echo $id; ?>"
+                                                        data-user_email="<?php echo $currentUser->user_email; ?>",
+                                                        class="btn btn-default undo-button"
+                                                        type="button">
+
+                                                        <span id="<?php echo $id; ?>-after-button-icon"></span>
+                                                    </button>
+                                                    <span id="<?php echo $id; ?>-after-icon" style="display:none;"></span>
+                                                </span>
                                             </div>
                                             <p id="<?php echo $id; ?>-actions-notifications" style="display:none;"></p>
                                         <?php } ?>
