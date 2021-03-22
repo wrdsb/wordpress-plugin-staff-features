@@ -129,7 +129,7 @@ class Plugin
      *
      * @since    1.0.0
      */
-    public function __construct($container, $plugin_name, $version = '1.3.1')
+    public function __construct($container, $plugin_name, $version = '1.3.2')
     {
         $this->plugin_name = $plugin_name;
         $this->version     = $version;
