@@ -75,6 +75,13 @@ class DeviceLoanForm extends WP_REST_Controller
                 'permission_callback' => array( $this, 'createItemPermissionsCheck' ),
             ),
         ));
+        register_rest_route('wrdsb/staff/quartermaster/device-loans', '/form/(?P<id>[A-Za-z0-9-]+)/return', array(
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'markItemReturned' ),
+                'permission_callback' => array( $this, 'updateItemPermissionsCheck' ),
+            ),
+        ));
         register_rest_route('wrdsb/staff/quartermaster/device-loans', '/form/(?P<id>[A-Za-z0-9-]+)', array(
             array(
                 'methods'             => WP_REST_Server::READABLE,
@@ -92,10 +99,10 @@ class DeviceLoanForm extends WP_REST_Controller
                 'permission_callback' => array( $this, 'deleteItemPermissionsCheck' ),
             ),
         ));
-        register_rest_route('wrdsb/staff/quartermaster/device-loans', '/form/(?P<id>[A-Za-z0-9-]+)/return', array(
+        register_rest_route('wrdsb/staff/quartermaster/blog', '/(?P<blog>[A-Za-z0-9-]+)/device-loans/form/(?P<id>[A-Za-z0-9-]+)', array(
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
-                'callback'            => array( $this, 'markItemReturned' ),
+                'callback'            => array( $this, 'updateItem' ),
                 'permission_callback' => array( $this, 'updateItemPermissionsCheck' ),
             ),
         ));
@@ -172,19 +179,23 @@ class DeviceLoanForm extends WP_REST_Controller
      */
     public function updateItem(WP_REST_Request $request): WP_REST_Response
     {
+        $current_time = current_time('mysql');
         $id = $this->getFormID($request);
-        //TODO: Extract patch
+        $body = $request->get_json_params();
 
-        $updated_form = Model::patch(array(
-            'id' => $id
-            //TODO: Apply patch
-        ));
+        $coreArray = array(
+            'id' => $id,
+            'updatedAt' => $current_time
+        );
+        $patch = array_merge($coreArray, $body);
 
-        if ($updated_form->isSaved()) {
-            return new WP_REST_Response($updated_form, 200);
+        $command = Model::patch($id, $patch);
+
+        if ($command->getState() === 'success') {
+            return new WP_REST_Response($command, $command->getStatus());
         } else {
-            //TODO: Does this constructor work?
-            return new WP_REST_Response('Error updating form.', 500);
+            error_log(json_encode($command));
+            return new WP_REST_Response($command, $command->getStatus());
         }
     }
  
@@ -220,12 +231,13 @@ class DeviceLoanForm extends WP_REST_Controller
     {
         $current_time = current_time('mysql');
         $id = $this->getFormID($request);
+        $body = $request->get_json_params();
 
         $patch = array(
             'id' => $id,
             'wasReturned' => true,
-            'returnedAt' => $current_time,
-            'returnedBy' => ''
+            'returnedAt' => $body['returnedAt'],
+            'returnedBy' => $body['returnedBy'],
         );
         
         $command = Model::patch($id, $patch);

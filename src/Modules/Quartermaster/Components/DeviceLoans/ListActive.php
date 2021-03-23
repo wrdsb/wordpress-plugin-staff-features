@@ -7,6 +7,7 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $access_time = WPCore::currentTime();
 $page_title = "Active Device Loans";
+$currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
 function setCustomTitle()
@@ -180,14 +181,38 @@ while ($forms_count > $page_max) {
                                 </td>
                                 <td>
                                     <?php if ($userIsAdmin) { ?>
-                                        <button type="button" 
-                                        id="<?php echo $id; ?>-return"
-                                        class="form-return"
-                                        data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                        data-form_id="<?php echo $id; ?>">
-                                        Return Device
-                                        </button>
-                                        <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                        <div class="input-group date" data-date-format="yyyy-mm-dd">
+                                            <button id="<?php echo $id; ?>-return-button" data-row_id="<?php echo $id; ?>" class="btn btn-default return-button" type="button">
+                                                Return Device
+                                            </button>
+
+                                            <input style="display:none;"
+                                                type="text"
+                                                size="12"
+                                                name="<?php echo $id; ?>-return"
+                                                id="<?php echo $id; ?>-return"
+                                                data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                data-form_id="<?php echo $id; ?>"
+                                                data-user_email="<?php echo $currentUser->user_email; ?>",
+                                                class="form-control form-return"
+                                                aria-describedby="returnDeviceHelp"
+                                                placeholder="YYYY-MM-DD">
+
+                                            <span id="<?php echo $id; ?>-after" class="input-group-btn" style="display:none;">
+                                                <button style="display:none;"
+                                                    id="<?php echo $id; ?>-after-button"
+                                                    data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                    data-form_id="<?php echo $id; ?>"
+                                                    data-user_email="<?php echo $currentUser->user_email; ?>",
+                                                    class="btn btn-default undo-button"
+                                                    type="button">
+
+                                                    <span id="<?php echo $id; ?>-after-button-icon"></span>
+                                                </button>
+                                                <span id="<?php echo $id; ?>-after-icon" style="display:none;"></span>
+                                            </span>
+                                        </div>
+                                        <p id="<?php echo $id; ?>-actions-notifications" style="display:none;"></p>
                                     <?php } ?>
                                 </td>
                             </tr>
