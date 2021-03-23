@@ -23,7 +23,7 @@ use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoanForm as DeviceLoanFormREST
  * Plugin Name:       WRDSB Staff Features
  * Plugin URI:        https://github.com/wrdsb/wordpress-plugin-staff-features
  * Description:       An omnibus plugin to provide features unique to our wrdsbstaff WordPress install.
- * Version:           1.3.2
+ * Version:           1.4.0
  * Author:            WRDSB
  * Author URI:        https://github.com/wrdsb
  * License:           GPL-3.0+
@@ -53,7 +53,7 @@ $container['plugin_name'] = 'wrdsb-staff';
  * Current plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-$container['version'] = '1.3.2';
+$container['version'] = '1.4.0';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
 
