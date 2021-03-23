@@ -1,2 +1,12 @@
+# 1.4.0
+* add date picker to 'All' and 'Active' Device Loan lists, in place of Return Device button.
+
+# 1.3.2
+* Fix header layout bug in Content Search
+
+# 1.3.0
 * link "Device Loans" breadcrumb to "All Device Loans" view
 * only display 'Return Device' button for admins (issue #34)
+
+# 1.2.0
+* Everything that came before.
