@@ -26,19 +26,31 @@ class AssetAssignment implements \JsonSerializable {
     private $updatedBy;
     private $deletedBy;
 
+    private $assignedBy;
+    private $assignedFromLocation;
+
     private $id;
     //private $saved;
     //private $dirty;
     private $changeDetectionHash;
 
     private $assetID;
+    private $assetSerialNumber;
+    private $assetType;
+    private $assetLocation;
 
-    private $assignedBy;
-    
     private $assignedToPerson;
-    private $assignedToBusinessUnit;
-    private $receivedBy;
+    private $assignedToPersonEmail;
+    private $assignedToPersonNumber;
+    private $assignedToPersonLocation;
 
+    private $assignedToBusinessUnit;
+
+    private $wasReceivedByAssignee;
+    private $receivedBy;
+    private $receivedByRole;
+
+    private $isTemporary;
     private $startDate;
     private $endDate;
 
@@ -55,6 +67,9 @@ class AssetAssignment implements \JsonSerializable {
         $this->createdBy = '';
         $this->updatedBy = '';
         $this->deletedBy = '';
+
+        $this->assignedBy = '';
+        $this->assignedFromLocation = '';
     
         $this->id = '';
         //$this->saved = false;
@@ -62,16 +77,25 @@ class AssetAssignment implements \JsonSerializable {
         $this->changeDetectionHash = '';
 
         $this->assetID = '';
+        $this->assetSerialNumber = '';
+        $this->assetType = '';
+        $this->assetLocation = '';
     
-        $this->assignedBy = '';
-        
         $this->assignedToPerson = '';
-        $this->assignedToBusinessUnit = '';
-        $this->receivedBy = '';
+        $this->assignedToPersonEmail = '';
+        $this->assignedToPersonNumber = '';
+        $this->assignedToPersonLocation = '';
     
+        $this->assignedToBusinessUnit = '';
+    
+        $this->wasReceivedByAssignee = true;
+        $this->receivedBy = '';
+        $this->receivedByRole = '';
+    
+        $this->isTemporary = false;
         $this->startDate = '';
         $this->endDate = '';
-    
+        
         $this->untrackedAssestsIncluded = '';
         $this->notes = '';
     }
@@ -250,7 +274,7 @@ class AssetAssignment implements \JsonSerializable {
         return $this->deletedAt;
     }
 
-    public function getDeleted(): string {
+    public function getDeleted(): bool {
         return $this->deleted;
     }
 
@@ -266,6 +290,14 @@ class AssetAssignment implements \JsonSerializable {
         return $this->deletedBy;
     }
 
+    public function getAssignedBy(): string {
+        return $this->assignedBy;
+    }
+    
+    public function getAssignedFromLocation(): string {
+        return $this->assignedFromLocation;
+    }
+    
     public function getID(): string {
         return $this->id;
     }
@@ -282,20 +314,52 @@ class AssetAssignment implements \JsonSerializable {
         return $this->assetID;
     }
 
-    public function getAssignedBy(): string {
-        return $this->assignedBy;
+    public function getAssetSerialNumber(): string {
+        return $this->assetSerialNumber;
     }
-    
+
+    public function getAssetType(): string {
+        return $this->assetType;
+    }
+
+    public function getAssetLocation(): string {
+        return $this->assetLocation;
+    }
+
     public function getAssignedToPerson(): string {
         return $this->assignedToPerson;
+    }
+
+    public function getAssignedToPersonEmail(): string {
+        return $this->assignedToPersonEmail;
+    }
+
+    public function getAssignedToPersonNumber(): string {
+        return $this->assignedToPersonNumber;
+    }
+
+    public function getAssignedToPersonLocation(): string {
+        return $this->assignedToPersonLocation;
     }
 
     public function assignedToBusinessUnit(): string {
         return $this->assignedToBusinessUnit;
     }
 
+    public function getwasReceivedByAssignee(): bool {
+        return $this->wasReceivedByAssignee;
+    }
+
     public function getReceivedBy(): string {
         return $this->receivedBy;
+    }
+
+    public function getReceivedByRole(): string {
+        return $this->receivedByRole;
+    }
+
+    public function getIsTemporary(): bool {
+        return $this->isTemporary;
     }
 
     public function getStartDate(): string {
