@@ -1,15 +1,12 @@
 <?php
-namespace WRDSB\Staff\Modules\Quartermaster\Model;
+namespace WRDSB\Staff\Modules\Quartermaster\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 
 $apiKey = Module::getCodexSearchKey();
-$schoolCode = WPCore::getOption('wrdsb_school_code');
-$school_code = strtolower($schoolCode);
-
+$schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
-
 $page_title = "New Asset Assignment";
 
 function setCustomTitle()
@@ -49,6 +46,7 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
         <div class="row">
+
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -78,8 +76,7 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
 
-                <form action="<?php echo WPCore::escURL(WPCore::adminURL('admin-post.php')); ?>" method="post">
-                    <input type="hidden" name="action" value="absence_form_submit">
+                <form id="newAssetAssignment">
                     <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
 
@@ -111,40 +108,40 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
-                                <label for="loanedToName">Assigned To</label>
-                                <input type="text" name="loanedToName" id="loanedToName" class="form-control" aria-describedby="loanedToNameHelp">
+                                <label for="assignedToPerson">Assigned To</label>
+                                <input type="text" name="assignedToPerson" id="assignedToPerson" class="form-control" aria-describedby="assignedToPersonHelp">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="loanedToEmail">Email</label>
-                                <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" readonly tabindex="-1">
+                                <label for="assignedToPersonEmail">Email</label>
+                                <input type="text" name="assignedToPersonEmail" id="assignedToPersonEmail" class="form-control" aria-describedby="assignedToPersonEmaillHelp" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="loanedToNumber">Student&nbsp;Number</label>
-                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" readonly tabindex="-1">
+                                <label for="assignedToPersonNumber">Student&nbsp;Number</label>
+                                <input type="text" name="assignedToPersonNumber" id="assignedToPersonNumber" class="form-control" aria-describedby="assignedToPersonNumberHelp" readonly tabindex="-1">
                             </div>
                         </div>
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Received by&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="receivedByRole" id="receivedByRoleStudent" value="student" checked> Student
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="true" checked> Student
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="receivedByRole" id="receivedByRoleOther" value="other" > Other
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="false" > Other
                                 </label>
                             </label>
                             <div class="form-group col-md-3">
-                                <label for="loanedToLocation">Student&nbsp;Location</label>
-                                <input type="text" name="loanedToLocation" id="loanedToLocation" class="form-control" aria-describedby="loanedToLocationHelp" readonly tabindex="-1">
+                                <label for="assignedToPersonLocation">Student&nbsp;Location</label>
+                                <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" readonly tabindex="-1">
                             </div>
                         </div>
                         <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
                             <div class="form-group col-md-7">
-                                <label for="receivedByName">Received By Name</label>
-                                <input type="text" name="receivedByName" id="receivedByName" class="form-control" aria-describedby="receivedByNameHelp">
+                                <label for="receivedBy">Received By Name</label>
+                                <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp">
                             </div>
                             <div class="form-group col-md-5">
-                                <label for="receivedByRelationship">Relationship to Student</label>
-                                <input type="text" name="receivedByRelationship" id="receivedByRelationship" class="form-control" aria-describedby="receivedByRelationshipHelp">
+                                <label for="receivedByRole">Relationship to Student</label>
+                                <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp">
                             </div>
                         </div>
                     </fieldset>
@@ -157,16 +154,16 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                                 <input type="text" name="assetID" id="assetID" class="form-control" aria-describedby="assetIDHelp">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="serialNumber">Serial Number</label>
-                                <input type="text" name="serialNumber" id="serialNumber" class="form-control" aria-describedby="serialNumberHelp" value="" readonly tabindex="-1">
+                                <label for="assetSerialNumber">Serial Number</label>
+                                <input type="text" name="assetSerialNumber" id="assetSerialNumber" class="form-control" aria-describedby="assetSerialNumberHelp" value="" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetType">Device Type</label>
                                 <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="location">Device Location</label>
-                                <input type="text" name="location" id="location" class="form-control" aria-describedby="locationHelp" value="" readonly tabindex="-1">
+                                <label for="assetLocation">Device Location</label>
+                                <input type="text" name="assetLocation" id="assetLocation" class="form-control" aria-describedby="assetLocationHelp" value="" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-12" id="seaDeviceWarning">
                                 This is a Spec Ed / SEA device. Please be certain you want to assign it to this student.
@@ -180,7 +177,7 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                             <div class="form-group-inline">
                                 <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;
                                     <label class="form-element-inline">
-                                        <input type="text" name="peripheralsProvided" id="peripheralsProvided" class="form-control" aria-describedby="peripheralsProvidedHelp">
+                                        <input type="text" name="untrackedAssestsIncluded" id="untrackedAssestsIncluded" class="form-control" aria-describedby="untrackedAssestsIncludedHelp">
                                     </label>
                                 </label>
                             </div>
@@ -196,21 +193,22 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
 
                     <div class="form-row col-md-12" style="padding-top:10px;padding-bottom:28px;">
                         <div class="form-group col-md-6">
-                            <label for="loanedBy">Assigned By</label>
-                            <input type="text" name="loanedBy" id="loanedBy" class="form-control" aria-describedby="loanedByHelp" value="<?php echo $current_user->display_name; ?>" readonly tabindex="-1">
+                            <label for="assignedBy">Assigned By</label>
+                            <input type="text" name="assignedBy" id="assignedBy" class="form-control" aria-describedby="assignedByHelp" value="<?php echo $current_user->display_name; ?>" readonly tabindex="-1">
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="schoolCode">School Code</label>
-                            <input type="text" name="schoolCode" id="schoolCode" class="form-control" aria-describedby="schoolCodeHelp" value="<?php echo strtoupper($schoolCode); ?>" readonly tabindex="-1">
+                            <label for="assignedFromLocation">School Code</label>
+                            <input type="text" name="assignedFromLocation" id="assignedFromLocation" class="form-control" aria-describedby="assignedFromLocationHelp" value="<?php echo strtoupper($schoolCode); ?>" readonly tabindex="-1">
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="createdOn">Date/Time Submitted</label>
-                            <input type="text" name="createdOn" id="createdOn" class="form-control" aria-describedby="createdOnHelp" value="<?php echo $current_time; ?>" readonly tabindex="-1">
+                            <label for="createdAt">Date/Time Submitted</label>
+                            <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo $current_time; ?>" readonly tabindex="-1">
                         </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
+                <!-- /CONTENT -->
             </div>
         </div>
     </div>

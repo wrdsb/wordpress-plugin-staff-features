@@ -4,25 +4,21 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 use WRDSB\Staff\Modules\Quartermaster\Model\AssetAssignment as Model;
 
-$apiKey = Module::getDeviceLoansQueryKey();
-$schoolCode = WPCore::getOption('wrdsb_school_code');
+$apiKey = Module::getCodexSearchKey();
+$schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
-$pageTitle = "Edit Asset Assignment";
+$pageTitle = "View Asset Assignment";
 
 function setCustomTitle() {
-    $pageTitle = "Edit Asset Assignment";
+    $pageTitle = "View Asset Assignment";
     return $pageTitle;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 
-$body = array(
-    'schoolCode' => $schoolCode,
-);
-
 if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
-    $pageTitle = "Edit Device Loan #{$id}";
+    $pageTitle = "Asset Assignment #{$id}";
 }
 
 $assignment = Model::get($id);
@@ -84,50 +80,77 @@ $assignment = Model::get($id);
             </div>
 
             <div class="col-sm-9 col-lg-9" role="main">
-                <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
-                <h2><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $loan->getID(); ?>">Cancel Editing</a></h2>
+                <h1><?php echo $pageTitle; ?></h1>
+                <button><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $loan->getID(); ?>/edit">Edit Asset Assignment</a></button>
 
-                <form action="<?php echo WPCore::escURL(WPCore::adminURL('admin-post.php')); ?>" method="post">
-                    <input type="hidden" name="action" value="device_loan_form_submit">
+                <form id="viewAssetAssignment">
+                    <input type="hidden" name="id" value="<?php echo $assignment->getID; ?>">
                     <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
-                    <input type="hidden" name="id" value="<?php echo $formID ?>">
+
+                    <h3>Assignment Info</h3>
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
+                                <label class="radio-inline">
+                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="false" <?php if ($assignment->getIsTemporary() === false) {echo 'checked';} ?> readonly> Permanent
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="true" <?php if ($assignment->getIsTemporary() === true) {echo 'checked';} ?> readonly> Temporary
+                                </label>
+                            </label>
+                        </div>
+                        <div id="isTemporaryBlock" class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-5">
+                                <label for="startDate">Start Date</label>
+                                <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="endDate">End Date</label>
+                                <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
+                            </div>
+                        </div>
+                    </fieldset>
 
                     <h3>Student Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
-                                <label for="loanedToName">Loaned To</label>
-                                <input type="text" name="loanedToName" id="loanedToName" class="form-control" aria-describedby="loanedToNameHelp" value="<?php echo $loan->getLoanedToName(); ?>">
+                                <label for="assignedToPerson">Assigned To</label>
+                                <input type="text" name="assignedToPerson" id="assignedToPerson" class="form-control" aria-describedby="assignedToPersonHelp" value="<?php echo $assignment->getAssignedToPerson(); ?>" readonly>
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="loanedToEmail">Email</label>
-                                <input type="text" name="loanedToEmail" id="loanedToEmail" class="form-control" aria-describedby="loanedToEmailHelp" value="<?php echo $loan->getLoanedToEmail(); ?>">
+                                <label for="assignedToPersonEmail">Email</label>
+                                <input type="text" name="assignedToPersonEmail" id="assignedToPersonEmail" class="form-control" aria-describedby="assignedToPersonEmaillHelp" value="<?php echo $assignment->getAssignedToPersonEmail(); ?>" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="loanedToNumber">Student&nbsp;Number</label>
-                                <input type="text" name="loanedToNumber" id="loanedToNumber" class="form-control" aria-describedby="loanedToNumberHelp" value="<?php echo $loan->getLoanedToNumber(); ?>">
+                                <label for="assignedToPersonNumber">Student&nbsp;Number</label>
+                                <input type="text" name="assignedToPersonNumber" id="assignedToPersonNumber" class="form-control" aria-describedby="assignedToPersonNumberHelp" value="<?php echo $assignment->getAssignedToPersonNumber(); ?>" readonly tabindex="-1">
                             </div>
                         </div>
                         <div class="form-row col-md-12" style="padding-top:15px;">
-                            <label class="col-md-12">Received by:&nbsp;&nbsp;&nbsp;
+                            <label class="col-md-9">Received by&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="receivedByRole" id="receivedByRoleStudent" value="student" <?php if ($loan->getReceivedByRole() == 'student') {echo 'checked';} ?>> Student
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="true" <?php if ($assignment->getwasReceivedByAssignee() === true) {echo 'checked';} ?> readonly> Student
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="receivedByRole" id="receivedByRoleOther" value="other" <?php if ($loan->getReceivedByRole() != 'student') {echo 'checked';} ?>> Other
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="false" <?php if ($assignment->getwasReceivedByAssignee() === false) {echo 'checked';} ?> readonly> Other
                                 </label>
                             </label>
+                            <div class="form-group col-md-3">
+                                <label for="assignedToPersonLocation">Student&nbsp;Location</label>
+                                <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" value="<?php echo $assignment->getAssignedToPersonLocation(); ?>" readonly tabindex="-1">
+                            </div>
                         </div>
                         <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
                             <div class="form-group col-md-7">
-                                <label for="receivedByName">Received By Name</label>
-                                <input type="text" name="receivedByName" id="receivedByName" class="form-control" aria-describedby="receivedByNameHelp" value="<?php echo $loan->getReceivedByName; ?>" readonly>
+                                <label for="receivedBy">Received By Name</label>
+                                <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $assignment->getReceivedBy(); ?>" readonly>
                             </div>
                             <div class="form-group col-md-5">
-                                <label for="receivedByRelationship">Relationship to Student</label>
-                                <input type="text" name="receivedByRelationship" id="receivedByRelationship" class="form-control" aria-describedby="receivedByRelationshipHelp" value="<?php echo $loan->getReceivedByRelationship(); ?>" readonly>
+                                <label for="receivedByRole">Relationship to Student</label>
+                                <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp" value="<?php echo $assignment->getReceivedByRole(); ?>" readonly>
                             </div>
                         </div>
                     </fieldset>
@@ -137,66 +160,58 @@ $assignment = Model::get($id);
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-3">
                                 <label for="assetID">Device Barcode</label>
-                                <input type="text" name="assetID" id="assetID" class="form-control" aria-describedby="assetIDHelp" value="<?php echo $loan->getCorrectedAssetID(); ?>" readonly>
+                                <input type="text" name="assetID" id="assetID" class="form-control" aria-describedby="assetIDHelp" value="<?php echo $assignment->getAssetID(); ?>" readonly>
                             </div>
                             <div class="form-group col-md-3">
-                                <label for="serialNumber">Device Serial Number</label>
-                                <input type="text" name="serialNumber" id="serialNumber" class="form-control" aria-describedby="serialNumberHelp" value="<?php echo $loan->getSerialNumber(); ?>" readonly>
+                                <label for="assetSerialNumber">Serial Number</label>
+                                <input type="text" name="assetSerialNumber" id="assetSerialNumber" class="form-control" aria-describedby="assetSerialNumberHelp" value="<?php echo $assignment->getAssetSerialNumber(); ?>" readonly tabindex="-1">
                             </div>
-                            <div class="form-group col-md-3">
-                                <label for="location">Device Location</label>
-                                <input type="text" name="location" id="location" class="form-control" aria-describedby="locationHelp" value="<?php echo $loan->getLocation(); ?>" readonly>
-                            </div>
-                        </div>
-                        <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-3">
                                 <label for="assetType">Device Type</label>
-                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="<?php echo $loan->getDeviceType(); ?>" readonly>
+                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="<?php echo $assignment->getAssetType(); ?>" readonly tabindex="-1">
                             </div>
-                            <div class="form-group col-md-6">
-                                <label for="assetModel">Device Model</label>
-                                <input type="text" name="assetModel" id="assetModel" class="form-control" aria-describedby="assetModelHelp" value="<?php echo $loan->getDeviceModel(); ?>" readonly>
+                            <div class="form-group col-md-3">
+                                <label for="assetLocation">Device Location</label>
+                                <input type="text" name="assetLocation" id="assetLocation" class="form-control" aria-describedby="assetLocationHelp" value="<?php echo $assignment->getAssetLocation(); ?>" readonly tabindex="-1">
                             </div>
-                        </div>
-
-                        <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-12" id="seaDeviceWarning">
-                                This is a Spec Ed / SEA device. Please be certain you want to loan it to this student.
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="peripheralsProvided">Peripherals Provided</label>
-                                <input type="text" name="peripheralsProvided" id="peripheralsProvided" class="form-control" aria-describedby="peripheralsProvidedHelp" value="<?php echo $loan->getPeripheralsProvided(); ?>" readonly>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <label for="notes">Notes</label>
-                                <input type="text" name="notes" id="notes" class="form-control" aria-describedby="notesHelp" value="<?php echo $loan->getNotes(); ?>" readonly>
+                                This is a Spec Ed / SEA device. Please be certain you want to assign it to this student.
                             </div>
                         </div>
                     </fieldset>
 
-                    <div class="form-row col-md-12">
-                        <div class="form-group col-md-6">
-                            <label for="loanedBy">Loaned By</label>
-                            <input type="text" name="loanedBy" id="loanedBy" class="form-control" aria-describedby="loanedByHelp" value="<?php echo $loan->getLoanedBy(); ?>" readonly>
+                    <h3>Additional Info</h3>
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                        <div class="form-row col-md-12"  style="padding-top:15px;">
+                            <div class="form-group-inline">
+                                <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;
+                                    <label class="form-element-inline">
+                                        <input type="text" name="untrackedAssestsIncluded" id="untrackedAssestsIncluded" class="form-control" aria-describedby="untrackedAssestsIncludedHelp" value="<?php echo $assignment->getUntrackedAssestsIncluded(); ?>" readonly>
+                                    </label>
+                                </label>
+                            </div>
+                            <div class="form-group-inline">
+                                <label class="form-element-inline" style="padding-top:15px;">Notes&nbsp;&nbsp;&nbsp;
+                                    <label class="form-element-inline">
+                                        <input type="text" name="notes" id="notes" class="form-control" aria-describedby="notesHelp" value="<?php echo $assignment->getNotes(); ?>" readonly>
+                                    </label>
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label for="schoolCode">School Code</label>
-                            <input type="text" name="schoolCode" id="schoolCode" class="form-control" aria-describedby="schoolCodeHelp" value="<?php echo $loan->getSchoolCode(); ?>" readonly>
-                        </div>
-                        <div class="form-group col-md-3">
-                            <label for="createdOn">Date/Time Submitted</label>
-                            <input type="text" name="createdOn" id="createdOn" class="form-control" aria-describedby="createdOnHelp" value="<?php echo $loan->getTimestamp(); ?>" readonly>
-                        </div>
-                    </div>
+                    </fieldset>
 
-                    <div class="form-row col-md-12">
+                    <div class="form-row col-md-12" style="padding-top:10px;padding-bottom:28px;">
                         <div class="form-group col-md-6">
-                            <label for="returnedBy">Returned By</label>
-                            <input type="text" name="returnedBy" id="returnedBy" class="form-control" aria-describedby="returnedByHelp" value="<?php echo $loan->getReturnedBy(); ?>" readonly>
+                            <label for="assignedBy">Assigned By</label>
+                            <input type="text" name="assignedBy" id="assignedBy" class="form-control" aria-describedby="assignedByHelp" value="<?php echo $current_user->display_name; ?>" readonly tabindex="-1">
                         </div>
                         <div class="form-group col-md-3">
-                            <label for="returnedAt">Date/Time Returned</label>
-                            <input type="text" name="returnedAt" id="returnedAt" class="form-control" aria-describedby="returnedAtHelp" value="<?php echo $loan->getReturnedAt(); ?>" readonly>
+                            <label for="assignedFromLocation">School Code</label>
+                            <input type="text" name="assignedFromLocation" id="assignedFromLocation" class="form-control" aria-describedby="assignedFromLocationHelp" value="<?php echo strtoupper($schoolCode); ?>" readonly tabindex="-1">
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="createdAt">Date/Time Submitted</label>
+                            <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo $current_time; ?>" readonly tabindex="-1">
                         </div>
                     </div>
 
@@ -204,7 +219,6 @@ $assignment = Model::get($id);
                 </form>
                 <!-- /CONTENT -->
             </div>
-        
         </div>
     </div>
 <?php } ?>
