@@ -6,7 +6,7 @@ use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModul
 use \WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as QuartermasterModule;
 
 use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoanForm as DeviceLoanFormRESTController;
-
+use \WRDSB\Staff\Modules\Quartermaster\REST\AssetAssignment as AssetAssignmentRESTController;
 /**
  * The plugin bootstrap file
  *
@@ -185,5 +185,10 @@ add_filter('send_email_change_email', '__return_false');
 
 add_action('rest_api_init', function () {
     $controller = new DeviceLoanFormRESTController();
+    $controller->registerRoutes();
+});
+
+add_action('rest_api_init', function () {
+    $controller = new AssetAssignmentRESTController();
     $controller->registerRoutes();
 });
