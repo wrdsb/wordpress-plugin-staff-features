@@ -119,8 +119,15 @@ class QuartermasterModule {
      */
     public function enqueueScripts() {
         WPCore::wpEnqueueScript(
-            $this->plugin_name,
+            'device-loans',
             WPCore::pluginDirURL(__FILE__) . 'assets/js/device-loans.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignments',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignments.js',
             array('jquery'),
             $this->version,
             false
@@ -160,10 +167,15 @@ class QuartermasterModule {
             $this->verion,
             false
         );
-        WPCore::wpLocalizeScript($this->plugin_name, 'wpApiSettings', array(
+        WPCore::wpLocalizeScript('device-loans', 'wpApiSettings', array(
             'root' => WPCore::escURLRaw(WPCore::restURL() ),
-            //'root' => 'https://staff-dev.wrdsb.io/wp-json/',
             'nonce' => WPCore::wpCreateNonce('wp_rest')
+        ));
+        WPCore::wpLocalizeScript('asset-assignments', 'wpApiSettings', array(
+            'root' => WPCore::escURLRaw(WPCore::restURL() ),
+            'nonce' => WPCore::wpCreateNonce('wp_rest'),
+            'success' => 'Thanks for your submission!',
+            'failure' => 'Your submission could not be processed.'
         ));
     }
 
