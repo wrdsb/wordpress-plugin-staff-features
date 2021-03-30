@@ -1,6 +1,6 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\REST;
-
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
 
 use \WP_REST_Controller as WP_REST_Controller;
@@ -177,15 +177,14 @@ class DeviceLoanForm extends WP_REST_Controller
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_REST_Response
      */
-    public function updateItem(WP_REST_Request $request): WP_REST_Response
-    {
-        $current_time = current_time('mysql');
+    public function updateItem(WP_REST_Request $request): WP_REST_Response {
+        $currentTime = WPCore::currentTime();
         $id = $this->getFormID($request);
         $body = $request->get_json_params();
 
         $coreArray = array(
             'id' => $id,
-            'updatedAt' => $current_time
+            'updatedAt' => $currentTime
         );
         $patch = array_merge($coreArray, $body);
 
