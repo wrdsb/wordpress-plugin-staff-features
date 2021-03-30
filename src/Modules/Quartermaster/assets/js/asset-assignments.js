@@ -5,50 +5,55 @@
         console.log('document ready');
 
         $('#newAssetAssignment').on('submit', function(e) {
+            console.log('process new asset assignment');
             e.preventDefault();
-            let createdAt = $('createdAt').val();
+
+            let blogID = $('#blogID').val();
+            console.log(`for blogID ${blogID}`);
+
+            let createdAt = $('#createdAt').val();
             let updatedAt = null;
             let deletedAt = null;
             let deleted = false;
         
-            let createdBy = $('assignedBy').val();
+            let createdBy = $('#email').val();
             let updatedBy = null;
             let deletedBy = null;
         
-            let assignedBy = $('assignedBy').val();
+            let assignedBy = $('#email').val();
             let assignedFromLocation = $('assignedFromLocation').val();
         
-            let assetID = $('assetID').val();
-            let assetSerialNumber = $('assetSerialNumber').val();
-            let assetType = $('assetType').val();
-            let assetLocation = $('assetLocation').val();
+            let assetID = $('#assetID').val();
+            let assetSerialNumber = $('#assetSerialNumber').val();
+            let assetType = $('#assetType').val();
+            let assetLocation = $('#assetLocation').val();
             
-            let assignedToPerson = $('assignedToPerson').val();
-            let assignedToPersonEmail = $('assignedToPersonEmail').val();
-            let assignedToPersonNumber = $('assignedToPersonNumber').val();
-            let assignedToPersonLocation = $('assignedToPersonLocation').val();
+            let assignedToPerson = $('#assignedToPerson').val();
+            let assignedToPersonEmail = $('#assignedToPersonEmail').val();
+            let assignedToPersonNumber = $('#assignedToPersonNumber').val();
+            let assignedToPersonLocation = $('#assignedToPersonLocation').val();
         
             let assignedToBusinessUnit = null;
         
-            let wasReceivedByAssignee = $('wasReceivedByAssignee').val();
+            let wasReceivedByAssignee = $('#wasReceivedByAssignee').val();
 
             let receivedBy = null;
             if (wasReceivedByAssignee === true) {
                 receivedBy = assignedToPerson;
             } else {
-                receivedBy = $('receivedBy').val();
+                receivedBy = $('#receivedBy').val();
             }
 
-            let receivedByRole = $('receivedByRole').val();
+            let receivedByRole = $('#receivedByRole').val();
         
-            let isTemporary = $('isTemporary').val();
-            let startDate = $('startDate').val();
-            let endDate = $('endDate').val();
+            let isTemporary = $('#isTemporary').val();
+            let startDate = $('#startDate').val();
+            let endDate = $('#endDate').val();
         
-            let untrackedAssestsIncluded = $('untrackedAssestsIncluded').val();
-            let notes = $('notes').val();
+            let untrackedAssestsIncluded = $('#untrackedAssestsIncluded').val();
+            let notes = $('#notes').val();
         
-            var data = {
+            var body = {
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 deletedAt: deletedAt,
@@ -58,8 +63,6 @@
                 deletedBy: deletedBy,
                 assignedBy: assignedBy,
                 assignedFromLocation: assignedFromLocation,
-                id: id,
-                changeDetectionHash: changeDetectionHash,
                 assetID: assetID,
                 assetSerialNumber: assetSerialNumber,
                 assetType: assetType,
@@ -79,9 +82,14 @@
                 notes: notes
             };
 
+            console.log(JSON.stringify(body));
+
             $.ajax({
                 method: "POST",
-				url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/`,
+				url: `/wp-json/wrdsb/staff/quartermaster/blog/${blogID}/asset-assignments`,
+                data: JSON.stringify(body),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 xhrFields: {
                     withCredentials: true
                 },
@@ -90,11 +98,15 @@
 				},
                 success: function (response) {
                     console.log(response);
-                    alert(POST_SUBMITTER.success);
+                    $('#submitButton').hide();
+                    $('#successMessage').show();
+                    $('#failureMessage').hide();
                 },
                 fail: function (response) {
                     console.log(response);
-                    alert(POST_SUBMITTER.failure);
+                    $('#submitButton').show();
+                    $('#successMessage').hide();
+                    $('#failureMessage').show();
                 }
             });
         });
@@ -180,6 +192,9 @@
             $.ajax({
                 method: "POST",
 				url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/${form_id}/edit`,
+                data: JSON.stringify(body),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
                 xhrFields: {
                     withCredentials: true
                 },
