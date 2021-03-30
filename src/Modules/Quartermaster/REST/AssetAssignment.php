@@ -1,5 +1,6 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\REST;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\Model\AssetAssignment as Model;
 
@@ -53,11 +54,11 @@ class AssetAssignment extends WP_REST_Controller
      */
     public function registerRoutes() {
         register_rest_route($this->api_namespace, '/asset-assignments', array(
-            //array(
-                //'methods'             => WP_REST_Server::READABLE,
-                //'callback'            => array( $this, 'getItems' ),
-                //'permission_callback' => array( $this, 'getItemsPermissionsCheck' ),
-            //),
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'getItems' ),
+                'permission_callback' => array( $this, 'getItemsPermissionsCheck' ),
+            ),
             array(
                 'methods'             => WP_REST_Server::CREATABLE,
                 'callback'            => array( $this, 'createItem' ),
@@ -65,11 +66,11 @@ class AssetAssignment extends WP_REST_Controller
             ),
         ));
         register_rest_route($this->api_namespace, '/asset-assignment/(?P<id>[A-Za-z0-9-]+)', array(
-            //array(
-                //'methods'             => WP_REST_Server::READABLE,
-                //'callback'            => array( $this, 'getItem' ),
-                //'permission_callback' => array( $this, 'getItemPermissionsCheck' ),
-            //),
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'getItem' ),
+                'permission_callback' => array( $this, 'getItemPermissionsCheck' ),
+            ),
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array( $this, 'updateItem' ),
@@ -82,11 +83,11 @@ class AssetAssignment extends WP_REST_Controller
             ),
         ));
         register_rest_route($this->api_namespace, '/blog/(?P<blog>[A-Za-z0-9-]+)/asset-assignments', array(
-            //array(
-                //'methods'             => WP_REST_Server::READABLE,
-                //'callback'            => array( $this, 'getItems' ),
-                //'permission_callback' => array( $this, 'getItemsPermissionsCheck' ),
-            //),
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'getItems' ),
+                'permission_callback' => array( $this, 'getItemsPermissionsCheck' ),
+            ),
             array(
                 'methods'             => WP_REST_Server::CREATABLE,
                 'callback'            => array( $this, 'createItem' ),
@@ -94,11 +95,11 @@ class AssetAssignment extends WP_REST_Controller
             ),
         ));
         register_rest_route($this->api_namespace, '/blog/(?P<blog>[A-Za-z0-9-]+)/asset-assignment/(?P<id>[A-Za-z0-9-]+)', array(
-            //array(
-                //'methods'             => WP_REST_Server::READABLE,
-                //'callback'            => array( $this, 'getItem' ),
-                //'permission_callback' => array( $this, 'getItemPermissionsCheck' ),
-            //),
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'getItem' ),
+                'permission_callback' => array( $this, 'getItemPermissionsCheck' ),
+            ),
             array(
                 'methods'             => WP_REST_Server::EDITABLE,
                 'callback'            => array( $this, 'updateItem' ),
@@ -150,18 +151,18 @@ class AssetAssignment extends WP_REST_Controller
      * @return WP_REST_Response
      */
     public function createItem(WP_REST_Request $request): WP_REST_Response {
-        // TODO: Extract form from request
-        $args = $request->get_body_params();
-        //$parameters = $request->get_json_params();
+        $currentTime = WPCore::currentTime();
+        $body = $request->get_json_params();
 
-        // TODO: Create form
-        $item = Model::create($args);
+        $assetAssignment = new Model($body);
 
-        if ($item->isSaved()) {
-            return new WP_REST_Response($item, 200);
+        $command = Model::create($assetAssignment);
+
+        if ($command->getState() === 'success') {
+            return new WP_REST_Response($command, $command->getStatus());
         } else {
-            //TODO: Does this constructor work?
-            return new WP_REST_Response('Error creating form.', 500);
+            error_log(json_encode($command));
+            return new WP_REST_Response($command, $command->getStatus());
         }
     }
   
@@ -172,19 +173,24 @@ class AssetAssignment extends WP_REST_Controller
      * @return WP_REST_Response
      */
     public function updateItem(WP_REST_Request $request): WP_REST_Response {
+        $currentTime = WPCore::currentTime();
         $id = $this->getItemID($request);
-        //TODO: Extract patch
+        $body = $request->get_json_params();
 
-        $updatedItem = Model::patch(array(
-            'id' => $id
-            //TODO: Apply patch
-        ));
+        $coreArray = array(
+            'id' => $id,
+            'updatedAt' => $currentTime
+        );
+        $patch = array_merge($coreArray, $body);
+        $assetAssignment = new Model($patch);
 
-        if ($updatedItem->isSaved()) {
-            return new WP_REST_Response($updatedItem, 200);
+        $command = Model::patch($id, $assetAssignment);
+
+        if ($command->getState() === 'success') {
+            return new WP_REST_Response($command, $command->getStatus());
         } else {
-            //TODO: Does this constructor work?
-            return new WP_REST_Response('Error updating form.', 500);
+            error_log(json_encode($command));
+            return new WP_REST_Response($command, $command->getStatus());
         }
     }
  
@@ -198,14 +204,12 @@ class AssetAssignment extends WP_REST_Controller
         $id = $this->getItemID($request);
 
         $command = Model::delete($id);
-        $command_json = \json_encode($command);
 
-        //TODO: Send back a JSON response which is more useful to the client.
         if ($command->getState() === 'success') {
-            return new WP_REST_Response($command_json, 200);
+            return new WP_REST_Response($command, $command->getStatus());
         } else {
-            //TODO: Does this constructor work?
-            return new WP_REST_Response($command_json, 500);
+            error_log(json_encode($command));
+            return new WP_REST_Response($command, $command->getStatus());
         }
     }
 
@@ -272,24 +276,24 @@ class AssetAssignment extends WP_REST_Controller
      * @return boolean
      */
     public function updateItemPermissionsCheck(WP_REST_Request $request): bool {
-        if (current_user_can('setup_network')) {
+        if (WPCore::currentUserCan('setup_network')) {
             return true;
         }
 
-        $user = wp_get_current_user();
+        $user = WPCore::getCurrentUser();
         if (empty($user)) return false;
 
         $blogID = $this->getBlogID($request);
         if ($blogID === '') return false;
         
-        switch_to_blog($blogID);
+        WPCore::switchToBlog($blogID);
 		
-        if (user_can($user->id, 'manage_options')) {
-            restore_current_blog();
+        if (WPCore::userCan($user->id, 'manage_options')) {
+            WPCore::restoreCurrentBlog();
             return true;
         }
 
-        restore_current_blog();
+        WPCore::restoreCurrentBlog();
         return false;
     }
 
