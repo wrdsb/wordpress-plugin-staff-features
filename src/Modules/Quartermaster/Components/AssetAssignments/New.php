@@ -77,8 +77,9 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                 <h1><?php echo $page_title; ?></h1>
 
                 <form id="newAssetAssignment">
-                    <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
-                    <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
+                    <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
+                    <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
+                    <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
 
                     <h3>Assignment Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
@@ -206,7 +207,11 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div id="submitBlock">
+                        <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                        <p id="successMessage" style="display: none;">Form accepted for processing.</p>
+                        <p id="failureMessage" style="display: none;">There was an error. Please click the submit button again.</p>
+                    </div>
                 </form>
                 <!-- /CONTENT -->
             </div>
