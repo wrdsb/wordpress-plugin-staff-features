@@ -58,46 +58,46 @@ class AssetAssignment implements \JsonSerializable {
     private $notes;
     
 
-    public function __construct() {
-        $this->createdAt = '';
-        $this->updatedAt = '';
-        $this->deletedAt = '';
-        $this->deleted = false;
+    public function __construct(array $params = null) {
+        $this->createdAt = $params['createdAt'] ? $params['createdAt'] : '';
+        $this->updatedAt = $params['updatedAt'] ? $params['updatedAt'] : '';
+        $this->deletedAt = $params['deletedAt'] ? $params['deletedAt'] : '';
+        $this->deleted   = $params['deleted'] ? $params['deleted'] : false; 
 
-        $this->createdBy = '';
-        $this->updatedBy = '';
-        $this->deletedBy = '';
+        $this->createdBy = $params['createdBy'] ? $params['createdBy'] : '';
+        $this->updatedBy = $params['updatedBy'] ? $params['updatedBy'] : '';
+        $this->deletedBy = $params['deletedBy'] ? $params['deletedBy'] : '';
 
-        $this->assignedBy = '';
-        $this->assignedFromLocation = '';
+        $this->assignedBy = $params['assignedBy'] ? $params['assignedBy'] : '';
+        $this->assignedFromLocation = $params['assignedFromLocation'] ? $params['assignedFromLocation'] : '';
     
-        $this->id = '';
+        $this->id = $params['id'] ? $params['id'] : '';
         //$this->saved = false;
         //$this->dirty = true;
-        $this->changeDetectionHash = '';
+        $this->changeDetectionHash = $params['changeDetectionHash'] ? $params['changeDetectionHash'] : '';
 
-        $this->assetID = '';
-        $this->assetSerialNumber = '';
-        $this->assetType = '';
-        $this->assetLocation = '';
+        $this->assetID = $params['assetID'] ? $params['assetID'] : '';
+        $this->assetSerialNumber = $params['assetSerialNumber'] ? $params['assetSerialNumber'] : '';
+        $this->assetType = $params['assetType'] ? $params['assetType'] : '';
+        $this->assetLocation = $params['assetLocation'] ? $params['assetLocation'] : '';
     
-        $this->assignedToPerson = '';
-        $this->assignedToPersonEmail = '';
-        $this->assignedToPersonNumber = '';
-        $this->assignedToPersonLocation = '';
+        $this->assignedToPerson = $params['assignedToPerson'] ? $params['assignedToPerson'] : '';
+        $this->assignedToPersonEmail = $params['assignedToPersonEmail'] ? $params['assignedToPersonEmail'] : '';
+        $this->assignedToPersonNumber = $params['assignedToPersonNumber'] ? $params['assignedToPersonNumber'] : '';
+        $this->assignedToPersonLocation = $params['assignedToPersonLocation'] ? $params['assignedToPersonLocation'] : '';
     
-        $this->assignedToBusinessUnit = '';
+        $this->assignedToBusinessUnit = $params['assignedToBusinessUnit'] ? $params['assignedToBusinessUnit'] : '';
     
-        $this->wasReceivedByAssignee = true;
-        $this->receivedBy = '';
-        $this->receivedByRole = '';
+        $this->wasReceivedByAssignee = $params['wasReceivedByAssignee'] ? $params['wasReceivedByAssignee'] : true;
+        $this->receivedBy = $params['receivedBy'] ? $params['receivedBy'] : '';
+        $this->receivedByRole = $params['receivedByRole'] ? $params['receivedByRole'] : '';
     
-        $this->isTemporary = false;
-        $this->startDate = '';
-        $this->endDate = '';
+        $this->isTemporary = $params['isTemporary'] ? $params['deletedAt'] : false;
+        $this->startDate = $params['startDate'] ? $params['startDate'] : '';
+        $this->endDate = $params['endDate'] ? $params['endDate'] : '';
         
-        $this->untrackedAssestsIncluded = '';
-        $this->notes = '';
+        $this->untrackedAssestsIncluded = $params['untrackedAssestsIncluded'] ? $params['untrackedAssestsIncluded'] : '';
+        $this->notes = $params['notes'] ? $params['notes'] : '';
     }
 
     public function jsonSerialize() {
@@ -136,6 +136,37 @@ class AssetAssignment implements \JsonSerializable {
     }
 
     /**
+     * Instantiates a new DeviceLoanForm object and saves it in a single operation.
+     *
+     * If you want to create a new resource with some given attributes and then
+     * save it all in one go, you can use the create() method.
+     *
+     * If the creation was successful, create() will return the newly created resource.
+     * If it failed, it will return a new resource that is initialized with the given attributes
+     * and possible default values declared for that resource, but that’s not yet saved.
+     *
+     * To find out wether the creation was successful or not, you can call isSaved() on
+     * the returned resource. It will return true if the resource was successfully persisted,
+     * or false otherwise.
+     *
+     * @param array $args An associative array of property names and their values.
+     * @return DeviceLoanForm
+     */
+    public static function create(self $assetAssignment): Command {
+        $id = '';
+        $item = json_decode(json_encode($assetAssignment), true);
+        $command = new Command('AssetAssignment', 'create', $id, $item);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            return $command;
+        } else {
+            error_log($command);
+            return $command;
+        }
+    }
+
+    /**
      * Updates a record's properties and persists those changes in one call.
      *
      * If you want to update a resource with some given attributes and then
@@ -152,8 +183,9 @@ class AssetAssignment implements \JsonSerializable {
      * @param array $args An associative array of property names and their values.
      * @return AssetAssignment
      */
-    public static function patch(string $id, array $form): Command {
-        $command = new Command('patch', $id, $form);
+    public static function patch(string $id, self $assetAssignment): Command {
+        $item = json_decode(json_encode($assetAssignment), true);
+        $command = new Command('AssetAssignment', 'patch', $id, $item);
         $command->run();
 
         if ($command->getState() === 'success') {
@@ -173,7 +205,7 @@ class AssetAssignment implements \JsonSerializable {
      * @return boolean
      */
     public static function delete(string $id): Command {
-        $command = new Command('delete', $id);
+        $command = new Command('AssetAssignment', 'delete', $id);
         $command->run();
 
         if ($command->getState() === 'success') {
