@@ -3,9 +3,11 @@ namespace WRDSB\Staff\Modules\Quartermaster\Services;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
+
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterSearch as Search;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCommand as Command;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
+
 use WRDSB\Staff\Modules\WP\WPRemotePost as WPRemotePost;
 
 /**
@@ -30,6 +32,11 @@ class QuartermasterService {
     public function fetch(Query $query): Query {
         $query = $this->queryRequest($query);
         return $query;
+    }
+
+    public function create(Command $command): Command {
+        $command = $this->createRequest($command);
+        return $command;
     }
 
     public function patch(Command $command): Command {
@@ -94,7 +101,7 @@ class QuartermasterService {
 
     private function queryRequest(Query $query): Query {
         $functionKey = Module::getQuartermasterQueryKey();
-        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/quartermaster-query?code={$functionKey}";
+        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-query?code={$functionKey}";
         $body = array(
             'dataType' => $query->getDataType(),
             'id' => $query->getID()
@@ -124,11 +131,14 @@ class QuartermasterService {
         return $query;
     }
 
-    private function storeRequest(Command $command): Command {
+    private function createRequest(Command $command): Command {
         $functionKey = Module::getQuartermasterCommandKey();
-        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
+        $dataType = $command->getDataType();
+        $returnObjectClass = (string) '\WRDSB\Staff\Modules\Quartermaster\Model\\' . $dataType;
+
+        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
         $body = array(
-            'jobType' => 'Quartermaster.DeviceLoanSubmission.Store',
+            'jobType' => 'Quartermaster.'.$dataType.'.Create',
             'operation' => $command->getOperation(),
             'payload' => $command->getPayload(),
         );
@@ -143,7 +153,47 @@ class QuartermasterService {
         if ($request->success) {
             $responseString = json_encode($request->response);
 
-            $item = new Model;
+            $item = new $returnObjectClass;
+            $item->fromJSON($responseString);
+
+            $command->setState('success');
+            $command->setStatus($request->status);
+            $command->setRawResponse($request->response);
+            $command->setTotalResults(1);
+            $command->setResults($item);
+        } else {
+            $command->setState('failure');
+            $command->setStatus($request->status);
+            $command->setError($request->error);
+            error_log(json_encode($command));
+        }
+        
+        return $command;
+    }
+
+    private function storeRequest(Command $command): Command {
+        $functionKey = Module::getQuartermasterCommandKey();
+        $dataType = $command->getDataType();
+        $returnObjectClass = (string) '\WRDSB\Staff\Modules\Quartermaster\Model\\' . $dataType;
+
+        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
+        $body = array(
+            'jobType' => 'Quartermaster.'.$dataType.'.Store',
+            'operation' => $command->getOperation(),
+            'payload' => $command->getPayload(),
+        );
+
+        $request = new WPRemotePost(array(
+            'headers' => array(),
+            'url' => $url,
+            'body' => json_encode($body),
+        ));
+        $request->run();
+
+        if ($request->success) {
+            $responseString = json_encode($request->response);
+
+            $item = new $returnObjectClass;
             $item->fromJSON($responseString);
 
             $command->setState('success');
