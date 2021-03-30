@@ -97,7 +97,7 @@ class DeviceLoanForms {
 
     private function storeRequest(Command $command): Command {
         $functionKey = Module::getDeviceLoanFormsCommandKey();
-        $url = "https://wrdsb-quartermaster.azurewebsites.net/api/device-loan-submissions-command?code={$functionKey}";
+        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
         $body = array(
             'jobType' => 'Quartermaster.DeviceLoanSubmission.Store',
             'operation' => $command->getOperation(),
