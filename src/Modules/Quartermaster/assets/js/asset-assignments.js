@@ -29,11 +29,11 @@
 
         $('#receivedByBlock').hide();
 
-        $('input[name="receivedByRole"]').click(function () {
-            if ($(this).attr("value") === "student") {
+        $('input[name="wasReceivedByAssignee"]').click(function () {
+            if ($(this).attr("value") === "true") {
                 $("#receivedByBlock").hide('slow');
             }
-            if ($(this).attr("value") === "other") {
+            if ($(this).attr("value") === "false") {
                 $("#receivedByBlock").show('slow');
             }
         });
