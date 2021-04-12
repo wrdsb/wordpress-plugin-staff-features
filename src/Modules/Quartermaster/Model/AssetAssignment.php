@@ -92,7 +92,7 @@ class AssetAssignment implements \JsonSerializable {
         $this->receivedBy = $params['receivedBy'] ? $params['receivedBy'] : '';
         $this->receivedByRole = $params['receivedByRole'] ? $params['receivedByRole'] : '';
     
-        $this->isTemporary = $params['isTemporary'] ? $params['deletedAt'] : false;
+        $this->isTemporary = $params['isTemporary'] ? $params['isTemporary'] : false;
         $this->startDate = $params['startDate'] ? $params['startDate'] : '';
         $this->endDate = $params['endDate'] ? $params['endDate'] : '';
         

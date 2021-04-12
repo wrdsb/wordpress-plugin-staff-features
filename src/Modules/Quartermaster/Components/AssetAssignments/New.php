@@ -124,10 +124,10 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Received by&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="true" checked> Student
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssigneeTrue" value="true" checked> Student
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="false" > Other
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssigneeFalse" value="false" > Other
                                 </label>
                             </label>
                             <div class="form-group col-md-3">
