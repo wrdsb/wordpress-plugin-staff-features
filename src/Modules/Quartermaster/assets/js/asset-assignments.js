@@ -4,6 +4,40 @@
     $(document).ready(function () {
         console.log('document ready');
 
+        $("#startDate").datepicker({
+            format: "yyyy-mm-dd",
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        $("#endDate").datepicker({
+            format: "yyyy-mm-dd",
+            todayHighlight: true,
+            autoclose: true
+        });
+
+        $('#isTemporaryBlock').hide();
+
+        $('input[name="isTemporary"]').click(function () {
+            if ($(this).attr("value") === "false") {
+                $("#isTemporaryBlock").hide('slow');
+            }
+            if ($(this).attr("value") === "true") {
+                $("#isTemporaryBlock").show('slow');
+            }
+        });
+
+        $('#receivedByBlock').hide();
+
+        $('input[name="receivedByRole"]').click(function () {
+            if ($(this).attr("value") === "student") {
+                $("#receivedByBlock").hide('slow');
+            }
+            if ($(this).attr("value") === "other") {
+                $("#receivedByBlock").show('slow');
+            }
+        });
+
         $('#newAssetAssignment').on('submit', function(e) {
             console.log('process new asset assignment');
             e.preventDefault();
@@ -21,7 +55,7 @@
             let deletedBy = null;
         
             let assignedBy = $('#email').val();
-            let assignedFromLocation = $('assignedFromLocation').val();
+            let assignedFromLocation = $('#assignedFromLocation').val();
         
             let assetID = $('#assetID').val();
             let assetSerialNumber = $('#assetSerialNumber').val();
@@ -35,18 +69,18 @@
         
             let assignedToBusinessUnit = null;
         
-            let wasReceivedByAssignee = $('#wasReceivedByAssignee').val();
-
-            let receivedBy = null;
-            if (wasReceivedByAssignee === true) {
-                receivedBy = assignedToPerson;
-            } else {
+            let wasReceivedByAssignee = $("input:radio[name='wasReceivedByAssignee']:checked").val();
+            
+            let receivedBy = assignedToPerson;
+            if ($("input:radio[name='wasReceivedByAssignee']:checked").val() === 'false') {
                 receivedBy = $('#receivedBy').val();
+            } else {
+                receivedBy = assignedToPerson;
             }
 
             let receivedByRole = $('#receivedByRole').val();
         
-            let isTemporary = $('#isTemporary').val();
+            let isTemporary = $("input:radio[name='isTemporary']:checked").val();
             let startDate = $('#startDate').val();
             let endDate = $('#endDate').val();
         
