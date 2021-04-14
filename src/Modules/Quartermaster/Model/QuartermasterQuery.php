@@ -48,10 +48,7 @@ class QuartermasterQuery {
         $this->error = $temp->getError();
 
         if ($this->getState() === 'success') {
-            $responseObject = $this->rawResponse;
-            $results = $responseObject->records;
-            $this->results = $results;
-            $this->totalResults = count($results);
+            $this->results = $this->rawResponse;
         }
     }
 

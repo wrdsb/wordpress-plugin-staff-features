@@ -100,24 +100,53 @@ class QuartermasterService {
     }
 
     private function queryRequest(Query $query): Query {
-        $functionKey = Module::getQuartermasterQueryKey();
-        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-query?code={$functionKey}";
-        $body = array(
-            'dataType' => $query->getDataType(),
-            'id' => $query->getID()
+        $apiKey = Module::getCodexSearchKey();
+        $searchIndex = '';
+        $dataType = $query->getDataType();
+        $id = $query->getID();
+
+        switch ($dataType) {
+            case 'AssetAssignment':
+                $searchIndex = 'quartermaster-asset-assignments';
+                break;
+            
+            default:
+                break;
+        }
+
+        $args = array(
+            'url'         => "https://wrdsb-codex.search.windows.net/indexes/{$searchIndex}/docs/search?api-version=2016-09-01",
+            'timeout'     => 5,
+            'redirection' => 5,
+            'httpversion' => '1.0',
+            'blocking'    => true,
+            'headers'     => array(
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+                'api-key' => $apiKey
+            ),
+            'cookies'     => array(),
+            'body'        => json_encode(array(
+                "search"  => "id eq {$id}",
+                "select"  => "*",
+                "orderby" => "assignedToPerson",
+                "top"     => 1000,
+                "count"   => true
+            )),
+            'compress'    => false,
+            'decompress'  => true,
+            'sslverify'   => false,
+            'stream'      => false,
+            'filename'    => null
         );
 
-        $request = new WPRemotePost(array(
-            'headers' => array(),
-            'url' => $url,
-            'body' => json_encode($body),
-        ));
+        $request = new WPRemotePost($args);
         $request->run();
 
         if ($request->success) {
             $query->setState('success');
             $query->setStatus($request->status);
-            $query->setRawResponse($request->response);
+            $query->setRawResponse($request->response->value);
             $query->setError('');
         } else {
             $query->setState('failure');
@@ -125,6 +154,7 @@ class QuartermasterService {
             $query->setRawResponse($request->response);
             $query->setError($request->error);
             error_log('Quartermaster Serivce: ' . $request->status);
+            error_log('Quartermaster Serivce: ' . $request->response);
             error_log('Quartermaster Service: ' . $request->error);
         }
         
