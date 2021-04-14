@@ -6,17 +6,17 @@ use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $access_time = WPCore::currentTime();
-$page_title = "Active Device Loans";
+$page_title = "Active Asset Assignments";
 
 function setCustomTitle()
 {
-    $page_title = "Active Device Loans";
+    $page_title = "Active Asset Assignments";
     return $page_title;
 }
-WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
+WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-asset-assignments/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -30,10 +30,10 @@ $args = array(
     ),
     'cookies'     => array(),
     'body'        => json_encode(array(
-        "filter"  => "schoolCode eq '{$schoolCode}' and wasReturned eq false",
+        "filter"  => "assignedFromLocation eq '{$schoolCode}' and wasReturned ne true and deleted ne true",
         "search"  => "*",
         "select"  => "*",
-        "orderby" => "loanedToName",
+        "orderby" => "assignedToPerson",
         "top"     => 1000,
         "count"   => true
     )),
@@ -46,20 +46,20 @@ $args = array(
 
 $response = WPCore::wpRemotePost($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
-$forms = $response_object->value;
-$forms_count = $response_object->{'@odata.count'};
+$assignments = $response_object->value;
+$assignments_count = $response_object->{'@odata.count'};
 $page_min = 1;
-$page_max = count($forms);
+$page_max = count($assignments);
 $pages = 1;
 
-while ($forms_count > $page_max) {
+while ($assignments_count > $page_max) {
     $body = json_decode($args['body'], $assoc = true);
     $body["skip"] = $pages * 1000;
     $args['body'] = json_encode($body);
     $response = WPCore::wpRemotePost($url, $args);
     $response_object = json_decode($response['body'], $assoc = false);
-    $forms = array_merge($forms, $response_object->value);
-    $page_max = count($forms);
+    $assignments = array_merge($assignments, $response_object->value);
+    $page_max = count($assignments);
     $pages++;
 }
 ?>
@@ -80,7 +80,7 @@ while ($forms_count > $page_max) {
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    Device Loans
+                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a>
                 </li>
                 <li>
                     <?php echo $page_title; ?>
@@ -106,14 +106,14 @@ while ($forms_count > $page_max) {
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
+                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform" target="_blank">Create New Device Loan</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/new">Create New Asset Assignment</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">View All Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/active">View Active Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/returned">View Returned Assets</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -135,12 +135,12 @@ while ($forms_count > $page_max) {
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    Loaned To
+                                    Assigned To
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    Device Type
+                                    Asset Type
                                 </div>
                             </th>
                             <th class="secondary-text">
@@ -150,7 +150,7 @@ while ($forms_count > $page_max) {
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    Loaned
+                                    Assigned
                                 </div>
                             </th>
                             <th class="secondary-text">
@@ -161,31 +161,56 @@ while ($forms_count > $page_max) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($forms as $form) { ?>
-                            <?php $parts = explode(",", $form->powerAppsId); ?>
-                            <?php $id = $parts[0]; ?>
+                        <?php foreach ($assignments as $assignment) { ?>
+                            <?php $id = $assignment->id; ?>
                             <?php echo '<tr id="'.$id.'-row">'; ?>
-                                <td width="20%">
-                                    <?php echo $form->loanedToName; ?>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo $assignment->assignedToPerson; ?>
+                                </td>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo $assignment->assetType; ?>
+                                </td>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo $assignment->assetID; ?>
+                                </td>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo date("F j, Y", strtotime($assignment->createdAt)); ?>
                                 </td>
                                 <td>
-                                    <?php echo $form->deviceType; ?>
-                                </td>
-                                <td>
-                                    <?php echo $form->correctedAssetID; ?>
-                                </td>
-                                <td>
-                                    <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
-                                </td>
-                                <td>
-                                    <button type="button" 
-                                      id="<?php echo $id; ?>-return"
-                                      class="form-return"
-                                      data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                      data-form_id="<?php echo $id; ?>">
-                                      Return Device
-                                    </button>
-                                    <p id="<?php echo $id; ?>-actions-notifications"></p>
+                                    <?php if ($userIsAdmin) { ?>
+                                        <div class="input-group date" data-date-format="yyyy-mm-dd">
+                                            <button id="<?php echo $id; ?>-return-button" data-row_id="<?php echo $id; ?>" class="btn btn-default return-button" type="button">
+                                                Return Asset
+                                            </button>
+
+                                            <input style="display:none;"
+                                                type="text"
+                                                size="12"
+                                                name="<?php echo $id; ?>-return"
+                                                id="<?php echo $id; ?>-return"
+                                                data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                data-form_id="<?php echo $id; ?>"
+                                                data-user_email="<?php echo $currentUser->user_email; ?>",
+                                                class="form-control form-return"
+                                                aria-describedby="returnDeviceHelp"
+                                                placeholder="YYYY-MM-DD">
+
+                                            <span id="<?php echo $id; ?>-after" class="input-group-btn" style="display:none;">
+                                                <button style="display:none;"
+                                                    id="<?php echo $id; ?>-after-button"
+                                                    data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                    data-form_id="<?php echo $id; ?>"
+                                                    data-user_email="<?php echo $currentUser->user_email; ?>",
+                                                    class="btn btn-default undo-button"
+                                                    type="button">
+
+                                                    <span id="<?php echo $id; ?>-after-button-icon"></span>
+                                                </button>
+                                                <span id="<?php echo $id; ?>-after-icon" style="display:none;"></span>
+                                            </span>
+                                        </div>
+                                        <p id="<?php echo $id; ?>-actions-notifications" style="display:none;"></p>
+                                    <?php } ?>
                                 </td>
                             </tr>
                         <?php } ?>

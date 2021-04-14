@@ -114,6 +114,16 @@ $container['routes'] = [
         'view' => 'asset-assignments-list-all',
         'template' => 'Quartermaster/Components/AssetAssignments/ListAll.php',
     ],
+    '^quartermaster/asset-assignments/active$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignments-list-active',
+        'template' => 'Quartermaster/Components/AssetAssignments/ListActive.php',
+    ],
+    '^quartermaster/asset-assignments/returned$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignments-list-returned',
+        'template' => 'Quartermaster/Components/AssetAssignments/ListReturned.php',
+    ],
 
     '^quartermaster/device-loan/new$' => [
         'module' => 'QuartermasterModule',
