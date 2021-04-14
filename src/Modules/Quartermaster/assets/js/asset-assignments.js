@@ -19,10 +19,10 @@
         $('#isTemporaryBlock').hide();
 
         $('input[name="isTemporary"]').click(function () {
-            if ($(this).attr("value") === "false") {
+            if ($(this).attr("value") === "0") {
                 $("#isTemporaryBlock").hide('slow');
             }
-            if ($(this).attr("value") === "true") {
+            if ($(this).attr("value") === "1") {
                 $("#isTemporaryBlock").show('slow');
             }
         });
@@ -30,10 +30,10 @@
         $('#receivedByBlock').hide();
 
         $('input[name="wasReceivedByAssignee"]').click(function () {
-            if ($(this).attr("value") === "true") {
+            if ($(this).attr("value") === "1") {
                 $("#receivedByBlock").hide('slow');
             }
-            if ($(this).attr("value") === "false") {
+            if ($(this).attr("value") === "0") {
                 $("#receivedByBlock").show('slow');
             }
         });
@@ -69,21 +69,32 @@
         
             let assignedToBusinessUnit = null;
         
-            let wasReceivedByAssignee = $("input:radio[name='wasReceivedByAssignee']:checked").val();
-            
+            let wasReceivedByAssignee = true;
             let receivedBy = assignedToPerson;
-            if ($("input:radio[name='wasReceivedByAssignee']:checked").val() === 'false') {
+            if ($("input:radio[name='wasReceivedByAssignee']:checked").val() === '0') {
+                wasReceivedByAssignee = false;
                 receivedBy = $('#receivedBy').val();
             } else {
+                wasReceivedByAssignee = true;
                 receivedBy = assignedToPerson;
             }
 
             let receivedByRole = $('#receivedByRole').val();
         
-            let isTemporary = $("input:radio[name='isTemporary']:checked").val();
+            let isTemporary = false;
+            if ($("input:radio[name='isTemporary']:checked").val() === '0') {
+                isTemporary = false;
+            } else {
+                isTemporary = true;
+            }
+
             let startDate = $('#startDate').val();
             let endDate = $('#endDate').val();
-        
+
+            let wasReturned = false; 
+            let returnedAt = null;
+            let returnedBy = null;
+
             let untrackedAssestsIncluded = $('#untrackedAssestsIncluded').val();
             let notes = $('#notes').val();
         
@@ -112,6 +123,9 @@
                 isTemporary: isTemporary,
                 startDate: startDate,
                 endDate: endDate,
+                wasReturned: wasReturned,
+                returnedAt: returnedAt,
+                returnedBy: returnedBy,
                 untrackedAssestsIncluded: untrackedAssestsIncluded,
                 notes: notes
             };

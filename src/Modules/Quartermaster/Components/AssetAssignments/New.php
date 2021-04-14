@@ -14,7 +14,7 @@ function setCustomTitle()
     $page_title = "New Asset Assignment";
     return $page_title;
 }
-WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
+WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -64,8 +64,10 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/new">Create New Asset Assignment</a></li>
-                                <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">View All Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/new">Create New Asset Assignment</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">View All Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/active">View Active Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/returned">View Returned Assets</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -86,10 +88,10 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="false" checked> Permanent
+                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="0" checked> Permanent
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="true" > Temporary
+                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="1" > Temporary
                                 </label>
                             </label>
                         </div>
@@ -124,10 +126,10 @@ WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Received by&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssigneeTrue" value="true" checked> Student
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssigneeTrue" value="1" checked> Student
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssigneeFalse" value="false" > Other
+                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssigneeFalse" value="0" > Other
                                 </label>
                             </label>
                             <div class="form-group col-md-3">

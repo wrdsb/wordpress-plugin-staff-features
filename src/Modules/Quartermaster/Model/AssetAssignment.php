@@ -54,50 +54,56 @@ class AssetAssignment implements \JsonSerializable {
     private $startDate;
     private $endDate;
 
+    private $wasReturned;
+    private $returnedAt;
+    private $returnedBy;
+
     private $untrackedAssestsIncluded;
     private $notes;
     
 
     public function __construct(array $params = null) {
-        $this->createdAt = $params['createdAt'] ? $params['createdAt'] : '';
-        $this->updatedAt = $params['updatedAt'] ? $params['updatedAt'] : '';
-        $this->deletedAt = $params['deletedAt'] ? $params['deletedAt'] : '';
-        $this->deleted   = $params['deleted'] ? $params['deleted'] : false; 
+        $this->createdAt                = $params['createdAt'] ?? '';
+        $this->updatedAt                = $params['updatedAt'] ?? '';
+        $this->deletedAt                = $params['deletedAt'] ?? '';
+        $this->deleted                  = $params['deleted']   ?? false; 
 
-        $this->createdBy = $params['createdBy'] ? $params['createdBy'] : '';
-        $this->updatedBy = $params['updatedBy'] ? $params['updatedBy'] : '';
-        $this->deletedBy = $params['deletedBy'] ? $params['deletedBy'] : '';
+        $this->createdBy                = $params['createdBy'] ?? '';
+        $this->updatedBy                = $params['updatedBy'] ?? '';
+        $this->deletedBy                = $params['deletedBy'] ?? '';
 
-        $this->assignedBy = $params['assignedBy'] ? $params['assignedBy'] : '';
-        $this->assignedFromLocation = $params['assignedFromLocation'] ? $params['assignedFromLocation'] : '';
+        $this->assignedBy               = $params['assignedBy'] ?? '';
+        $this->assignedFromLocation     = $params['assignedFromLocation'] ?? '';
     
-        $this->id = $params['id'] ? $params['id'] : '';
-        //$this->saved = false;
-        //$this->dirty = true;
-        $this->changeDetectionHash = $params['changeDetectionHash'] ? $params['changeDetectionHash'] : '';
+        $this->id                       = $params['id'] ?? '';
+        $this->changeDetectionHash      = $params['changeDetectionHash'] ?? '';
 
-        $this->assetID = $params['assetID'] ? $params['assetID'] : '';
-        $this->assetSerialNumber = $params['assetSerialNumber'] ? $params['assetSerialNumber'] : '';
-        $this->assetType = $params['assetType'] ? $params['assetType'] : '';
-        $this->assetLocation = $params['assetLocation'] ? $params['assetLocation'] : '';
+        $this->assetID                  = $params['assetID'] ?? '';
+        $this->assetSerialNumber        = $params['assetSerialNumber'] ?? '';
+        $this->assetType                = $params['assetType'] ?? '';
+        $this->assetLocation            = $params['assetLocation'] ?? '';
     
-        $this->assignedToPerson = $params['assignedToPerson'] ? $params['assignedToPerson'] : '';
-        $this->assignedToPersonEmail = $params['assignedToPersonEmail'] ? $params['assignedToPersonEmail'] : '';
-        $this->assignedToPersonNumber = $params['assignedToPersonNumber'] ? $params['assignedToPersonNumber'] : '';
-        $this->assignedToPersonLocation = $params['assignedToPersonLocation'] ? $params['assignedToPersonLocation'] : '';
+        $this->assignedToPerson         = $params['assignedToPerson'] ?? '';
+        $this->assignedToPersonEmail    = $params['assignedToPersonEmail'] ?? '';
+        $this->assignedToPersonNumber   = $params['assignedToPersonNumber'] ?? '';
+        $this->assignedToPersonLocation = $params['assignedToPersonLocation'] ?? '';
     
-        $this->assignedToBusinessUnit = $params['assignedToBusinessUnit'] ? $params['assignedToBusinessUnit'] : '';
+        $this->assignedToBusinessUnit   = $params['assignedToBusinessUnit'] ?? '';
     
-        $this->wasReceivedByAssignee = $params['wasReceivedByAssignee'] ? $params['wasReceivedByAssignee'] : true;
-        $this->receivedBy = $params['receivedBy'] ? $params['receivedBy'] : '';
-        $this->receivedByRole = $params['receivedByRole'] ? $params['receivedByRole'] : '';
+        $this->wasReceivedByAssignee    = $params['wasReceivedByAssignee'] ?? true;
+        $this->receivedBy               = $params['receivedBy'] ?? '';
+        $this->receivedByRole           = $params['receivedByRole'] ?? '';
     
-        $this->isTemporary = $params['isTemporary'] ? $params['isTemporary'] : false;
-        $this->startDate = $params['startDate'] ? $params['startDate'] : '';
-        $this->endDate = $params['endDate'] ? $params['endDate'] : '';
+        $this->isTemporary              = $params['isTemporary'] ?? false;
+        $this->startDate                = $params['startDate'] ?? '';
+        $this->endDate                  = $params['endDate'] ?? '';
         
-        $this->untrackedAssestsIncluded = $params['untrackedAssestsIncluded'] ? $params['untrackedAssestsIncluded'] : '';
-        $this->notes = $params['notes'] ? $params['notes'] : '';
+        $this->wasReturned              = $params['wasReturned'] ?? false;
+        $this->returnedAt               = $params['returnedAt'] ?? '';
+        $this->returnedBy               = $params['returnedBy'] ?? '';
+    
+        $this->untrackedAssestsIncluded = $params['untrackedAssestsIncluded'] ?? '';
+        $this->notes                    = $params['notes'] ?? '';
     }
 
     public function jsonSerialize() {
@@ -120,9 +126,9 @@ class AssetAssignment implements \JsonSerializable {
         $query->run();
 
         if ($query->getState() === 'success') {
-            $records = $query->getResults();
-            $record = $records[0];
-            $response = new self();
+            $record = $query->getResults();
+            $recordArray = json_decode(json_encode($record[0]), true);
+            $response = new self($recordArray);
 
             $response->id = ($record->id) ? $record->id : '';
 
