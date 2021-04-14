@@ -38,6 +38,52 @@
             }
         });
 
+        var availableTags = [
+            "Choice 1",
+            "Choice 2",
+            "Choice 3",
+            "Choice 4",
+            "Choice 5",
+            "Choice 6",
+            "Choice 7",
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4",
+            "Option 5",
+            "Option 6",
+            "Option 7"
+        ];
+
+        $("#assignedToPerson").autocomplete({
+            autoFocus: true,
+            delay: 300,
+            minLength: 3,
+            source: '/wp-json/wrdsb/staff/codex/people-search-suggest'
+        });
+
+        $("#assignedToPerson").on("autocompleteresponse", function(event, ui ) {
+            console.log(event);
+            console.log(ui);
+        });
+
+        $("#assignedToPerson").on("autocompleteselect", function(event, ui) {
+            $('input[name="assignedToPersonEmail"]').val("something");
+            $('input[name="assignedToPersonNumber"]').val("something else");
+        });
+
+        $("#assetID").autocomplete({
+            autoFocus: true,
+            delay: 300,
+            minLength: 3,
+            source: availableTags
+        });
+
+        $("#assetID").on("autocompleteselect", function(event, ui) {
+            $('input[name="assetType"]').val("something");
+            $('input[name="assetModel"]').val("something else");
+        });
+
         $('#newAssetAssignment').on('submit', function(e) {
             console.log('process new asset assignment');
             e.preventDefault();
