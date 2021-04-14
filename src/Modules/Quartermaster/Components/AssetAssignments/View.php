@@ -18,7 +18,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
 
 if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
-    $pageTitle = "Asset Assignment #{$id}";
 }
 
 $assignment = Model::get($id);
@@ -73,6 +72,8 @@ $assignment = Model::get($id);
                             <ul><ul>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/new">Create New Asset Assignment</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">View All Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/active">View Active Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/returned">View Returned Assets</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -82,10 +83,12 @@ $assignment = Model::get($id);
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
                 <h1><?php echo $pageTitle; ?></h1>
-                <button><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $loan->getID(); ?>/edit">Edit Asset Assignment</a></button>
+                <p>Viewing Assignment Number: <?php echo $id; ?></p>
+                <button><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $assignment->getID(); ?>/edit">Edit Asset Assignment</a></button>
 
                 <form id="viewAssetAssignment">
-                    <input type="hidden" name="id" value="<?php echo $assignment->getID; ?>">
+                    <input type="hidden" name="id" value="<?php echo $assignment->getID(); ?>">
+                    <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
 
@@ -93,24 +96,29 @@ $assignment = Model::get($id);
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
-                                <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="false" <?php if ($assignment->getIsTemporary() === false) {echo 'checked';} ?> readonly> Permanent
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="true" <?php if ($assignment->getIsTemporary() === true) {echo 'checked';} ?> readonly> Temporary
-                                </label>
+                                <?php if ($assignment->getIsTemporary() === false) { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="isTemporary" id="isTemporaryFalse" value="false" checked readonly> Permanent
+                                    </label>
+                                <?php } else { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="isTemporary" id="isTemporaryTrue" value="true" checked readonly> Temporary
+                                    </label>
+                                <?php } ?>
                             </label>
                         </div>
-                        <div id="isTemporaryBlock" class="form-row col-md-12" style="padding-top:15px;">
-                            <div class="form-group col-md-5">
-                                <label for="startDate">Start Date</label>
-                                <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
+                        <?php if ($assignment->getIsTemporary() !== false) { ?>
+                            <div id="isTemporaryBlockVisible" class="form-row col-md-12" style="padding-top:15px;">
+                                <div class="form-group col-md-5">
+                                    <label for="startDate">Start Date</label>
+                                    <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="endDate">End Date</label>
+                                    <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
+                                </div>
                             </div>
-                            <div class="form-group col-md-5">
-                                <label for="endDate">End Date</label>
-                                <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </fieldset>
 
                     <h3>Student Info</h3>
@@ -131,28 +139,33 @@ $assignment = Model::get($id);
                         </div>
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Received by&nbsp;&nbsp;&nbsp;
-                                <label class="radio-inline">
-                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="true" <?php if ($assignment->getwasReceivedByAssignee() === true) {echo 'checked';} ?> readonly> Student
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="false" <?php if ($assignment->getwasReceivedByAssignee() === false) {echo 'checked';} ?> readonly> Other
-                                </label>
+                                <?php if ($assignment->getWasReceivedByAssignee() === true) { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="true" checked readonly> Student
+                                    </label>
+                                <?php } else { ?>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="wasReceivedByAssignee" id="wasReceivedByAssignee" value="false" checked readonly> Other
+                                    </label>
+                                <?php } ?>
                             </label>
                             <div class="form-group col-md-3">
                                 <label for="assignedToPersonLocation">Student&nbsp;Location</label>
                                 <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" value="<?php echo $assignment->getAssignedToPersonLocation(); ?>" readonly tabindex="-1">
                             </div>
                         </div>
-                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
-                            <div class="form-group col-md-7">
-                                <label for="receivedBy">Received By Name</label>
-                                <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $assignment->getReceivedBy(); ?>" readonly>
+                        <?php if ($assignment->getWasReceivedByAssignee() !== true) { ?>
+                            <div id="receivedByBlockVisible" class="form-row col-md-12" style="padding-top:15px;">
+                                <div class="form-group col-md-7">
+                                    <label for="receivedBy">Received By Name</label>
+                                    <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $assignment->getReceivedBy(); ?>" readonly>
+                                </div>
+                                <div class="form-group col-md-5">
+                                    <label for="receivedByRole">Relationship to Student</label>
+                                    <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp" value="<?php echo $assignment->getReceivedByRole(); ?>" readonly>
+                                </div>
                             </div>
-                            <div class="form-group col-md-5">
-                                <label for="receivedByRole">Relationship to Student</label>
-                                <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp" value="<?php echo $assignment->getReceivedByRole(); ?>" readonly>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </fieldset>
 
                     <h3>Device Info</h3>
@@ -214,8 +227,6 @@ $assignment = Model::get($id);
                             <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo $current_time; ?>" readonly tabindex="-1">
                         </div>
                     </div>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
                 <!-- /CONTENT -->
             </div>
