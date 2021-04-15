@@ -2,11 +2,12 @@
 namespace WRDSB\Staff;
 
 use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
+use \WRDSB\Staff\Modules\Codex\CodexModule as CodexModule;
 use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
 use \WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as QuartermasterModule;
 
 use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoanForm as DeviceLoanFormRESTController;
-
+use \WRDSB\Staff\Modules\Codex\REST\PeopleSearch as PeopleSearchRESTController;
 /**
  * The plugin bootstrap file
  *
@@ -133,6 +134,10 @@ $container['ContentSearchModule'] = function ($c) {
     return new ContentSearchModule($c['plugin']);
 };
 
+$container['CodexhModule'] = function ($c) {
+    return new CodexModule($c['plugin']);
+};
+
 $container['QuartermasterModule'] = function ($c) {
     return new QuartermasterModule($c['plugin']);
 };
@@ -149,5 +154,10 @@ add_filter('send_email_change_email', '__return_false');
 
 add_action('rest_api_init', function () {
     $controller = new DeviceLoanFormRESTController();
+    $controller->registerRoutes();
+});
+
+add_action('rest_api_init', function () {
+    $controller = new PeopleSearchRESTController();
     $controller->registerRoutes();
 });
