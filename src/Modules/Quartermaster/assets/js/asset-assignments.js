@@ -63,13 +63,18 @@
         });
 
         $("#assignedToPerson").on("autocompleteresponse", function(event, ui ) {
-            console.log(event);
-            console.log(ui);
+            //console.log(event);
+            //console.log(ui);
         });
 
         $("#assignedToPerson").on("autocompleteselect", function(event, ui) {
-            $('input[name="assignedToPersonEmail"]').val("something");
-            $('input[name="assignedToPersonNumber"]').val("something else");
+            let fullName = ui.item.label;
+            let email = ui.item.value;
+            console.log(fullName);
+            console.log(email);
+            $('input[name="assignedToPerson"]').val(email);
+            $('input[name="assignedToPersonEmail"]').val(fullName);
+            $('input[name="assignedToPersonNumber"]').val(email);
         });
 
         $("#assetID").autocomplete({
