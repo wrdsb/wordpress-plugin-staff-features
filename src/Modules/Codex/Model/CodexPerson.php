@@ -199,7 +199,7 @@ class CodexPerson implements \JsonSerializable {
             'dataType'     => 'CodexPerson',
             'count'        => true,
             'fuzzy'        => true,
-            'top'          => 10,
+            'top'          => 15,
             'search'       => $value,
             'searchFields' => $field
         ));
