@@ -129,7 +129,12 @@ class PeopleSearch extends WP_REST_Controller {
         error_log(json_encode($codexPeople));
 
         foreach ($codexPeople as $codexPerson) {
-            $response[] = $codexPerson->getEmail();
+            $fullName = $codexPerson->getFullName();
+            $email = $codexPerson->getEmail();
+            $response[] = array(
+                'label' => "{$fullName} <{$email}>",
+                'value' => "{$fullName} <{$email}>"
+            );
         };
         error_log(json_encode($response));
 
