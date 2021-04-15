@@ -118,15 +118,13 @@ class PeopleSearch extends WP_REST_Controller {
      * @return WP_REST_Response
      */
     public function peopleSearchSuggest(WP_REST_Request $request): WP_REST_Response {
-        error_log('peopleSearchSuggest');
         $response = array();
         $term = $request['term'];
 
         $codexPeople = Model::suggest(array(
-            'field' => 'email',
+            'field' => 'fullName',
             'value' => $term
         ));
-        error_log(json_encode($codexPeople));
 
         foreach ($codexPeople as $codexPerson) {
             $fullName = $codexPerson->getFullName();
@@ -136,7 +134,6 @@ class PeopleSearch extends WP_REST_Controller {
                 'value' => "{$fullName} <{$email}>"
             );
         };
-        error_log(json_encode($response));
 
         return new WP_REST_Response($response, 200);
     }
