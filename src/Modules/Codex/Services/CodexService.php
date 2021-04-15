@@ -40,7 +40,6 @@ class CodexService {
     }
 
     public function suggest(Search $search): Search {
-        error_log('Service::suggest');
         switch ($search->getDataType()) {
             case 'CodexPerson':
                 $search->setURL('https://wrdsb-codex.search.windows.net/indexes/flenderson-people/docs/suggest?api-version=2020-06-30');
@@ -49,7 +48,6 @@ class CodexService {
                 break;
             
             default:
-                error_log('CodexService::suggest: dataType required');
                 $search->setState('failure');
                 $search->setStatus('dataType required');
                 $search->setError('dataType required');

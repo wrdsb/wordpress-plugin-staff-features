@@ -181,7 +181,7 @@ class CodexPerson implements \JsonSerializable {
 
 
     /**
-     * Returns upto 10 CodexPerson records whose Field (partially) matches Value.
+     * Returns upto 15 CodexPerson records whose Field (partially) matches Value.
      *
      * Examples:
      *     CodexPerson::suggest(array('field' => 'firstName', 'value' => 'Susan'))
@@ -191,7 +191,6 @@ class CodexPerson implements \JsonSerializable {
      * @return array Array of CodexPerson objects.
      */
     public static function suggest(array $query) {
-        error_log('Model::suggest');
         $field = $query['field'];
         $value = $query['value'];
 
