@@ -13,7 +13,6 @@ use WRDSB\Staff\Modules\Codex\Model\CodexSearch as Search;
  * @package    WRDSB_Staff
  * @subpackage WRDSB_Staff/Codex
  */
-
 class CodexPerson implements \JsonSerializable {
     private $createdAt;
     private $updatedAt;
@@ -133,7 +132,7 @@ class CodexPerson implements \JsonSerializable {
      * Returns an array of CodexPerson records matching the search criteria.
      *
      * Examples:
-     *     CodexPerson::suggest(array('field' => 'firstName', 'value' => 'Susan'))
+     *     CodexPerson::find(array('field' => 'firstName', 'value' => 'Susan'))
      *     Would return up to 10 Susans, Susannes, Suzans, Suzannes, etc.
      *
      * @param array $query The search field and its value.
@@ -146,8 +145,6 @@ class CodexPerson implements \JsonSerializable {
         $search = new Search(array(
             'dataType'     => 'CodexPerson',
             'count'        => true,
-            'fuzzy'        => true,
-            'top'          => 10,
             'search'       => $value,
             'searchFields' => $field
         ));
@@ -257,7 +254,7 @@ class CodexPerson implements \JsonSerializable {
     public function getID(): string {
         return $this->id;
     }
-    public function setID(string $id) {
+    public function setID(string $id): void {
         $this->id = $id;
     }
 
@@ -272,140 +269,140 @@ class CodexPerson implements \JsonSerializable {
     public function getEmail(): string {
         return $this->email;
     }
-    public function setEmail(string $email) {
+    public function setEmail(string $email): void {
         $this->email = $email;
     }
 
     public function getUsername(): string {
         return $this->username;
     }
-    public function setUsername(string $username) {
+    public function setUsername(string $username): void {
         $this->username = $username;
     }
 
     public function getEmployeeID(): string {
         return $this->employeeID;
     }
-    public function setEmployeeID(string $employeeID) {
+    public function setEmployeeID(string $employeeID): void {
         $this->employeeID = $employeeID;
     }
 
     public function getEIN(): string {
         return $this->ein;
     }
-    public function setEIN(string $ein) {
+    public function setEIN(string $ein): void {
         $this->ein = $ein;
     }
 
     public function getFirstName(): string {
         return $this->firstName;
     }
-    public function setFirstName(string $firstName) {
+    public function setFirstName(string $firstName): void {
         $this->firstName = $firstName;
     }
 
     public function getLastName(): string {
         return $this->lastName;
     }
-    public function setLastName(string $lastName) {
+    public function setLastName(string $lastName): void {
         $this->lastName = $lastName;
     }
 
     public function getFullName(): string {
         return $this->fullName;
     }
-    public function setFullName(string $fullName) {
+    public function setFullName(string $fullName): void {
         $this->fullName = $fullName;
     }
 
     public function getSortableName(): string {
         return $this->sortableName;
     }
-    public function setSortableName(string $sortableName) {
+    public function setSortableName(string $sortableName): void {
         $this->sortableName = $sortableName;
     }
 
     public function getLocationCodes(): array {
         return $this->locationCodes;
     }
-    public function setLocationCodes(array $locationCodes) {
+    public function setLocationCodes(array $locationCodes): void {
         $this->locationCodes = $locationCodes;
     }
 
     public function getSchoolCodes(): array {
         return $this->schoolCodes;
     }
-    public function setSchoolCodes(array $schoolCodes) {
+    public function setSchoolCodes(array $schoolCodes): void {
         $this->schoolCodes = $schoolCodes;
     }
 
     public function getJobCodes(): array {
         return $this->jobCodes;
     }
-    public function setJobCodes(array $jobCodes) {
+    public function setJobCodes(array $jobCodes): void {
         $this->jobCodes = $jobCodes;
     }
 
     public function getEmployeeGroupCodes(): array {
         return $this->employeeGroupCodes;
     }
-    public function setEmployeeGroupCodes(array $employeeGroupCodes) {
+    public function setEmployeeGroupCodes(array $employeeGroupCodes): void {
         $this->employeeGroupCodes = $employeeGroupCodes;
     }
 
     public function getHomeLocation(): string {
         return $this->homeLocation;
     }
-    public function setHomeLocation(string $homeLocation) {
+    public function setHomeLocation(string $homeLocation): void {
         $this->homeLocation = $homeLocation;
     }
 
     public function getDirectory(): string {
         return $this->directory;
     }
-    public function setDirectory(string $directory) {
+    public function setDirectory(string $directory): void {
         $this->directory = $directory;
     }
 
     public function getPhone(): string {
         return $this->phone;
     }
-    public function setPhone(string $phone) {
+    public function setPhone(string $phone): void {
         $this->phone = $phone;
     }
 
     public function getExtension(): string {
         return $this->extension;
     }
-    public function setExtension(string $extension) {
+    public function setExtension(string $extension): void {
         $this->extension = $extension;
     }
 
     public function getMBXNumber(): string {
         return $this->mbxNumber;
     }
-    public function setMBXNumber(string $mbxNumber) {
+    public function setMBXNumber(string $mbxNumber): void {
         $this->mbxNumber = $mbxNumber;
     }
 
     public function getNumberOfAssignments(): int {
         return $this->numberOfAssignments;
     }
-    public function setNumberOfAssignments(int $numberOfAssignments) {
+    public function setNumberOfAssignments(int $numberOfAssignments): void {
         $this->numberOfAssignments = $numberOfAssignments;
     }
 
     public function getNumberOfActiveAssignments(): int {
         return $this->numberOfActiveAssignments;
     }
-    public function setNumberOfActiveAssignments(int $numberOfActiveAssignments) {
+    public function setNumberOfActiveAssignments(int $numberOfActiveAssignments): void {
         $this->numberOfActiveAssignments = $numberOfActiveAssignments;
     }
 
     public function getAssignments(): array {
         return $this->assignments;
     }
-    public function setAssignments(array $assignments) {
+    public function setAssignments(array $assignments): void {
         $this->assignments = $assignments;
     }
 }
