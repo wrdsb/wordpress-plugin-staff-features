@@ -38,23 +38,6 @@
             }
         });
 
-        var availableTags = [
-            "Choice 1",
-            "Choice 2",
-            "Choice 3",
-            "Choice 4",
-            "Choice 5",
-            "Choice 6",
-            "Choice 7",
-            "Option 1",
-            "Option 2",
-            "Option 3",
-            "Option 4",
-            "Option 5",
-            "Option 6",
-            "Option 7"
-        ];
-
         $("#assignedToPerson").autocomplete({
             autoFocus: true,
             delay: 300,
