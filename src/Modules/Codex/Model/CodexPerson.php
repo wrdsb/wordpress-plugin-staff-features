@@ -50,39 +50,39 @@ class CodexPerson implements \JsonSerializable {
 
 
     public function __construct(array $params = null) {
-        $this->createdAt                 = $params['createdAt'] ?? '';
-        $this->updatedAt                 = $params['updatedAt'] ?? '';
-        $this->deletedAt                 = $params['deletedAt'] ?? '';
-        $this->deleted                   = $params['deleted']   ?? false; 
+        $this->createdAt                 = $params['createdAt']                 ?? '';
+        $this->updatedAt                 = $params['updatedAt']                 ?? '';
+        $this->deletedAt                 = $params['deletedAt']                 ?? '';
+        $this->deleted                   = $params['deleted']                   ?? false; 
 
-        $this->id                        = $params['id'] ?? '';
-        $this->changeDetectionHash       = $params['changeDetectionHash'] ?? '';
-        $this->isSaved                   = $params['isSaved'] ?? false;
+        $this->id                        = $params['id']                        ?? '';
+        $this->changeDetectionHash       = $params['changeDetectionHash']       ?? '';
+        $this->isSaved                   = $params['isSaved']                   ?? false;
 
-        $this->email                     = $params['email'] ?? '';
-        $this->username                  = $params['username'] ?? '';
-        $this->employeeID                = $params['employeeID'] ?? '';
-        $this->ein                       = $params['ein'] ?? '';
+        $this->email                     = $params['email']                     ?? '';
+        $this->username                  = $params['username']                  ?? '';
+        $this->employeeID                = $params['employeeID']                ?? '';
+        $this->ein                       = $params['ein']                       ?? '';
 
-        $this->firstName                 = $params['firstName'] ?? '';
-        $this->lastName                  = $params['lastName'] ?? '';
-        $this->fullName                  = $params['fullName'] ?? '';
-        $this->sortableName              = $params['sortableName'] ?? '';
+        $this->firstName                 = $params['firstName']                 ?? '';
+        $this->lastName                  = $params['lastName']                  ?? '';
+        $this->fullName                  = $params['fullName']                  ?? '';
+        $this->sortableName              = $params['sortableName']              ?? '';
 
-        $this->locationCodes             = $params['locationCodes'] ?? array();
-        $this->schoolCodes               = $params['schoolCodes'] ?? array();
-        $this->jobCodes                  = $params['jobCodes'] ?? array();
-        $this->employeeGroupCodes        = $params['employeeGroupCodes'] ?? array();
+        $this->locationCodes             = $params['locationCodes']             ?? array();
+        $this->schoolCodes               = $params['schoolCodes']               ?? array();
+        $this->jobCodes                  = $params['jobCodes']                  ?? array();
+        $this->employeeGroupCodes        = $params['employeeGroupCodes']        ?? array();
 
-        $this->homeLocation              = $params['homeLocation'] ?? '';
-        $this->directory                 = $params['directory'] ?? '';
-        $this->phone                     = $params['phone'] ?? '';
-        $this->extension                 = $params['extension'] ?? '';
-        $this->mbxNumber                 = $params['mbxNumber'] ?? '';
+        $this->homeLocation              = $params['homeLocation']              ?? '';
+        $this->directory                 = $params['directory']                 ?? '';
+        $this->phone                     = $params['phone']                     ?? '';
+        $this->extension                 = $params['extension']                 ?? '';
+        $this->mbxNumber                 = $params['mbxNumber']                 ?? '';
 
-        $this->numberOfAssignments       = $params['numberOfAssignments'] ?? 0;
+        $this->numberOfAssignments       = $params['numberOfAssignments']       ?? 0;
         $this->numberOfActiveAssignments = $params['numberOfActiveAssignments'] ?? 0;
-        $this->assignments               = $params['assignments'] ?? array();
+        $this->assignments               = $params['assignments']               ?? array();
     }
 
     public function jsonSerialize() {

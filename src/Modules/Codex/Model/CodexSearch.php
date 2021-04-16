@@ -34,17 +34,17 @@ class CodexSearch {
     }
 
     public function __construct($params) {
-        $this->dataType     = $params['dataType']     ?? 'CodexPerson';
+        $this->dataType     = $params['dataType']             ?? 'CodexPerson';
 
-        $this->count        = $params['count']        ?? true;
-        $this->facets       = $params['facets']       ?? '';
-        $this->filter       = $params['filter']       ?? '';
-        $this->orderby      = $params['orderby']      ?? '';
-        $this->search       = $params['search']       ?? '*';
-        $this->searchFields = $params['searchFields'] ?? '';
-        $this->select       = $params['select']       ?? '*';
-        $this->skip         = $params['skip']         ?? 0;
-        $this->top          = $params['top']          ?? 50;
+        $this->count        = $params['count']                ?? true;
+        $this->facets       = $params['facets']               ?? '';
+        $this->filter       = $params['filter']               ?? '';
+        $this->orderby      = $params['orderby']              ?? '';
+        $this->search       = $params['search']               ?? '*';
+        $this->searchFields = $params['searchFields']         ?? '';
+        $this->select       = $params['select']               ?? '*';
+        $this->skip         = $params['skip']                 ?? 0;
+        $this->top          = $params['top']                  ?? 50;
 
         $this->highlight        = $params['highlight']        ?? '';
         $this->highlightPreTag  = $params['highlightPreTag']  ?? '';
