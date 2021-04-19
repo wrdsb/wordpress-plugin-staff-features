@@ -38,40 +38,6 @@
             }
         });
 
-        $("#assignedToPerson").autocomplete({
-            autoFocus: true,
-            delay: 300,
-            minLength: 3,
-            source: '/wp-json/wrdsb/staff/codex/people-search-suggest'
-        });
-
-        $("#assignedToPerson").on("autocompleteresponse", function(event, ui ) {
-            //console.log(event);
-            //console.log(ui);
-        });
-
-        $("#assignedToPerson").on("autocompleteselect", function(event, ui) {
-            let fullName = ui.item.label;
-            let email = ui.item.value;
-            console.log(fullName);
-            console.log(email);
-            $('input[name="assignedToPerson"]').val(email);
-            $('input[name="assignedToPersonEmail"]').val(fullName);
-            $('input[name="assignedToPersonNumber"]').val(email);
-        });
-
-        $("#assetID").autocomplete({
-            autoFocus: true,
-            delay: 300,
-            minLength: 3,
-            source: availableTags
-        });
-
-        $("#assetID").on("autocompleteselect", function(event, ui) {
-            $('input[name="assetType"]').val("something");
-            $('input[name="assetModel"]').val("something else");
-        });
-
         $('#newAssetAssignment').on('submit', function(e) {
             console.log('process new asset assignment');
             e.preventDefault();
