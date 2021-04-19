@@ -2,7 +2,9 @@
 namespace WRDSB\Staff\Modules\Codex\REST;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
-use WRDSB\Staff\Modules\Codex\Model\CodexPerson as Model;
+use WRDSB\Staff\Modules\Codex\Model\FlendersonPerson as FlendersonPerson;
+use WRDSB\Staff\Modules\Codex\Model\SkinnerStudent as SkinnerStudent;
+
 use WRDSB\Staff\Modules\Codex\Model\CodexSearch as Search;
 
 use \WP_REST_Controller as WP_REST_Controller;
@@ -11,7 +13,7 @@ use \WP_REST_Request as WP_REST_Request;
 use \WP_REST_Response as WP_REST_Response;
 
 /**
- * Define the "PeopleSearch" REST Controller
+ * Define the "Search" REST Controller
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -20,7 +22,7 @@ use \WP_REST_Response as WP_REST_Response;
  * @subpackage WRDSB_Staff/Codex
  */
 
-class PeopleSearch extends WP_REST_Controller {
+class Suggest extends WP_REST_Controller {
     private $plugin;
 
     /**
@@ -45,7 +47,7 @@ class PeopleSearch extends WP_REST_Controller {
     private $api_version;
 
     public function __construct() {
-        $this->api_namespace = 'wrdsb/staff/codex';
+        $this->api_namespace = 'wrdsb/staff/codex/search';
         $this->api_version = '1';
     }
 
@@ -53,41 +55,33 @@ class PeopleSearch extends WP_REST_Controller {
      * Register the routes for the objects of the controller.
      */
     public function registerRoutes() {
-        register_rest_route($this->api_namespace, '/person-search', array(
-            array(
-                'methods'             => WP_REST_Server::CREATABLE,
-                'callback'            => array( $this, 'personSearch' ),
-                'permission_callback' => array( $this, 'personSearchPermissionsCheck' ),
-            ),
-        ));
-        register_rest_route($this->api_namespace, '/people-search', array(
-            array(
-                'methods'             => WP_REST_Server::CREATABLE,
-                'callback'            => array( $this, 'peopleSearch' ),
-                'permission_callback' => array( $this, 'peopleSearchPermissionsCheck' ),
-            ),
-        ));
-        register_rest_route($this->api_namespace, '/people-search-suggest', array(
+        register_rest_route($this->api_namespace, '/flenderson-people', array(
             array(
                 'methods'             => WP_REST_Server::READABLE,
-                'callback'            => array( $this, 'peopleSearchSuggest' ),
-                'permission_callback' => array( $this, 'peopleSearchPermissionsCheck' ),
+                'callback'            => array( $this, 'flendersonPeople' ),
+                'permission_callback' => array( $this, 'flendersonPeoplePermissionsCheck' ),
+            ),
+        ));
+        register_rest_route($this->api_namespace, '/skinner-students', array(
+            array(
+                'methods'             => WP_REST_Server::READABLE,
+                'callback'            => array( $this, 'skinnerStudents' ),
+                'permission_callback' => array( $this, 'skinnerStudentsPermissionsCheck' ),
             ),
         ));
     }
 
     /**
-     * Search for a Codex person
+     * Search for a FlendersonPerson
      *
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_REST_Response
      */
-    public function personSearch(WP_REST_Request $request): WP_REST_Response {
+    public function flendersonPeople(WP_REST_Request $request): WP_REST_Response {
         $body = $request->get_json_params();
 
-        $codexPeople = Model::find(array(
+        $codexPeople = FlendersonPerson::find(array(
         ));
-        $codexPerson = $codexPeople[0];
 
         if ($codexPerson->getIsSaved()) {
             return new WP_REST_Response($codexPerson, 200);
@@ -97,47 +91,23 @@ class PeopleSearch extends WP_REST_Controller {
     }
 
     /**
-     * Search for Codex people
+     * Search for a SkinnerStudent
      *
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_REST_Response
      */
-    public function peopleSearch(WP_REST_Request $request): WP_REST_Response {
+    public function skinnerStudents(WP_REST_Request $request): WP_REST_Response {
         $body = $request->get_json_params();
 
-        $codexPeople = Model::find(array(
+        $codexPeople = SkinnerStudent::find(array(
         ));
 
-        return new WP_REST_Response($codexPeople, 200);
+        if ($codexPerson->getIsSaved()) {
+            return new WP_REST_Response($codexPerson, 200);
+        } else {
+            return new WP_REST_Response($codexPerson, 404);
+        }
     }
-  
-    /**
-     * Suggest Codex people
-     *
-     * @param WP_REST_Request $request Full data about the request.
-     * @return WP_REST_Response
-     */
-    public function peopleSearchSuggest(WP_REST_Request $request): WP_REST_Response {
-        $response = array();
-        $term = $request['term'];
-
-        $codexPeople = Model::suggest(array(
-            'field' => 'fullName',
-            'value' => $term
-        ));
-
-        foreach ($codexPeople as $codexPerson) {
-            $fullName = $codexPerson->getFullName();
-            $email = $codexPerson->getEmail();
-            $response[] = array(
-                'label' => "{$fullName} <{$email}>",
-                'value' => "{$fullName} <{$email}>"
-            );
-        };
-
-        return new WP_REST_Response($response, 200);
-    }
-
 
     /**
      * Given a WP_REST_Request object, retrieve the corresponding form id.
