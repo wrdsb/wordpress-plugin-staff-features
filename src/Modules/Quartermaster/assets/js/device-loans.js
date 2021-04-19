@@ -50,7 +50,16 @@
             source: availableTags
         });
 
+        $("#loanedToName").on("autocompleteresponse", function(event, ui ) {
+            //console.log(event);
+            //console.log(ui);
+        });
+
         $("#loanedToName").on("autocompleteselect", function(event, ui) {
+            let fullName = ui.item.label;
+            let email = ui.item.value;
+            console.log(fullName);
+            console.log(email);
             $('input[name="loanedToEmail"]').val("something");
             $('input[name="loanedToNumber"]').val("something else");
         });
