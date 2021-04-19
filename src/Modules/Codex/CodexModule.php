@@ -57,8 +57,8 @@ class CodexModule {
      */
     public function enqueueStyles() {
         WPCore::wpEnqueueStyle(
-            'people-search',
-            WPCore::pluginDirURL(__FILE__) . 'assets/css/people-search.css',
+            'autocompletes',
+            WPCore::pluginDirURL(__FILE__) . 'assets/css/autocompletes.css',
             array(),
             $this->version,
             'all'
@@ -93,8 +93,8 @@ class CodexModule {
      */
     public function enqueueScripts() {
         WPCore::wpEnqueueScript(
-            'people-search',
-            WPCore::pluginDirURL(__FILE__) . 'assets/js/people-search.js',
+            'autocompletes',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/autocompletes.js',
             array('jquery'),
             $this->version,
             false
@@ -134,7 +134,7 @@ class CodexModule {
             $this->verion,
             false
         );
-        WPCore::wpLocalizeScript('people-search', 'wpApiSettings', array(
+        WPCore::wpLocalizeScript('autocompletes', 'wpApiSettings', array(
             'root' => WPCore::escURLRaw(WPCore::restURL() ),
             'nonce' => WPCore::wpCreateNonce('wp_rest')
         ));
