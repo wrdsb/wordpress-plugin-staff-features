@@ -6,9 +6,10 @@ use WRDSB\Staff\Modules\Quartermaster\Model\AssetAssignment as Model;
 
 $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
-$current_user = WPCore::getCurrentUser();
-$current_time = WPCore::currentTime();
+$currentUser = WPCore::getCurrentUser();
+$currentTime = WPCore::currentTime();
 $pageTitle = "View Asset Assignment";
+$id = "Unspecified";
 
 function setCustomTitle() {
     $pageTitle = "View Asset Assignment";
@@ -20,7 +21,7 @@ if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
 }
 
-$assignment = Model::get($id);
+$assignment = Model::getBySearchID($id);
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -84,13 +85,13 @@ $assignment = Model::get($id);
                 <!-- CONTENT -->
                 <h1><?php echo $pageTitle; ?></h1>
                 <p>Viewing Assignment Number: <?php echo $id; ?></p>
-                <button><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $assignment->getID(); ?>/edit">Edit Asset Assignment</a></button>
+                <button><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>/edit">Edit Asset Assignment</a></button>
 
                 <form id="viewAssetAssignment">
-                    <input type="hidden" name="id" value="<?php echo $assignment->getID(); ?>">
-                    <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
+                    <input type="hidden" name="id" value="<?php echo $assignment->getSearchID(); ?>">
+                    <input type="hidden" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" name="schoolCode" value="<?php echo $schoolCode; ?>">
-                    <input type="hidden" name="email" value="<?php echo $current_user->user_email ?>">
+                    <input type="hidden" name="email" value="<?php echo $currentUser->user_email ?>">
 
                     <h3>Assignment Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
@@ -216,7 +217,7 @@ $assignment = Model::get($id);
                     <div class="form-row col-md-12" style="padding-top:10px;padding-bottom:28px;">
                         <div class="form-group col-md-6">
                             <label for="assignedBy">Assigned By</label>
-                            <input type="text" name="assignedBy" id="assignedBy" class="form-control" aria-describedby="assignedByHelp" value="<?php echo $current_user->display_name; ?>" readonly tabindex="-1">
+                            <input type="text" name="assignedBy" id="assignedBy" class="form-control" aria-describedby="assignedByHelp" value="<?php echo $currentUser->display_name; ?>" readonly tabindex="-1">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="assignedFromLocation">School Code</label>
@@ -224,7 +225,7 @@ $assignment = Model::get($id);
                         </div>
                         <div class="form-group col-md-3">
                             <label for="createdAt">Date/Time Submitted</label>
-                            <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo $current_time; ?>" readonly tabindex="-1">
+                            <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo $currentTime; ?>" readonly tabindex="-1">
                         </div>
                     </div>
                 </form>
