@@ -110,6 +110,13 @@ class QuartermasterModule {
             $this->version,
             'all'
         );
+        WPCore::wpEnqueueStyle(
+            'progressbar',
+            'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**

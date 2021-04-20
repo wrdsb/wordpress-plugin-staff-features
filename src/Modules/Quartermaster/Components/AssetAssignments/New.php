@@ -209,9 +209,14 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                         </div>
                     </div>
 
-                    <div id="submitBlock">
+                    <div id="submitBlock" style="padding-bottom:30px;">
                         <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
-                        <p id="successMessage" style="display: none;">Form accepted for processing.</p>
+                        <div id="progressbar"></div>
+                        <p id="submittedMessage" style="display: none;">Form submitted for processing.</p>
+                        <p id="acceptedMessage" style="display: none;">Form accepted for processing.</p>
+                        <p id="processingMessage" style="display: none;">Processing form.</p>
+                        <p id="finishedMessage" style="display: none;">Finished processing form.</p>
+                        <button id="continueButton" class="btn btn-primary" type="button" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all'" style="display:none;">Continue</button>
                         <p id="failureMessage" style="display: none;">There was an error. Please click the submit button again.</p>
                     </div>
                 </form>

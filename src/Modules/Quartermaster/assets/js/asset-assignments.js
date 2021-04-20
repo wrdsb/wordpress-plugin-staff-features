@@ -35,8 +35,15 @@
         });
 
         $('#newAssetAssignment').on('submit', function(e) {
-            console.log('process new asset assignment');
             e.preventDefault();
+
+            console.log('process new asset assignment');
+
+            $("#progressbar").progressbar({value: 25});
+            $('#submitButton').hide();
+            $('#submittedMessage').show();
+            $('#acceptedMessage').hide();
+            $('#failureMessage').hide();
 
             let blogID = $('#blogID').val();
             console.log(`for blogID ${blogID}`);
@@ -148,22 +155,49 @@
 				},
                 success: function (response) {
                     console.log(response);
+                    $("#progressbar").progressbar({value: 50});
                     $('#submitButton').hide();
-                    $('#successMessage').show();
+                    $('#submittedMessage').hide();
+                    $('#acceptedMessage').show();
                     $('#failureMessage').hide();
+                    setTimeout(function () {
+                        $("#progressbar").progressbar({value: 75});
+                        $('#acceptedMessage').hide();
+                        $('#processingMessage').show();
+                        setTimeout(function () {
+                            $("#progressbar").progressbar({value: 100});
+                            $('#processingMessage').hide();
+                            $('#finishedMessage').show();
+                            setTimeout(function () {
+                                $("#progressbar").hide();
+                                $('#finishedMessage').hide();
+                                $('#continueButton').show();
+                            }, 2000);
+                        }, 3000);
+                    }, 2500);
                 },
                 fail: function (response) {
                     console.log(response);
                     $('#submitButton').show();
-                    $('#successMessage').hide();
                     $('#failureMessage').show();
+                    $("#progressbar").hide();
+                    $('#submittedMessage').hide();
+                    $('#acceptedMessage').hide();
                 }
             });
         });
 
+
         $('#editAssetAssignment').on('submit', function(e) {
-            console.log('process asset assignment update');
             e.preventDefault();
+
+            console.log('process asset assignment update');
+
+            $("#progressbar").progressbar({value: 25});
+            $('#submitButton').hide();
+            $('#submittedMessage').show();
+            $('#acceptedMessage').hide();
+            $('#failureMessage').hide();
 
             let searchID = $('#searchID').val();
             let blogID = $('#blogID').val();
@@ -277,15 +311,34 @@
 				},
                 success: function (response) {
                     console.log(response);
+                    $("#progressbar").progressbar({value: 50});
                     $('#submitButton').hide();
-                    $('#successMessage').show();
+                    $('#submittedMessage').hide();
+                    $('#acceptedMessage').show();
                     $('#failureMessage').hide();
+                    setTimeout(function () {
+                        $("#progressbar").progressbar({value: 75});
+                        $('#acceptedMessage').hide();
+                        $('#processingMessage').show();
+                        setTimeout(function () {
+                            $("#progressbar").progressbar({value: 100});
+                            $('#processingMessage').hide();
+                            $('#finishedMessage').show();
+                            setTimeout(function () {
+                                $("#progressbar").hide();
+                                $('#finishedMessage').hide();
+                                $('#continueButton').show();
+                            }, 2000);
+                        }, 3000);
+                    }, 2500);
                 },
                 fail: function (response) {
                     console.log(response);
                     $('#submitButton').show();
-                    $('#successMessage').hide();
                     $('#failureMessage').show();
+                    $("#progressbar").hide();
+                    $('#submittedMessage').hide();
+                    $('#acceptedMessage').hide();
                 }
             });
         });

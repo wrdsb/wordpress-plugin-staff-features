@@ -220,7 +220,16 @@ $assignment = Model::getBySearchID($id);
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div id="submitBlock" style="padding-bottom:30px;">
+                        <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+                        <div id="progressbar"></div>
+                        <p id="submittedMessage" style="display: none;">Form submitted for processing.</p>
+                        <p id="acceptedMessage" style="display: none;">Form accepted for processing.</p>
+                        <p id="processingMessage" style="display: none;">Processing form.</p>
+                        <p id="finishedMessage" style="display: none;">Finished processing form.</p>
+                        <button id="continueButton" class="btn btn-primary" type="button" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>'" style="display:none;">Continue</button>
+                        <p id="failureMessage" style="display: none;">There was an error. Please click the submit button again.</p>
+                    </div>
                 </form>
                 <!-- /CONTENT -->
             </div>
