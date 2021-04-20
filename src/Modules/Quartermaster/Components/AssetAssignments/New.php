@@ -2,6 +2,7 @@
 namespace WRDSB\Staff\Modules\Quartermaster\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
+use WRDSB\Staff\Modules\Quartermaster\Model\AssetAssignment as Model;
 
 $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
@@ -9,8 +10,7 @@ $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
 $page_title = "New Asset Assignment";
 
-function setCustomTitle()
-{
+function setCustomTitle() {
     $page_title = "New Asset Assignment";
     return $page_title;
 }
