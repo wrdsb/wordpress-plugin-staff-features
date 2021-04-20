@@ -19,11 +19,24 @@ class QuartermasterQuery {
     private $dataType;
     private $operation;
     private $payload;
-
-    private $databaseID;
-    private $searchID;
+    private $id;
 
     private $service;
+
+    private $count;
+    private $facets;
+    private $filter;
+    private $orderby;
+    private $search;
+    private $searchFields;
+    private $select;
+    private $skip;
+    private $top;
+
+    private $highlight;
+    private $highlightPreTag;
+    private $highlightPostTag;
+
     private $state;
     private $status;
     private $error;
@@ -36,28 +49,28 @@ class QuartermasterQuery {
     }
 
     public function __construct(string $dataType, string $operation, array $params) {
-        $this->dataType = $dataType;
-        $this->operation = $operation;
-
-        $this->databaseID = $params['databaseID']     ?? null;
-        $this->searchID   = $params['searchID']       ?? null;
-
-        $this->count        = $params['count']        ?? true;
-        $this->facets       = $params['facets']       ?? '';
-        $this->filter       = $params['filter']       ?? '';
-        $this->orderby      = $params['orderby']      ?? '';
-        $this->search       = $params['search']       ?? '*';
-        $this->searchFields = $params['searchFields'] ?? '';
-        $this->select       = $params['select']       ?? '*';
-        $this->skip         = $params['skip']         ?? 0;
-        $this->top          = $params['top']          ?? 50;
-
-        $this->highlight        = $params['highlight']        ?? '';
-        $this->highlightPreTag  = $params['highlightPreTag']  ?? '';
-        $this->highlightPostTag = $params['highlightPostTag'] ?? '';
+        $this->dataType  = $dataType     ?? null;
+        $this->operation = $operation    ?? null;
+        $this->id        = $params['id'] ?? null;
 
         $this->service = self::getService();
         $this->state   = 'pending';
+
+        if ($operation === 'search') {
+            $this->count        = $params['count']        ?? true;
+            $this->facets       = $params['facets']       ?? '';
+            $this->filter       = $params['filter']       ?? '';
+            $this->orderby      = $params['orderby']      ?? '';
+            $this->search       = $params['search']       ?? '*';
+            $this->searchFields = $params['searchFields'] ?? '';
+            $this->select       = $params['select']       ?? '*';
+            $this->skip         = $params['skip']         ?? 0;
+            $this->top          = $params['top']          ?? 50;
+
+            $this->highlight        = $params['highlight']        ?? '';
+            $this->highlightPreTag  = $params['highlightPreTag']  ?? '';
+            $this->highlightPostTag = $params['highlightPostTag'] ?? '';
+        }
     }
 
     public function run() {
@@ -71,7 +84,8 @@ class QuartermasterQuery {
                 $this->error = $temp->getError();
     
                 if ($this->getState() === 'success') {
-                    $this->results = $this->rawResponse;
+                    $this->totalResults = $temp->getTotalResults();
+                    $this->results = $temp->getResults();
                 }
 
                 break;
@@ -111,6 +125,58 @@ class QuartermasterQuery {
 
     public function getPayload() {
         return $this->payload;
+    }
+
+    public function getID(): string {
+        return $this->id;
+    }
+
+    public function getcount(): bool {
+        return $this->count;
+    }
+
+    public function getfacets(): string {
+        return $this->facets;
+    }
+
+    public function getfilter(): string {
+        return $this->filter;
+    }
+
+    public function getorderby(): string {
+        return $this->orderby;
+    }
+
+    public function getsearch(): string {
+        return $this->search;
+    }
+
+    public function getsearchFields(): string {
+        return $this->searchFields;
+    }
+
+    public function getselect(): string {
+        return $this->select;
+    }
+
+    public function getskip(): int {
+        return $this->skip;
+    }
+
+    public function gettop(): int {
+        return $this->top;
+    }
+
+    public function gethighlight(): string {
+        return $this->highlight;
+    }
+
+    public function gethighlightPreTag(): string {
+        return $this->highlightPreTag;
+    }
+
+    public function gethighlightPostTag(): string {
+        return $this->highlightPostTag;
     }
 
     public function getState(): string {
