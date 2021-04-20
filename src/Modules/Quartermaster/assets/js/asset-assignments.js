@@ -160,53 +160,68 @@
         });
 
         $('#editAssetAssignment').on('submit', function(e) {
+            console.log('process asset assignment update');
             e.preventDefault();
-            let id = $('assignmentID').val();
 
-            let createdAt = $('createdAt').val();
-            let updatedAt = $('updatedAt').val();
+            let searchID = $('#searchID').val();
+            let blogID = $('#blogID').val();
+            console.log(`for blogID ${blogID}`);
+
+            let createdAt = $('#createdAt').val();
+            let updatedAt = $('#updatedAt').val();
             let deletedAt = null;
             let deleted = false;
         
-            let createdBy = $('assignedBy').val();
+            let createdBy = $('#assignedBy').val();
             let updatedBy = $('email').val();
             let deletedBy = null;
         
-            let assignedBy = $('assignedBy').val();
-            let assignedFromLocation = $('assignedFromLocation').val();
+            let assignedBy = $('#assignedBy').val();
+            let assignedFromLocation = $('#assignedFromLocation').val();
         
-            let assetID = $('assetID').val();
-            let assetSerialNumber = $('assetSerialNumber').val();
-            let assetType = $('assetType').val();
-            let assetLocation = $('assetLocation').val();
+            let assetID = $('#assetID').val();
+            let assetSerialNumber = $('#assetSerialNumber').val();
+            let assetType = $('#assetType').val();
+            let assetLocation = $('#assetLocation').val();
             
-            let assignedToPerson = $('assignedToPerson').val();
-            let assignedToPersonEmail = $('assignedToPersonEmail').val();
-            let assignedToPersonNumber = $('assignedToPersonNumber').val();
-            let assignedToPersonLocation = $('assignedToPersonLocation').val();
+            let assignedToPerson = $('#assignedToPerson').val();
+            let assignedToPersonEmail = $('#assignedToPersonEmail').val();
+            let assignedToPersonNumber = $('#assignedToPersonNumber').val();
+            let assignedToPersonLocation = $('#assignedToPersonLocation').val();
         
             let assignedToBusinessUnit = null;
         
-            let wasReceivedByAssignee = $('wasReceivedByAssignee').val();
-
-            let receivedBy = null;
-            if (wasReceivedByAssignee === true) {
-                receivedBy = assignedToPerson;
+            let wasReceivedByAssignee = true;
+            let receivedBy = assignedToPerson;
+            if ($("input:radio[name='wasReceivedByAssignee']:checked").val() === '0') {
+                wasReceivedByAssignee = false;
+                receivedBy = $('#receivedBy').val();
             } else {
-                receivedBy = $('receivedBy').val();
+                wasReceivedByAssignee = true;
+                receivedBy = assignedToPerson;
             }
 
-            let receivedByRole = $('receivedByRole').val();
-        
-            let isTemporary = $('isTemporary').val();
-            let startDate = $('startDate').val();
-            let endDate = $('endDate').val();
-        
-            let untrackedAssestsIncluded = $('untrackedAssestsIncluded').val();
-            let notes = $('notes').val();
+            let receivedByRole = $('#receivedByRole').val();
 
-            var data = {
-                id: id,
+            let isTemporary = false;
+            if ($("input:radio[name='isTemporary']:checked").val() === '0') {
+                isTemporary = false;
+            } else {
+                isTemporary = true;
+            }
+
+            let startDate = $('#startDate').val();
+            let endDate = $('#endDate').val();
+
+            let wasReturned = false; 
+            let returnedAt = null;
+            let returnedBy = null;
+
+            let untrackedAssestsIncluded = $('#untrackedAssestsIncluded').val();
+            let notes = $('#notes').val();
+
+            var body = {
+                searchID: searchID,
                 createdAt: createdAt,
                 updatedAt: updatedAt,
                 deletedAt: deletedAt,
@@ -216,8 +231,6 @@
                 deletedBy: deletedBy,
                 assignedBy: assignedBy,
                 assignedFromLocation: assignedFromLocation,
-                id: id,
-                changeDetectionHash: changeDetectionHash,
                 assetID: assetID,
                 assetSerialNumber: assetSerialNumber,
                 assetType: assetType,
@@ -233,13 +246,18 @@
                 isTemporary: isTemporary,
                 startDate: startDate,
                 endDate: endDate,
+                wasReturned: wasReturned,
+                returnedAt: returnedAt,
+                returnedBy: returnedBy,
                 untrackedAssestsIncluded: untrackedAssestsIncluded,
                 notes: notes
             };
 
+            console.log(JSON.stringify(body));
+
             $.ajax({
                 method: "POST",
-				url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/${form_id}/edit`,
+				url: `/wp-json/wrdsb/staff/quartermaster/blog/${blogID}/asset-assignment/${searchID}`,
                 data: JSON.stringify(body),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -251,11 +269,15 @@
 				},
                 success: function (response) {
                     console.log(response);
-                    alert(POST_SUBMITTER.success);
+                    $('#submitButton').hide();
+                    $('#successMessage').show();
+                    $('#failureMessage').hide();
                 },
                 fail: function (response) {
                     console.log(response);
-                    alert(POST_SUBMITTER.failure);
+                    $('#submitButton').show();
+                    $('#successMessage').hide();
+                    $('#failureMessage').show();
                 }
             });
         });
