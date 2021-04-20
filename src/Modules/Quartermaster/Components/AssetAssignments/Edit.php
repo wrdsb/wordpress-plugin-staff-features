@@ -99,36 +99,23 @@ $assignment = Model::getBySearchID($id);
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="0" <?php if ($assignment->getIsTemporary() === false) {echo 'checked';} ?>> Permanent
+                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="0" <?php if ($assignment->getIsTemporary() === false) {echo 'checked';} ?>>  Open-ended
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="1" <?php if ($assignment->getIsTemporary() === true) {echo 'checked';} ?>> Temporary
+                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="1" <?php if ($assignment->getIsTemporary() === true) {echo 'checked';} ?>> End-dated
                                 </label>
                             </label>
                         </div>
-                        <?php if ($assignment->getIsTemporary() !== false) { ?>
-                            <div id="isTemporaryBlockVisible" class="form-row col-md-12" style="padding-top:15px;">
-                                <div class="form-group col-md-5">
-                                    <label for="startDate">Start Date</label>
-                                    <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="endDate">End Date</label>
-                                    <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>">
-                                </div>
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-5">
+                                <label for="startDate">Start Date</label>
+                                <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>">
                             </div>
-                        <?php } else { ?>
-                            <div id="isTemporaryBlockVisible" class="form-row col-md-12" style="padding-top:15px;">
-                                <div class="form-group col-md-5">
-                                    <label for="startDate">Start Date</label>
-                                    <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="endDate">End Date</label>
-                                    <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>">
-                                </div>
+                            <div id="isTemporaryBlock" class="form-group col-md-5" style="<?php if ($assignment->getIsTemporary() === false) {echo 'display:none;';} ?>">
+                                <label for="endDate">End Date</label>
+                                <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>">
                             </div>
-                        <?php } ?>
+                        </div>
                     </fieldset>
 
                     <h3>Student Info</h3>
@@ -161,29 +148,16 @@ $assignment = Model::getBySearchID($id);
                                 <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" value="<?php echo $assignment->getAssignedToPersonLocation(); ?>" readonly tabindex="-1">
                             </div>
                         </div>
-                        <?php if ($assignment->getWasReceivedByAssignee() !== true) { ?>
-                            <div id="receivedByBlockVisible" class="form-row col-md-12" style="padding-top:15px;">
-                                <div class="form-group col-md-7">
-                                    <label for="receivedBy">Received By Name</label>
-                                    <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $assignment->getReceivedBy(); ?>">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="receivedByRole">Relationship to Student</label>
-                                    <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp" value="<?php echo $assignment->getReceivedByRole(); ?>">
-                                </div>
+                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;<?php if ($assignment->getWasReceivedByAssignee() === true) {echo 'display:none;';} ?>">
+                            <div class="form-group col-md-7">
+                                <label for="receivedBy">Received By Name</label>
+                                <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $assignment->getReceivedBy(); ?>">
                             </div>
-                        <?php } else { ?>
-                            <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
-                                <div class="form-group col-md-7">
-                                    <label for="receivedBy">Received By Name</label>
-                                    <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp" value="<?php echo $assignment->getReceivedBy(); ?>">
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="receivedByRole">Relationship to Student</label>
-                                    <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp" value="<?php echo $assignment->getReceivedByRole(); ?>">
-                                </div>
+                            <div class="form-group col-md-5">
+                                <label for="receivedByRole">Relationship to Student</label>
+                                <input type="text" name="receivedByRole" id="receivedByRole" class="form-control" aria-describedby="receivedByRoleHelp" value="<?php echo $assignment->getReceivedByRole(); ?>">
                             </div>
-                        <?php } ?>
+                        </div>
                     </fieldset>
 
                     <h3>Device Info</h3>

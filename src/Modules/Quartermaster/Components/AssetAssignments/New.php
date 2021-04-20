@@ -88,19 +88,19 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="0" checked> Permanent
+                                    <input type="radio" name="isTemporary" id="isTemporaryFalse" value="0" checked> Open-ended
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="1" > Temporary
+                                    <input type="radio" name="isTemporary" id="isTemporaryTrue" value="1" > End-dated
                                 </label>
                             </label>
                         </div>
-                        <div id="isTemporaryBlock" class="form-row col-md-12" style="padding-top:15px;">
+                        <div class="form-row col-md-12" style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="startDate">Start Date</label>
                                 <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp">
                             </div>
-                            <div class="form-group col-md-5">
+                            <div id="isTemporaryBlock" class="form-group col-md-5" style="display:none;">
                                 <label for="endDate">End Date</label>
                                 <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp">
                             </div>
@@ -137,7 +137,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                                 <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" readonly tabindex="-1">
                             </div>
                         </div>
-                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;">
+                        <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;display:none;">
                             <div class="form-group col-md-7">
                                 <label for="receivedBy">Received By Name</label>
                                 <input type="text" name="receivedBy" id="receivedBy" class="form-control" aria-describedby="receivedByHelp">

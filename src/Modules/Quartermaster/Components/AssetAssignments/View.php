@@ -99,27 +99,25 @@ $assignment = Model::getBySearchID($id);
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <?php if ($assignment->getIsTemporary() === false) { ?>
                                     <label class="radio-inline">
-                                        <input type="radio" name="isTemporary" id="isTemporaryFalse" value="false" checked readonly> Permanent
+                                        <input type="radio" name="isTemporary" id="isTemporaryFalse" value="0" checked readonly> Open-ended
                                     </label>
                                 <?php } else { ?>
                                     <label class="radio-inline">
-                                        <input type="radio" name="isTemporary" id="isTemporaryTrue" value="true" checked readonly> Temporary
+                                        <input type="radio" name="isTemporary" id="isTemporaryTrue" value="1" checked readonly> End-dated
                                     </label>
                                 <?php } ?>
                             </label>
                         </div>
-                        <?php if ($assignment->getIsTemporary() !== false) { ?>
-                            <div id="isTemporaryBlockVisible" class="form-row col-md-12" style="padding-top:15px;">
-                                <div class="form-group col-md-5">
-                                    <label for="startDate">Start Date</label>
-                                    <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
-                                </div>
-                                <div class="form-group col-md-5">
-                                    <label for="endDate">End Date</label>
-                                    <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
-                                </div>
+                        <div class="form-row col-md-12" style="padding-top:15px;">
+                            <div class="form-group col-md-5">
+                                <label for="startDate">Start Date</label>
+                                <input type="text" name="startDateReadonly" id="startDateReadonly" class="form-control" aria-describedby="startDateReadonlyHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
                             </div>
-                        <?php } ?>
+                            <div id="isTemporaryBlock" class="form-group col-md-5" style="<?php if ($assignment->getIsTemporary() === false) {echo 'display:none;';} ?>">
+                                <label for="endDate">End Date</label>
+                                <input type="text" name="endDateReadonly" id="endDateReadonly" class="form-control" aria-describedby="endDateReadonlyHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
+                            </div>
+                        </div>
                     </fieldset>
 
                     <h3>Student Info</h3>
