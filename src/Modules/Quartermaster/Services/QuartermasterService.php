@@ -4,7 +4,6 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 
-use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterSearch as Search;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCommand as Command;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
 
@@ -24,14 +23,14 @@ class QuartermasterService {
     public function __construct() {
     }
 
-    public function search(Search $search): Search {
-        $search = $this->searchRequest($search);
-        return $search;
+    public function get(Query $query): Query {
+        $query = $this->getRequest($query);
+        return $query;
     }
 
-    public function fetch(Query $query): Query {
-        $query = $this->queryRequest($query);
-        return $query;
+    public function search(Query $search): Query {
+        $search = $this->searchRequest($search);
+        return $search;
     }
 
     public function create(Command $command): Command {
@@ -54,56 +53,13 @@ class QuartermasterService {
         return $command;
     }
 
-    private function searchRequest(Search $search): Search {
-        $searchKey = Module::getCodexSearchKey();
-        $url = '';
 
-        $headers = array(
-            "Accept" => "application/json",
-            "api-key" => $searchKey,
-        );
-
-        $body = array(
-            "filter"  => $search->filter,
-            "facets"  => $search->facets,
-            "search"  => $search->search,
-            "select"  => $search->select,
-            "orderby" => $search->orderby,
-            "top"     => $search->top,
-            "count"   => $search->count,
-            "skip"    => $search->skip,
-        );
-    
-        $request = new WPRemotePost(array(
-            'url' => $url,
-            'headers' => $headers,
-            'body' => json_encode($body),
-        ));
-        $request->run();
-
-        if ($request->success) {
-            $items = new ModelCollection;
-            $items.fromJSON($request->response);
-
-            $search->setState('success');
-            $search->setStatus($request->status);
-            $search->setRawResponse($request->response);
-            $search->setTotalResults(1);
-            $search->setResults($items);
-        } else {
-            $search->setState('failure');
-            $search->setStatus($request->status);
-            $search->setError($request->error);
-        }
-
-        return $search;
-    }
-
-    private function queryRequest(Query $query): Query {
+    private function getRequest(Query $query): Query {
         $apiKey = Module::getCodexSearchKey();
         $searchIndex = '';
         $dataType = $query->getDataType();
         $id = $query->getID();
+        error_log("Search for record id {$id}");
 
         switch ($dataType) {
             case 'AssetAssignment':
@@ -116,7 +72,7 @@ class QuartermasterService {
 
         $args = array(
             'url'         => "https://wrdsb-codex.search.windows.net/indexes/{$searchIndex}/docs/search?api-version=2016-09-01",
-            'timeout'     => 5,
+            'timeout'     => 15,
             'redirection' => 5,
             'httpversion' => '1.0',
             'blocking'    => true,
@@ -130,7 +86,7 @@ class QuartermasterService {
                 "search"  => "id eq {$id}",
                 "select"  => "*",
                 "orderby" => "assignedToPerson",
-                "top"     => 1000,
+                "top"     => 1,
                 "count"   => true
             )),
             'compress'    => false,
@@ -147,11 +103,16 @@ class QuartermasterService {
             $query->setState('success');
             $query->setStatus($request->status);
             $query->setRawResponse($request->response->value);
+            $query->setTotalResults(1);
+            $query->setResults($request->response->value[0]);
             $query->setError('');
+            error_log("Success searching for record id {$id}");
         } else {
             $query->setState('failure');
             $query->setStatus($request->status);
             $query->setRawResponse($request->response);
+            $query->setTotalResults(0);
+            $query->setResults(null);
             $query->setError($request->error);
             error_log('Quartermaster Serivce: ' . $request->status);
             error_log('Quartermaster Serivce: ' . $request->response);
@@ -160,6 +121,51 @@ class QuartermasterService {
         
         return $query;
     }
+
+
+    private function searchRequest(Query $search): Query {
+        $searchKey = Module::getCodexSearchKey();
+        $url = '';
+
+        $headers = array(
+            "Accept" => "application/json",
+            "api-key" => $searchKey,
+        );
+
+        $body = array(
+            "count"         => $search->getCount(),
+            "facets"        => $search->getFacets(),
+            "filter"        => $search->getFilter(),
+            "orderby"       => $search->getSelect(),
+            "search"        => $search->getSearch(),
+            "searchFields"  => $search->getSearchFields(),
+            "select"        => $search->getSelect(),
+            "skip"          => $search->getSkip(),
+            "top"           => $search->getTop(),
+        );
+    
+        $request = new WPRemotePost(array(
+            'url' => $url,
+            'headers' => $headers,
+            'body' => json_encode($body),
+        ));
+        $request->run();
+
+        if ($request->success) {
+            $search->setState('success');
+            $search->setStatus($request->status);
+            $search->setRawResponse($request->response->value);
+            $search->setTotalResults(count($request->response->value));
+            $search->setResults($request->response->value);
+        } else {
+            $search->setState('failure');
+            $search->setStatus($request->status);
+            $search->setError($request->error);
+        }
+
+        return $search;
+    }
+
 
     private function createRequest(Command $command): Command {
         $functionKey = Module::getQuartermasterCommandKey();
