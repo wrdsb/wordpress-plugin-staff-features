@@ -10,7 +10,7 @@
             autoclose: true
         });
 
-        $('#receivedByBlock').hide();
+        //$('#receivedByBlock').hide();
 
         $('input[name="receivedByRole"]').click(function () {
             if ($(this).attr("value") === "student") {
@@ -21,7 +21,7 @@
             }
         });
 
-        $('#isTemporaryBlock').hide();
+        //$('#isTemporaryBlock').hide();
 
         $('input[name="isTemporary"]').click(function () {
             if ($(this).attr("value") === "false") {
