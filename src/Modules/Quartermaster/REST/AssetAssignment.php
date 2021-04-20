@@ -151,7 +151,6 @@ class AssetAssignment extends WP_REST_Controller
      * @return WP_REST_Response
      */
     public function createItem(WP_REST_Request $request): WP_REST_Response {
-        $currentTime = WPCore::currentTime();
         $body = $request->get_json_params();
 
         $assetAssignment = new Model($body);
@@ -174,17 +173,17 @@ class AssetAssignment extends WP_REST_Controller
      */
     public function updateItem(WP_REST_Request $request): WP_REST_Response {
         $currentTime = WPCore::currentTime();
-        $id = $this->getItemID($request);
+        $searchID = $this->getItemID($request);
         $body = $request->get_json_params();
 
         $coreArray = array(
-            'id' => $id,
+            'searchID' => $searchID,
             'updatedAt' => $currentTime
         );
         $patch = array_merge($coreArray, $body);
         $assetAssignment = new Model($patch);
 
-        $command = Model::patch($id, $assetAssignment);
+        $command = Model::patch($searchID, $assetAssignment);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());
@@ -201,9 +200,9 @@ class AssetAssignment extends WP_REST_Controller
      * @return WP_REST_Response
      */
     public function deleteItem(WP_REST_Request $request): WP_REST_Response {
-        $id = $this->getItemID($request);
+        $searchID = $this->getItemID($request);
 
-        $command = Model::delete($id);
+        $command = Model::delete($searchID);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());
