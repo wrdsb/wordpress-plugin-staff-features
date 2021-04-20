@@ -2,7 +2,6 @@
 namespace WRDSB\Staff\Modules\Quartermaster\Model;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
-use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterSearch as Search;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCommand as Command;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
 
@@ -17,6 +16,10 @@ use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
  */
 
 class AssetAssignment implements \JsonSerializable {
+    private $databaseID;
+    private $searchID;
+    private $changeDetectionHash;
+
     private $createdAt;
     private $updatedAt;
     private $deletedAt;
@@ -28,11 +31,6 @@ class AssetAssignment implements \JsonSerializable {
 
     private $assignedBy;
     private $assignedFromLocation;
-
-    private $id;
-    //private $saved;
-    //private $dirty;
-    private $changeDetectionHash;
 
     private $assetID;
     private $assetSerialNumber;
@@ -63,6 +61,10 @@ class AssetAssignment implements \JsonSerializable {
     
 
     public function __construct(array $params = null) {
+        $this->databaseID               = $params['databaseID']          ?? '';
+        $this->searchID                 = $params['searchID']            ?? '';
+        $this->changeDetectionHash      = $params['changeDetectionHash'] ?? '';
+
         $this->createdAt                = $params['createdAt'] ?? '';
         $this->updatedAt                = $params['updatedAt'] ?? '';
         $this->deletedAt                = $params['deletedAt'] ?? '';
@@ -75,9 +77,6 @@ class AssetAssignment implements \JsonSerializable {
         $this->assignedBy               = $params['assignedBy'] ?? '';
         $this->assignedFromLocation     = $params['assignedFromLocation'] ?? '';
     
-        $this->id                       = $params['id'] ?? '';
-        $this->changeDetectionHash      = $params['changeDetectionHash'] ?? '';
-
         $this->assetID                  = $params['assetID'] ?? '';
         $this->assetSerialNumber        = $params['assetSerialNumber'] ?? '';
         $this->assetType                = $params['assetType'] ?? '';
@@ -112,25 +111,67 @@ class AssetAssignment implements \JsonSerializable {
     }
 
     /**
-     * Returns the AssetAssignment with the specified id.
+     * Returns the AssetAssignment with the specified searchID.
      *
      * Examples:
-     *     AssetAssignment::get('1')    # get the AssetAssignment with id '1'.
-     *     AssetAssignment::get('DFW')  # get the AssetAssignment with id 'DFW'.
+     *     AssetAssignment::get('1')    # get the AssetAssignment with searchID '1'.
+     *     AssetAssignment::get('DFW')  # get the AssetAssignment with searchID 'DFW'.
      *
-     * @param string $id The id of the AssetAssignment to be returned.
-     * @return AssetAssignment The AssetAssignment whose id matches the id provided.
+     * @param string $searchID The searchID of the AssetAssignment to be returned.
+     * @return AssetAssignment The AssetAssignment whose searchID matches the searchID provided.
      */
-    public static function get(string $id): self{
-        $query = new Query('AssetAssignment', $id);
+    public static function getBySearchID(string $searchID): self {
+        $query = new Query('AssetAssignment', 'get', array('id' => $searchID));
+        $query->run();
+
+        if ($query->getState() === 'success') {
+            $record = $query->getResults();
+            error_log(json_encode($record));
+            $recordArray = json_decode(json_encode($record), true);
+            error_log(json_encode($recordArray));
+
+            // manually set IDs so we don't blindly use the Base64 one from search
+            $recordArray['searchID'] = $recordArray['id'];
+            $recordArray['databaseID'] = base64_decode($recordArray['id']);
+            unset($recordArray['id']);
+
+            $response = new self($recordArray);
+
+            return $response;
+
+        } else {
+            error_log($query->getError());
+            $response = new self();
+            return $response;
+        }
+    }
+
+    /**
+     * Returns the AssetAssignment with the specified databaseID.
+     *
+     * Examples:
+     *     AssetAssignment::get('1')    # get the AssetAssignment with databaseID '1'.
+     *     AssetAssignment::get('DFW')  # get the AssetAssignment with databaseID 'DFW'.
+     *
+     * @param string $searchID The databaseID of the AssetAssignment to be returned.
+     * @return AssetAssignment The AssetAssignment whose databaseID matches the databaseID provided.
+     */
+    public static function getByDatabaseID(string $databaseID): self {
+        $searchID = base64_encode($databaseID);
+
+        $query = new Query('AssetAssignment', 'get', array('id' => $searchID));
         $query->run();
 
         if ($query->getState() === 'success') {
             $record = $query->getResults();
             $recordArray = json_decode(json_encode($record[0]), true);
-            $response = new self($recordArray);
 
-            $response->id = ($record->id) ? $record->id : '';
+            // manually set IDs so we don't blindly use the Base64 one from search
+            $recordArray['searchID'] = $recordArray['id'];
+            $recordArray['databaseID'] = base64_decode($recordArray['id']);
+            unset($recordArray['id']);
+            
+            $response = new self($recordArray);
 
             return $response;
 
@@ -160,8 +201,10 @@ class AssetAssignment implements \JsonSerializable {
      */
     public static function create(self $assetAssignment): Command {
         $id = '';
-        $item = json_decode(json_encode($assetAssignment), true);
-        $command = new Command('AssetAssignment', 'create', $id, $item);
+        $recordArray = json_decode(json_encode($assetAssignment), true);
+        unset($recordArray['id']);
+
+        $command = new Command('AssetAssignment', 'create', $id, $recordArray);
         $command->run();
 
         if ($command->getState() === 'success') {
@@ -189,9 +232,14 @@ class AssetAssignment implements \JsonSerializable {
      * @param array $args An associative array of property names and their values.
      * @return AssetAssignment
      */
-    public static function patch(string $id, self $assetAssignment): Command {
-        $item = json_decode(json_encode($assetAssignment), true);
-        $command = new Command('AssetAssignment', 'patch', $id, $item);
+    public static function patch(string $searchID, self $assetAssignment): Command {
+        $databaseID = base64_decode($searchID);
+        $recordArray = json_decode(json_encode($assetAssignment), true);
+        $recordArray['id'] = $databaseID;
+        unset($recordArray['searchID']);
+        unset($recordArray['databaseID']);
+
+        $command = new Command('AssetAssignment', 'patch', $databaseID, $recordArray);
         $command->run();
 
         if ($command->getState() === 'success') {
@@ -210,13 +258,16 @@ class AssetAssignment implements \JsonSerializable {
      *
      * @return boolean
      */
-    public static function delete(string $id): Command {
-        $command = new Command('AssetAssignment', 'delete', $id);
+    public static function delete(string $searchID): Command {
+        $databaseID = base64_decode($searchID);
+
+        $command = new Command('AssetAssignment', 'delete', $databaseID);
         $command->run();
 
         if ($command->getState() === 'success') {
             return $command;
         } else {
+            error_log($command);
             return $command;
         }
     }
@@ -229,18 +280,18 @@ class AssetAssignment implements \JsonSerializable {
      *
      * @return boolean
      */
-    public function markDeleted(): bool {
+    public function markDeleted(): Command {
         $this->setDeleted();
+        $this->databaseID = $this->databaseID ?? base64_decode($this->searchID);
 
-        $command = new Command('delete', $this->id);
+        $command = new Command('AssetAssignment', 'delete', $this->databaseID);
         $command->run();
 
         if ($command->getState() === 'success') {
-            //$this->dirty = false;
-            return true;
+            return $command;
         } else {
-            //$this->dirty = true;
-            return false;
+            error_log($command);
+            return $command;
         }
     }
 
@@ -251,18 +302,22 @@ class AssetAssignment implements \JsonSerializable {
      *
      * @return boolean
      */
-    public function markUndeleted(): bool {
+    public function markUndeleted(): Command {
         $this->setUndeleted();
-        
-        $command = new Command('patch', $this->id);
+        $this->databaseID = $this->databaseID ?? base64_decode($this->searchID);
+        $recordArray = json_decode(json_encode($this), true);
+        $recordArray['id'] = $this->databaseID;
+        unset($recordArray['searchID']);
+        unset($recordArray['databaseID']);
+
+        $command = new Command('AssetAssignment', 'patch', $this->databaseID, $recordArray);
         $command->run();
 
         if ($command->getState() === 'success') {
-            //$this->dirty = false;
-            return true;
+            return $command;
         } else {
-            //$this->dirty = true;
-            return false;
+            error_log($command);
+            return $command;
         }
     }
 
@@ -278,13 +333,11 @@ class AssetAssignment implements \JsonSerializable {
         $current_time = WPCore::currentTime();
         $this->deletedAt = $current_time;
         $this->deleted = true;
-        //$this->dirty = true;
     }
 
     private function setUndeleted() {
-        $this->deletedAt = null;
+        $this->deletedAt = '';
         $this->deleted = false;
-        //$this->dirty = true;
     }
 
     //public function getSaved(): string {
@@ -299,6 +352,18 @@ class AssetAssignment implements \JsonSerializable {
     //public function setDirty(bool $dirty) {
         //$this->dirty = $dirty;
     //}
+
+    public function getDatabaseID(): string {
+        return $this->databaseID;
+    }
+
+    public function getSearchID(): string {
+        return $this->searchID;
+    }
+
+    public function getChangeDetectionHash(): string {
+        return $this->changeDetectionHash;
+    }
 
     public function getCreatedAt(): string {
         return $this->createdAt;
@@ -336,18 +401,6 @@ class AssetAssignment implements \JsonSerializable {
         return $this->assignedFromLocation;
     }
     
-    public function getID(): string {
-        return $this->id;
-    }
-    public function setID(string $id) {
-        $this->id = $id;
-        //$this->dirty = true;
-    }
-
-    public function getChangeDetectionHash(): string {
-        return $this->changeDetectionHash;
-    }
-
     public function getAssetID(): string {
         return $this->assetID;
     }
@@ -407,6 +460,19 @@ class AssetAssignment implements \JsonSerializable {
     public function getEndDate(): string {
         return $this->endDate;
     }
+
+    public function getWasReturned(): bool {
+        return $this->wasReturned;
+    }
+
+    public function getReturnedAt(): string {
+        return $this->returnedAt;
+    }
+
+    public function getReturnedBy(): string {
+        return $this->returnedBy;
+    }
+
 
     public function getUntrackedAssestsIncluded(): string {
         return $this->untrackedAssestsIncluded;
