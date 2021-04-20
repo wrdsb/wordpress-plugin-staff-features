@@ -116,12 +116,12 @@ class QuartermasterCommand implements \JsonSerializable {
         return $this->dataType;
     }
 
-    public function getPayload() {
-        return $this->payload;
-    }
-
     public function getOperation(): string {
         return $this->operation;
+    }
+
+    public function getPayload() {
+        return $this->payload;
     }
 
     public function getState(): string {
