@@ -16,8 +16,6 @@
             autoclose: true
         });
 
-        $('#isTemporaryBlock').hide();
-
         $('input[name="isTemporary"]').click(function () {
             if ($(this).attr("value") === "0") {
                 $("#isTemporaryBlock").hide('slow');
@@ -26,8 +24,6 @@
                 $("#isTemporaryBlock").show('slow');
             }
         });
-
-        $('#receivedByBlock').hide();
 
         $('input[name="wasReceivedByAssignee"]').click(function () {
             if ($(this).attr("value") === "1") {
@@ -71,25 +67,31 @@
         
             let wasReceivedByAssignee = true;
             let receivedBy = assignedToPerson;
+            let receivedByRole = '';
+
             if ($("input:radio[name='wasReceivedByAssignee']:checked").val() === '0') {
                 wasReceivedByAssignee = false;
                 receivedBy = $('#receivedBy').val();
+                receivedByRole = $('#receivedByRole').val();
             } else {
                 wasReceivedByAssignee = true;
                 receivedBy = assignedToPerson;
+                receivedByRole = '';
             }
-
-            let receivedByRole = $('#receivedByRole').val();
         
             let isTemporary = false;
+            let startDate = '';
+            let endDate = '';
+
             if ($("input:radio[name='isTemporary']:checked").val() === '0') {
                 isTemporary = false;
+                startDate = $('#startDate').val();
+                endDate = '';
             } else {
                 isTemporary = true;
+                startDate = $('#startDate').val();
+                endDate = $('#endDate').val();
             }
-
-            let startDate = $('#startDate').val();
-            let endDate = $('#endDate').val();
 
             let wasReturned = false; 
             let returnedAt = null;
@@ -193,25 +195,31 @@
         
             let wasReceivedByAssignee = true;
             let receivedBy = assignedToPerson;
+            let receivedByRole = '';
+
             if ($("input:radio[name='wasReceivedByAssignee']:checked").val() === '0') {
                 wasReceivedByAssignee = false;
                 receivedBy = $('#receivedBy').val();
+                receivedByRole = $('#receivedByRole').val();
             } else {
                 wasReceivedByAssignee = true;
                 receivedBy = assignedToPerson;
+                receivedByRole = '';
             }
-
-            let receivedByRole = $('#receivedByRole').val();
-
+        
             let isTemporary = false;
+            let startDate = '';
+            let endDate = '';
+
             if ($("input:radio[name='isTemporary']:checked").val() === '0') {
                 isTemporary = false;
+                startDate = $('#startDate').val();
+                endDate = '';
             } else {
                 isTemporary = true;
+                startDate = $('#startDate').val();
+                endDate = $('#endDate').val();
             }
-
-            let startDate = $('#startDate').val();
-            let endDate = $('#endDate').val();
 
             let wasReturned = false; 
             let returnedAt = null;
