@@ -3,7 +3,6 @@ namespace WRDSB\Staff\Modules\Quartermaster;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
-use WRDSB\Staff\Modules\Quartermaster\Services\DeviceLoanForms as DeviceLoanFormsService;
 
 class QuartermasterModule {
     private $plugin;
@@ -55,27 +54,12 @@ class QuartermasterModule {
         return $key;
     }
 
-    public static function getDeviceLoansQueryKey() {
-        $key = defined('WRDSB_QUARTERMASTER_QUERY_KEY') ? WRDSB_QUARTERMASTER_QUERY_KEY : false;
-        return $key;
-    }
-
-    public static function getDeviceLoanFormsCommandKey() {
-        $key = defined('QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY') ? QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY : false;
-        return $key;
-    }
-
     // TODO: Make this return the same instance, ie Singleton, every time
     public static function getQuartermasterService(): Service {
         $quartermasterService = new Service;
         return $quartermasterService;
     }
     
-    public static function getDeviceLoanFormsCommandService(): DeviceLoanFormsService {
-        $deviceLoanFormsService = new DeviceLoanFormsService;
-        return $deviceLoanFormsService;
-    }
-
     /**
      * Register the stylesheets for the public-facing side of the site.
      *

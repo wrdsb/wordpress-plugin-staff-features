@@ -66,6 +66,10 @@ class QuartermasterService {
                 $searchIndex = 'quartermaster-asset-assignments';
                 break;
             
+            case 'DeviceLoan':
+                $searchIndex = 'quartermaster-device-loan-submissions';
+                break;
+                
             default:
                 break;
         }
@@ -85,7 +89,6 @@ class QuartermasterService {
             'body'        => json_encode(array(
                 "search"  => "id eq {$id}",
                 "select"  => "*",
-                "orderby" => "assignedToPerson",
                 "top"     => 1,
                 "count"   => true
             )),
@@ -115,7 +118,7 @@ class QuartermasterService {
             $query->setResults(null);
             $query->setError($request->error);
             error_log('Quartermaster Serivce: ' . $request->status);
-            error_log('Quartermaster Serivce: ' . $request->response);
+            error_log('Quartermaster Serivce: ' . json_encode($request->response));
             error_log('Quartermaster Service: ' . $request->error);
         }
         

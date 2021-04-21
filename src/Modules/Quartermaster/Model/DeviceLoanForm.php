@@ -69,9 +69,6 @@ class DeviceLoanForm implements \JsonSerializable {
         $this->deletedAt                = $params['deletedAt'] ?? '';
         $this->deleted                  = $params['deleted']   ?? false; 
 
-        $this->saved                    = $params['saved']  ?? false;
-        $this->dirty                    = $params['dirty']  ?? true;
-
         $this->serialNumber             = $params['serialNumber']      ?? '';
         $this->submittedAssetID         = $params['submittedAssetID']  ?? '';
         $this->correctedAssetID         = $params['correctedAssetID']  ?? '';

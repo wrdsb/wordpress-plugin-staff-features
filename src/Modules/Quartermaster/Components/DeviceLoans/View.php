@@ -4,27 +4,23 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
 
-$apiKey = Module::getDeviceLoansQueryKey();
 $schoolCode = WPCore::getOption('wrdsb_school_code');
+$currentUser = WPCore::getCurrentUser();
+$currentTime = WPCore::currentTime();
+$pageTitle = "View Device Loan";
+$id = "Unspecified";
 
-function setCustomTitle()
-{
-    $pageTitle = "Device Loan Detail";
+function setCustomTitle() {
+    $pageTitle = "View Device Loan";
     return $pageTitle;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
-$pageTitle = "Device Loan Detail";
-
-$body = array(
-    'schoolCode' => $schoolCode
-);
 
 if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
-    $pageTitle = "Device Loan #{$id}";
 }
 
-$loan = Model::get($id);
+$loan = Model::getBySearchID($id);
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -74,7 +70,7 @@ $loan = Model::get($id);
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/new">Create New Device Loan</a></li>
+                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform">Create New Device Loan</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
@@ -87,7 +83,6 @@ $loan = Model::get($id);
             <div class="col-sm-9 col-lg-9" role="main">
                 <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
-                <h2><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $loan->getID(); ?>/edit">Edit this Device Loan</a></h2>
 
                 <form action="" method="post">
                     <h3>Student Info</h3>
