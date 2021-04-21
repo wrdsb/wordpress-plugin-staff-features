@@ -5,13 +5,15 @@ use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 
 $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
-$access_time = WPCore::currentTime();
-$page_title = "All Asset Assignments";
+$accessTime = WPCore::currentTime();
+$pageTitle = "All Asset Assignments";
+$currentUser = WPCore::getCurrentUser();
+$userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
 function setCustomTitle()
 {
-    $page_title = "All Asset Assignments";
-    return $page_title;
+    $pageTitle = "All Asset Assignments";
+    return $pageTitle;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 
@@ -83,7 +85,7 @@ while ($assignments_count > $page_max) {
                     <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a>
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+                    <?php echo $pageTitle; ?>
                 </li>
             </ol>
         </div>
@@ -121,7 +123,7 @@ while ($assignments_count > $page_max) {
             </div>
 
             <div class="col-sm-9 col-lg-9" role="main">
-                <h1><?php echo $page_title; ?></h1>
+                <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
                 <div class="description">
                     <div class="download-buttons" style="float:right">
