@@ -113,7 +113,7 @@ while ($forms_count > $page_max) {
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/new">Create New Device Loan</a></li>
+                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform">Create New Device Loan</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
