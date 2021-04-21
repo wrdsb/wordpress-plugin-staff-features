@@ -114,8 +114,8 @@ class AssetAssignment implements \JsonSerializable {
      * Returns the AssetAssignment with the specified searchID.
      *
      * Examples:
-     *     AssetAssignment::get('1')    # get the AssetAssignment with searchID '1'.
-     *     AssetAssignment::get('DFW')  # get the AssetAssignment with searchID 'DFW'.
+     *     AssetAssignment::getBySearchID('1')    # get the AssetAssignment with searchID '1'.
+     *     AssetAssignment::getBySearchID('DFW')  # get the AssetAssignment with searchID 'DFW'.
      *
      * @param string $searchID The searchID of the AssetAssignment to be returned.
      * @return AssetAssignment The AssetAssignment whose searchID matches the searchID provided.
@@ -126,9 +126,7 @@ class AssetAssignment implements \JsonSerializable {
 
         if ($query->getState() === 'success') {
             $record = $query->getResults();
-            error_log(json_encode($record));
             $recordArray = json_decode(json_encode($record), true);
-            error_log(json_encode($recordArray));
 
             // manually set IDs so we don't blindly use the Base64 one from search
             $recordArray['searchID'] = $recordArray['id'];
@@ -232,9 +230,9 @@ class AssetAssignment implements \JsonSerializable {
      * @param array $args An associative array of property names and their values.
      * @return AssetAssignment
      */
-    public static function patch(string $searchID, self $assetAssignment): Command {
+    public static function patch(string $searchID, self $record): Command {
         $databaseID = base64_decode($searchID);
-        $recordArray = json_decode(json_encode($assetAssignment), true);
+        $recordArray = json_decode(json_encode($record), true);
         $recordArray['id'] = $databaseID;
         unset($recordArray['searchID']);
         unset($recordArray['databaseID']);
@@ -256,7 +254,7 @@ class AssetAssignment implements \JsonSerializable {
      * delete() will return true or false depending on whether the record is successfully deleted or not.
      * The deleted record remains in storage, but is marked as deleted and the deletion is timestamped.
      *
-     * @return boolean
+     * @return Command
      */
     public static function delete(string $searchID): Command {
         $databaseID = base64_decode($searchID);
@@ -278,7 +276,7 @@ class AssetAssignment implements \JsonSerializable {
      * markDeleted() will return true or false depending on whether the record is successfully deleted or not.
      * The deleted record remains in storage, but is marked as deleted and the deletion is timestamped.
      *
-     * @return boolean
+     * @return Command
      */
     public function markDeleted(): Command {
         $this->setDeleted();
@@ -300,10 +298,62 @@ class AssetAssignment implements \JsonSerializable {
      *
      * markUndeleted() will return true or false depending on whether the record is successfully undeleted or not.
      *
-     * @return boolean
+     * @return Command
      */
     public function markUndeleted(): Command {
         $this->setUndeleted();
+        $this->databaseID = $this->databaseID ?? base64_decode($this->searchID);
+        $recordArray = json_decode(json_encode($this), true);
+        $recordArray['id'] = $this->databaseID;
+        unset($recordArray['searchID']);
+        unset($recordArray['databaseID']);
+
+        $command = new Command('AssetAssignment', 'patch', $this->databaseID, $recordArray);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            return $command;
+        } else {
+            error_log($command);
+            return $command;
+        }
+    }
+
+    /**
+     * Marks a record as returned and saves record.
+     *
+     * markReturned() will return true or false depending on whether the record is successfully undeleted or not.
+     *
+     * @return Command
+     */
+    public function markReturned(): Command {
+        $this->setReturned();
+        $this->databaseID = $this->databaseID ?? base64_decode($this->searchID);
+        $recordArray = json_decode(json_encode($this), true);
+        $recordArray['id'] = $this->databaseID;
+        unset($recordArray['searchID']);
+        unset($recordArray['databaseID']);
+
+        $command = new Command('AssetAssignment', 'patch', $this->databaseID, $recordArray);
+        $command->run();
+
+        if ($command->getState() === 'success') {
+            return $command;
+        } else {
+            error_log($command);
+            return $command;
+        }
+    }
+
+    /**
+     * Marks a record as unreturned and saves record.
+     *
+     * markUnreturned() will return true or false depending on whether the record is successfully undeleted or not.
+     *
+     * @return Command
+     */
+    public function markUnreturned(): Command {
+        $this->setUnreturned();
         $this->databaseID = $this->databaseID ?? base64_decode($this->searchID);
         $recordArray = json_decode(json_encode($this), true);
         $recordArray['id'] = $this->databaseID;
@@ -340,18 +390,22 @@ class AssetAssignment implements \JsonSerializable {
         $this->deleted = false;
     }
 
-    //public function getSaved(): string {
-        //return $this->saved;
-    //}
-    //public function setSaved(bool $saved) {
-        //$this->saved = $saved;
-    //}
-    //public function getDirty(): string {
-        //return $this->dirty;
-    //}
-    //public function setDirty(bool $dirty) {
-        //$this->dirty = $dirty;
-    //}
+    private function setReturned() {
+        $current_time = WPCore::currentTime();
+        $this->returnedAt = $current_time;
+        $this->wasReturned = true;
+        $this->returnedBy = '';
+    }
+
+    private function setUnreturned() {
+        $this->returnedAt = null;
+        $this->wasReturned = false;
+        $this->returnedBy = null;
+    }
+
+    public function isReturned(): bool {
+        return $this->wasReturned;
+    }
 
     public function getDatabaseID(): string {
         return $this->databaseID;
@@ -472,7 +526,6 @@ class AssetAssignment implements \JsonSerializable {
     public function getReturnedBy(): string {
         return $this->returnedBy;
     }
-
 
     public function getUntrackedAssestsIncluded(): string {
         return $this->untrackedAssestsIncluded;
