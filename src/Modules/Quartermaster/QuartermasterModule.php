@@ -140,6 +140,13 @@ class QuartermasterModule {
             false
         );
         WPCore::wpEnqueueScript(
+            'datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
             'pdfMake',
             'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js',
             array( 'jquery' ),
