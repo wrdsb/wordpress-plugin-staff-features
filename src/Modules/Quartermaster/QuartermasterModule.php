@@ -117,6 +117,27 @@ class QuartermasterModule {
             false
         );
         WPCore::wpEnqueueScript(
+            'asset-assignment-edit',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignment-edit.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignment-new',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignment-new.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignment-return',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignment-return.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
             'asset-assignments',
             WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignments.js',
             array('jquery'),
