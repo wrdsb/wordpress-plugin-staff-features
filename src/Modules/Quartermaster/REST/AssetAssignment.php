@@ -82,6 +82,13 @@ class AssetAssignment extends WP_REST_Controller
                 'permission_callback' => array( $this, 'deleteItemPermissionsCheck' ),
             ),
         ));
+        register_rest_route($this->api_namespace, '/asset-assignment/(?P<id>[A-Za-z0-9-]+)/return', array(
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'markItemReturned' ),
+                'permission_callback' => array( $this, 'updateItemPermissionsCheck' ),
+            ),
+        ));
         register_rest_route($this->api_namespace, '/blog/(?P<blog>[A-Za-z0-9-]+)/asset-assignments', array(
             array(
                 'methods'             => WP_REST_Server::READABLE,
@@ -109,6 +116,13 @@ class AssetAssignment extends WP_REST_Controller
                 'methods'             => WP_REST_Server::DELETABLE,
                 'callback'            => array( $this, 'deleteItem' ),
                 'permission_callback' => array( $this, 'deleteItemPermissionsCheck' ),
+            ),
+        ));
+        register_rest_route($this->api_namespace, '/blog/(?P<blog>[A-Za-z0-9-]+)/asset-assignment/(?P<id>[A-Za-z0-9-]+)/return', array(
+            array(
+                'methods'             => WP_REST_Server::EDITABLE,
+                'callback'            => array( $this, 'markItemReturned' ),
+                'permission_callback' => array( $this, 'updateItemPermissionsCheck' ),
             ),
         ));
     }
@@ -203,6 +217,38 @@ class AssetAssignment extends WP_REST_Controller
         $searchID = $this->getItemID($request);
 
         $command = Model::delete($searchID);
+
+        if ($command->getState() === 'success') {
+            return new WP_REST_Response($command, $command->getStatus());
+        } else {
+            error_log(json_encode($command));
+            return new WP_REST_Response($command, $command->getStatus());
+        }
+    }
+
+    /**
+     * Mark one item from the collection as 'returned'.
+     *
+     * @param WP_REST_Request $request Full data about the request.
+     * @return WP_REST_Response
+     */
+    public function markItemReturned(WP_REST_Request $request): WP_REST_Response {
+        $currentTime = WPCore::currentTime();
+        $searchID = $this->getItemID($request);
+        $body = $request->get_json_params();
+
+        $patch = array(
+            'searchID' => $searchID,
+            'updatedAt' => $currentTime,
+            'updatedBy' => $body['updatedBy'],
+            'wasReturned' => true,
+            'returnedAt' => $body['returnedAt'],
+            'returnedBy' => $body['returnedBy'],
+        );
+        
+        $assetAssignment = new Model($patch);
+
+        $command = Model::patch($searchID, $assetAssignment);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());
