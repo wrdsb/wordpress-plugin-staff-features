@@ -1,7 +1,8 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\REST;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
+
+use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoan as Model;
 
 use \WP_REST_Controller as WP_REST_Controller;
 use \WP_REST_Server as WP_REST_Server;
@@ -9,7 +10,7 @@ use \WP_REST_Request as WP_REST_Request;
 use \WP_REST_Response as WP_REST_Response;
 
 /**
- * Define the "DeviceLoanForm" REST Controller
+ * Define the "DeviceLoan" REST Controller
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -18,8 +19,7 @@ use \WP_REST_Response as WP_REST_Response;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class DeviceLoanForm extends WP_REST_Controller
-{
+class DeviceLoan extends WP_REST_Controller {
     private $plugin;
 
     /**
@@ -238,8 +238,8 @@ class DeviceLoanForm extends WP_REST_Controller
             'returnedAt' => $body['returnedAt'],
             'returnedBy' => $body['returnedBy'],
         );
-        
-        $command = Model::patch($id, $patch);
+        $deviceLoan = new Model($patch);
+        $command = Model::patch($id, $deviceLoan);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());

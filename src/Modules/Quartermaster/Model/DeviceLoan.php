@@ -6,7 +6,7 @@ use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterCommand as Command;
 use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
 
 /**
- * Define the "DeviceLoanForm" Model
+ * Define the "DeviceLoan" Model
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -15,7 +15,7 @@ use WRDSB\Staff\Modules\Quartermaster\Model\QuartermasterQuery as Query;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class DeviceLoanForm implements \JsonSerializable {
+class DeviceLoan implements \JsonSerializable {
     private $id;
 
     private $createdAt;
