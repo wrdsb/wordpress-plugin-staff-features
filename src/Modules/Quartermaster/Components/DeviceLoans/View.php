@@ -2,7 +2,7 @@
 namespace WRDSB\Staff\Modules\Quartermaster\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
+use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoan as Model;
 
 $schoolCode = WPCore::getOption('wrdsb_school_code');
 $currentUser = WPCore::getCurrentUser();
