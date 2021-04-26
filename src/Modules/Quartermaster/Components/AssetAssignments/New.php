@@ -116,11 +116,11 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="assignedToPersonEmail">Email</label>
-                                <input type="text" name="assignedToPersonEmail" id="assignedToPersonEmail" class="form-control" aria-describedby="assignedToPersonEmaillHelp" readonly tabindex="-1">
+                                <input type="text" name="assignedToPersonEmail" id="assignedToPersonEmail" class="form-control" aria-describedby="assignedToPersonEmaillHelp">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assignedToPersonNumber">Student&nbsp;Number</label>
-                                <input type="text" name="assignedToPersonNumber" id="assignedToPersonNumber" class="form-control" aria-describedby="assignedToPersonNumberHelp" readonly tabindex="-1">
+                                <input type="text" name="assignedToPersonNumber" id="assignedToPersonNumber" class="form-control" aria-describedby="assignedToPersonNumberHelp">
                             </div>
                         </div>
                         <div class="form-row col-md-12" style="padding-top:15px;">
@@ -134,7 +134,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                             </label>
                             <div class="form-group col-md-3">
                                 <label for="assignedToPersonLocation">Student&nbsp;Location</label>
-                                <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" readonly tabindex="-1">
+                                <input type="text" name="assignedToPersonLocation" id="assignedToPersonLocation" class="form-control" aria-describedby="assignedToPersonLocationHelp" value="<?php echo strtoupper($schoolCode); ?>" readonly tabindex="-1">
                             </div>
                         </div>
                         <div id="receivedByBlock" class="form-row col-md-12" style="padding-top:15px;display:none;">
@@ -158,15 +158,15 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetSerialNumber">Serial Number</label>
-                                <input type="text" name="assetSerialNumber" id="assetSerialNumber" class="form-control" aria-describedby="assetSerialNumberHelp" value="" readonly tabindex="-1">
+                                <input type="text" name="assetSerialNumber" id="assetSerialNumber" class="form-control" aria-describedby="assetSerialNumberHelp">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetType">Device Type</label>
-                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="" readonly tabindex="-1">
+                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetLocation">Device Location</label>
-                                <input type="text" name="assetLocation" id="assetLocation" class="form-control" aria-describedby="assetLocationHelp" value="" readonly tabindex="-1">
+                                <input type="text" name="assetLocation" id="assetLocation" class="form-control" aria-describedby="assetLocationHelp" value="<?php echo strtoupper($schoolCode); ?>" readonly tabindex="-1">
                             </div>
                             <div class="form-group col-md-12" id="seaDeviceWarning">
                                 This is a Spec Ed / SEA device. Please be certain you want to assign it to this student.

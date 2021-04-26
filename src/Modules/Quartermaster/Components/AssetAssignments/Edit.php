@@ -127,11 +127,11 @@ $assignment = Model::getBySearchID($id);
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="assignedToPersonEmail">Email</label>
-                                <input type="text" name="assignedToPersonEmail" id="assignedToPersonEmail" class="form-control" aria-describedby="assignedToPersonEmaillHelp" value="<?php echo $assignment->getAssignedToPersonEmail(); ?>" readonly tabindex="-1">
+                                <input type="text" name="assignedToPersonEmail" id="assignedToPersonEmail" class="form-control" aria-describedby="assignedToPersonEmaillHelp" value="<?php echo $assignment->getAssignedToPersonEmail(); ?>" tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assignedToPersonNumber">Student&nbsp;Number</label>
-                                <input type="text" name="assignedToPersonNumber" id="assignedToPersonNumber" class="form-control" aria-describedby="assignedToPersonNumberHelp" value="<?php echo $assignment->getAssignedToPersonNumber(); ?>" readonly tabindex="-1">
+                                <input type="text" name="assignedToPersonNumber" id="assignedToPersonNumber" class="form-control" aria-describedby="assignedToPersonNumberHelp" value="<?php echo $assignment->getAssignedToPersonNumber(); ?>" tabindex="-1">
                             </div>
                         </div>
                         <div class="form-row col-md-12" style="padding-top:15px;">
@@ -169,11 +169,11 @@ $assignment = Model::getBySearchID($id);
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetSerialNumber">Serial Number</label>
-                                <input type="text" name="assetSerialNumber" id="assetSerialNumber" class="form-control" aria-describedby="assetSerialNumberHelp" value="<?php echo $assignment->getAssetSerialNumber(); ?>" readonly tabindex="-1">
+                                <input type="text" name="assetSerialNumber" id="assetSerialNumber" class="form-control" aria-describedby="assetSerialNumberHelp" value="<?php echo $assignment->getAssetSerialNumber(); ?>" tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetType">Device Type</label>
-                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="<?php echo $assignment->getAssetType(); ?>" readonly tabindex="-1">
+                                <input type="text" name="assetType" id="assetType" class="form-control" aria-describedby="assetTypeHelp" value="<?php echo $assignment->getAssetType(); ?>" tabindex="-1">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="assetLocation">Device Location</label>
