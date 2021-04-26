@@ -165,19 +165,18 @@ while ($forms_count > $page_max) {
                     </thead>
                     <tbody>
                         <?php foreach ($forms as $form) { ?>
-                            <?php $parts = explode(",", $form->powerAppsId); ?>
-                            <?php $id = $parts[0]; ?>
-                            <?php echo '<tr id="'.$id.'-row">'; ?>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                            <?php $searchID = $form->id; ?>
+                            <?php echo '<tr id="'.$searchID.'-row">'; ?>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo $form->loanedToName; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo $form->deviceType; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo $form->correctedAssetID; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
                                 </td>
                                 <td>
@@ -186,37 +185,37 @@ while ($forms_count > $page_max) {
                                     <?php } else { ?>
                                         <?php if ($userIsAdmin) { ?>
                                             <div class="input-group date" data-date-format="yyyy-mm-dd">
-                                                <button id="<?php echo $id; ?>-return-button" data-form_id="<?php echo $id; ?>" class="btn btn-default return-button" type="button">
+                                                <button id="<?php echo $searchID; ?>-return-button" data-search_id="<?php echo $searchID; ?>" class="btn btn-default return-button" type="button">
                                                     Return Device
                                                 </button>
 
                                                 <input style="display:none;"
                                                     type="text"
                                                     size="12"
-                                                    name="<?php echo $id; ?>-return"
-                                                    id="<?php echo $id; ?>-return"
+                                                    name="<?php echo $searchID; ?>-return"
+                                                    id="<?php echo $searchID; ?>-return"
                                                     data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                    data-form_id="<?php echo $id; ?>"
+                                                    data-search_id="<?php echo $searchID; ?>"
                                                     data-user_email="<?php echo $currentUser->user_email; ?>",
                                                     class="form-control form-return"
                                                     aria-describedby="returnDeviceHelp"
                                                     placeholder="YYYY-MM-DD">
 
-                                                <span id="<?php echo $id; ?>-after" class="input-group-btn" style="display:none;">
+                                                <span id="<?php echo $searchID; ?>-after" class="input-group-btn" style="display:none;">
                                                     <button style="display:none;"
-                                                        id="<?php echo $id; ?>-after-button"
+                                                        id="<?php echo $searchID; ?>-after-button"
                                                         data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                        data-form_id="<?php echo $id; ?>"
+                                                        data-search_id="<?php echo $searchID; ?>"
                                                         data-user_email="<?php echo $currentUser->user_email; ?>",
                                                         class="btn btn-default undo-button"
                                                         type="button">
 
-                                                        <span id="<?php echo $id; ?>-after-button-icon"></span>
+                                                        <span id="<?php echo $searchID; ?>-after-button-icon"></span>
                                                     </button>
-                                                    <span id="<?php echo $id; ?>-after-icon" style="display:none;"></span>
+                                                    <span id="<?php echo $searchID; ?>-after-icon" style="display:none;"></span>
                                                 </span>
                                             </div>
-                                            <p id="<?php echo $id; ?>-actions-notifications" style="display:none;"></p>
+                                            <p id="<?php echo $searchID; ?>-actions-notifications" style="display:none;"></p>
                                         <?php } ?>
                                     <?php } ?>
                                 </td>

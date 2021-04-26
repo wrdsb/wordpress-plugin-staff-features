@@ -163,19 +163,18 @@ while ($forms_count > $page_max) {
                     </thead>
                     <tbody>
                         <?php foreach ($forms as $form) { ?>
-                            <?php $parts = explode(",", $form->powerAppsId); ?>
-                            <?php $id = $parts[0]; ?>
-                            <?php echo '<tr id="'.$id.'-row">'; ?>
-                                <td width="20%" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                            <?php $searchID = $form->id; ?>
+                            <?php echo '<tr id="'.$searchID.'-row">'; ?>
+                                <td width="20%" onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo $form->loanedToName; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo $form->deviceType; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo $form->correctedAssetID; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $id; ?>';" style="cursor: pointer;">
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
                                     <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
                                 </td>
                                 <td>

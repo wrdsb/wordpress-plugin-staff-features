@@ -11,24 +11,26 @@
             $('#' + searchID + '-asset-return-button').hide();
         });
 
-		$('.form-return').on("change", function() {
-            var blog_id = $(this).data('blog_id');
-			var form_id = $(this).data('form_id');
-            var user_email = $(this).data('user_email');
-			console.log(`Mark device as returned for form ${form_id} on blog ${blog_id}`);
+		$('.asset-return').on("change", function() {
+            var blogID = $(this).data('blogID');
+			var searchID = $(this).data('searchID');
+            var userEmail = $(this).data('userEmail');
+			console.log(`Mark asset as returned for assignment ${searchID} on blog ${blogID}`);
 
-            $('#' + form_id + '-return-button').hide();
-            $('#' + form_id + '-return').show();
-            $('#' + form_id + '-after').attr('class', 'input-group-addon');
-            $('#' + form_id + '-after-icon').attr('class', 'glyphicon glyphicon-cloud-upload');
-            $('#' + form_id + '-after').show();
-            $('#' + form_id + '-after-button').hide();
-            $('#' + form_id + '-after-icon').show();
+            $('#' + searchID + '-asset-return-button').hide();
+            $('#' + searchID + '-asset-return').show();
+            $('#' + searchID + '-asset-after').attr('class', 'input-group-addon');
+            $('#' + searchID + '-asset-after-icon').attr('class', 'glyphicon glyphicon-cloud-upload');
+            $('#' + searchID + '-asset-after').show();
+            $('#' + searchID + '-asset-after-button').hide();
+            $('#' + searchID + '-asset-after-icon').show();
             
+            var updatedBy = userEmail;
             var returnDate = $(this).val();
             var returnedAt = returnDate.concat(' ', '00:00:00');
-            var returnedBy = user_email;
+            var returnedBy = userEmail;
             var body = {
+                updatedBy: updatedBy,
                 returnedAt: returnedAt,
                 returnedBy: returnedBy
             };
@@ -36,7 +38,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/${form_id}/return`,
+                url: `/wp-json/wrdsb/staff/quartermaster/blog/${blogID}/asset-assignment/${searchID}/return`,
                 data: JSON.stringify(body),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -47,26 +49,26 @@
                     xhr.setRequestHeader('X-WP-Nonce', wpApiSettings.nonce);
                 },
                 success: function(data, status, xhr) {
-                    $('#' + form_id + '-after').attr('class', 'input-group-btn');
-                    $('#' + form_id + '-after-button-icon').attr('class', 'glyphicon glyphicon-remove-circle');
+                    $('#' + searchID + '-asset-after').attr('class', 'input-group-btn');
+                    $('#' + searchID + '-asset-after-button-icon').attr('class', 'glyphicon glyphicon-remove-circle');
 
-                    $('#' + form_id + '-after').show();
-                    $('#' + form_id + '-after-button').show();
-                    $('#' + form_id + '-after-icon').hide();
+                    $('#' + searchID + '-asset-after').show();
+                    $('#' + searchID + '-asset-after-button').show();
+                    $('#' + searchID + '-asset-after-icon').hide();
 
-                    $('#' + form_id + '-actions-notifications').hide();
+                    $('#' + searchID + '-asset-actions-notifications').hide();
                     console.log(status)
                 },
                 error: function(xhr, status, error) {
-                    $('#' + form_id + '-after').attr('class', 'input-group-addon');
-                    $('#' + form_id + '-after-icon').attr('class', 'glyphicon glyphicon-exclamation-sign');
+                    $('#' + searchID + '-asset-after').attr('class', 'input-group-addon');
+                    $('#' + searchID + '-asset-after-icon').attr('class', 'glyphicon glyphicon-exclamation-sign');
 
-                    $('#' + form_id + '-after').show();
-                    $('#' + form_id + '-after-button').hide();
-                    $('#' + form_id + '-after-icon').show();
+                    $('#' + searchID + '-asset-after').show();
+                    $('#' + searchID + '-asset-after-button').hide();
+                    $('#' + searchID + '-asset-after-icon').show();
 
-                    $('#' + form_id + '-actions-notifications').text('Error. Please try again.');
-                    $('#' + form_id + '-actions-notifications').show();
+                    $('#' + searchID + '-asset-actions-notifications').text('Error. Please try again.');
+                    $('#' + searchID + '-asset-actions-notifications').show();
                     console.log(xhr);
                     console.log(status + ': ' + error)
                 },
@@ -76,17 +78,17 @@
 		});
 
         $('.undo-button').click(function() {
-            var blog_id = $(this).data('blog_id');
-			var form_id = $(this).data('form_id');
-			console.log(`Undo device return for form ${form_id} on blog ${blog_id}`);
+            var blogID = $(this).data('blogID');
+			var searchID = $(this).data('searchID');
+			console.log(`Undo asset return for assignment ${searchID} on blog ${blogID}`);
 
-            $('#' + form_id + '-return-button').hide();
-            $('#' + form_id + '-return').show();
-            $('#' + form_id + '-after').attr('class', 'input-group-addon');
-            $('#' + form_id + '-after-icon').attr('class', 'glyphicon glyphicon-cloud-upload');
-            $('#' + form_id + '-after').show();
-            $('#' + form_id + '-after-button').hide();
-            $('#' + form_id + '-after-icon').show();
+            $('#' + searchID + '-asset-return-button').hide();
+            $('#' + searchID + '-asset-return').show();
+            $('#' + searchID + '-asset-after').attr('class', 'input-group-addon');
+            $('#' + searchID + '-asset-after-icon').attr('class', 'glyphicon glyphicon-cloud-upload');
+            $('#' + searchID + '-asset-after').show();
+            $('#' + searchID + '-asset-after-button').hide();
+            $('#' + searchID + '-asset-after-icon').show();
             
             var body = {
                 wasReturned: false,
@@ -97,7 +99,7 @@
 
             $.ajax({
                 method: 'POST',
-                url: `/wp-json/wrdsb/staff/quartermaster/blog/${blog_id}/device-loans/form/${form_id}`,
+                url: `/wp-json/wrdsb/staff/quartermaster/blog/${blogID}/asset-assignment/${searchID}`,
                 data: JSON.stringify(body),
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
@@ -109,22 +111,22 @@
                 },
                 success: function(data, status, xhr) {
                     $(".input-group.date").datepicker('hide');
-                    $('#' + form_id + '-return').hide();
-                    $('#' + form_id + '-after').hide();
-                    $('#' + form_id + '-actions-notifications').hide();
-                    $('#' + form_id + '-return-button').show();
+                    $('#' + searchID + '-asset-return').hide();
+                    $('#' + searchID + '-asset-after').hide();
+                    $('#' + searchID + '-asset-actions-notifications').hide();
+                    $('#' + searchID + '-asset-return-button').show();
                     console.log(status)
                 },
                 error: function(xhr, status, error) {
-                    $('#' + form_id + '-after').attr('class', 'input-group-addon');
-                    $('#' + form_id + '-after-icon').attr('class', 'glyphicon glyphicon-exclamation-sign');
+                    $('#' + searchID + '-asset-after').attr('class', 'input-group-addon');
+                    $('#' + searchID + '-asset-after-icon').attr('class', 'glyphicon glyphicon-exclamation-sign');
 
-                    $('#' + form_id + '-after').show();
-                    $('#' + form_id + '-after-button').hide();
-                    $('#' + form_id + '-after-icon').show();
+                    $('#' + searchID + '-asset-after').show();
+                    $('#' + searchID + '-asset-after-button').hide();
+                    $('#' + searchID + '-asset-after-icon').show();
 
-                    $('#' + form_id + '-actions-notifications').text('Error. Please try again.');
-                    $('#' + form_id + '-actions-notifications').show();
+                    $('#' + searchID + '-asset-actions-notifications').text('Error. Please try again.');
+                    $('#' + searchID + '-asset-actions-notifications').show();
                     console.log(xhr);
                     console.log(status + ': ' + error)
                 },
