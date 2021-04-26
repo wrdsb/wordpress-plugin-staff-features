@@ -2,7 +2,7 @@
     'use strict';
 
     $(document).ready(function () {
-        console.log('load datatable.js');
+        console.log('datatable.js loaded');
 
         var retrieved = new Date().toLocaleString('en-CA');
 
