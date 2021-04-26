@@ -19,8 +19,7 @@ use \WP_REST_Response as WP_REST_Response;
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class AssetAssignment extends WP_REST_Controller
-{
+class AssetAssignment extends WP_REST_Controller {
     private $plugin;
 
     /**
