@@ -181,7 +181,7 @@ class AssetAssignment implements \JsonSerializable {
     }
 
     /**
-     * Instantiates a new DeviceLoanForm object and saves it in a single operation.
+     * Instantiates a new AssetAssignment object and saves it in a single operation.
      *
      * If you want to create a new resource with some given attributes and then
      * save it all in one go, you can use the create() method.
@@ -195,7 +195,7 @@ class AssetAssignment implements \JsonSerializable {
      * or false otherwise.
      *
      * @param array $args An associative array of property names and their values.
-     * @return DeviceLoanForm
+     * @return Command
      */
     public static function create(self $assetAssignment): Command {
         $id = '';
@@ -228,7 +228,7 @@ class AssetAssignment implements \JsonSerializable {
      * or false otherwise.
      *
      * @param array $args An associative array of property names and their values.
-     * @return AssetAssignment
+     * @return Command
      */
     public static function patch(string $searchID, self $record): Command {
         $databaseID = base64_decode($searchID);
