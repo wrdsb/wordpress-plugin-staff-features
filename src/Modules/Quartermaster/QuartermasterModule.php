@@ -45,12 +45,12 @@ class QuartermasterModule {
     }
 
     public static function getQuartermasterCommandKey() {
-        $key = defined('WRDSB_QUARTERMASTER_COMMAND_KEY') ? WRDSB_QUARTERMASTER_COMMAND_KEY : false;
+        $key = defined('WRDSB_TOLLBOOTH_QUARTERMASTER_COMMAND_KEY') ? WRDSB_TOLLBOOTH_QUARTERMASTER_COMMAND_KEY : false;
         return $key;
     }
 
     public static function getQuartermasterQueryKey() {
-        $key = defined('WRDSB_QUARTERMASTER_QUERY_KEY') ? WRDSB_QUARTERMASTER_QUERY_KEY : false;
+        $key = defined('WRDSB_TOLLBOOTH_QUARTERMASTER_QUERY_KEY') ? WRDSB_TOLLBOOTH_QUARTERMASTER_QUERY_KEY : false;
         return $key;
     }
 
