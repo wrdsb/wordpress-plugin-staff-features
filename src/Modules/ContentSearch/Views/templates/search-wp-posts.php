@@ -87,7 +87,7 @@ if ($sites_filter_param) {
 
 <?php get_header(); ?>
 
-<div class="container container-top">
+<div class="container-top">
     <?php
         get_template_part('partials/header', 'masthead');
         get_template_part('partials/header', 'navbar');

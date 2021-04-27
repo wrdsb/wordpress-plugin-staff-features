@@ -1,14 +1,12 @@
 <?php
 namespace WRDSB\Staff\Modules\Quartermaster\Model;
+use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
-use WRDSB\Staff\Modules\Quartermaster\Services\DeviceLoanForms as Service;
-
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCollection as Collection;
+use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
 
 /**
- * Define the "DeviceLoanFormCommand" Model
+ * Define the "QuartermasterCommand" Model
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -17,8 +15,8 @@ use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanFormCollection as Collecti
  * @subpackage WRDSB_Staff/Quartermaster
  */
 
-class DeviceLoanFormCommand implements \JsonSerializable
-{
+class QuartermasterCommand implements \JsonSerializable {
+    private $dataType;
     private $operation;
     private $payload;
 
@@ -30,27 +28,30 @@ class DeviceLoanFormCommand implements \JsonSerializable
     private $totalResults;
     private $results;
 
-    private static function getService(): Service
-    {
-        return Module::getDeviceLoanFormsCommandService();
+    private static function getService(): Service {
+        return Module::getQuartermasterService();
     }
 
-    public function __construct(string $operation, string $id, array $form = null)
-    {
-        if ($form) {
-            $this->operation = $operation;
-            $this->payload   = $form;
-            $this->service   = self::getService();
-            $this->state     = 'pending';
-        } elseif ($operation === 'delete') {
-            $form = new Model;
-            $form->setID($id);
+    public function __construct(string $dataType, string $operation, string $id, array $record = null) {
+        if ($operation === 'delete') {
+            $record = array(
+                'id' => $id
+            );
 
+            $this->dataType  = $dataType;
             $this->operation = $operation;
-            $this->payload   = $form;
+            $this->payload   = $record;
             $this->service   = self::getService();
             $this->state     = 'pending';
-        } else {
+
+        } elseif ($record) {
+            $this->dataType  = $dataType;
+            $this->operation = $operation;
+            $this->payload   = $record;
+            $this->service   = self::getService();
+            $this->state     = 'pending';
+
+        }  else {
             $this->operation = 'error';
             $this->state = 'error';
             $this->status = 500;
@@ -58,9 +59,18 @@ class DeviceLoanFormCommand implements \JsonSerializable
         }
     }
 
-    public function run()
-    {
+    public function run() {
         switch ($this->operation) {
+            case 'create': 
+                $temp = $this->service->create($this);
+                $this->state = $temp->getState();
+                $this->status = $temp->getStatus();
+                $this->rawResponse = $temp->getRawResponse();
+                $this->totalResults = $temp->getTotalResults();
+                $this->results = $temp->getResults();
+                $this->error = $temp->getError();
+                break;
+
             case 'patch':
                 $temp = $this->service->patch($this);
                 $this->state = $temp->getState();
@@ -97,73 +107,62 @@ class DeviceLoanFormCommand implements \JsonSerializable
         }
     }
 
-    public function jsonSerialize()
-    {
+    public function jsonSerialize() {
         $vars = get_object_vars($this);
         return $vars;
     }
 
-    public function getPayload()
-    {
-        return $this->payload;
+    public function getDataType(): string {
+        return $this->dataType;
     }
 
-    public function getOperation(): string
-    {
+    public function getOperation(): string {
         return $this->operation;
     }
 
-    public function getState(): string
-    {
+    public function getPayload() {
+        return $this->payload;
+    }
+
+    public function getState(): string {
         return $this->state;
     }
-    public function setState(string $state)
-    {
+    public function setState(string $state) {
         $this->state = $state;
     }
 
-    public function getStatus(): int
-    {
+    public function getStatus(): int {
         return $this->status;
     }
-    public function setStatus(int $status)
-    {
+    public function setStatus(int $status) {
         $this->status = $status;
     }
 
-    public function getError(): string
-    {
+    public function getError(): string {
         return $this->error ?? 'None';
     }
-    public function setError(string $error)
-    {
+    public function setError(string $error) {
         $this->error = $error;
     }
 
-    public function getRawResponse()
-    {
+    public function getRawResponse() {
         return $this->rawResponse;
     }
-    public function setRawResponse($rawResponse)
-    {
+    public function setRawResponse($rawResponse) {
         $this->rawResponse = $rawResponse;
     }
 
-    public function getTotalResults()
-    {
+    public function getTotalResults() {
         return $this->totalResults;
     }
-    public function setTotalResults($totalResults)
-    {
+    public function setTotalResults($totalResults) {
         $this->totalResults = $totalResults;
     }
 
-    public function getResults()
-    {
+    public function getResults() {
         return $this->results;
     }
-    public function setResults($results)
-    {
+    public function setResults($results) {
         $this->results = $results;
     }
 }
