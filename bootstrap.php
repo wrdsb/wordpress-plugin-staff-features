@@ -5,8 +5,8 @@ use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
 use \WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as QuartermasterModule;
 
-use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoanForm as DeviceLoanFormRESTController;
-
+use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoan as DeviceLoanRESTController;
+use \WRDSB\Staff\Modules\Quartermaster\REST\AssetAssignment as AssetAssignmentRESTController;
 /**
  * The plugin bootstrap file
  *
@@ -85,10 +85,56 @@ $container['routes'] = [
         'view' => 'trillium-enrolments-emails',
         'template' => 'ClassLists/Views/templates/trillium-enrolments-emails.php'
     ],
+
     '^search/content$' => [
         'module' => 'ContentSearchModule',
         'view' => 'search-wp-posts',
         'template' => 'ContentSearch/Views/templates/search-wp-posts.php'
+    ],
+
+    '^quartermaster/asset-assignment/new$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignment-new',
+        'template' => 'Quartermaster/Components/AssetAssignments/New.php'
+    ],
+    '^quartermaster/asset-assignment/([^/]*)/edit' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignment-edit',
+        'template' => 'Quartermaster/Components/AssetAssignments/Edit.php',
+        'matches' => array('route', 'id')
+    ],
+    '^quartermaster/asset-assignment/([^/]*)/?' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignment-view',
+        'template' => 'Quartermaster/Components/AssetAssignments/View.php',
+        'matches' => array('route', 'id')
+    ],
+    '^quartermaster/asset-assignments/all$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignments-list-all',
+        'template' => 'Quartermaster/Components/AssetAssignments/ListAll.php',
+    ],
+    '^quartermaster/asset-assignments/active$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignments-list-active',
+        'template' => 'Quartermaster/Components/AssetAssignments/ListActive.php',
+    ],
+    '^quartermaster/asset-assignments/returned$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'asset-assignments-list-returned',
+        'template' => 'Quartermaster/Components/AssetAssignments/ListReturned.php',
+    ],
+
+    '^quartermaster/device-loan/new$' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loan-new',
+        'template' => 'Quartermaster/Components/DeviceLoans/New.php'
+    ],
+    '^quartermaster/device-loan/([^/]*)/edit' => [
+        'module' => 'QuartermasterModule',
+        'view' => 'device-loan-edit',
+        'template' => 'Quartermaster/Components/DeviceLoans/Edit.php',
+        'matches' => array('route', 'id')
     ],
     '^quartermaster/device-loan/([^/]*)/?' => [
         'module' => 'QuartermasterModule',
@@ -148,6 +194,11 @@ add_filter('send_password_change_email', '__return_false');
 add_filter('send_email_change_email', '__return_false');
 
 add_action('rest_api_init', function () {
-    $controller = new DeviceLoanFormRESTController();
+    $controller = new DeviceLoanRESTController();
+    $controller->registerRoutes();
+});
+
+add_action('rest_api_init', function () {
+    $controller = new AssetAssignmentRESTController();
     $controller->registerRoutes();
 });

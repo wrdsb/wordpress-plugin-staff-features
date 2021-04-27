@@ -20,8 +20,7 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
  * @package    WRDSB_Staff
  * @author     WRDSB <website@wrdsb.ca>
  */
-class WPRemotePost
-{
+class WPRemotePost {
     public static $successCodes = array(
         200,
         202
@@ -32,9 +31,8 @@ class WPRemotePost
         'Content-Type' => 'application/json'
     );
 
-    public function __construct($params)
-    {
-        $this->timeout     = $params['timeout']     ?? 5;
+    public function __construct($params) {
+        $this->timeout     = $params['timeout']     ?? 45;
         $this->redirection = $params['redirection'] ?? 5;
         $this->httpversion = $params['httpversion'] ?? '1.0';
         $this->useragent   = $params['useragent']   ?? "WordPress";
@@ -51,8 +49,7 @@ class WPRemotePost
         $this->body    = $params['body'] ?? null;
     }
 
-    public function run()
-    {
+    public function run() {
         $args = array(
             'timeout'     => $this->timeout,
             'redirection' => $this->redirection,

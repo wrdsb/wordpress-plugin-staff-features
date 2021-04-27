@@ -5,20 +5,20 @@ use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
 
 $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
-$access_time = WPCore::currentTime();
-$page_title = "All Device Loans";
+$accessTime = WPCore::currentTime();
+$pageTitle = "All Asset Assignments";
 $currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
 function setCustomTitle()
 {
-    $page_title = "All Device Loans";
-    return $page_title;
+    $pageTitle = "All Asset Assignments";
+    return $pageTitle;
 }
-WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
+WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-asset-assignments/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -32,10 +32,10 @@ $args = array(
     ),
     'cookies'     => array(),
     'body'        => json_encode(array(
-        "filter"  => "schoolCode eq '{$schoolCode}'",
+        "filter"  => "assignedFromLocation eq '{$schoolCode}' and deleted ne true",
         "search"  => "*",
         "select"  => "*",
-        "orderby" => "loanedToName",
+        "orderby" => "assignedToPerson",
         "top"     => 1000,
         "count"   => true
     )),
@@ -48,20 +48,20 @@ $args = array(
 
 $response = WPCore::wpRemotePost($url, $args);
 $response_object = json_decode($response['body'], $assoc = false);
-$forms = $response_object->value;
-$forms_count = $response_object->{'@odata.count'};
+$assignments = $response_object->value;
+$assignments_count = $response_object->{'@odata.count'};
 $page_min = 1;
-$page_max = count($forms);
+$page_max = count($assignments);
 $pages = 1;
 
-while ($forms_count > $page_max) {
+while ($assignments_count > $page_max) {
     $body = json_decode($args['body'], $assoc = true);
     $body["skip"] = $pages * 1000;
     $args['body'] = json_encode($body);
     $response = WPCore::wpRemotePost($url, $args);
     $response_object = json_decode($response['body'], $assoc = false);
-    $forms = array_merge($forms, $response_object->value);
-    $page_max = count($forms);
+    $assignments = array_merge($assignments, $response_object->value);
+    $page_max = count($assignments);
     $pages++;
 }
 ?>
@@ -82,10 +82,10 @@ while ($forms_count > $page_max) {
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">Device Loans</a>
+                    <a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a>
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+                    <?php echo $pageTitle; ?>
                 </li>
             </ol>
         </div>
@@ -95,7 +95,6 @@ while ($forms_count > $page_max) {
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
         <div class="row">
-
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -109,14 +108,14 @@ while ($forms_count > $page_max) {
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">LFH Device Loans</a></span>
+                            <span><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">Asset Assignments</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform">Create New Device Loan</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/new">Create New Asset Assignment</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/all">View All Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/active">View Active Asset Assignments</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignments/returned">View Returned Assets</a></li>
                             </ul></ul>
                         </div>
                     </div>
@@ -124,7 +123,7 @@ while ($forms_count > $page_max) {
             </div>
 
             <div class="col-sm-9 col-lg-9" role="main">
-                <h1><?php echo $page_title; ?></h1>
+                <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
                 <div class="description">
                     <div class="download-buttons" style="float:right">
@@ -138,12 +137,12 @@ while ($forms_count > $page_max) {
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    Loaned To
+                                    Assigned To
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    Device Type
+                                    Asset Type
                                 </div>
                             </th>
                             <th class="secondary-text">
@@ -153,7 +152,7 @@ while ($forms_count > $page_max) {
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    Loaned
+                                    Assigned
                                 </div>
                             </th>
                             <th class="secondary-text">
@@ -164,58 +163,58 @@ while ($forms_count > $page_max) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($forms as $form) { ?>
-                            <?php $searchID = $form->id; ?>
-                            <?php echo '<tr id="'.$searchID.'-row">'; ?>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
-                                    <?php echo $form->loanedToName; ?>
+                        <?php foreach ($assignments as $assignment) { ?>
+                            <?php $id = $assignment->id; ?>
+                            <?php echo '<tr id="'.$id.'-row">'; ?>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo $assignment->assignedToPerson; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
-                                    <?php echo $form->deviceType; ?>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo $assignment->assetType; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
-                                    <?php echo $form->correctedAssetID; ?>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo $assignment->assetID; ?>
                                 </td>
-                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/device-loan/<?php echo $searchID; ?>';" style="cursor: pointer;">
-                                    <?php echo date("F j, Y", strtotime($form->timestamp)); ?>
+                                <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
+                                    <?php echo date("F j, Y", strtotime($assignment->createdAt)); ?>
                                 </td>
                                 <td>
-                                    <?php if ($form->wasReturned == true) { ?>
-                                        <?php echo date("F j, Y", strtotime($form->returnedAt)); ?>
+                                    <?php if ($assignment->wasReturned == true) { ?>
+                                        <?php echo date("F j, Y", strtotime($assignment->returnedAt)); ?>
                                     <?php } else { ?>
                                         <?php if ($userIsAdmin) { ?>
                                             <div class="input-group date" data-date-format="yyyy-mm-dd">
-                                                <button id="<?php echo $searchID; ?>-return-button" data-search_id="<?php echo $searchID; ?>" class="btn btn-default return-button" type="button">
-                                                    Return Device
+                                                <button id="<?php echo $id; ?>-asset-return-button" data-search_id="<?php echo $id; ?>" class="btn btn-default asset-return-button" type="button">
+                                                    Return Asset
                                                 </button>
 
                                                 <input style="display:none;"
                                                     type="text"
                                                     size="12"
-                                                    name="<?php echo $searchID; ?>-return"
-                                                    id="<?php echo $searchID; ?>-return"
+                                                    name="<?php echo $id; ?>-asset-return"
+                                                    id="<?php echo $id; ?>-asset-return"
                                                     data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                    data-search_id="<?php echo $searchID; ?>"
+                                                    data-search_id="<?php echo $id; ?>"
                                                     data-user_email="<?php echo $currentUser->user_email; ?>",
-                                                    class="form-control form-return"
-                                                    aria-describedby="returnDeviceHelp"
+                                                    class="form-control asset-return"
+                                                    aria-describedby="assetReturnHelp"
                                                     placeholder="YYYY-MM-DD">
 
-                                                <span id="<?php echo $searchID; ?>-after" class="input-group-btn" style="display:none;">
+                                                <span id="<?php echo $id; ?>-asset-after" class="input-group-btn" style="display:none;">
                                                     <button style="display:none;"
-                                                        id="<?php echo $searchID; ?>-after-button"
+                                                        id="<?php echo $id; ?>-asset-after-button"
                                                         data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                        data-search_id="<?php echo $searchID; ?>"
+                                                        data-search_id="<?php echo $id; ?>"
                                                         data-user_email="<?php echo $currentUser->user_email; ?>",
-                                                        class="btn btn-default undo-button"
+                                                        class="btn btn-default asset-return-undo-button"
                                                         type="button">
 
-                                                        <span id="<?php echo $searchID; ?>-after-button-icon"></span>
+                                                        <span id="<?php echo $id; ?>-asset-after-button-icon"></span>
                                                     </button>
-                                                    <span id="<?php echo $searchID; ?>-after-icon" style="display:none;"></span>
+                                                    <span id="<?php echo $id; ?>-asset-after-icon" style="display:none;"></span>
                                                 </span>
                                             </div>
-                                            <p id="<?php echo $searchID; ?>-actions-notifications" style="display:none;"></p>
+                                            <p id="<?php echo $id; ?>-asset-actions-notifications" style="display:none;"></p>
                                         <?php } ?>
                                     <?php } ?>
                                 </td>

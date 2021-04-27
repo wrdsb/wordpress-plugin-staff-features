@@ -2,7 +2,7 @@
 	'use strict';
 
 	$(document).ready(function() {
-        console.log('document ready');
+        console.log('device-loans loaded');
 
         $(".input-group.date").datepicker({
             format: "yyyy-mm-dd",
@@ -10,15 +10,21 @@
             autoclose: true
         });
 
-        $('#receivedByBlock').hide();
-
         $('input[name="receivedByRole"]').click(function () {
             if ($(this).attr("value") === "student") {
                 $("#receivedByBlock").hide('slow');
             }
             if ($(this).attr("value") === "other") {
                 $("#receivedByBlock").show('slow');
+            }
+        });
 
+        $('input[name="isTemporary"]').click(function () {
+            if ($(this).attr("value") === "false") {
+                $("#isTemporaryBlock").hide('slow');
+            }
+            if ($(this).attr("value") === "true") {
+                $("#isTemporaryBlock").show('slow');
             }
         });
 
@@ -26,129 +32,16 @@
 
         $('#seaDeviceWarning').hide();
 
-        var availableTags = [
-            "Choice 1",
-            "Choice 2",
-            "Choice 3",
-            "Choice 4",
-            "Choice 5",
-            "Choice 6",
-            "Choice 7",
-            "Option 1",
-            "Option 2",
-            "Option 3",
-            "Option 4",
-            "Option 5",
-            "Option 6",
-            "Option 7"
-        ];
-
-        $("#loanedToName").autocomplete({
-            autoFocus: true,
-            delay: 500,
-            minLength: 3,
-            source: availableTags
-        });
-
-        $("#loanedToName").on("autocompleteselect", function(event, ui) {
-            $('input[name="loanedToEmail"]').val("something");
-            $('input[name="loanedToNumber"]').val("something else");
-        });
-
-        $("#assetID").autocomplete({
-            autoFocus: true,
-            delay: 500,
-            minLength: 3,
-            source: availableTags
-        });
-
-        $("#assetID").on("autocompleteselect", function(event, ui) {
-            $('input[name="assetType"]').val("something");
-            $('input[name="assetModel"]').val("something else");
-        });
-
-		var table = $('#sample-data-table').DataTable( {
-            dom: '<"dataTables_header"Bi>t<"dataTables_footer"i>',
-            columnDefs: [
-            ],
-            buttons: [
-            ],
-            lengthMenu: [[-1], ["All"]],
-            responsive: true
-		} );
-		
-		var retrieved = new Date().toLocaleString('en-CA');
-
-        new $.fn.dataTable.Buttons( table, {
-            name: 'copy',
-            buttons: [
-                {
-                    extend: 'copy',
-                    text: 'Copy to clipboard',
-                    exportOptions: {
-                        columns: ':visible',
-                        modifier: {
-                            search: 'applied',
-                            order: 'applied'
-                        }
-                    },
-                    title: document.title,
-                    messageTop: 'Retrieved ' + retrieved
-                }
-            ]
-        } );
-        table.buttons( 'copy', null ).containers().appendTo('#button-copy');
-
-        new $.fn.dataTable.Buttons( table, {
-            name: 'csv',
-            buttons: [
-                {
-                    extend: 'csv',
-                    text: 'Save as CSV',
-                    exportOptions: {
-                        columns: ':visible',
-                        modifier: {
-                            search: 'applied',
-                            order: 'applied'
-                        }
-                    },
-                    filename: document.title.replace(/\W+/g, '-').toLowerCase()
-                }
-            ]
-        } );
-        table.buttons( 'csv', null ).containers().appendTo('#button-csv');
-
-        new $.fn.dataTable.Buttons( table, {
-            name: 'pdf',
-            buttons: [
-                {
-                    extend: 'pdf',
-                    text: 'Save as PDF',
-                    exportOptions: {
-                        columns: ':visible',
-                        modifier: {
-                            search: 'applied',
-                            order: 'applied'
-                        }
-                    },
-                    title: document.title,
-                    messageTop: 'Retrieved ' + retrieved,
-                    filename: document.title.replace(/\W+/g, '-').toLowerCase()
-                }
-            ]
-        } );
-        table.buttons( 'pdf', null ).containers().appendTo('#button-pdf');
-
         $('.return-button').click(function() {
-            var form_id = $(this).data('form_id');
-            console.log(`show input for ${form_id}`);
-            $('#' + form_id + '-return').show();
-            $('#' + form_id + '-return-button').hide();
+            var searchID = $(this).data('search_id');
+            console.log(`show input for ${searchID}`);
+            $('#' + searchID + '-return').show();
+            $('#' + searchID + '-return-button').hide();
         });
 
 		$('.form-return').on("change", function() {
             var blog_id = $(this).data('blog_id');
-			var form_id = $(this).data('form_id');
+			var form_id = $(this).data('search_id');
             var user_email = $(this).data('user_email');
 			console.log(`Mark device as returned for form ${form_id} on blog ${blog_id}`);
 
@@ -212,7 +105,7 @@
 
         $('.undo-button').click(function() {
             var blog_id = $(this).data('blog_id');
-			var form_id = $(this).data('form_id');
+			var form_id = $(this).data('search_id');
 			console.log(`Undo device return for form ${form_id} on blog ${blog_id}`);
 
             $('#' + form_id + '-return-button').hide();
