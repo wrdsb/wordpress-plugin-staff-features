@@ -5,16 +5,16 @@
         console.log('asset-assignment-return loaded');
 
         $('.asset-return-button').click(function() {
-            var searchID = $(this).data('searchID');
+            var searchID = $(this).data('search_id');
             console.log(`show input for ${searchID}`);
             $('#' + searchID + '-asset-return').show();
             $('#' + searchID + '-asset-return-button').hide();
         });
 
 		$('.asset-return').on("change", function() {
-            var blogID = $(this).data('blogID');
-			var searchID = $(this).data('searchID');
-            var userEmail = $(this).data('userEmail');
+            var blogID = $(this).data('blog_id');
+			var searchID = $(this).data('search_id');
+            var userEmail = $(this).data('user_email');
 			console.log(`Mark asset as returned for assignment ${searchID} on blog ${blogID}`);
 
             $('#' + searchID + '-asset-return-button').hide();
@@ -78,8 +78,8 @@
 		});
 
         $('.undo-button').click(function() {
-            var blogID = $(this).data('blogID');
-			var searchID = $(this).data('searchID');
+            var blogID = $(this).data('blog_id');
+			var searchID = $(this).data('search_id');
 			console.log(`Undo asset return for assignment ${searchID} on blog ${blogID}`);
 
             $('#' + searchID + '-asset-return-button').hide();

@@ -181,7 +181,7 @@ while ($assignments_count > $page_max) {
                                 <td>
                                     <?php if ($userIsAdmin) { ?>
                                         <div class="input-group date" data-date-format="yyyy-mm-dd">
-                                            <button id="<?php echo $id; ?>-asset-return-button" data-row_searchID="<?php echo $id; ?>" class="btn btn-default asset-return-button" type="button">
+                                            <button id="<?php echo $id; ?>-asset-return-button" data-search_id="<?php echo $id; ?>" class="btn btn-default asset-return-button" type="button">
                                                 Return Asset
                                             </button>
 
@@ -190,9 +190,9 @@ while ($assignments_count > $page_max) {
                                                 size="12"
                                                 name="<?php echo $id; ?>-asset-return"
                                                 id="<?php echo $id; ?>-asset-return"
-                                                data-blogID="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                data-searchID="<?php echo $id; ?>"
-                                                data-userEmail="<?php echo $currentUser->user_email; ?>",
+                                                data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                data-search_id="<?php echo $id; ?>"
+                                                data-user_email="<?php echo $currentUser->user_email; ?>",
                                                 class="form-control asset-return"
                                                 aria-describedby="assetReturnHelp"
                                                 placeholder="YYYY-MM-DD">
@@ -200,9 +200,9 @@ while ($assignments_count > $page_max) {
                                             <span id="<?php echo $id; ?>-asset-after" class="input-group-btn" style="display:none;">
                                                 <button style="display:none;"
                                                     id="<?php echo $id; ?>-asset-after-button"
-                                                    data-blogID="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                    data-searchID="<?php echo $id; ?>"
-                                                    data-userEmail="<?php echo $currentUser->user_email; ?>",
+                                                    data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
+                                                    data-search_id="<?php echo $id; ?>"
+                                                    data-user_email="<?php echo $currentUser->user_email; ?>",
                                                     class="btn btn-default asset-return-undo-button"
                                                     type="button">
 

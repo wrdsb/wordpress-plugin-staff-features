@@ -184,37 +184,37 @@ while ($assignments_count > $page_max) {
                                     <?php } else { ?>
                                         <?php if ($userIsAdmin) { ?>
                                             <div class="input-group date" data-date-format="yyyy-mm-dd">
-                                                <button id="<?php echo $id; ?>-return-button" data-form_id="<?php echo $id; ?>" class="btn btn-default return-button" type="button">
+                                                <button id="<?php echo $id; ?>-asset-return-button" data-search_id="<?php echo $id; ?>" class="btn btn-default asset-return-button" type="button">
                                                     Return Asset
                                                 </button>
 
                                                 <input style="display:none;"
                                                     type="text"
                                                     size="12"
-                                                    name="<?php echo $id; ?>-return"
-                                                    id="<?php echo $id; ?>-return"
+                                                    name="<?php echo $id; ?>-asset-return"
+                                                    id="<?php echo $id; ?>-asset-return"
                                                     data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                    data-form_id="<?php echo $id; ?>"
+                                                    data-search_id="<?php echo $id; ?>"
                                                     data-user_email="<?php echo $currentUser->user_email; ?>",
-                                                    class="form-control form-return"
-                                                    aria-describedby="returnDeviceHelp"
+                                                    class="form-control asset-return"
+                                                    aria-describedby="assetReturnHelp"
                                                     placeholder="YYYY-MM-DD">
 
-                                                <span id="<?php echo $id; ?>-after" class="input-group-btn" style="display:none;">
+                                                <span id="<?php echo $id; ?>-asset-after" class="input-group-btn" style="display:none;">
                                                     <button style="display:none;"
-                                                        id="<?php echo $id; ?>-after-button"
+                                                        id="<?php echo $id; ?>-asset-after-button"
                                                         data-blog_id="<?php echo WPCore::getCurrentBlogID(); ?>"
-                                                        data-form_id="<?php echo $id; ?>"
+                                                        data-search_id="<?php echo $id; ?>"
                                                         data-user_email="<?php echo $currentUser->user_email; ?>",
-                                                        class="btn btn-default undo-button"
+                                                        class="btn btn-default asset-return-undo-button"
                                                         type="button">
 
-                                                        <span id="<?php echo $id; ?>-after-button-icon"></span>
+                                                        <span id="<?php echo $id; ?>-asset-after-button-icon"></span>
                                                     </button>
-                                                    <span id="<?php echo $id; ?>-after-icon" style="display:none;"></span>
+                                                    <span id="<?php echo $id; ?>-asset-after-icon" style="display:none;"></span>
                                                 </span>
                                             </div>
-                                            <p id="<?php echo $id; ?>-actions-notifications" style="display:none;"></p>
+                                            <p id="<?php echo $id; ?>-asset-actions-notifications" style="display:none;"></p>
                                         <?php } ?>
                                     <?php } ?>
                                 </td>
