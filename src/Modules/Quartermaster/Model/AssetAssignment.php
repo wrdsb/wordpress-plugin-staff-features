@@ -230,9 +230,9 @@ class AssetAssignment implements \JsonSerializable {
      * @param array $args An associative array of property names and their values.
      * @return Command
      */
-    public static function patch(string $searchID, self $record): Command {
+    public static function patch(string $searchID, array $record): Command {
         $databaseID = base64_decode($searchID);
-        $recordArray = json_decode(json_encode($record), true);
+        $recordArray = $record;
         $recordArray['id'] = $databaseID;
         unset($recordArray['searchID']);
         unset($recordArray['databaseID']);

@@ -245,9 +245,7 @@ class AssetAssignment extends WP_REST_Controller {
             'returnedBy' => $body['returnedBy'],
         );
         
-        $assetAssignment = new Model($patch);
-
-        $command = Model::patch($searchID, $assetAssignment);
+        $command = Model::patch($searchID, $patch);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());
