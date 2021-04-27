@@ -3,7 +3,6 @@ namespace WRDSB\Staff\Modules\Quartermaster;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
-use WRDSB\Staff\Modules\Quartermaster\Services\DeviceLoanForms as DeviceLoanFormsService;
 
 class QuartermasterModule {
     private $plugin;
@@ -46,22 +45,12 @@ class QuartermasterModule {
     }
 
     public static function getQuartermasterCommandKey() {
-        $key = defined('WRDSB_QUARTERMASTER_COMMAND_KEY') ? WRDSB_QUARTERMASTER_COMMAND_KEY : false;
+        $key = defined('WRDSB_TOLLBOOTH_QUARTERMASTER_COMMAND_KEY') ? WRDSB_TOLLBOOTH_QUARTERMASTER_COMMAND_KEY : false;
         return $key;
     }
 
     public static function getQuartermasterQueryKey() {
-        $key = defined('WRDSB_QUARTERMASTER_QUERY_KEY') ? WRDSB_QUARTERMASTER_QUERY_KEY : false;
-        return $key;
-    }
-
-    public static function getDeviceLoansQueryKey() {
-        $key = defined('WRDSB_QUARTERMASTER_QUERY_KEY') ? WRDSB_QUARTERMASTER_QUERY_KEY : false;
-        return $key;
-    }
-
-    public static function getDeviceLoanFormsCommandKey() {
-        $key = defined('QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY') ? QUARTERMASTER_DEVICE_LOAN_SUBMISSION_COMMAND_KEY : false;
+        $key = defined('WRDSB_TOLLBOOTH_QUARTERMASTER_QUERY_KEY') ? WRDSB_TOLLBOOTH_QUARTERMASTER_QUERY_KEY : false;
         return $key;
     }
 
@@ -71,11 +60,6 @@ class QuartermasterModule {
         return $quartermasterService;
     }
     
-    public static function getDeviceLoanFormsCommandService(): DeviceLoanFormsService {
-        $deviceLoanFormsService = new DeviceLoanFormsService;
-        return $deviceLoanFormsService;
-    }
-
     /**
      * Register the stylesheets for the public-facing side of the site.
      *
@@ -110,6 +94,13 @@ class QuartermasterModule {
             $this->version,
             'all'
         );
+        WPCore::wpEnqueueStyle(
+            'progressbar',
+            'https://code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css',
+            array(),
+            $this->version,
+            'all'
+        );
     }
 
     /**
@@ -119,8 +110,43 @@ class QuartermasterModule {
      */
     public function enqueueScripts() {
         WPCore::wpEnqueueScript(
-            $this->plugin_name,
+            'device-loans',
             WPCore::pluginDirURL(__FILE__) . 'assets/js/device-loans.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignment-edit',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignment-edit.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignment-new',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignment-new.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignment-return',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignment-return.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'asset-assignments',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/asset-assignments.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/datatable.js',
             array('jquery'),
             $this->version,
             false
@@ -160,14 +186,28 @@ class QuartermasterModule {
             $this->verion,
             false
         );
-        WPCore::wpLocalizeScript($this->plugin_name, 'wpApiSettings', array(
+        WPCore::wpLocalizeScript('device-loans', 'wpApiSettings', array(
             'root' => WPCore::escURLRaw(WPCore::restURL() ),
-            //'root' => 'https://staff-dev.wrdsb.io/wp-json/',
             'nonce' => WPCore::wpCreateNonce('wp_rest')
+        ));
+        WPCore::wpLocalizeScript('asset-assignments', 'wpApiSettings', array(
+            'root' => WPCore::escURLRaw(WPCore::restURL() ),
+            'nonce' => WPCore::wpCreateNonce('wp_rest'),
+            'success' => 'Thanks for your submission!',
+            'failure' => 'Your submission could not be processed.'
         ));
     }
 
     private function addViews() {
+        $this->plugin->addView('asset-assignment-new', 'asset-assignment-new');
+        $this->plugin->addView('asset-assignment-edit', 'asset-assignment-edit');
+        $this->plugin->addView('asset-assignment-view', 'asset-assignment-view');
+        $this->plugin->addView('asset-assignments-list-all', 'asset-assignments-list-all');
+        $this->plugin->addView('asset-assignments-list-active', 'asset-assignments-list-active');
+        $this->plugin->addView('asset-assignments-list-returned', 'asset-assignments-list-returned');
+
+        $this->plugin->addView('device-loan-new', 'device-loan-new');
+        $this->plugin->addView('device-loan-edit', 'device-loan-edit');
         $this->plugin->addView('device-loan-view', 'device-loan-view');
         $this->plugin->addView('device-loans-list-active', 'device-loans-list-active');
         $this->plugin->addView('device-loans-list-returned', 'device-loans-list-returned');
@@ -175,6 +215,15 @@ class QuartermasterModule {
     }
 
     private function addPageTemplates() {
+        $this->plugin->addPageTemplate('asset-assignment-new', 'Quartermaster/Components/AssetAssignments/New.php');
+        $this->plugin->addPageTemplate('asset-assignment-edit', 'Quartermaster/Components/AssetAssignments/Edit.php');
+        $this->plugin->addPageTemplate('asset-assignment-view', 'Quartermaster/Components/AssetAssignments/View.php');
+        $this->plugin->addPageTemplate('asset-assignments-list-all', 'Quartermaster/Components/AssetAssignments/ListAll.php');
+        $this->plugin->addPageTemplate('asset-assignments-list-active', 'Quartermaster/Components/AssetAssignments/ListActive.php');
+        $this->plugin->addPageTemplate('asset-assignments-list-returned', 'Quartermaster/Components/AssetAssignments/ListReturned.php');
+
+        $this->plugin->addPageTemplate('device-loan-new', 'Quartermaster/Components/DeviceLoans/New.php');
+        $this->plugin->addPageTemplate('device-loan-edit', 'Quartermaster/Components/DeviceLoans/Edit.php');
         $this->plugin->addPageTemplate('device-loan-view', 'Quartermaster/Components/DeviceLoans/View.php');
         $this->plugin->addPageTemplate('device-loans-list-active', 'Quartermaster/Components/DeviceLoans/ListActive.php');
         $this->plugin->addPageTemplate('device-loans-list-returned', 'Quartermaster/Components/DeviceLoans/ListReturned.php');

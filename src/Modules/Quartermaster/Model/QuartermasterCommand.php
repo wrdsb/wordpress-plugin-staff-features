@@ -16,6 +16,7 @@ use WRDSB\Staff\Modules\Quartermaster\Services\QuartermasterService as Service;
  */
 
 class QuartermasterCommand implements \JsonSerializable {
+    private $dataType;
     private $operation;
     private $payload;
 
@@ -31,21 +32,26 @@ class QuartermasterCommand implements \JsonSerializable {
         return Module::getQuartermasterService();
     }
 
-    public function __construct(string $operation, string $id, array $object = null) {
-        if ($object) {
-            $this->operation = $operation;
-            $this->payload   = $object;
-            $this->service   = self::getService();
-            $this->state     = 'pending';
-        } elseif ($operation === 'delete') {
-            $object = new Model;
-            $object->setID($id);
+    public function __construct(string $dataType, string $operation, string $id, array $record = null) {
+        if ($operation === 'delete') {
+            $record = array(
+                'id' => $id
+            );
 
+            $this->dataType  = $dataType;
             $this->operation = $operation;
-            $this->payload   = $object;
+            $this->payload   = $record;
             $this->service   = self::getService();
             $this->state     = 'pending';
-        } else {
+
+        } elseif ($record) {
+            $this->dataType  = $dataType;
+            $this->operation = $operation;
+            $this->payload   = $record;
+            $this->service   = self::getService();
+            $this->state     = 'pending';
+
+        }  else {
             $this->operation = 'error';
             $this->state = 'error';
             $this->status = 500;
@@ -55,6 +61,16 @@ class QuartermasterCommand implements \JsonSerializable {
 
     public function run() {
         switch ($this->operation) {
+            case 'create': 
+                $temp = $this->service->create($this);
+                $this->state = $temp->getState();
+                $this->status = $temp->getStatus();
+                $this->rawResponse = $temp->getRawResponse();
+                $this->totalResults = $temp->getTotalResults();
+                $this->results = $temp->getResults();
+                $this->error = $temp->getError();
+                break;
+
             case 'patch':
                 $temp = $this->service->patch($this);
                 $this->state = $temp->getState();
@@ -96,12 +112,16 @@ class QuartermasterCommand implements \JsonSerializable {
         return $vars;
     }
 
-    public function getPayload() {
-        return $this->payload;
+    public function getDataType(): string {
+        return $this->dataType;
     }
 
     public function getOperation(): string {
         return $this->operation;
+    }
+
+    public function getPayload() {
+        return $this->payload;
     }
 
     public function getState(): string {

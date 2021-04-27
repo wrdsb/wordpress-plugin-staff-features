@@ -2,29 +2,25 @@
 namespace WRDSB\Staff\Modules\Quartermaster\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as Module;
-use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoanForm as Model;
+use WRDSB\Staff\Modules\Quartermaster\Model\DeviceLoan as Model;
 
-$apiKey = Module::getDeviceLoansQueryKey();
 $schoolCode = WPCore::getOption('wrdsb_school_code');
+$currentUser = WPCore::getCurrentUser();
+$currentTime = WPCore::currentTime();
+$pageTitle = "View Device Loan";
+$id = "Unspecified";
 
-function setCustomTitle()
-{
-    $pageTitle = "Device Loan Detail";
+function setCustomTitle() {
+    $pageTitle = "View Device Loan";
     return $pageTitle;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
-$pageTitle = "Device Loan Detail";
-
-$body = array(
-    'schoolCode' => $schoolCode
-);
 
 if ($wp_query->query_vars['id']) {
     $id = $wp_query->query_vars['id'];
-    $pageTitle = "Device Loan #{$id}";
 }
 
-$loan = Model::get($id);
+$loan = Model::getBySearchID($id);
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -74,7 +70,7 @@ $loan = Model::get($id);
                         </div>
                         <div class="sub-menu-items">
                             <ul><ul>
-                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform" target="_blank">Create New Device Loan</a></li>
+                                    <li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdjwdzc1parYWphvvyfnuaz4v5cketHMJSa0kvY0dRf7VZI4A/viewform">Create New Device Loan</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/all">View All Device Loans</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/active">View Active Device Loans</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/quartermaster/device-loans/returned">View Returned Devices</a></li>
@@ -87,6 +83,7 @@ $loan = Model::get($id);
             <div class="col-sm-9 col-lg-9" role="main">
                 <h1><?php echo $pageTitle; ?></h1>
                 <!-- CONTENT -->
+
                 <form action="" method="post">
                     <h3>Student Info</h3>
                     <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
@@ -185,16 +182,14 @@ $loan = Model::get($id);
                     </div>
 
                     <div class="form-row col-md-12">
-                        <?php if ($loan->getWasReturned() == true) { ?>
-                            <div class="form-group col-md-6">
-                                <label for="returnedBy">Returned By</label>
-                                <input type="text" name="returnedBy" id="returnedBy" class="form-control" aria-describedby="returnedByHelp" value="<?php echo $loan->getReturnedBy(); ?>" readonly>
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="returnedAt">Date/Time Returned</label>
-                                <input type="text" name="returnedAt" id="returnedAt" class="form-control" aria-describedby="returnedAtHelp" value="<?php echo $loan->getReturnedAt(); ?>" readonly>
-                            </div>
-                        <?php } ?>
+                        <div class="form-group col-md-6">
+                            <label for="returnedBy">Returned By</label>
+                            <input type="text" name="returnedBy" id="returnedBy" class="form-control" aria-describedby="returnedByHelp" value="<?php echo $loan->getReturnedBy(); ?>" readonly>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="returnedAt">Date/Time Returned</label>
+                            <input type="text" name="returnedAt" id="returnedAt" class="form-control" aria-describedby="returnedAtHelp" value="<?php echo $loan->getReturnedAt(); ?>" readonly>
+                        </div>
                     </div>
                 </form>
                 <!-- /CONTENT -->

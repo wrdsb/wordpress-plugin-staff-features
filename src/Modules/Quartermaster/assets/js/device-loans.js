@@ -2,7 +2,7 @@
 	'use strict';
 
 	$(document).ready(function() {
-        console.log('document ready');
+        console.log('device-loans loaded');
 
         $(".input-group.date").datepicker({
             format: "yyyy-mm-dd",
@@ -10,15 +10,21 @@
             autoclose: true
         });
 
-        $('#receivedByBlock').hide();
-
         $('input[name="receivedByRole"]').click(function () {
             if ($(this).attr("value") === "student") {
                 $("#receivedByBlock").hide('slow');
             }
             if ($(this).attr("value") === "other") {
                 $("#receivedByBlock").show('slow');
+            }
+        });
 
+        $('input[name="isTemporary"]').click(function () {
+            if ($(this).attr("value") === "false") {
+                $("#isTemporaryBlock").hide('slow');
+            }
+            if ($(this).attr("value") === "true") {
+                $("#isTemporaryBlock").show('slow');
             }
         });
 
@@ -26,6 +32,7 @@
 
         $('#seaDeviceWarning').hide();
 
+<<<<<<< HEAD
         var availableTags = [
             "Choice 1",
             "Choice 2",
@@ -148,16 +155,18 @@
         } );
         table.buttons( 'pdf', null ).containers().appendTo('#button-pdf');
 
+=======
+>>>>>>> master
         $('.return-button').click(function() {
-            var form_id = $(this).data('form_id');
-            console.log(`show input for ${form_id}`);
-            $('#' + form_id + '-return').show();
-            $('#' + form_id + '-return-button').hide();
+            var searchID = $(this).data('search_id');
+            console.log(`show input for ${searchID}`);
+            $('#' + searchID + '-return').show();
+            $('#' + searchID + '-return-button').hide();
         });
 
 		$('.form-return').on("change", function() {
             var blog_id = $(this).data('blog_id');
-			var form_id = $(this).data('form_id');
+			var form_id = $(this).data('search_id');
             var user_email = $(this).data('user_email');
 			console.log(`Mark device as returned for form ${form_id} on blog ${blog_id}`);
 
@@ -221,7 +230,7 @@
 
         $('.undo-button').click(function() {
             var blog_id = $(this).data('blog_id');
-			var form_id = $(this).data('form_id');
+			var form_id = $(this).data('search_id');
 			console.log(`Undo device return for form ${form_id} on blog ${blog_id}`);
 
             $('#' + form_id + '-return-button').hide();
