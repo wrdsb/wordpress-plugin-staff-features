@@ -1,0 +1,14 @@
+{
+  "env": {
+    "baseUrl": "http://wordpress.werks.ca/dsps",
+    "dashboardUrl": "https://wordpress.werks.ca/dsps/wp-admin",
+    "domain": "wordpress.werks.ca",
+    "users": {
+      "admin": {
+        "username": "schumajr",
+        "email": "schumajr@mail.com",
+        "pw": "schumajr"
+      }
+    }
+  }
+}
