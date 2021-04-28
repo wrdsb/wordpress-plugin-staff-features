@@ -84,7 +84,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
 
                     <h3>Assignment Info</h3>
-                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset id="assignmentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
