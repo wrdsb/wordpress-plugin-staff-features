@@ -40,3 +40,7 @@ testem.log
 Thumbs.db
 
 .php_cs.cache
+
+# Cypress artifacts
+/cypress/screenshots
+/cypress/videos
