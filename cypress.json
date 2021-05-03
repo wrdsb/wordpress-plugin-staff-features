@@ -1,7 +1,12 @@
 {
+  "baseUrl": "http://wordpress.werks.ca",
+
+  "viewportWidth": 1920,
+  "viewportHeight": 1000,
+
   "env": {
-    "baseUrl": "http://wordpress.werks.ca/dsps",
-    "dashboardUrl": "https://wordpress.werks.ca/dsps/wp-admin",
+    "dashboardUrl": "http://wordpress.werks.ca/dsps/wp-admin",
+    "loginUrl": "http://wordpress.werks.ca/dsps/wp-login.php",
     "domain": "wordpress.werks.ca",
     "users": {
       "admin": {
