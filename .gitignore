@@ -41,6 +41,9 @@ Thumbs.db
 
 .php_cs.cache
 
+# Cypress local config
+cypress.env.json
+
 # Cypress artifacts
 /cypress/screenshots
 /cypress/videos
