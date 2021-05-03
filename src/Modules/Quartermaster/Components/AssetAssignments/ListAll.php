@@ -10,6 +10,12 @@ $pageTitle = "All Asset Assignments";
 $currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
+$enabledFor = ['WSS'];
+if (!in_array($schoolCode, $enabledFor)) {
+    $url = WPCore::homeURL() . '/quartermaster/device-loans/all';
+    WPCore::wpRedirect($url);
+}
+
 function setCustomTitle()
 {
     $pageTitle = "All Asset Assignments";

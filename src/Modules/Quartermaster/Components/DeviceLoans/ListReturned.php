@@ -7,7 +7,14 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $access_time = WPCore::currentTime();
 $page_title = "Returned Devices";
+$currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
+
+$disabledFor = ['WSS'];
+if (in_array($schoolCode, $disabledFor)) {
+    $url = WPCore::homeURL() . '/quartermaster/asset-assignments/returned';
+    WPCore::wpRedirect($url);
+}
 
 function setCustomTitle()
 {

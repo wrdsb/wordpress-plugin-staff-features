@@ -7,7 +7,14 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $accessTime = WPCore::currentTime();
 $pageTitle = "Returned Assets";
+$currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
+
+$enabledFor = ['WSS'];
+if (!in_array($schoolCode, $enabledFor)) {
+    $url = WPCore::homeURL() . '/quartermaster/device-loans/returned';
+    WPCore::wpRedirect($url);
+}
 
 function setCustomTitle()
 {

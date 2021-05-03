@@ -10,6 +10,12 @@ $page_title = "Active Device Loans";
 $currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
+$enabledFor = ['WSS'];
+if (in_array($schoolCode, $disabledFor)) {
+    $url = WPCore::homeURL() . '/quartermaster/asset-assignments/active';
+    WPCore::wpRedirect($url);
+}
+
 function setCustomTitle()
 {
     $page_title = "Active Device Loans";
