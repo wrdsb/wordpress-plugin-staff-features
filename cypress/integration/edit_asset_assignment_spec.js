@@ -1,11 +1,11 @@
 /// <reference types="Cypress" />
 
-describe('The "New Asset Assignment" page', () => {
+describe('The "Edit Asset Assignment" page', () => {
     before(() => {
         cy.clearCookies();
         cy.clearWordPressCookies();
         cy.manualWordPressLogin();
-        cy.visit('/dsps/quartermaster/asset-assignment/new/');
+        cy.visit('/dsps/quartermaster/asset-assignment/OWYzMGQ3NDMtZDg5OC00OGIzLWI3YjctNTkwN2NmNzJjOWRk0/edit/');
 
         cy.get('#site-wide-navigation').invoke('css', 'display', 'none');
         cy.screenshot('new-asset-assignment-form');
@@ -16,65 +16,65 @@ describe('The "New Asset Assignment" page', () => {
     });
 
     it('has a section called "Assignment Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('h3')
           .contains('Assignment Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('fieldset[id="assignmentInfo"]');
     });
 
     it('has a section called "Student Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('h3')
           .contains('Student Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('fieldset[id="studentInfo"]');
     });
 
     it('has a section called "Device Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('h3')
           .contains('Device Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('fieldset[id="deviceInfo"]');
     });
 
     it('has a section called "Additional Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('h3')
           .contains('Additional Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('fieldset[id="additionalInfo"]');
     });
 
     it('has a field called "Assigned By"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('label')
           .contains('Assigned By');
 
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('input[id="assignedBy"]');
     });
 
     it('has a field called "School Code"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('label')
           .contains('School Code');
 
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('input[id="assignedFromLocation"]');
     });
 
     it('has a field called "Date/Time Submitted"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('label')
           .contains('Date/Time Submitted');
 
-        cy.get('#newAssetAssignment')
+        cy.get('#editAssetAssignment')
           .find('input[id="createdAt"]');
     });
 });
@@ -237,7 +237,6 @@ describe('The field "Assignment Type"', () => {
       cy.get('#assignmentInfo')
         .find('input[id="isTemporaryFalse"]');
     });
-
     it('has an option called "End-dated"', () => {
       cy.get('#assignmentInfo')
         .find('input[id="isTemporaryTrue"]');

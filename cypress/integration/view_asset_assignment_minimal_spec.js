@@ -1,14 +1,14 @@
 /// <reference types="Cypress" />
 
-describe('The "New Asset Assignment" page', () => {
+describe('The "View Asset Assignment" page with minimal options', () => {
     before(() => {
         cy.clearCookies();
         cy.clearWordPressCookies();
         cy.manualWordPressLogin();
-        cy.visit('/dsps/quartermaster/asset-assignment/new/');
+        cy.visit('/dsps/quartermaster/asset-assignment/OWYzMGQ3NDMtZDg5OC00OGIzLWI3YjctNTkwN2NmNzJjOWRk0/');
 
         cy.get('#site-wide-navigation').invoke('css', 'display', 'none');
-        cy.screenshot('new-asset-assignment-form');
+        cy.screenshot('view-asset-assignment-form');
         cy.get('#site-wide-navigation').invoke('css', 'display', null);
     });
 
@@ -16,65 +16,65 @@ describe('The "New Asset Assignment" page', () => {
     });
 
     it('has a section called "Assignment Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('h3')
           .contains('Assignment Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('fieldset[id="assignmentInfo"]');
     });
 
     it('has a section called "Student Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('h3')
           .contains('Student Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('fieldset[id="studentInfo"]');
     });
 
     it('has a section called "Device Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('h3')
           .contains('Device Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('fieldset[id="deviceInfo"]');
     });
 
     it('has a section called "Additional Info"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('h3')
           .contains('Additional Info');
         
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('fieldset[id="additionalInfo"]');
     });
 
     it('has a field called "Assigned By"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('label')
           .contains('Assigned By');
 
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('input[id="assignedBy"]');
     });
 
     it('has a field called "School Code"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('label')
           .contains('School Code');
 
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('input[id="assignedFromLocation"]');
     });
 
     it('has a field called "Date/Time Submitted"', () => {
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('label')
           .contains('Date/Time Submitted');
 
-        cy.get('#newAssetAssignment')
+        cy.get('#viewAssetAssignment')
           .find('input[id="createdAt"]');
     });
 });
@@ -98,14 +98,16 @@ describe('The "Assignment Info" section', () => {
         .find('input[id="startDate"]');
     });
 
-    it('has a field called "End Date"', () => {
+    it('does not have a field called "End Date"', () => {
       cy.get('#assignmentInfo')
       .find('label')
-      .contains('End Date');
+      .contains('End Date')
+      .should('not.be.visible');
 
       cy.get('#assignmentInfo')
-        .find('input[id="endDate"]');
-    });
+        .find('input[id="endDate"]')
+        .should('not.be.visible');
+      });
 });
 
 describe('The "Student Info" section', () => {
@@ -158,19 +160,23 @@ describe('The "Student Info" section', () => {
     it('has a field called "Received By Name"', () => {
       cy.get('#studentInfo')
       .find('label')
-      .contains('Received By Name');
+      .contains('Received By Name')
+      .should('not.exist');
 
       cy.get('#studentInfo')
-        .find('input[id="receivedBy"]');
+        .find('input[id="receivedBy"]')
+        .should('not.exist');
     });
 
     it('has a field called "Relationship to Student"', () => {
       cy.get('#studentInfo')
       .find('label')
-      .contains('Relationship to Student');
+      .contains('Relationship to Student')
+      .should('not.exist');
 
       cy.get('#studentInfo')
-        .find('input[id="receivedByRole"]');
+        .find('input[id="receivedByRole"]')
+        .should('not.exist');
     });
 });
 
@@ -233,106 +239,105 @@ describe('The "Additional Info" section', () => {
 });
 
 describe('The field "Assignment Type"', () => {
-    it('has an option called "Open-ended"', () => {
+    xit('has an option called "Open-ended"', () => {
       cy.get('#assignmentInfo')
         .find('input[id="isTemporaryFalse"]');
     });
-
-    it('has an option called "End-dated"', () => {
+    xit('has an option called "End-dated"', () => {
       cy.get('#assignmentInfo')
         .find('input[id="isTemporaryTrue"]');
     });
 });
 
 describe('The field "End Date"', () => {
-  xit('is not visible on first load', () => {
+    xit('is not visible on first load', () => {
 
-  });
-  xit('becomes visible when "Assignment Type" is "End-dated"', () => {
+    });
+    xit('becomes visible when "Assignment Type" is "End-dated"', () => {
 
-  });
-  xit('is hidden when "Assignment Type" is "Open-ended"', () => {
+    });
+    xit('is hidden when "Assignment Type" is "Open-ended"', () => {
 
-  });
+    });
 });
 
 describe('The field "Received by"', () => {
-  xit('has an option called "Student"', () => {
+    xit('has an option called "Student"', () => {
 
-  });
-  xit('has an option called "Other"', () => {
+    });
+    xit('has an option called "Other"', () => {
 
-  });
+    });
 });
 
 describe('The field "Received By Name"', () => {
-  xit('is not visible on first load', () => {
+    xit('is not visible on first load', () => {
 
-  });
-  xit('becomes visible when "Received by" is "Other"', () => {
+    });
+    xit('becomes visible when "Received by" is "Other"', () => {
 
-  });
-  xit('is hidden when "Received by" is "Student"', () => {
+    });
+    xit('is hidden when "Received by" is "Student"', () => {
 
-  });
+    });
 });
 
 describe('The field "Relationship to Student"', () => {
-  xit('is not visible on first load', () => {
+    xit('is not visible on first load', () => {
 
-  });
-  xit('becomes visible when "Received by" is "Other"', () => {
+    });
+    xit('becomes visible when "Received by" is "Other"', () => {
 
-  });
-  xit('is hidden when "Received by" is "Student"', () => {
+    });
+    xit('is hidden when "Received by" is "Student"', () => {
 
-  });
+    });
 });
 
 describe('The field "Device Location"', () => {
-  xit('is not editable', () => {
+    xit('is not editable', () => {
 
-  });
-  xit('is pre-populated with the currrent school code in uppercase', () => {
+    });
+    xit('is pre-populated with the currrent school code in uppercase', () => {
 
-  });
-  xit('is not part of the tab order for the form', () => {
+    });
+    xit('is not part of the tab order for the form', () => {
 
-  });
+    });
 });
 
 describe('The field "Assigned By"', () => {
-  xit('is not be editable', () => {
+    xit('is not be editable', () => {
 
-  });
-  xit("is pre-populated with the user's email address", () => {
+    });
+    xit("is pre-populated with the user's email address", () => {
 
-  });
-  xit('is not part of the tab order for the form', () => {
+    });
+    xit('is not part of the tab order for the form', () => {
 
-  });
+    });
 });
 
 describe('The field "School Code"', () => {
-  xit('is not editable', () => {
+    xit('is not editable', () => {
 
-  });
-  xit('is pre-populated with the current school code in uppercase', () => {
+    });
+    xit('is pre-populated with the current school code in uppercase', () => {
 
-  });
-  xit('is not part of the tab order for the form', () => {
+    });
+    xit('is not part of the tab order for the form', () => {
 
-  });
+    });
 });
 
 describe('The field "Date/Time Submitted"', () => {
-  xit('is not editable', () => {
+    xit('is not editable', () => {
 
-  });
-  xit('is pre-populated with the current date and time in the format YYYY-MM-DD HH:MM::SS', () => {
+    });
+    xit('is pre-populated with the current date and time in the format YYYY-MM-DD HH:MM::SS', () => {
 
-  });
-  xit('is not part of the tab order for the form', () => {
+    });
+    xit('is not part of the tab order for the form', () => {
 
-  });
+    });
 });
