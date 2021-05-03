@@ -1,12 +1,21 @@
+# 1.5.0
+* Add "Asset Assignment" module
+** This is the end-to-end solution requested for device assignment at ECPP.
+** This module includes the ability to enter, edit, and manage "Asset Assignments" (similar to the existing "Device Loans" available to other schools/sites).
+** This new module brings forward all the same features as the "Device Loans" module, with an updated data model, as well as the ability to enter and edit data directly through a school's Handbook, rather than entering new data through a Google Form while not being able to edit existing data at all.
+** In this release, this new module is available only to ECPP staff.
+** Only administrators of the ECPP Handbook on the Staff Intranet can create and edit data.
+** All members of the ECPP Handbook can view submitted data.
+
 # 1.4.0
-* add date picker to 'All' and 'Active' Device Loan lists, in place of Return Device button.
+* Add date picker to 'All' and 'Active' Device Loan lists, in place of Return Device button.
 
 # 1.3.2
 * Fix header layout bug in Content Search
 
 # 1.3.0
-* link "Device Loans" breadcrumb to "All Device Loans" view
-* only display 'Return Device' button for admins (issue #34)
+* Link "Device Loans" breadcrumb to "All Device Loans" view
+* Only display 'Return Device' button for admins (issue #34)
 
 # 1.2.0
 * Everything that came before.
