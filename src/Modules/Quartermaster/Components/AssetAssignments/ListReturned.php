@@ -10,7 +10,7 @@ $pageTitle = "Returned Assets";
 $currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
-$enabledFor = ['WSS'];
+$enabledFor = ['DSPS', 'WSS'];
 if (!in_array($schoolCode, $enabledFor)) {
     $url = WPCore::homeURL() . '/quartermaster/device-loans/returned';
     WPCore::wpRedirect($url);
