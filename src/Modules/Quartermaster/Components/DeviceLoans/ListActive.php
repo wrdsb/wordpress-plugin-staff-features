@@ -10,6 +10,12 @@ $page_title = "Active Device Loans";
 $currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
+$disabledFor = ['DSPS', 'WSS'];
+if (in_array($schoolCode, $disabledFor)) {
+    $url = WPCore::homeURL() . '/quartermaster/asset-assignments/active';
+    WPCore::wpRedirect($url);
+}
+
 function setCustomTitle()
 {
     $page_title = "Active Device Loans";
@@ -18,7 +24,7 @@ function setCustomTitle()
 WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
+$url = Module::getCodexSearchURL() . '/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,

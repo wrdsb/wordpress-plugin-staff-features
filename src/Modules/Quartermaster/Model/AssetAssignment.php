@@ -208,7 +208,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }
@@ -243,7 +243,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }
@@ -265,7 +265,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }
@@ -288,7 +288,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }
@@ -314,7 +314,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }
@@ -340,7 +340,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }
@@ -366,7 +366,7 @@ class AssetAssignment implements \JsonSerializable {
         if ($command->getState() === 'success') {
             return $command;
         } else {
-            error_log($command);
+            error_log(json_encode($command));
             return $command;
         }
     }

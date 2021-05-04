@@ -7,7 +7,14 @@ $apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $accessTime = WPCore::currentTime();
 $pageTitle = "Returned Assets";
+$currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
+
+$enabledFor = ['DSPS', 'WSS'];
+if (!in_array($schoolCode, $enabledFor)) {
+    $url = WPCore::homeURL() . '/quartermaster/device-loans/returned';
+    WPCore::wpRedirect($url);
+}
 
 function setCustomTitle()
 {
@@ -17,7 +24,7 @@ function setCustomTitle()
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-asset-assignments/docs/search?api-version=2016-09-01';
+$url = Module::getCodexSearchURL() . '/quartermaster-asset-assignments/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
@@ -175,7 +182,7 @@ while ($assignments_count > $page_max) {
                                     <?php echo $assignment->assetID; ?>
                                 </td>
                                 <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
-                                    <?php echo date("F j, Y", strtotime($assignment->createdAt)); ?>
+                                    <?php echo date("F j, Y", strtotime($assignment->startDate)); ?>
                                 </td>
                                 <td>
                                     <?php echo ($assignment->wasReturned == true) ? date("F j, Y", strtotime($assignment->returnedAt)) : '-'; ?>
