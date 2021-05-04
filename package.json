@@ -19,6 +19,7 @@
   "homepage": "https://github.com/wrdsb/wordpress-plugin-staff-features#readme",
   "devDependencies": {
     "cypress": "^7.2.0",
+    "del": "^6.0.0",
     "gulp": "^4.0.2"
   }
 }
