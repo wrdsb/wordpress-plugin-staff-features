@@ -182,7 +182,7 @@ while ($assignments_count > $page_max) {
                                     <?php echo $assignment->assetID; ?>
                                 </td>
                                 <td onclick="location.href='<?php echo WPCore::homeURL(); ?>/quartermaster/asset-assignment/<?php echo $id; ?>';" style="cursor: pointer;">
-                                    <?php echo date("F j, Y", strtotime($assignment->createdAt)); ?>
+                                    <?php echo date("F j, Y", strtotime($assignment->startDate)); ?>
                                 </td>
                                 <td>
                                     <?php if ($assignment->wasReturned == true) { ?>
