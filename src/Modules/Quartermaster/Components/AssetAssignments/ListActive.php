@@ -24,7 +24,7 @@ function setCustomTitle()
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\Quartermaster\Components\setCustomTitle');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-asset-assignments/docs/search?api-version=2016-09-01';
+$url = Module::getCodexSearchURL() . '/quartermaster-asset-assignments/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,

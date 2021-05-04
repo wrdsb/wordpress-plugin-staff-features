@@ -24,7 +24,7 @@ function setCustomTitle()
 WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
 
 global $wp_version;
-$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
+$url = Module::getCodexSearchURL() . '/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
