@@ -15,9 +15,19 @@ function autoload() {
     return exec('composer dumpautoload');
 }
 
-function srcCopy() {
-    return src('./src/**/*')
+function keelCopy() {
+    return src('./src/Keel/*.php')
         .pipe(dest('./dist/'));
+}
+
+function keelClassesCopy() {
+    return src('./src/Keel/Classes/*.php')
+        .pipe(dest('./dist/src/'));
+}
+
+function modulesCopy() {
+    return src('./src/Modules/**/*')
+        .pipe(dest('./dist/src/Modules/'));
 }
 
 function vendorCopy() {
@@ -26,10 +36,6 @@ function vendorCopy() {
 }
 
 
-exports.build = series(clean, autoload, parallel(srcCopy, vendorCopy));
-exports.clean = clean;
-exports.autoload = autoload;
-exports.src = srcCopy;
-exports.vendor = vendorCopy;
+exports.build = series(clean, autoload, parallel(keelCopy, keelClassesCopy, modulesCopy, vendorCopy));
 
 exports.default = defaultTask;
