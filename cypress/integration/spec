@@ -1,0 +1,35 @@
+User creates new Asset Assignment
+    Open-ended Asset Assignment
+    End-dated Asset Assignment
+    Received by student
+    Received by Other
+
+User cancels creating a new Asset Assignment
+
+User views all Asset Assignments
+
+User views active Asset Assignments
+
+User views returned Assets
+
+User returns an Assset
+    from All Asset Assignments page
+    from Active Asset Assignments page
+
+User views an Asset Assignment
+    from All Asset Assignments page
+    from Active Asset Assignments page
+    from Returned Assets page
+
+    Open-ended Asset Assignment
+    End-dated Asset Assignment
+    Received by student
+    Received by Other
+
+User edits an Asset Assignment
+    Open-ended Asset Assignment
+    End-dated Asset Assignment
+    Received by student
+    Received by Other
+
+User cancels editing an Asset Assignment
