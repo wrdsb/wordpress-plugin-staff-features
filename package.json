@@ -1,0 +1,25 @@
+{
+  "name": "wordpress-plugin-staff-features",
+  "version": "1.4.0",
+  "description": "An omnibus plugin to provide features unique to our wrdsbstaff WordPress install",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wrdsb/wordpress-plugin-staff-features.git"
+  },
+  "author": "WRDSB",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/wrdsb/wordpress-plugin-staff-features/issues"
+  },
+  "homepage": "https://github.com/wrdsb/wordpress-plugin-staff-features#readme",
+  "devDependencies": {
+    "cypress": "^7.2.0",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2"
+  }
+}

@@ -194,9 +194,8 @@ class AssetAssignment extends WP_REST_Controller {
             'updatedAt' => $currentTime
         );
         $patch = array_merge($coreArray, $body);
-        $assetAssignment = new Model($patch);
 
-        $command = Model::patch($searchID, $assetAssignment);
+        $command = Model::patch($searchID, $patch);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());
