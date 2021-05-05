@@ -94,7 +94,7 @@ $assignment = Model::getBySearchID($id);
                     <input type="hidden" name="email" value="<?php echo $currentUser->user_email ?>">
 
                     <h3>Assignment Info</h3>
-                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset id="assignmentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <?php if ($assignment->getIsTemporary() === false) { ?>
@@ -111,17 +111,17 @@ $assignment = Model::getBySearchID($id);
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="startDate">Start Date</label>
-                                <input type="text" name="startDateReadonly" id="startDateReadonly" class="form-control" aria-describedby="startDateReadonlyHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
+                                <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
                             </div>
                             <div id="isTemporaryBlock" class="form-group col-md-5" style="<?php if ($assignment->getIsTemporary() === false) {echo 'display:none;';} ?>">
                                 <label for="endDate">End Date</label>
-                                <input type="text" name="endDateReadonly" id="endDateReadonly" class="form-control" aria-describedby="endDateReadonlyHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
+                                <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
                             </div>
                         </div>
                     </fieldset>
 
                     <h3>Student Info</h3>
-                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset id="studentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="assignedToPerson">Assigned To</label>
@@ -168,7 +168,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Device Info</h3>
-                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                    <fieldset id="deviceInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-3">
                                 <label for="assetID">Device Barcode</label>
@@ -193,7 +193,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Additional Info</h3>
-                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                    <fieldset id="additionalInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group-inline">
                                 <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;

@@ -106,4 +106,11 @@ class WPCore
     public static function adminURL(string $path = '', string $scheme = 'admin'): string {
         return admin_url($path, $scheme);
     }
+
+    public static function wpRedirect(string $location, int $status = 302, string $x_redirect_by = 'WordPress') {
+        wp_redirect($location, $status, $x_redirect_by);
+        exit;
+    }
 }
+
+

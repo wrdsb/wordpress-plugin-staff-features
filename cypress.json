@@ -1,0 +1,19 @@
+{
+  "baseUrl": "http://wordpress.werks.ca",
+
+  "viewportWidth": 1920,
+  "viewportHeight": 1000,
+
+  "env": {
+    "dashboardUrl": "http://wordpress.werks.ca/dsps/wp-admin",
+    "loginUrl": "http://wordpress.werks.ca/dsps/wp-login.php",
+    "domain": "wordpress.werks.ca",
+    "users": {
+      "admin": {
+        "username": "schumajr",
+        "email": "schumajr@mail.com",
+        "pw": "schumajr"
+      }
+    }
+  }
+}
