@@ -228,7 +228,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="optional-5-i-e-liasion" name="optional-5-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-optional-5-i-e-liasion">
 					</fieldset>
 
-					</form>
+                    <button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
+				</form>
                 <!-- /CONTENT -->
             </div>
         </div>

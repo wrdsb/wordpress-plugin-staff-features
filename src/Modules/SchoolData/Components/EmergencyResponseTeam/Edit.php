@@ -271,7 +271,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="bms-expiry-12" name="bms-expiry-12" aria-invalid="false" aria-labelledby="label-bms-expiry-12" type="date" value="">
 					</fieldset>
 
-					</form>
+					<button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
+				</form>
                 <!-- /CONTENT -->
             </div>
         </div>

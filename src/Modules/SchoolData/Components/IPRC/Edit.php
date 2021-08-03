@@ -153,7 +153,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input type="text" value="" id="teacher-5-lastname" name="teacher-5-lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
 					</fieldset>	
 
-					</form>
+                    <button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
+                </form>
                 <!-- /CONTENT -->
             </div>
         </div>

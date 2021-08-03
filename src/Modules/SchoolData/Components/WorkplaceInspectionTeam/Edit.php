@@ -254,6 +254,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="staff-member-4-h-s-contact" id="label-staff-member-4-h-s-contact">H&amp;S Contact? (Staff Member 4)</label>
 						<input id="staff-member-4-h-s-contact" name="staff-member-4-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-staff-member-4-h-s-contact">
 					</fieldset>
+
+                    <button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
 				</form>
 				<!-- /CONTENT -->
 			</div>

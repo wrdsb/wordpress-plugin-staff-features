@@ -148,7 +148,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <input id="fire-bomb-drill-time" name="fire-bomb-drill-time" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-time" type="time" value="">
                     </fieldset>
 
-                    </form>
+                    <button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
+                </form>
                 <!-- /CONTENT -->
             </div>
         </div>
