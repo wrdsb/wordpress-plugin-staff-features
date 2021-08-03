@@ -8,10 +8,10 @@ use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
-$page_title = "Edit Evacuation Sites";
+$page_title = "Update Evacuation Sites";
 
 function setCustomTitle() {
-    $page_title = "Edit Evacuation Sites";
+    $page_title = "Update Evacuation Sites";
     return $page_title;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Components\setCustomTitle');
