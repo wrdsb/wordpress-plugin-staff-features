@@ -36,7 +36,10 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a>
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+                    <a href="..">Drill Schedule</a>
+                </li>
+                <li>
+                    Update
                 </li>
             </ol>
         </div>
@@ -81,6 +84,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
+                <p><button><a href="..">Cancel Update</a></button></p>
 
                 <div class="alert alert-info">
                     <p>All schools must now provide scheduled dates and times of their five (5) fire drills and one (1) combination fire/bomb drill to the local fire departments so they may support the schools by arranging for Fire Prevention Officers to be present during the drills.</p>

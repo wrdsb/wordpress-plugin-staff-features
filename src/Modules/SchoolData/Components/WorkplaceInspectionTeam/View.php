@@ -83,6 +83,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
+                <p><button><a href="./edit/">Update this Information</a></button></p>
 
 				<div class="alert alert-info">
 					<p>The Workplace Inspection Team (WIT) keeps the workplace healthy and safe with a team of 3-5 members, including the principal, custodian, and a teacher or other staff members.</p>
@@ -104,7 +105,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input type="text" value="" id="principal-firstname" name="principal-firstname" aria-invalid="false" aria-labelledby="label-principal-firstname">
 						<label for="principal-lastname" id="label-principal-lastname">Principal lastname</label>
 						<input type="text" value="" id="principal-lastname" name="principal-lastname" aria-invalid="false" aria-labelledby="label-principal-lastname">
-						<label for="principal-affiliation" id="label-principal-affiliation">Affiliation (Principal) </label></div>
+						<label for="principal-affiliation" id="label-principal-affiliation">Affiliation (Principal) </label>
 						<select id="principal-affiliation" name="principal-affiliation" aria-invalid="false" aria-labelledby="label-principal-affiliation">	
 							<option value="CAMA">CAMA</option>
 							<option value="OSSTF">OSSTF</option>

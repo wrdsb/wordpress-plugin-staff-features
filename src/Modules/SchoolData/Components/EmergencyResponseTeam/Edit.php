@@ -36,8 +36,11 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a>
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+					<a href="..">Emergency Response Team</a>
                 </li>
+				<li>
+					Update
+				</li>
             </ol>
         </div>
     <?php } ?>
@@ -81,6 +84,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
 				<!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
+				<p><button><a href="..">Cancel Update</a></button></p>
 
 				<div class="alert alert-info">
 					<p>Each school's Emergency Response Team takes leadership in dealing with crises and emergency situations. Carefully consider the membership of the team to ensure the team has the requisite skills and training to be effective.</p>

@@ -36,8 +36,11 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a>
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+					<a href="..">Evacuation Sites</a>
                 </li>
+				<li>
+					Update
+				</li>
             </ol>
         </div>
     <?php } ?>
@@ -81,6 +84,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
+                <p><button><a href="..">Cancel Update</a></button></p>
 
 				<p class="alert alert-info"><strong>All schools</strong> must provide alternate evacuation site(s) information to be used in case of emergencies.</p>
 				
