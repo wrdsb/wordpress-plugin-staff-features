@@ -45,12 +45,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
-		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12" role="complementary">
-				<h1><?php echo $page_title; ?></h1>
-			</div>
-		</div>
-
         <div class="row">
 
             <div class="col-sm-3 col-lg-3" role="complementary">
@@ -86,6 +80,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
 				<!-- CONTENT -->
+				<h1><?php echo $page_title; ?></h1>
+
 				<div class="alert alert-info">
 					<p>Each school's Emergency Response Team takes leadership in dealing with crises and emergency situations. Carefully consider the membership of the team to ensure the team has the requisite skills and training to be effective.</p>
 					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/ert/ert-responsibilities/">ERT Responsibilities</a>.</p>

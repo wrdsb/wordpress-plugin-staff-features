@@ -46,12 +46,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
         <div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12" role="complementary">
-				<h1><?php echo $page_title; ?></h1>
-			</div>
-		</div>
-
-        <div class="row">
 
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
@@ -86,6 +80,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
+				<h1><?php echo $page_title; ?></h1>
+
                 <div class="alert alert-info">
                     <p>Each school must have an Identification, Placement and Review Committee (IPRC). <a href="https://staff.wrdsb.ca/school-teams/team-data-collection/iprc-responsibilities/" target="_blank" rel="noopener noreferrer">Review the IPRC responsibilities, process and composition.</a></p>
 

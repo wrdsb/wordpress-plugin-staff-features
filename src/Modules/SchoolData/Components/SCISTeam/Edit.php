@@ -45,12 +45,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
-		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12" role="complementary">
-				<h1><?php echo $page_title; ?></h1>
-			</div>
-		</div>
-
         <div class="row">
 
             <div class="col-sm-3 col-lg-3" role="complementary">
@@ -86,6 +80,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
+				<h1><?php echo $page_title; ?></h1>
+
 				<div class="alert alert-info">
 					<p>Each school must have in place a Safe, Caring and Inclusive Schools team. The school-based Safe, Caring and Inclusive Schools team will operate in accordance with the <a href="https://staff.wrdsb.ca/learning-services/safe-caring-and-inclusive-schools/safe-caring-and-inclusive-schools/" target="_blank" rel="noopener noreferrer">SCIS Terms of Reference</a>, school Code of Conduct, Board policies and procedures, Ministry of Education directions for school boards, and align with other relevant legislation, including the Canadian Charter of Rights and Freedoms and the Ontario Human Rights Code.</p>
 					<p>Safe, Caring and Inclusive Schools teams will consist of a minimum of seven members, as follows:</p>
