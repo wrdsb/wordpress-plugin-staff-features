@@ -205,12 +205,12 @@ $container['routes'] = [
         'template' => 'SchoolData/Components/IPRC/View.php'
     ],
 
-    '^school-data/scis-team-view/edit$' => [
+    '^school-data/scis-team/edit$' => [
         'module' => 'SchoolDataModule',
         'view' => 'scis-team-edit',
         'template' => 'SchoolData/Components/SCISTeam/Edit.php'
     ],
-    '^school-data/scis-team-view$' => [
+    '^school-data/scis-team$' => [
         'module' => 'SchoolDataModule',
         'view' => 'scis-team-view',
         'template' => 'SchoolData/Components/SCISTeam/View.php'
