@@ -49,11 +49,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
 		<div class="row">
-			<div class="col-sm-12 col-md-12 col-lg-12" role="complementary">
-			</div>
-		</div>
-
-		<div class="row">
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -101,7 +96,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
 
-					<p>Fields marked with <span class="required"></span> are required.</p>
+					<p>Fields marked with <span class="required">*</span> are required.</p>
 					
 					<fieldset>
 						<legend>Principal</legend>
