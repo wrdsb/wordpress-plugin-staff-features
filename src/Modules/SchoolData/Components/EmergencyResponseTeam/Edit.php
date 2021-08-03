@@ -69,12 +69,14 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                             <span><a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a></span>
                         </div>
                         <div class="sub-menu-items">
-                            <ul>
+							<ul>
 								<ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form1/form1-view">Form 1</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form2/form2-view">Form 2</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form3/form3-view">Form 3</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form4/form4-view">Form 4</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">Drill Schedule</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/">Emergency Response Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/evacuation-sites/">Evacuation Sites</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/">IPRC</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/scis-team">SCIS Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/">Workplace Inspection Team</a></li>
                         	    </ul>
 							</ul>
                         </div>
@@ -115,7 +117,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="bms-expiry-1" name="bms-expiry-1" aria-invalid="false" aria-labelledby="label-bms-expiry-1" type="date" value="">
 					</fieldset>
 
-
 					<fieldset>
 						<legend>Staff Member 2</legend>
 						<label for="firstname-2" id="label-firstname-2">Firstname 2</label>
@@ -129,7 +130,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-2" id="label-bms-expiry-2">BMS Expiry 4</label>
 						<input id="bms-expiry-2" name="bms-expiry-2" aria-invalid="false" aria-labelledby="label-bms-expiry-2" type="date" value="">
 					</fieldset>
-
 
 					<fieldset>
 						<legend>Staff Member 3</legend>
@@ -145,7 +145,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="bms-expiry-3" name="bms-expiry-3" aria-invalid="false" aria-labelledby="label-bms-expiry-3" type="date" value="">
 					</fieldset>
 
-
 					<fieldset>
 						<legend>Staff Member 4</legend>
 						<label for="firstname-4" id="label-firstname-4">Firstname 4</label>
@@ -159,7 +158,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-4" id="label-bms-expiry-4">BMS Expiry 4</label>
 						<input id="bms-expiry-4" name="bms-expiry-4" aria-invalid="false" aria-labelledby="label-bms-expiry-4" type="date" value="">
 					</fieldset>
-
 
 					<fieldset>
 						<legend>Staff Member 5</legend>
@@ -189,7 +187,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="bms-expiry-6" name="bms-expiry-6" aria-invalid="false" aria-labelledby="label-bms-expiry-6" type="date" value="">
 					</fieldset>
 
-
 					<fieldset>
 						<legend>Staff Member 7</legend>
 						<label for="firstname-7" id="label-firstname-7">Firstname 7</label>
@@ -203,7 +200,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-7" id="label-bms-expiry-7">BMS Expiry 7</label>
 						<input id="bms-expiry-7" name="bms-expiry-7" aria-invalid="false" aria-labelledby="label-bms-expiry-7" type="date" value="">
 					</fieldset>
-
 
 					<fieldset>
 						<legend>Staff Member 8</legend>
@@ -219,7 +215,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="bms-expiry-8" name="bms-expiry-8" aria-invalid="false" aria-labelledby="label-bms-expiry-8" type="date" value="">
 					</fieldset>
 
-
 					<fieldset>
 						<legend>Staff Member 9</legend>
 						<label for="firstname-9" id="label-firstname-9">Firstname 9</label>
@@ -233,7 +228,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-9" id="label-bms-expiry-9">BMS Expiry 9</label>
 						<input id="bms-expiry-9" name="bms-expiry-9" aria-invalid="false" aria-labelledby="label-bms-expiry-9" type="date" value="">
 					</fieldset>
-
 
 					<fieldset>
 						<legend>Staff Member 10</legend>
@@ -249,7 +243,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="bms-expiry-10" name="bms-expiry-10" aria-invalid="false" aria-labelledby="label-bms-expiry-10" type="date" value="">
 					</fieldset>
 
-
 					<fieldset>
 						<legend>Staff Member 11</legend>
 						<label for="firstname-11" id="label-firstname-11">Firstname 11</label>
@@ -263,7 +256,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-11" id="label-bms-expiry-11">BMS Expiry 11</label>
 						<input id="bms-expiry-11" name="bms-expiry-11" aria-invalid="false" aria-labelledby="label-bms-expiry-11" type="date" value="">
 					</fieldset>
-
 
 					<fieldset>
 						<legend>Staff Member 12</legend>

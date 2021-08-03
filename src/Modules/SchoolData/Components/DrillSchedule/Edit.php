@@ -71,10 +71,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <div class="sub-menu-items">
                             <ul>
 								<ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form1/form1-view">Form 1</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form2/form2-view">Form 2</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form3/form3-view">Form 3</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form4/form4-view">Form 4</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">Drill Schedule</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/">Emergency Response Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/evacuation-sites/">Evacuation Sites</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/">IPRC</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/scis-team">SCIS Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/">Workplace Inspection Team</a></li>
                         	    </ul>
 							</ul>
                         </div>
@@ -106,7 +108,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <input id="ffire-drill-1-time" name="fire-drill-1-time" aria-invalid="false" aria-labelledby="label-fire-drill-1-time" type="time" value="">
                     </fieldset>
 
-
                     <fieldset>
                         <legend>Fire Drill 2</legend>
                         <label for="fire-drill-2-date" id="label-fire-drill-2-date">Fire Drill 2 date</label>
@@ -114,7 +115,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <label for="fire-drill-2-time" id="label-fire-drill-2-time">Fire Drill 2 time</label>
                         <input id="ffire-drill-2-time" name="fire-drill-2-time" aria-invalid="false" aria-labelledby="label-fire-drill-2-time" type="time" value="">
                     </fieldset>
-
 
                     <fieldset>
                         <legend>Fire Drill 3</legend>
@@ -124,7 +124,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <input id="ffire-drill-3-time" name="fire-drill-3-time" aria-invalid="false" aria-labelledby="label-fire-drill-3-time" type="time" value="">
                     </fieldset>
 
-
                     <fieldset>
                         <legend>Fire Drill 4</legend>
                         <label for="fire-drill-4-date" id="label-fire-drill-4-date">Fire Drill 4 date</label>
@@ -133,7 +132,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <input id="ffire-drill-4-time" name="fire-drill-4-time" aria-invalid="false" aria-labelledby="label-fire-drill-4-time" type="time" value="">
                     </fieldset>
 
-
                     <fieldset>
                         <legend>Fire Drill 5</legend>
                         <label for="fire-drill-5-date" id="label-fire-drill-5-date">Fire Drill 5 date</label>
@@ -141,7 +139,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <label for="fire-drill-5-time" id="label-fire-drill-5-time">Fire Drill 5 time</label>
                         <input id="ffire-drill-5-time" name="fire-drill-5-time" aria-invalid="false" aria-labelledby="label-fire-drill-5-time" type="time" value="">
                     </fieldset>
-
 
                     <fieldset>
                         <legend>Fire/Bomb Drill</legend>

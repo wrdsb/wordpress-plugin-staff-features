@@ -69,12 +69,14 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                             <span><a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a></span>
                         </div>
                         <div class="sub-menu-items">
-                            <ul>
+							<ul>
 								<ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form1/form1-view">Form 1</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form2/form2-view">Form 2</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form3/form3-view">Form 3</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form4/form4-view">Form 4</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">Drill Schedule</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/">Emergency Response Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/evacuation-sites/">Evacuation Sites</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/">IPRC</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/scis-team">SCIS Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/">Workplace Inspection Team</a></li>
                         	    </ul>
 							</ul>
                         </div>

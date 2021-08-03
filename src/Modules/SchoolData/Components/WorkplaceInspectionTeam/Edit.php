@@ -181,7 +181,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="staff-member-1-h-s-contact" name="staff-member-1-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-staff-member-1-h-s-contact">
 					</fieldset>
 
-
 					<fieldset>
 						<legend>Staff Member 2</legend>
 						<label for="staff-member-2-firstname" id="label-staff-member-2-firstname">Staff Member 2 firstname</label>
