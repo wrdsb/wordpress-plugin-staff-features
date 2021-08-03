@@ -8,10 +8,10 @@ use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
-$page_title = "Edit Workplace Inspection Team";
+$page_title = "Update Workplace Inspection Team";
 
 function setCustomTitle() {
-    $page_title = "Edit Workplace Inspection Team";
+    $page_title = "Update Workplace Inspection Team";
     return $page_title;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Components\setCustomTitle');
@@ -33,8 +33,11 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a>
+                    <a href="<?php echo WPCore::homeURL(); ?>/school-data/home">School Data</a>
                 </li>
+				<li>
+					<a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team">WIT</a>
+				</li>
                 <li>
                     <?php echo $page_title; ?>
                 </li>
@@ -45,8 +48,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 <?php if (WPCore::currentUserCanViewContent()) { ?>
     <div class="container">
-        <div class="row">
+		<div class="row">
+			<div class="col-sm-12 col-md-12 col-lg-12" role="complementary">
+			</div>
+		</div>
 
+		<div class="row">
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -65,10 +72,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <div class="sub-menu-items">
                             <ul>
 								<ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form1/form1-view">Form 1</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form2/form2-view">Form 2</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form3/form3-view">Form 3</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/form4/form4-view">Form 4</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">Drill Schedule</a></li>
+									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/">Emergency Response Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/evacuation-sites/">Evacuation Sites</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/">IPRC</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/scis-team">SCIS Team</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/">Workplace Inspection Team</a></li>
                         	    </ul>
 							</ul>
                         </div>
@@ -78,6 +87,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
+				<h1><?php echo $page_title; ?></h1>
+
 				<div class="alert alert-info">
 					<p>The Workplace Inspection Team (WIT) keeps the workplace healthy and safe with a team of 3-5 members, including the principal, custodian, and a teacher or other staff members.</p>
 					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/wit/wit-responsibilities/">WIT Responsibilities</a>.</p>
@@ -86,14 +97,11 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 				<p class="alert alert-warning">You <strong>must</strong> indicate the one (1) member designed to receive all health and safety correspondence and/or contact from the Health, Safety and Security Department, or the JHSC Co-Chairs.</p>
 
 				<form id="editWorkplaceInspectionTeam">
-
-                    <h1><?php echo $page_title; ?></h1>
-
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
 
-					<p>Fields marked with <span class="required">*</span> are required.</p>
+					<p>Fields marked with <span class="required"></span> are required.</p>
 					
 					<fieldset>
 						<legend>Principal</legend>
