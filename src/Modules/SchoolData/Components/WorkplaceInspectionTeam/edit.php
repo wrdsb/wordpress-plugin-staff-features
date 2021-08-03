@@ -78,7 +78,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
-                <form id="newAssetAssignment">
+                <form id="editWorkplaceInspectionTeam">
 
                     <h1><?php echo $page_title; ?></h1>
 
