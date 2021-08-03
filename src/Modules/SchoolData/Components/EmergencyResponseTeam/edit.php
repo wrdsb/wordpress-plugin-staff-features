@@ -77,8 +77,19 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             </div>
 
             <div class="col-sm-9 col-lg-9" role="main">
-                <!-- CONTENT -->
-                <form id="editEmergencyResponseTeam">
+				<!-- CONTENT -->
+
+				<div class="alert alert-info">
+					<p>Each school's Emergency Response Team takes leadership in dealing with crises and emergency situations. Carefully consider the membership of the team to ensure the team has the requisite skills and training to be effective.</p>
+					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/ert/ert-responsibilities/">ERT Responsibilities</a>.</p>
+				</div>
+
+				<div class="note">
+					<p>Administrative staff, teachers (number determined by needs/size of school) and/or support staff should be members of the team. <strong><em>The team must have at least one member with current, valid training in CPR and first aid</em></strong>. The team should include members who have received Behaviour Management Systems (BMS) training.</p>
+					<p>Not all members require first aid/medical training; however, at least one team member must be CPR-qualified and another must have first aid training.</p>
+				</div>
+
+				<form id="editEmergencyResponseTeam">
 
                     <h1><?php echo $page_title; ?></h1>
 

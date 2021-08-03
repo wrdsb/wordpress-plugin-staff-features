@@ -78,7 +78,22 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
-                <form id="editSCISTeam">
+				<div class="alert alert-info">
+					<p>Each school must have in place a Safe, Caring and Inclusive Schools team. The school-based Safe, Caring and Inclusive Schools team will operate in accordance with the <a href="https://staff.wrdsb.ca/learning-services/safe-caring-and-inclusive-schools/safe-caring-and-inclusive-schools/" target="_blank" rel="noopener noreferrer">SCIS Terms of Reference</a>, school Code of Conduct, Board policies and procedures, Ministry of Education directions for school boards, and align with other relevant legislation, including the Canadian Charter of Rights and Freedoms and the Ontario Human Rights Code.</p>
+					<p>Safe, Caring and Inclusive Schools teams will consist of a minimum of seven members, as follows:</p>
+						<ul>
+							<li>Administrator (1)</li>
+							<li>Teacher (1)</li>
+							<li>Paraprofessional (1 – CYW, EA, etc.)</li>
+							<li>Parent (1)</li>
+							<li>Community Member (1)</li>
+							<li>Student (2)</li>
+						</ul>
+					<p>One staff member should be identified as the school's Indigenous &amp; Equity Liaison. This staff member can be a teacher, paraprofessional and, if necessary, an administrator (administrator(s) can be identified as a contact in addition to a staff member). The role will be to share messaging with staff from the Indigenous, Equity, and Human Rights Department (IEHR).</p>
+					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/scis/scis-team-responsibilities/">SCIS Team Responsibilities</a>.</p>
+				</div>
+
+				<form id="editSCISTeam">
 
                     <h1><?php echo $page_title; ?></h1>
 

@@ -78,8 +78,19 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
-                <form id="editIPRC">
+                <div class="alert alert-info">
+                    <p>Each school must have an Identification, Placement and Review Committee (IPRC). <a href="https://staff.wrdsb.ca/school-teams/team-data-collection/iprc-responsibilities/" target="_blank" rel="noopener noreferrer">Review the IPRC responsibilities, process and composition.</a></p>
 
+                    <h2>Committee Members</h2>
+                    <ul>
+                        <li><span style="font-weight: 400;">Each Identification Placement and Review Committee needs to have a minimum of three members (the principal is counted as one of the members)</span></li>
+                        <li><span style="font-weight: 400;">The principal</span></li>
+                        <li>Up to five teachers. (Special education certification is not necessary.) The vice-principal (if the school has one) can be included as part of the five.</li>
+                    </ul>
+                </div>
+                <p class="alert alert-warning"><strong>Do not submit central office staff as members</strong> of the school's IPRC committee unless the school is small or the school has negotiated with the contact person, and it is agreed that the contact person will assist the school on the committee.</p>
+
+                <form id="editIPRC">
                     <h1><?php echo $page_title; ?></h1>
 
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">

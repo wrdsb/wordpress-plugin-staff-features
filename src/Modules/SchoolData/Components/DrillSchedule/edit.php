@@ -78,6 +78,13 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
+                <div class="alert alert-info">
+                    <p>All schools must now provide scheduled dates and times of their five (5) fire drills and one (1) combination fire/bomb drill to the local fire departments so they may support the schools by arranging for Fire Prevention Officers to be present during the drills.</p>
+                    <p>Please see all the <a href="https://staff.wrdsb.ca/school-teams/fire-bomb-drill/fire-department-schedule/">Fire Drill Schedule Information</a>.</p>
+                </div>
+
+                <p class="alert alert-warning">Once this information has been collected and shared with the fire departments, any changes to these dates/times are to be communicated directly to your school’s local fire department by the school and/or administrator.</p>
+    
                 <form id="editDrillSchedule">
 
                     <h1><?php echo $page_title; ?></h1>
