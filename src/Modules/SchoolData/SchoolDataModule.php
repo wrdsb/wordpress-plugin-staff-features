@@ -150,10 +150,40 @@ class SchoolDataModule {
     private function addViews() {
         $this->plugin->addView('drill-schedule-view', 'drill-schedule-view');
         $this->plugin->addView('drill-schedule-edit', 'drill-schedule-edit');
+
+        $this->plugin->addView('emergency-response-team-view', 'emergency-response-team-view');
+        $this->plugin->addView('emergency-response-team-edit', 'emergency-response-team-edit');
+
+        $this->plugin->addView('evacuation-sites-view', 'evacuation-sites-view');
+        $this->plugin->addView('evacuation-sites-edit', 'evacuation-sites-edit');
+
+        $this->plugin->addView('iprc-view', 'iprc-view');
+        $this->plugin->addView('iprc-edit', 'iprc-edit');
+
+        $this->plugin->addView('scis-team-view', 'scis-team-view');
+        $this->plugin->addView('scis-team-edit', 'scis-team-edit');
+
+        $this->plugin->addView('workplace-inspection-team-view', 'workplace-inspection-team-view');
+        $this->plugin->addView('workplace-inspection-team-edit', 'workplace-inspection-team-edit');
     }
 
     private function addPageTemplates() {
         $this->plugin->addPageTemplate('drill-schedule-view', 'SchoolData/Components/DrillSchedule/view.php');
         $this->plugin->addPageTemplate('drill-schedule-edit', 'SchoolData/Components/DrillSchedule/edit.php');
+
+        $this->plugin->addPageTemplate('emergency-response-team-view', 'SchoolData/Components/EmergencyResponseTeam/view.php');
+        $this->plugin->addPageTemplate('emergency-response-team-edit', 'SchoolData/Components/EmergencyResponseTeam/edit.php');
+
+        $this->plugin->addPageTemplate('evacuation-sites-view', 'SchoolData/Components/EvacuationSites/view.php');
+        $this->plugin->addPageTemplate('evacuation-sites-edit', 'SchoolData/Components/EvacuationSites/edit.php');
+
+        $this->plugin->addPageTemplate('iprc-view', 'SchoolData/Components/IPRC/view.php');
+        $this->plugin->addPageTemplate('iprc-edit', 'SchoolData/Components/IPRC/edit.php');
+
+        $this->plugin->addPageTemplate('scis-team-view', 'SchoolData/Components/SCISTeam/view.php');
+        $this->plugin->addPageTemplate('scis-team-edit', 'SchoolData/Components/SCISTeam/edit.php');
+
+        $this->plugin->addPageTemplate('workplace-inspection-team-view', 'SchoolData/Components/WorkplaceInspectionTeam/view.php');
+        $this->plugin->addPageTemplate('workplace-inspection-team-edit', 'SchoolData/Components/WorkplaceInspectionTeam/edit.php');
     }
 }
