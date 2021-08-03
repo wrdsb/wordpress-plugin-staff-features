@@ -2,7 +2,7 @@
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
-//use WRDSB\Staff\Modules\SchoolData\Model\IPRCommittee as Model;
+//use WRDSB\Staff\Modules\SchoolData\Model\IPRC as Model;
 
 //$apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
@@ -78,7 +78,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
-                <form id="editIPRCommittee">
+                <form id="editIPRC">
 
                     <h1><?php echo $page_title; ?></h1>
 
