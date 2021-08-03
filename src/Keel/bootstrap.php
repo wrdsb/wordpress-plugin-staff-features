@@ -4,6 +4,7 @@ namespace WRDSB\Staff;
 use \WRDSB\Staff\Modules\ClassLists\ClassListsModule as ClassListsModule;
 use \WRDSB\Staff\Modules\ContentSearch\ContentSearchModule as ContentSearchModule;
 use \WRDSB\Staff\Modules\Quartermaster\QuartermasterModule as QuartermasterModule;
+use \WRDSB\Staff\Modules\SchoolData\SchoolDataModule as SchoolDataModule;
 
 use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoan as DeviceLoanRESTController;
 use \WRDSB\Staff\Modules\Quartermaster\REST\AssetAssignment as AssetAssignmentRESTController;
@@ -53,7 +54,7 @@ $container['plugin_name'] = 'wrdsb-staff';
  * Current plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-$container['version'] = '1.5.0';
+$container['version'] = '1.6.0';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
 
@@ -65,6 +66,7 @@ $enabledModules = [
 if ($container['schoolCode']) {
     $enabledModules[] = 'ClassListsModule';
     $enabledModules[] = 'QuartermasterModule';
+    $enabledModules[] = 'SchoolDataModule';
 }
 
 $container['modules'] = $enabledModules;
@@ -157,6 +159,73 @@ $container['routes'] = [
         'view' => 'device-loans-list-all',
         'template' => 'Quartermaster/Components/DeviceLoans/ListAll.php',
     ],
+
+
+    '^school-data/drill-schedule/edit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'drill-schedule-edit',
+        'template' => 'SchoolData/Components/DrillSchedule/Edit.php'
+    ],
+    '^school-data/drill-schedule$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'drill-schedule-view',
+        'template' => 'SchoolData/Components/DrillSchedule/View.php'
+    ],
+
+    '^school-data/emergency-response-team/edit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'emergency-response-team-edit',
+        'template' => 'SchoolData/Components/EmergencyResponseTeam/Edit.php'
+    ],
+    '^school-data/emergency-response-team$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'emergency-response-team-view',
+        'template' => 'SchoolData/Components/EmergencyResponseTeam/View.php'
+    ],
+
+    '^school-data/evacuation-sites/edit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'evacuation-sites-edit',
+        'template' => 'SchoolData/Components/EvacuationSites/Edit.php'
+    ],
+    '^school-data/evacuation-sites$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'evacuation-sites-view',
+        'template' => 'SchoolData/Components/EvacuationSites/View.php'
+    ],
+
+    '^school-data/iprc/edit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'iprc-edit',
+        'template' => 'SchoolData/Components/IPRC/Edit.php'
+    ],
+    '^school-data/iprc$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'iprc-view',
+        'template' => 'SchoolData/Components/IPRC/View.php'
+    ],
+
+    '^school-data/scis-team-view/edit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'scis-team-edit',
+        'template' => 'SchoolData/Components/SCISTeam/Edit.php'
+    ],
+    '^school-data/scis-team-view$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'scis-team-view',
+        'template' => 'SchoolData/Components/SCISTeam/View.php'
+    ],
+
+    '^school-data/workplace-inspection-team/edit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'workplace-inspection-team-edit',
+        'template' => 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php'
+    ],
+    '^school-data/workplace-inspection-team$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'workplace-inspection-team-view',
+        'template' => 'SchoolData/Components/WorkplaceInspectionTeam/View.php'
+    ],
 ];
 
 /**
@@ -181,6 +250,10 @@ $container['ContentSearchModule'] = function ($c) {
 
 $container['QuartermasterModule'] = function ($c) {
     return new QuartermasterModule($c['plugin']);
+};
+
+$container['SchoolDataModule'] = function ($c) {
+    return new SchoolDataModule($c['plugin']);
 };
 
 /**
