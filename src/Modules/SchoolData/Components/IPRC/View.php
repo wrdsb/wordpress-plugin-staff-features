@@ -149,8 +149,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <label for="teacher-5-lastname" id="teacher-5-lastname"><span class="sr-only">Teacher 5 </span>Lastname</label>
                         <input type="text" value="" id="teacher-5-lastname" name="teacher-5-lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
                     </fieldset> 
-
-                    </form>
+                </form>
                 <!-- /CONTENT -->
             </div>
         </div>

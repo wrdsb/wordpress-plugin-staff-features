@@ -103,57 +103,56 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
 
-					<p>Fields marked with <span class="required">*</span> are required.</p>
-					
-					<fieldset>
-						<legend>Principal</legend>
-						<label for="principal-firstname" id="label-principal-firstname">Principal firstname</label>
-						<input type="text" value="" id="principal-firstname" name="principal-firstname" aria-invalid="false" aria-labelledby="label-principal-firstname">
-						<label for="principal-lastname" id="label-principal">Principal lastname</label>
-						<input type="text" value="" id="principal-lastname" name="principal-lastname" aria-invalid="false" aria-labelledby="label-principal-lastname">
-					</fieldset>
+                    <p>Fields marked with <span class="required">*</span> are required.</p>
+                    
+                    <fieldset>
+                        <legend>Principal</legend>
+                        <label for="principal-firstname" id="label-principal-firstname"><span class="sr-only">Principal </span>Firstname</label>
+                        <input type="text" value="" id="principal-firstname" name="principal-firstname" aria-invalid="false" aria-labelledby="label-principal-firstname">
+                        <label for="principal-lastname" id="label-principal"><span class="sr-only">Principal </span>Lastname</label>
+                        <input type="text" value="" id="principal-lastname" name="principal-lastname" aria-invalid="false" aria-labelledby="label-principal-lastname">
+                    </fieldset>
 
-					<fieldset>
-						<legend>Teacher 1</legend>
-						<label for="teacher-1-firstname" id="label-teacher-1-firstname">Teacher 1 firstname</label>
-						<input type="text" value="" id="teacher-1-firstname" name="teacher-1-firstname" aria-invalid="false" aria-labelledby="label-teacher-1-firstname">
-						<label for="teacher-1-lastname" id="teacher-1-lastname">Teacher 1 lastname</label>
-						<input type="text" value="" id="teacher-1-lastname" name="teacher-1-lastname" aria-invalid="false" aria-labelledby="label-teacher-1-lastname">
-					</fieldset>
+                    <fieldset>
+                        <legend>Teacher 1</legend>
+                        <label for="teacher-1-firstname" id="label-teacher-1-firstname"><span class="sr-only">Teacher 1 </span>Firstname</label>
+                        <input type="text" value="" id="teacher-1-firstname" name="teacher-1-firstname" aria-invalid="false" aria-labelledby="label-teacher-1-firstname">
+                        <label for="teacher-1-lastname" id="teacher-1-lastname"><span class="sr-only">Teacher 1 </span>Lastname</label>
+                        <input type="text" value="" id="teacher-1-lastname" name="teacher-1-lastname" aria-invalid="false" aria-labelledby="label-teacher-1-lastname">
+                    </fieldset>
 
-					<fieldset>
-						<legend>Teacher 2</legend>
-						<label for="teacher-2-firstname" id="label-teacher-2-firstname">Teacher 2 firstname</label>
-						<input type="text" value="" id="teacher-2-firstname" name="teacher-2-firstname" aria-invalid="false" aria-labelledby="label-teacher-2-firstname">
-						<label for="teacher-2-lastname" id="teacher-2-lastname">Teacher 2 lastname</label>
-						<input type="text" value="" id="teacher-2-lastname" name="teacher-2-lastname" aria-invalid="false" aria-labelledby="label-teacher-2-lastname">
-					</fieldset>
+                    <fieldset>
+                        <legend>Teacher 2</legend>
+                        <label for="teacher-2-firstname" id="label-teacher-2-firstname"><span class="sr-only">Teacher 2 </span>Firstname</label>
+                        <input type="text" value="" id="teacher-2-firstname" name="teacher-2-firstname" aria-invalid="false" aria-labelledby="label-teacher-2-firstname">
+                        <label for="teacher-2-lastname" id="teacher-2-lastname"><span class="sr-only">Teacher 2 </span>Lastname</label>
+                        <input type="text" value="" id="teacher-2-lastname" name="teacher-2-lastname" aria-invalid="false" aria-labelledby="label-teacher-2-lastname">
+                    </fieldset>
 
-					<fieldset>
-						<legend>Teacher 3</legend>
-						<label for="teacher-3-firstname" id="label-teacher-3-firstname">Teacher 3 firstname</label>
-						<input type="text" value="" id="teacher-3-firstname" name="teacher-3-firstname" aria-invalid="false" aria-labelledby="label-teacher-3-firstname">
-						<label for="teacher-3-lastname" id="teacher-3-lastname">Teacher 3 lastname</label>
-						<input type="text" value="" id="teacher-3-lastname" name="teacher-3-lastname" aria-invalid="false" aria-labelledby="label-teacher-3-lastname">
-					</fieldset>	
+                    <fieldset>
+                        <legend>Teacher 3</legend>
+                        <label for="teacher-3-firstname" id="label-teacher-3-firstname"><span class="sr-only">Teacher 3 </span>Firstname</label>
+                        <input type="text" value="" id="teacher-3-firstname" name="teacher-3-firstname" aria-invalid="false" aria-labelledby="label-teacher-3-firstname">
+                        <label for="teacher-3-lastname" id="teacher-3-lastname"><span class="sr-only">Teacher 3 </span>Lastname</label>
+                        <input type="text" value="" id="teacher-3-lastname" name="teacher-3-lastname" aria-invalid="false" aria-labelledby="label-teacher-3-lastname">
+                    </fieldset> 
 
-					<fieldset>
-						<legend>Teacher 4</legend>
-						<label for="teacher-4-firstname" id="label-teacher-4-firstname">Teacher 4 firstname</label>
-						<input type="text" value="" id="teacher-4-firstname" name="teacher-4-firstname" aria-invalid="false" aria-labelledby="label-teacher-4-firstname">
-						<label for="teacher-4-lastname" id="teacher-4-lastname">Teacher 4 lastname</label>
-						<input type="text" value="" id="teacher-4-lastname" name="teacher-4-lastname" aria-invalid="false" aria-labelledby="label-teacher-4-lastname">
-					</fieldset>
+                    <fieldset>
+                        <legend>Teacher 4</legend>
+                        <label for="teacher-4-firstname" id="label-teacher-4-firstname"><span class="sr-only">Teacher 4 </span>Firstname</label>
+                        <input type="text" value="" id="teacher-4-firstname" name="teacher-4-firstname" aria-invalid="false" aria-labelledby="label-teacher-4-firstname">
+                        <label for="teacher-4-lastname" id="teacher-4-lastname"><span class="sr-only">Teacher 4 </span>Lastname</label>
+                        <input type="text" value="" id="teacher-4-lastname" name="teacher-4-lastname" aria-invalid="false" aria-labelledby="label-teacher-4-lastname">
+                    </fieldset>
 
-					<fieldset>
-						<legend>Teacher 5</legend>
-						<label for="teacher-5-firstname" id="label-teacher-5-firstname">Teacher 5 firstname</label>
-						<input type="text" value="" id="teacher-5-firstname" name="teacher-5-firstname" aria-invalid="false" aria-labelledby="label-teacher-5-firstname">
-						<label for="teacher-5-lastname" id="teacher-5-lastname">Teacher 5 lastname</label>
-						<input type="text" value="" id="teacher-5-lastname" name="teacher-5-lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
-					</fieldset>	
-
-					</form>
+                    <fieldset>
+                        <legend>Teacher 5</legend>
+                        <label for="teacher-5-firstname" id="label-teacher-5-firstname"><span class="sr-only">Teacher 5 </span>Firstname</label>
+                        <input type="text" value="" id="teacher-5-firstname" name="teacher-5-firstname" aria-invalid="false" aria-labelledby="label-teacher-5-firstname">
+                        <label for="teacher-5-lastname" id="teacher-5-lastname"><span class="sr-only">Teacher 5 </span>Lastname</label>
+                        <input type="text" value="" id="teacher-5-lastname" name="teacher-5-lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
+                    </fieldset> 
+                </form>
                 <!-- /CONTENT -->
             </div>
         </div>

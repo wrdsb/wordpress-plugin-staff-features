@@ -267,8 +267,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-12" id="label-bms-expiry-12">BMS Expiry<span class="sr-only"> 12</span></label>
 						<input id="bms-expiry-12" name="bms-expiry-12" aria-invalid="false" aria-labelledby="label-bms-expiry-12" type="date" value="">
 					</fieldset>
-
-					</form>
+				</form>
                 <!-- /CONTENT -->
             </div>
         </div>

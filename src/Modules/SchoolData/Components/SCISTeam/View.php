@@ -224,8 +224,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="optional-5-i-e-liasion" id="label-optional-5-i-e-liasion"><span class="sr-only">Optional member and role 5 is </span>Indigenous &amp; Equity Liaison</label>
 						<input id="optional-5-i-e-liasion" name="optional-5-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-optional-5-i-e-liasion">
 					</fieldset>
-
-					</form>
+				</form>
                 <!-- /CONTENT -->
             </div>
         </div>
