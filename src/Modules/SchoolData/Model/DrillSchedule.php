@@ -3,7 +3,7 @@ namespace WRDSB\Staff\Modules\SchoolData\Model;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 /**
- * Define and register custom post type "DrillSchedule"
+ * Define and register custom post type "drillSchedule"
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -44,8 +44,8 @@ class DrillScheduleCPT {
             'set_featured_image'    => __('Set featured image', 'wrdsb'),
             'remove_featured_image' => __('Remove featured image', 'wrdsb'),
             'use_featured_image'    => __('Use as featured image', 'wrdsb'),
-            'insert_into_item'      => __('Insert into drill schedule', 'wrdsb'),
-            'uploaded_to_this_item' => __('Uploaded to this drill schedule', 'wrdsb'),
+            'insert_into_item'      => __('Insert into Drill Schedule', 'wrdsb'),
+            'uploaded_to_this_item' => __('Uploaded to this Drill Schedule', 'wrdsb'),
             'items_list'            => __('Drill Schedules list', 'wrdsb'),
             'items_list_navigation' => __('Drill Schedules list navigation', 'wrdsb'),
             'filter_items_list'     => __('Filter Drill Schedules list', 'wrdsb'),
@@ -69,7 +69,7 @@ class DrillScheduleCPT {
             'publicly_queryable'  => false,
             'capability_type'     => 'page',
             'rewrite'             => array(
-                'slug'       => 'drill-schedules',
+                'slug'       => 'drill-schedule',
                 'with_front' => false,
             ),
         );
