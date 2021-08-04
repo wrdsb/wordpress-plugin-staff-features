@@ -143,10 +143,10 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                     <fieldset>
                         <legend>Fire/Bomb Drill</legend>
-                        <label for="fire-bomb-drill-date" id="label-fire-bomb-drill-date"><span class="sr-only">Fire/Bomb Drill </span>Date</label>
-                        <input id="fire-bomb-drill-date" name="fire-bomb-drill-date" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-date" type="date" value="">
-                        <label for="fire-bomb-drill-time" id="label-fire-bomb-drill-time"><span class="sr-only">Fire/Bomb Drill </span>Time</label>
-                        <input id="fire-bomb-drill-time" name="fire-bomb-drill-time" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-time" type="time" value="">
+                        <label for="bomb-drill-date" id="label-fire-bomb-drill-date"><span class="sr-only">Fire/Bomb Drill </span>Date</label>
+                        <input id="bomb-drill-date" name="fire-bomb-drill-date" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-date" type="date" value="">
+                        <label for="bomb-drill-time" id="label-fire-bomb-drill-time"><span class="sr-only">Fire/Bomb Drill </span>Time</label>
+                        <input id="bomb-drill-time" name="fire-bomb-drill-time" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-time" type="time" value="">
                     </fieldset>
                     <button>Submit</button>
                     <button><a href="..">Cancel Update</a></button>
