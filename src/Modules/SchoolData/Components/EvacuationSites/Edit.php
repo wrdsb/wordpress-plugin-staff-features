@@ -185,6 +185,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="site-4-hours-end" id="label-site-4-hours-end"><span class="sr-only">Site 4 </span>Hours Available (end)</label>
 						<input type="time" value="" id="site-4-hours-end" name="site-4-hours-end" aria-invalid="false" aria-labelledby="label-site-4-hours-end">
 					</fieldset>
+                    <button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
 				</form>
                 <!-- /CONTENT -->
             </div>

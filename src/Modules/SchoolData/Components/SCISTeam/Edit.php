@@ -50,7 +50,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-3 col-lg-3" role="complementary">
+            <div class="col-sm-1 col-lg-1" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
                         <button type="button" class="navbar-toggle toggle-subnav" data-toggle="collapse" data-target=".sub-navbar-collapse">
@@ -110,12 +110,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 					
 					<fieldset>
 						<legend>Administrator</legend>
-						<label for="student-3-firstname" id="label-student-3-firstname"><span class="sr-only">Administrator </span>Firstname</label>
-						<input type="text" value="" id="student-3-firstname" name="student-3-firstname" aria-invalid="false" aria-labelledby="label-student-3-firstname"><br />
-						<label for="student-3-lastname" id="label-student-3-lastname"><span class="sr-only">Administrator </span>Lastname</label>
-						<input type="text" value="" id="student-3-lastname" name="student-3-lastname" aria-invalid="false" aria-labelledby="label-student-3-lastname"><br />
-						<label for="student-3-i-e-liasion" id="label-student-3-i-e-liasion"><span class="sr-only">Administrator is </span>Indigenous &amp; Equity Liaison</label>
-						<input id="student-3-i-e-liasion" name="student-3-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-student-3-i-e-liasion">
+						<label for="administrator-firstname" id="label-administrator-firstname"><span class="sr-only">Administrator </span>Firstname</label>
+						<input type="text" value="" id="administrator-firstname" name="administrator-firstname" aria-invalid="false" aria-labelledby="label-administrator-firstname"><br />
+						<label for="administrator-lastname" id="label-administrator-lastname"><span class="sr-only">Administrator </span>Lastname</label>
+						<input type="text" value="" id="administrator-lastname" name="administrator-lastname" aria-invalid="false" aria-labelledby="label-administrator-lastname"><br />
+						<label for="administrator-i-e-liasion" id="label-administrator-i-e-liasion"><span class="sr-only">Administrator is </span>Indigenous &amp; Equity Liaison</label>
+						<input id="administrator-i-e-liasion" name="administrator-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-administrator-i-e-liasion">
 					</fieldset>
 
 					<fieldset>
@@ -160,12 +160,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 					<fieldset>
 						<legend>Student 1</legend>
-						<label for="student-3-firstname" id="label-student-3-firstname"><span class="sr-only">Student 1 </span> Firstname</label>
-						<input type="text" value="" id="student-3-firstname" name="student-3-firstname" aria-invalid="false" aria-labelledby="label-student-3-firstname"><br />
-						<label for="student-3-lastname" id="label-student-3-lastname"><span class="sr-only">Student 1 </span> Lastname</label>
-						<input type="text" value="" id="student-3-lastname" name="student-3-lastname" aria-invalid="false" aria-labelledby="label-student-3-lastname"><br />
-						<label for="student-3-i-e-liasion" id="label-student-3-i-e-liasion"><span class="sr-only">Student 1 is </span>Indigenous &amp; Equity Liaison</label>
-						<input id="student-3-i-e-liasion" name="student-3-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-student-3-i-e-liasion">
+						<label for="student-1-firstname" id="label-student-1-firstname"><span class="sr-only">Student 1 </span> Firstname</label>
+						<input type="text" value="" id="student-1-firstname" name="student-1-firstname" aria-invalid="false" aria-labelledby="label-student-1-firstname"><br />
+						<label for="student-1-lastname" id="label-student-1-lastname"><span class="sr-only">Student 1 </span> Lastname</label>
+						<input type="text" value="" id="student-1-lastname" name="student-1-lastname" aria-invalid="false" aria-labelledby="label-student-1-lastname"><br />
+						<label for="student-1-i-e-liasion" id="label-student-1-i-e-liasion"><span class="sr-only">Student 1 is </span>Indigenous &amp; Equity Liaison</label>
+						<input id="student-1-i-e-liasion" name="student-1-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-student-1-i-e-liasion">
 					</fieldset>
 
 					<fieldset>
@@ -180,12 +180,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 					<fieldset>
 						<legend>Optional member and role 1</legend>
-						<label for="optional-3-firstname" id="label-optional-3-firstname"><span class="sr-only">Optional member and role 1 </span>Firstname</label>
-						<input type="text" value="" id="optional-3-firstname" name="optional-3-firstname" aria-invalid="false" aria-labelledby="label-optional-3-firstname"><br />
-						<label for="optional-3-lastname" id="label-optional-3-lastname"><span class="sr-only">Optional member and role 1 </span>Lastname</label>
-						<input type="text" value="" id="optional-3-lastname" name="optional-3-lastname" aria-invalid="false" aria-labelledby="label-optional-3-lastname"><br />
-						<label for="optional-3-i-e-liasion" id="label-optional-3-i-e-liasion"><span class="sr-only">Optional member and role 1 is </span>Indigenous &amp; Equity Liaison</label>
-						<input id="optional-3-i-e-liasion" name="optional-3-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-optional-3-i-e-liasion">
+						<label for="optional-1-firstname" id="label-optional-1-firstname"><span class="sr-only">Optional member and role 1 </span>Firstname</label>
+						<input type="text" value="" id="optional-1-firstname" name="optional-1-firstname" aria-invalid="false" aria-labelledby="label-optional-1-firstname"><br />
+						<label for="optional-1-lastname" id="label-optional-1-lastname"><span class="sr-only">Optional member and role 1 </span>Lastname</label>
+						<input type="text" value="" id="optional-1-lastname" name="optional-1-lastname" aria-invalid="false" aria-labelledby="label-optional-1-lastname"><br />
+						<label for="optional-1-i-e-liasion" id="label-optional-1-i-e-liasion"><span class="sr-only">Optional member and role 1 is </span>Indigenous &amp; Equity Liaison</label>
+						<input id="optional-1-i-e-liasion" name="optional-1-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-optional-1-i-e-liasion">
 					</fieldset>
 
 					<fieldset>
@@ -227,6 +227,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="optional-5-i-e-liasion" id="label-optional-5-i-e-liasion"><span class="sr-only">Optional member and role 5 is </span>Indigenous &amp; Equity Liaison</label>
 						<input id="optional-5-i-e-liasion" name="optional-5-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-optional-5-i-e-liasion">
 					</fieldset>
+                    <button>Submit</button>
+                    <button><a href="..">Cancel Update</a></button>
 				</form>
                 <!-- /CONTENT -->
             </div>
