@@ -153,7 +153,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="community-member-firstname" id="label-community-member-firstname"><span class="sr-only">Community Member </span> Firstname</label>
 						<input type="text" value="" id="community-member-firstname" name="community-member-firstname" aria-invalid="false" aria-labelledby="label-community-member-firstname"><br />
 						<label for="community-member-lastname" id="label-community-member-lastname"><span class="sr-only">Community Member </span> Lastname</label>
-						<input type="text" value="" id="community-member-lastname" name="community-member-lastname" aria-invalid="false" aria-labelledby="label-community-member-lastname"><br
+						<input type="text" value="" id="community-member-lastname" name="community-member-lastname" aria-invalid="false" aria-labelledby="label-community-member-lastname"><br />
 						<label for="community-member-i-e-liasion" id="label-community-member-i-e-liasion"><span class="sr-only">Community Member is </span>Indigenous &amp; Equity Liaison</label>
 						<input id="community-member-i-e-liasion" name="community-member-i-e-liasion" type="checkbox" value="1" aria-labelledby="label-community-member-i-e-liasion">
 					</fieldset>
