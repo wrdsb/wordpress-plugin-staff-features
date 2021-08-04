@@ -88,7 +88,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                 <div class="alert alert-info">
                     <p>All schools must now provide scheduled dates and times of their five (5) fire drills and one (1) combination fire/bomb drill to the local fire departments so they may support the schools by arranging for Fire Prevention Officers to be present during the drills.</p>
-                    <p>Please see all the <a href="https://staff.wrdsb.ca/school-teams/fire-bomb-drill/fire-department-schedule/">Fire Drill Schedule Information</a>.</p>
+                    <p>Please see all the <a href="https://staff.wrdsb.ca/school-teams/bomb-drill/fire-department-schedule/">Fire Drill Schedule Information</a>.</p>
                 </div>
 
                 <p class="alert alert-warning">Once this information has been collected and shared with the fire departments, any changes to these dates/times are to be communicated directly to your school’s local fire department by the school and/or administrator.</p>
@@ -104,49 +104,49 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <fieldset>
                         <legend>Fire Drill 1</legend>
                         <label for="fire-drill-1-date" id="label-fire-drill-1-date"><span class="sr-only">Fire Drill 1 </span>Date</label>
-                        <input id="fire-drill-1-date" name="fire-drill-1-date" aria-invalid="false" aria-labelledby="label-fire-drill-1-date" type="date" value="">
+                        <input id="fire-drill-1-date" name="fire_drill_1_date" aria-invalid="false" aria-labelledby="label-fire-drill-1-date" type="date" value="">
                         <label for="fire-drill-1-time" id="label-fire-drill-1-time"><span class="sr-only">Fire Drill 1 </span>Time</label>
-                        <input id="fire-drill-1-time" name="fire-drill-1-time" aria-invalid="false" aria-labelledby="label-fire-drill-1-time" type="time" value="">
+                        <input id="fire-drill-1-time" name="fire_drill_1_time" aria-invalid="false" aria-labelledby="label-fire-drill-1-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 2</legend>
                         <label for="fire-drill-2-date" id="label-fire-drill-2-date"><span class="sr-only">Fire Drill 2 </span>Date</label>
-                        <input id="fire-drill-2-date" name="fire-drill-2-date" aria-invalid="false" aria-labelledby="label-fire-drill-2-date" type="date" value="">
+                        <input id="fire-drill-2-date" name="fire_drill_2_date" aria-invalid="false" aria-labelledby="label-fire-drill-2-date" type="date" value="">
                         <label for="fire-drill-2-time" id="label-fire-drill-2-time"><span class="sr-only">Fire Drill 2 </span>Time</label>
-                        <input id="fire-drill-2-time" name="fire-drill-2-time" aria-invalid="false" aria-labelledby="label-fire-drill-2-time" type="time" value="">
+                        <input id="fire-drill-2-time" name="fire_drill_2_time" aria-invalid="false" aria-labelledby="label-fire-drill-2-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 3</legend>
                         <label for="fire-drill-3-date" id="label-fire-drill-3-date"><span class="sr-only">Fire Drill 3 </span>Date</label>
-                        <input id="fire-drill-3-date" name="fire-drill-3-date" aria-invalid="false" aria-labelledby="label-fire-drill-3-date" type="date" value="">
+                        <input id="fire-drill-3-date" name="fire_drill_3_date" aria-invalid="false" aria-labelledby="label-fire-drill-3-date" type="date" value="">
                         <label for="fire-drill-3-time" id="label-fire-drill-3-time"><span class="sr-only">Fire Drill 3 </span>Time</label>
-                        <input id="fire-drill-3-time" name="fire-drill-3-time" aria-invalid="false" aria-labelledby="label-fire-drill-3-time" type="time" value="">
+                        <input id="fire-drill-3-time" name="fire_drill_3_time" aria-invalid="false" aria-labelledby="label-fire-drill-3-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 4</legend>
                         <label for="fire-drill-4-date" id="label-fire-drill-4-date"><span class="sr-only">Fire Drill 4 </span>Date</label>
-                        <input id="fire-drill-4-date" name="fire-drill-4-date" aria-invalid="false" aria-labelledby="label-fire-drill-4-date" type="date" value="">
+                        <input id="fire-drill-4-date" name="fire_drill_4_date" aria-invalid="false" aria-labelledby="label-fire-drill-4-date" type="date" value="">
                         <label for="fire-drill-4-time" id="label-fire-drill-4-time"><span class="sr-only">Fire Drill 4 </span>Time</label>
-                        <input id="fire-drill-4-time" name="fire-drill-4-time" aria-invalid="false" aria-labelledby="label-fire-drill-4-time" type="time" value="">
+                        <input id="fire-drill-4-time" name="fire_drill_4_time" aria-invalid="false" aria-labelledby="label-fire-drill-4-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 5</legend>
                         <label for="fire-drill-5-date" id="label-fire-drill-5-date"><span class="sr-only">Fire Drill 5 </span>Date</label>
-                        <input id="fire-drill-5-date" name="fire-drill-5-date" aria-invalid="false" aria-labelledby="label-fire-drill-5-date" type="date" value="">
+                        <input id="fire-drill-5-date" name="fire_drill_5_date" aria-invalid="false" aria-labelledby="label-fire-drill-5-date" type="date" value="">
                         <label for="fire-drill-5-time" id="label-fire-drill-5-time"><span class="sr-only">Fire Drill 5 </span>Time</label>
-                        <input id="fire-drill-5-time" name="fire-drill-5-time" aria-invalid="false" aria-labelledby="label-fire-drill-5-time" type="time" value="">
+                        <input id="fire-drill-5-time" name="fire_drill_5_time" aria-invalid="false" aria-labelledby="label-fire-drill-5-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire/Bomb Drill</legend>
-                        <label for="bomb-drill-date" id="label-fire-bomb-drill-date"><span class="sr-only">Fire/Bomb Drill </span>Date</label>
-                        <input id="bomb-drill-date" name="fire-bomb-drill-date" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-date" type="date" value="">
-                        <label for="bomb-drill-time" id="label-fire-bomb-drill-time"><span class="sr-only">Fire/Bomb Drill </span>Time</label>
-                        <input id="bomb-drill-time" name="fire-bomb-drill-time" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-time" type="time" value="">
+                        <label for="bomb-drill-date" id="label-bomb-drill-date"><span class="sr-only">Fire/Bomb Drill </span>Date</label>
+                        <input id="bomb-drill-date" name="bomb_drill_date" aria-invalid="false" aria-labelledby="label-bomb-drill-date" type="date" value="">
+                        <label for="bomb-drill-time" id="label-bomb-drill-time"><span class="sr-only">Fire/Bomb Drill </span>Time</label>
+                        <input id="bomb-drill-time" name="bomb_drill_time" aria-invalid="false" aria-labelledby="label-bomb-drill-time" type="time" value="">
                     </fieldset>
                     <button>Submit</button>
                     <button><a href="..">Cancel Update</a></button>
