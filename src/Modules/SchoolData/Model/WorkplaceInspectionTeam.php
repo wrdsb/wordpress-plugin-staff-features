@@ -87,82 +87,82 @@ class WorkplaceInspectionTeamCPT {
             return;
         }
 
-        if (isset($_POST['principal_firstname'])) {
-            update_post_meta($post_id, 'principal_firstname', sanitize_text_field($_POST['principal_firstname']));
+        if (isset($_POST['principalFirstname'])) {
+            update_post_meta($post_id, 'principalFirstname', sanitize_text_field($_POST['principalFirstname']));
         }
-        if (isset($_POST['principal_lastname'])) {
-            update_post_meta($post_id, 'principal_lastname', sanitize_text_field($_POST['principal_lastname']));
+        if (isset($_POST['principalLastname'])) {
+            update_post_meta($post_id, 'principalLastname', sanitize_text_field($_POST['principalLastname']));
         }
-        if (isset($_POST['principal_affiliation'])) {
-            update_post_meta($post_id, 'principal_affiliation', sanitize_text_field($_POST['principal_affiliation']));
+        if (isset($_POST['principalAffiliation'])) {
+            update_post_meta($post_id, 'principalAffiliation', sanitize_text_field($_POST['principalAffiliation']));
         }
-        if (isset($_POST['principal_h_s_contact'])) {
-            update_post_meta($post_id, 'principal_h_s_contact', sanitize_text_field($_POST['principal_h_s_contact']));
-        }
-
-        if (isset($_POST['custodian_firstname'])) {
-            update_post_meta($post_id, 'custodian_firstname', sanitize_text_field($_POST['custodian_firstname']));
-        }
-        if (isset($_POST['custodian_lastname'])) {
-            update_post_meta($post_id, 'custodian_lastname', sanitize_text_field($_POST['custodian_lastname']));
-        }
-        if (isset($_POST['custodian_affiliation'])) {
-            update_post_meta($post_id, 'custodian_affiliation', sanitize_text_field($_POST['custodian_affiliation']));
-        }
-        if (isset($_POST['custodian_h_s_contact'])) {
-            update_post_meta($post_id, 'custodian_h_s_contact', sanitize_text_field($_POST['custodian_h_s_contact']));
+        if (isset($_POST['principalHSContact'])) {
+            update_post_meta($post_id, 'principalHSContact', sanitize_text_field($_POST['principalHSContact']));
         }
 
-        if (isset($_POST['staff_member_1_firstname'])) {
-            update_post_meta($post_id, 'staff_member_1_firstname', sanitize_text_field($_POST['staff_member_1_firstname']));
+        if (isset($_POST['custodianFirstname'])) {
+            update_post_meta($post_id, 'custodianFirstname', sanitize_text_field($_POST['custodianFirstname']));
         }
-        if (isset($_POST['staff_member_1_lastname'])) {
-            update_post_meta($post_id, 'staff_member_1_lastname', sanitize_text_field($_POST['staff_member_1_lastname']));
+        if (isset($_POST['custodianLastname'])) {
+            update_post_meta($post_id, 'custodianLastname', sanitize_text_field($_POST['custodianLastname']));
         }
-        if (isset($_POST['staff_member_1_affiliation'])) {
-            update_post_meta($post_id, 'staff_member_1_affiliation', sanitize_text_field($_POST['staff_member_1_affiliation']));
+        if (isset($_POST['custodianAffiliation'])) {
+            update_post_meta($post_id, 'custodianAffiliation', sanitize_text_field($_POST['custodianAffiliation']));
         }
-        if (isset($_POST['staff_member_1_h_s_contact'])) {
-            update_post_meta($post_id, 'staff_member_1_h_s_contact', sanitize_text_field($_POST['staff_member_1_h_s_contact']));
-        }
-
-        if (isset($_POST['staff_member_2_firstname'])) {
-            update_post_meta($post_id, 'staff_member_2_firstname', sanitize_text_field($_POST['staff_member_2_firstname']));
-        }
-        if (isset($_POST['staff_member_2_lastname'])) {
-            update_post_meta($post_id, 'staff_member_2_lastname', sanitize_text_field($_POST['staff_member_2_lastname']));
-        }
-        if (isset($_POST['staff_member_2_affiliation'])) {
-            update_post_meta($post_id, 'staff_member_2_affiliation', sanitize_text_field($_POST['staff_member_2_affiliation']));
-        }
-        if (isset($_POST['staff_member_2_h_s_contact'])) {
-            update_post_meta($post_id, 'staff_member_2_h_s_contact', sanitize_text_field($_POST['staff_member_2_h_s_contact']));
+        if (isset($_POST['custodianHSContact'])) {
+            update_post_meta($post_id, 'custodianHSContact', sanitize_text_field($_POST['custodianHSContact']));
         }
 
-        if (isset($_POST['staff_member_3_firstname'])) {
-            update_post_meta($post_id, 'staff_member_3_firstname', sanitize_text_field($_POST['staff_member_3_firstname']));
+        if (isset($_POST['staffMember1Firstname'])) {
+            update_post_meta($post_id, 'staffMember1Firstname', sanitize_text_field($_POST['staffMember1Firstname']));
         }
-        if (isset($_POST['staff_member_3_lastname'])) {
-            update_post_meta($post_id, 'staff_member_3_lastname', sanitize_text_field($_POST['staff_member_3_lastname']));
+        if (isset($_POST['staffMember1Lastname'])) {
+            update_post_meta($post_id, 'staffMember1Lastname', sanitize_text_field($_POST['staffMember1Lastname']));
         }
-        if (isset($_POST['staff_member_3_affiliation'])) {
-            update_post_meta($post_id, 'staff_member_3_affiliation', sanitize_text_field($_POST['staff_member_3_affiliation']));
+        if (isset($_POST['staffMember1Affiliation'])) {
+            update_post_meta($post_id, 'staffMember1Affiliation', sanitize_text_field($_POST['staffMember1Affiliation']));
         }
-        if (isset($_POST['staff_member_3_h_s_contact'])) {
-            update_post_meta($post_id, 'staff_member_3_h_s_contact', sanitize_text_field($_POST['staff_member_3_h_s_contact']));
+        if (isset($_POST['staffMember1HSContact'])) {
+            update_post_meta($post_id, 'staffMember1HSContact', sanitize_text_field($_POST['staffMember1HSContact']));
         }
 
-        if (isset($_POST['staff_member_4_firstname'])) {
-            update_post_meta($post_id, 'staff_member_4_firstname', sanitize_text_field($_POST['staff_member_4_firstname']));
+        if (isset($_POST['staffMember2Firstname'])) {
+            update_post_meta($post_id, 'staffMember2Firstname', sanitize_text_field($_POST['staffMember2Firstname']));
         }
-        if (isset($_POST['staff_member_4_lastname'])) {
-            update_post_meta($post_id, 'staff_member_4_lastname', sanitize_text_field($_POST['staff_member_4_lastname']));
+        if (isset($_POST['staffMember2Lastname'])) {
+            update_post_meta($post_id, 'staffMember2Lastname', sanitize_text_field($_POST['staffMember2Lastname']));
         }
-        if (isset($_POST['staff_member_4_affiliation'])) {
-            update_post_meta($post_id, 'staff_member_4_affiliation', sanitize_text_field($_POST['staff_member_4_affiliation']));
+        if (isset($_POST['staffMember2Affiliation'])) {
+            update_post_meta($post_id, 'staffMember2Affiliation', sanitize_text_field($_POST['staffMember2Affiliation']));
         }
-        if (isset($_POST['staff_member_4_h_s_contact'])) {
-            update_post_meta($post_id, 'staff_member_4_h_s_contact', sanitize_text_field($_POST['staff_member_4_h_s_contact']));
+        if (isset($_POST['staffMember2HSContact'])) {
+            update_post_meta($post_id, 'staffMember2HSContact', sanitize_text_field($_POST['staffMember2HSContact']));
+        }
+
+        if (isset($_POST['staffMember3Firstname'])) {
+            update_post_meta($post_id, 'staffMember3Firstname', sanitize_text_field($_POST['staffMember3Firstname']));
+        }
+        if (isset($_POST['staffMember3Lastname'])) {
+            update_post_meta($post_id, 'staffMember3Lastname', sanitize_text_field($_POST['staffMember3Lastname']));
+        }
+        if (isset($_POST['staffMember3Affiliation'])) {
+            update_post_meta($post_id, 'staffMember3Affiliation', sanitize_text_field($_POST['staffMember3Affiliation']));
+        }
+        if (isset($_POST['staffMember3HSContact'])) {
+            update_post_meta($post_id, 'staffMember3HSContact', sanitize_text_field($_POST['staffMember3HSContact']));
+        }
+
+        if (isset($_POST['staffMember4Firstname'])) {
+            update_post_meta($post_id, 'staffMember4Firstname', sanitize_text_field($_POST['staffMember4Firstname']));
+        }
+        if (isset($_POST['staffMember4Lastname'])) {
+            update_post_meta($post_id, 'staffMember4Lastname', sanitize_text_field($_POST['staffMember4Lastname']));
+        }
+        if (isset($_POST['staffMember4Affiliation'])) {
+            update_post_meta($post_id, 'staffMember4Affiliation', sanitize_text_field($_POST['staffMember4Affiliation']));
+        }
+        if (isset($_POST['staffMember4HSContact'])) {
+            update_post_meta($post_id, 'staffMember4HSContact', sanitize_text_field($_POST['staffMember4HSContact']));
         }
     }
 }

@@ -87,196 +87,196 @@ class EmergencyResponseTeamCPT {
             return;
         }
 
-        if (isset($_POST['firstname_1'])) {
-            update_post_meta($post_id, 'firstname_1', sanitize_text_field($_POST['firstname_1']));
+        if (isset($_POST['firstname1'])) {
+            update_post_meta($post_id, 'firstname1', sanitize_text_field($_POST['firstname1']));
         }
-        if (isset($_POST['lastname_1'])) {
-            update_post_meta($post_id, 'lastname_1', sanitize_text_field($_POST['lastname_1']));
+        if (isset($_POST['lastname1'])) {
+            update_post_meta($post_id, 'lastname1', sanitize_text_field($_POST['lastname1']));
         }
-        if (isset($_POST['cpr_expiry_1'])) {
-            update_post_meta($post_id, 'cpr_expiry_1', sanitize_text_field($_POST['cpr_expiry_1']));
+        if (isset($_POST['cprExpiry1'])) {
+            update_post_meta($post_id, 'cprExpiry1', sanitize_text_field($_POST['cprExpiry1']));
         }
-        if (isset($_POST['first_aid_expiry_1'])) {
-            update_post_meta($post_id, 'first_aid_expiry_1', sanitize_text_field($_POST['first_aid_expiry_1']));
+        if (isset($_POST['firstAidExpiry1'])) {
+            update_post_meta($post_id, 'firstAidExpiry1', sanitize_text_field($_POST['firstAidExpiry1']));
         }
-        if (isset($_POST['bms_expiry_1'])) {
-            update_post_meta($post_id, 'bms_expiry_1', sanitize_text_field($_POST['bms_expiry_1']));
-        }
-
-        if (isset($_POST['firstname_2'])) {
-            update_post_meta($post_id, 'firstname_2', sanitize_text_field($_POST['firstname_2']));
-        }
-        if (isset($_POST['lastname_2'])) {
-            update_post_meta($post_id, 'lastname_2', sanitize_text_field($_POST['lastname_2']));
-        }
-        if (isset($_POST['cpr_expiry_2'])) {
-            update_post_meta($post_id, 'cpr_expiry_2', sanitize_text_field($_POST['cpr_expiry_2']));
-        }
-        if (isset($_POST['first_aid_expiry_2'])) {
-            update_post_meta($post_id, 'first_aid_expiry_2', sanitize_text_field($_POST['first_aid_expiry_2']));
-        }
-        if (isset($_POST['bms_expiry_2'])) {
-            update_post_meta($post_id, 'bms_expiry_2', sanitize_text_field($_POST['bms_expiry_2']));
+        if (isset($_POST['bmsExpiry1'])) {
+            update_post_meta($post_id, 'bmsExpiry1', sanitize_text_field($_POST['bmsExpiry1']));
         }
 
-        if (isset($_POST['firstname_3'])) {
-            update_post_meta($post_id, 'firstname_3', sanitize_text_field($_POST['firstname_3']));
+        if (isset($_POST['firstname2'])) {
+            update_post_meta($post_id, 'firstname2', sanitize_text_field($_POST['firstname2']));
         }
-        if (isset($_POST['lastname_3'])) {
-            update_post_meta($post_id, 'lastname_3', sanitize_text_field($_POST['lastname_3']));
+        if (isset($_POST['lastname2'])) {
+            update_post_meta($post_id, 'lastname2', sanitize_text_field($_POST['lastname2']));
         }
-        if (isset($_POST['cpr_expiry_3'])) {
-            update_post_meta($post_id, 'cpr_expiry_3', sanitize_text_field($_POST['cpr_expiry_3']));
+        if (isset($_POST['cprExpiry2'])) {
+            update_post_meta($post_id, 'cprExpiry2', sanitize_text_field($_POST['cprExpiry2']));
         }
-        if (isset($_POST['first_aid_expiry_3'])) {
-            update_post_meta($post_id, 'first_aid_expiry_3', sanitize_text_field($_POST['first_aid_expiry_3']));
+        if (isset($_POST['firstAidExpiry2'])) {
+            update_post_meta($post_id, 'firstAidExpiry2', sanitize_text_field($_POST['firstAidExpiry2']));
         }
-        if (isset($_POST['bms_expiry_3'])) {
-            update_post_meta($post_id, 'bms_expiry_3', sanitize_text_field($_POST['bms_expiry_3']));
-        }
-
-        if (isset($_POST['firstname_4'])) {
-            update_post_meta($post_id, 'firstname_4', sanitize_text_field($_POST['firstname_4']));
-        }
-        if (isset($_POST['lastname_4'])) {
-            update_post_meta($post_id, 'lastname_4', sanitize_text_field($_POST['lastname_4']));
-        }
-        if (isset($_POST['cpr_expiry_4'])) {
-            update_post_meta($post_id, 'cpr_expiry_4', sanitize_text_field($_POST['cpr_expiry_4']));
-        }
-        if (isset($_POST['first_aid_expiry_4'])) {
-            update_post_meta($post_id, 'first_aid_expiry_4', sanitize_text_field($_POST['first_aid_expiry_4']));
-        }
-        if (isset($_POST['bms_expiry_4'])) {
-            update_post_meta($post_id, 'bms_expiry_4', sanitize_text_field($_POST['bms_expiry_4']));
+        if (isset($_POST['bmsExpiry2'])) {
+            update_post_meta($post_id, 'bmsExpiry2', sanitize_text_field($_POST['bmsExpiry2']));
         }
 
-        if (isset($_POST['firstname_5'])) {
-            update_post_meta($post_id, 'firstname_5', sanitize_text_field($_POST['firstname_5']));
+        if (isset($_POST['firstname3'])) {
+            update_post_meta($post_id, 'firstname3', sanitize_text_field($_POST['firstname3']));
         }
-        if (isset($_POST['lastname_5'])) {
-            update_post_meta($post_id, 'lastname_5', sanitize_text_field($_POST['lastname_5']));
+        if (isset($_POST['lastname3'])) {
+            update_post_meta($post_id, 'lastname3', sanitize_text_field($_POST['lastname3']));
         }
-        if (isset($_POST['cpr_expiry_5'])) {
-            update_post_meta($post_id, 'cpr_expiry_5', sanitize_text_field($_POST['cpr_expiry_5']));
+        if (isset($_POST['cprExpiry3'])) {
+            update_post_meta($post_id, 'cprExpiry3', sanitize_text_field($_POST['cprExpiry3']));
         }
-        if (isset($_POST['first_aid_expiry_5'])) {
-            update_post_meta($post_id, 'first_aid_expiry_5', sanitize_text_field($_POST['first_aid_expiry_5']));
+        if (isset($_POST['firstAidExpiry3'])) {
+            update_post_meta($post_id, 'firstAidExpiry3', sanitize_text_field($_POST['firstAidExpiry3']));
         }
-        if (isset($_POST['bms_expiry_5'])) {
-            update_post_meta($post_id, 'bms_expiry_5', sanitize_text_field($_POST['bms_expiry_5']));
-        }
-
-        if (isset($_POST['firstname_6'])) {
-            update_post_meta($post_id, 'firstname_6', sanitize_text_field($_POST['firstname_6']));
-        }
-        if (isset($_POST['lastname_6'])) {
-            update_post_meta($post_id, 'lastname_6', sanitize_text_field($_POST['lastname_6']));
-        }
-        if (isset($_POST['cpr_expiry_6'])) {
-            update_post_meta($post_id, 'cpr_expiry_6', sanitize_text_field($_POST['cpr_expiry_6']));
-        }
-        if (isset($_POST['first_aid_expiry_6'])) {
-            update_post_meta($post_id, 'first_aid_expiry_6', sanitize_text_field($_POST['first_aid_expiry_6']));
-        }
-        if (isset($_POST['bms_expiry_6'])) {
-            update_post_meta($post_id, 'bms_expiry_6', sanitize_text_field($_POST['bms_expiry_6']));
+        if (isset($_POST['bmsExpiry3'])) {
+            update_post_meta($post_id, 'bmsExpiry3', sanitize_text_field($_POST['bmsExpiry3']));
         }
 
-        if (isset($_POST['firstname_7'])) {
-            update_post_meta($post_id, 'firstname_7', sanitize_text_field($_POST['firstname_7']));
+        if (isset($_POST['firstname4'])) {
+            update_post_meta($post_id, 'firstname4', sanitize_text_field($_POST['firstname4']));
         }
-        if (isset($_POST['lastname_7'])) {
-            update_post_meta($post_id, 'lastname_7', sanitize_text_field($_POST['lastname_7']));
+        if (isset($_POST['lastname4'])) {
+            update_post_meta($post_id, 'lastname4', sanitize_text_field($_POST['lastname4']));
         }
-        if (isset($_POST['cpr_expiry_7'])) {
-            update_post_meta($post_id, 'cpr_expiry_7', sanitize_text_field($_POST['cpr_expiry_7']));
+        if (isset($_POST['cprExpiry4'])) {
+            update_post_meta($post_id, 'cprExpiry4', sanitize_text_field($_POST['cprExpiry4']));
         }
-        if (isset($_POST['first_aid_expiry_7'])) {
-            update_post_meta($post_id, 'first_aid_expiry_7', sanitize_text_field($_POST['first_aid_expiry_7']));
+        if (isset($_POST['firstAidExpiry4'])) {
+            update_post_meta($post_id, 'firstAidExpiry4', sanitize_text_field($_POST['firstAidExpiry4']));
         }
-        if (isset($_POST['bms_expiry_7'])) {
-            update_post_meta($post_id, 'bms_expiry_7', sanitize_text_field($_POST['bms_expiry_7']));
-        }
-
-        if (isset($_POST['firstname_8'])) {
-            update_post_meta($post_id, 'firstname_8', sanitize_text_field($_POST['firstname_8']));
-        }
-        if (isset($_POST['lastname_8'])) {
-            update_post_meta($post_id, 'lastname_8', sanitize_text_field($_POST['lastname_8']));
-        }
-        if (isset($_POST['cpr_expiry_8'])) {
-            update_post_meta($post_id, 'cpr_expiry_8', sanitize_text_field($_POST['cpr_expiry_8']));
-        }
-        if (isset($_POST['first_aid_expiry_8'])) {
-            update_post_meta($post_id, 'first_aid_expiry_8', sanitize_text_field($_POST['first_aid_expiry_8']));
-        }
-        if (isset($_POST['bms_expiry_8'])) {
-            update_post_meta($post_id, 'bms_expiry_8', sanitize_text_field($_POST['bms_expiry_8']));
+        if (isset($_POST['bmsExpiry4'])) {
+            update_post_meta($post_id, 'bmsExpiry4', sanitize_text_field($_POST['bmsExpiry4']));
         }
 
-        if (isset($_POST['firstname_9'])) {
-            update_post_meta($post_id, 'firstname_9', sanitize_text_field($_POST['firstname_9']));
+        if (isset($_POST['firstname5'])) {
+            update_post_meta($post_id, 'firstname5', sanitize_text_field($_POST['firstname5']));
         }
-        if (isset($_POST['lastname_9'])) {
-            update_post_meta($post_id, 'lastname_9', sanitize_text_field($_POST['lastname_9']));
+        if (isset($_POST['lastname5'])) {
+            update_post_meta($post_id, 'lastname5', sanitize_text_field($_POST['lastname5']));
         }
-        if (isset($_POST['cpr_expiry_9'])) {
-            update_post_meta($post_id, 'cpr_expiry_9', sanitize_text_field($_POST['cpr_expiry_9']));
+        if (isset($_POST['cprExpiry5'])) {
+            update_post_meta($post_id, 'cprExpiry5', sanitize_text_field($_POST['cprExpiry5']));
         }
-        if (isset($_POST['first_aid_expiry_9'])) {
-            update_post_meta($post_id, 'first_aid_expiry_9', sanitize_text_field($_POST['first_aid_expiry_9']));
+        if (isset($_POST['firstAidExpiry5'])) {
+            update_post_meta($post_id, 'firstAidExpiry5', sanitize_text_field($_POST['firstAidExpiry5']));
         }
-        if (isset($_POST['bms_expiry_9'])) {
-            update_post_meta($post_id, 'bms_expiry_9', sanitize_text_field($_POST['bms_expiry_9']));
-        }
-
-        if (isset($_POST['firstname_10'])) {
-            update_post_meta($post_id, 'firstname_10', sanitize_text_field($_POST['firstname_10']));
-        }
-        if (isset($_POST['lastname_10'])) {
-            update_post_meta($post_id, 'lastname_10', sanitize_text_field($_POST['lastname_10']));
-        }
-        if (isset($_POST['cpr_expiry_10'])) {
-            update_post_meta($post_id, 'cpr_expiry_10', sanitize_text_field($_POST['cpr_expiry_10']));
-        }
-        if (isset($_POST['first_aid_expiry_10'])) {
-            update_post_meta($post_id, 'first_aid_expiry_10', sanitize_text_field($_POST['first_aid_expiry_10']));
-        }
-        if (isset($_POST['bms_expiry_10'])) {
-            update_post_meta($post_id, 'bms_expiry_10', sanitize_text_field($_POST['bms_expiry_10']));
+        if (isset($_POST['bmsExpiry5'])) {
+            update_post_meta($post_id, 'bmsExpiry5', sanitize_text_field($_POST['bmsExpiry5']));
         }
 
-        if (isset($_POST['firstname_11'])) {
-            update_post_meta($post_id, 'firstname_11', sanitize_text_field($_POST['firstname_11']));
+        if (isset($_POST['firstname6'])) {
+            update_post_meta($post_id, 'firstname6', sanitize_text_field($_POST['firstname6']));
         }
-        if (isset($_POST['lastname_11'])) {
-            update_post_meta($post_id, 'lastname_11', sanitize_text_field($_POST['lastname_11']));
+        if (isset($_POST['lastname6'])) {
+            update_post_meta($post_id, 'lastname6', sanitize_text_field($_POST['lastname6']));
         }
-        if (isset($_POST['cpr_expiry_11'])) {
-            update_post_meta($post_id, 'cpr_expiry_11', sanitize_text_field($_POST['cpr_expiry_11']));
+        if (isset($_POST['cprExpiry6'])) {
+            update_post_meta($post_id, 'cprExpiry6', sanitize_text_field($_POST['cprExpiry6']));
         }
-        if (isset($_POST['first_aid_expiry_11'])) {
-            update_post_meta($post_id, 'first_aid_expiry_11', sanitize_text_field($_POST['first_aid_expiry_11']));
+        if (isset($_POST['firstAidExpiry6'])) {
+            update_post_meta($post_id, 'firstAidExpiry6', sanitize_text_field($_POST['firstAidExpiry6']));
         }
-        if (isset($_POST['bms_expiry_11'])) {
-            update_post_meta($post_id, 'bms_expiry_11', sanitize_text_field($_POST['bms_expiry_11']));
+        if (isset($_POST['bmsExpiry6'])) {
+            update_post_meta($post_id, 'bmsExpiry6', sanitize_text_field($_POST['bmsExpiry6']));
         }
 
-        if (isset($_POST['firstname_12'])) {
-            update_post_meta($post_id, 'firstname_12', sanitize_text_field($_POST['firstname_12']));
+        if (isset($_POST['firstname7'])) {
+            update_post_meta($post_id, 'firstname7', sanitize_text_field($_POST['firstname7']));
         }
-        if (isset($_POST['lastname_12'])) {
-            update_post_meta($post_id, 'lastname_12', sanitize_text_field($_POST['lastname_12']));
+        if (isset($_POST['lastname7'])) {
+            update_post_meta($post_id, 'lastname7', sanitize_text_field($_POST['lastname7']));
         }
-        if (isset($_POST['cpr_expiry_12'])) {
-            update_post_meta($post_id, 'cpr_expiry_12', sanitize_text_field($_POST['cpr_expiry_12']));
+        if (isset($_POST['cprExpiry7'])) {
+            update_post_meta($post_id, 'cprExpiry7', sanitize_text_field($_POST['cprExpiry7']));
         }
-        if (isset($_POST['first_aid_expiry_12'])) {
-            update_post_meta($post_id, 'first_aid_expiry_12', sanitize_text_field($_POST['first_aid_expiry_12']));
+        if (isset($_POST['firstAidExpiry7'])) {
+            update_post_meta($post_id, 'firstAidExpiry7', sanitize_text_field($_POST['firstAidExpiry7']));
         }
-        if (isset($_POST['bms_expiry_12'])) {
-            update_post_meta($post_id, 'bms_expiry_12', sanitize_text_field($_POST['bms_expiry_12']));
+        if (isset($_POST['bmsExpiry7'])) {
+            update_post_meta($post_id, 'bmsExpiry7', sanitize_text_field($_POST['bmsExpiry7']));
+        }
+
+        if (isset($_POST['firstname8'])) {
+            update_post_meta($post_id, 'firstname8', sanitize_text_field($_POST['firstname8']));
+        }
+        if (isset($_POST['lastname8'])) {
+            update_post_meta($post_id, 'lastname8', sanitize_text_field($_POST['lastname8']));
+        }
+        if (isset($_POST['cprExpiry8'])) {
+            update_post_meta($post_id, 'cprExpiry8', sanitize_text_field($_POST['cprExpiry8']));
+        }
+        if (isset($_POST['firstAidExpiry8'])) {
+            update_post_meta($post_id, 'firstAidExpiry8', sanitize_text_field($_POST['firstAidExpiry8']));
+        }
+        if (isset($_POST['bmsExpiry8'])) {
+            update_post_meta($post_id, 'bmsExpiry8', sanitize_text_field($_POST['bmsExpiry8']));
+        }
+
+        if (isset($_POST['firstname9'])) {
+            update_post_meta($post_id, 'firstname9', sanitize_text_field($_POST['firstname9']));
+        }
+        if (isset($_POST['lastname9'])) {
+            update_post_meta($post_id, 'lastname9', sanitize_text_field($_POST['lastname9']));
+        }
+        if (isset($_POST['cprExpiry9'])) {
+            update_post_meta($post_id, 'cprExpiry9', sanitize_text_field($_POST['cprExpiry9']));
+        }
+        if (isset($_POST['firstAidExpiry9'])) {
+            update_post_meta($post_id, 'firstAidExpiry9', sanitize_text_field($_POST['firstAidExpiry9']));
+        }
+        if (isset($_POST['bmsExpiry9'])) {
+            update_post_meta($post_id, 'bmsExpiry9', sanitize_text_field($_POST['bmsExpiry9']));
+        }
+
+        if (isset($_POST['firstname10'])) {
+            update_post_meta($post_id, 'firstname10', sanitize_text_field($_POST['firstname10']));
+        }
+        if (isset($_POST['lastname10'])) {
+            update_post_meta($post_id, 'lastname10', sanitize_text_field($_POST['lastname10']));
+        }
+        if (isset($_POST['cprExpiry10'])) {
+            update_post_meta($post_id, 'cprExpiry10', sanitize_text_field($_POST['cprExpiry10']));
+        }
+        if (isset($_POST['firstAidExpiry10'])) {
+            update_post_meta($post_id, 'firstAidExpiry10', sanitize_text_field($_POST['firstAidExpiry10']));
+        }
+        if (isset($_POST['bmsExpiry10'])) {
+            update_post_meta($post_id, 'bmsExpiry10', sanitize_text_field($_POST['bmsExpiry10']));
+        }
+
+        if (isset($_POST['firstname11'])) {
+            update_post_meta($post_id, 'firstname11', sanitize_text_field($_POST['firstname11']));
+        }
+        if (isset($_POST['lastname11'])) {
+            update_post_meta($post_id, 'lastname11', sanitize_text_field($_POST['lastname11']));
+        }
+        if (isset($_POST['cprExpiry11'])) {
+            update_post_meta($post_id, 'cprExpiry11', sanitize_text_field($_POST['cprExpiry11']));
+        }
+        if (isset($_POST['firstAidExpiry11'])) {
+            update_post_meta($post_id, 'firstAidExpiry11', sanitize_text_field($_POST['firstAidExpiry11']));
+        }
+        if (isset($_POST['bmsExpiry11'])) {
+            update_post_meta($post_id, 'bmsExpiry11', sanitize_text_field($_POST['bmsExpiry11']));
+        }
+
+        if (isset($_POST['firstname12'])) {
+            update_post_meta($post_id, 'firstname12', sanitize_text_field($_POST['firstname12']));
+        }
+        if (isset($_POST['lastname12'])) {
+            update_post_meta($post_id, 'lastname12', sanitize_text_field($_POST['lastname12']));
+        }
+        if (isset($_POST['cprExpiry12'])) {
+            update_post_meta($post_id, 'cprExpiry12', sanitize_text_field($_POST['cprExpiry12']));
+        }
+        if (isset($_POST['firstAidExpiry12'])) {
+            update_post_meta($post_id, 'firstAidExpiry12', sanitize_text_field($_POST['firstAidExpiry12']));
+        }
+        if (isset($_POST['bmsExpiry12'])) {
+            update_post_meta($post_id, 'bmsExpiry12', sanitize_text_field($_POST['bmsExpiry12']));
         }
     }
 }

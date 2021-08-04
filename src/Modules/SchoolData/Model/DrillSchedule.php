@@ -87,41 +87,41 @@ class DrillScheduleCPT {
             return;
         }
 
-        if (isset($_POST['fire_drill_1_date'])) {
-            update_post_meta($post_id, 'fire_drill_1_date', sanitize_text_field($_POST['fire_drill_1_date']));
+        if (isset($_POST['fireDrill1Date'])) {
+            update_post_meta($post_id, 'fireDrill1Date', sanitize_text_field($_POST['fireDrill1Date']));
         }
-        if (isset($_POST['fire_drill_1_time'])) {
-            update_post_meta($post_id, 'fire_drill_1_time', sanitize_text_field($_POST['fire_drill_1_time']));
+        if (isset($_POST['fireDrill1Time'])) {
+            update_post_meta($post_id, 'fireDrill1Time', sanitize_text_field($_POST['fireDrill1Time']));
         }
-        if (isset($_POST['fire_drill_2_date'])) {
-            update_post_meta($post_id, 'fire_drill_2_date', sanitize_text_field($_POST['fire_drill_2_date']));
+        if (isset($_POST['fireDrill2Date'])) {
+            update_post_meta($post_id, 'fireDrill2Date', sanitize_text_field($_POST['fireDrill2Date']));
         }
-        if (isset($_POST['fire_drill_2_time'])) {
-            update_post_meta($post_id, 'fire_drill_2_time', sanitize_text_field($_POST['fire_drill_2_time']));
+        if (isset($_POST['fireDrill2Time'])) {
+            update_post_meta($post_id, 'fireDrill2Time', sanitize_text_field($_POST['fireDrill2Time']));
         }
-        if (isset($_POST['fire_drill_3_date'])) {
-            update_post_meta($post_id, 'fire_drill_3_date', sanitize_text_field($_POST['fire_drill_3_date']));
+        if (isset($_POST['fireDrill3Date'])) {
+            update_post_meta($post_id, 'fireDrill3Date', sanitize_text_field($_POST['fireDrill3Date']));
         }
-        if (isset($_POST['fire_drill_3_time'])) {
-            update_post_meta($post_id, 'fire_drill_3_time', sanitize_text_field($_POST['fire_drill_3_time']));
+        if (isset($_POST['fireDrill3Time'])) {
+            update_post_meta($post_id, 'fireDrill3Time', sanitize_text_field($_POST['fireDrill3Time']));
         }
-        if (isset($_POST['fire_drill_4_date'])) {
-            update_post_meta($post_id, 'fire_drill_4_date', sanitize_text_field($_POST['fire_drill_4_date']));
+        if (isset($_POST['fireDrill4Date'])) {
+            update_post_meta($post_id, 'fireDrill4Date', sanitize_text_field($_POST['fireDrill4Date']));
         }
-        if (isset($_POST['fire_drill_4_time'])) {
-            update_post_meta($post_id, 'fire_drill_4_time', sanitize_text_field($_POST['fire_drill_4_time']));
+        if (isset($_POST['fireDrill4Time'])) {
+            update_post_meta($post_id, 'fireDrill4Time', sanitize_text_field($_POST['fireDrill4Time']));
         }
-        if (isset($_POST['fire_drill_5_date'])) {
-            update_post_meta($post_id, 'fire_drill_5_date', sanitize_text_field($_POST['fire_drill_5_date']));
+        if (isset($_POST['fireDrill5Date'])) {
+            update_post_meta($post_id, 'fireDrill5Date', sanitize_text_field($_POST['fireDrill5Date']));
         }
-        if (isset($_POST['fire_drill_5_time'])) {
-            update_post_meta($post_id, 'fire_drill_5_time', sanitize_text_field($_POST['fire_drill_5_time']));
+        if (isset($_POST['fireDrill5Time'])) {
+            update_post_meta($post_id, 'fireDrill5Time', sanitize_text_field($_POST['fireDrill5Time']));
         }
-        if (isset($_POST['bomb_drill_1_date'])) {
-            update_post_meta($post_id, 'bomb_drill_1_date', sanitize_text_field($_POST['bomb_drill_1_date']));
+        if (isset($_POST['bombDrill1Date'])) {
+            update_post_meta($post_id, 'bombDrill1Date', sanitize_text_field($_POST['bombDrill1Date']));
         }
-        if (isset($_POST['bomb_drill_1_time'])) {
-            update_post_meta($post_id, 'bomb_drill_1_time', sanitize_text_field($_POST['bomb_drill_1_time']));
+        if (isset($_POST['bombDrill1Time'])) {
+            update_post_meta($post_id, 'bombDrill1Time', sanitize_text_field($_POST['bombDrill1Time']));
         }
     }
 }
