@@ -101,12 +101,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 					
 					<fieldset>
 						<legend>Principal</legend>
-						<label for="principal-firstname" id="label-principal-firstname">Principal firstname</label>
-						<input type="text" value="" id="principal-firstname" name="principal-firstname" aria-invalid="false" aria-labelledby="label-principal-firstname">
-						<label for="principal-lastname" id="label-principal-lastname">Principal lastname</label>
-						<input type="text" value="" id="principal-lastname" name="principal-lastname" aria-invalid="false" aria-labelledby="label-principal-lastname">
-						<label for="principal-affiliation" id="label-principal-affiliation">Affiliation (Principal)</label>
-						<select id="principal-affiliation" name="principal-affiliation" aria-invalid="false" aria-labelledby="label-principal-affiliation">
+						<label for="principal-firstname" id="label-principal-firstname"><span class="sr-only">Principal </span>Firstname</label>
+						<input type="text" value="" id="principal-firstname" name="principal-firstname" aria-invalid="false" aria-labelledby="label-principal-firstname"><br />
+						<label for="principal-lastname" id="label-principal-lastname"><span class="sr-only">Principal </span>Lastname</label>
+						<input type="text" value="" id="principal-lastname" name="principal-lastname" aria-invalid="false" aria-labelledby="label-principal-lastname"><br />
+						<label for="principal-affiliation" id="label-principal-affiliation"><span class="sr-only">Principal</span> Affiliation</label>
+						<select id="principal-affiliation" name="principal-affiliation" aria-invalid="false" aria-labelledby="label-principal-affiliation">	
 							<option value="CAMA">CAMA</option>
 							<option value="OSSTF">OSSTF</option>
 							<option value="CUPE">CUPE</option>
@@ -120,19 +120,19 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="SSVPA">SSVPA</option>
 							<option value="OPC">OPC</option>
 							<option value="Management">Management</option>
-						</select>
-						<label for="principal-h-s-contact" id="label-principal-h-s-contact">H&amp;S Contact? (Principal) </label>
+						</select><br />
+						<label for="principal-h-s-contact" id="label-principal-h-s-contact"><span class="sr-only">Principal is </span>H&amp;S Contact?</label>
 						<input id="principal-h-s-contact" name="principal-h-s-contact" type="checkbox" value="1" aria-labelledby="label-principal-h-s-contact">
 					</fieldset>
 
 					<fieldset>
 						<legend>Custodian</legend>
-						<label for="custodian-firstname" id="label-custodian-firstname">Custodian firstname</label>
-						<input type="text" value="" id="custodian-firstname" name="custodian-firstname" aria-invalid="false" aria-describedby="error-708" aria-labelledby="label-custodian-firstname">
-						<label for="custodian-lastname" id="label-custodian-lastname">Custodian lastname</label>
-						<input type="text" value="" id="custodian-lastname" name="custodian-lastname" aria-invalid="false" aria-describedby="error-1108" aria-labelledby="label-custodian-lastname">
-						<label for="custodian-affiliation" id="label-custodian-affiliation">Affiliation (Custodian)</label>
-						<select id="custodian-affiliation" name="custodian-affiliation" aria-invalid="false" aria-describedby="error-1100" aria-labelledby="label-custodian-affiliation">
+						<label for="custodian-firstname" id="label-custodian-firstname"><span class="sr-only">Custodian </span>Firstname</label>
+						<input type="text" value="" id="custodian-firstname" name="custodian-firstname" aria-invalid="false" aria-labelledby="label-custodian-firstname"><br />
+						<label for="custodian-lastname" id="label-custodian-lastname"><span class="sr-only">Custodian </span>Lastname</label>
+						<input type="text" value="" id="custodian-lastname" name="custodian-lastname" aria-invalid="false" aria-labelledby="label-custodian-lastname"><br />
+						<label for="custodian-affiliation" id="label-custodian-affiliation"><span class="sr-only">Custodian </span>Affiliation</label>
+						<select id="custodian-affiliation" name="custodian-affiliation" aria-invalid="false" aria-labelledby="label-custodian-affiliation">
 							<option value="CAMA">CAMA</option>
 							<option value="OSSTF">OSSTF</option>
 							<option value="CUPE" selected="selected">CUPE</option>
@@ -146,19 +146,19 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="SSVPA">SSVPA</option>
 							<option value="OPC">OPC</option>
 							<option value="Management">Management</option>
-						</select>
-						<label for="custodian-h-s-contact" id="label-custodian-h-s-contact">H&amp;S Contact? (Custodian)</label>
-						<input id="custodian-h-s-contact" name="custodian-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-custodian-h-s-contact">
+						</select><br />
+						<label for="custodian-h-s-contact" id="label-custodian-h-s-contact"><span class="sr-only">Custodian is </span>H&amp;S Contact?</span></label>
+						<input id="custodian-h-s-contact" name="custodian-h-s-contact" type="checkbox" value="1" aria-labelledby="label-custodian-h-s-contact">
 					</fieldset>
 
 					<fieldset>
 						<legend>Staff Member 1</legend>
-						<label for="staff-member-1-firstname" id="label-staff-member-1-firstname">Staff Member 1 firstname</label>
-						<input type="text" value="" id="staff-member-1-firstname" name="staff-member-1-firstname" aria-invalid="false" aria-describedby="error-708" aria-labelledby="label-staff-member-1-firstname">
-						<label for="staff-member-1-lastname" id="label-staff-member-1-lastname">Staff Member 1 lastname</label>
-						<input type="text" value="" id="staff-member-1-lastname" name="staff-member-1-lastname" aria-invalid="false" aria-describedby="error-1108" aria-labelledby="label-staff-member-1-lastname">
-						<label for="staff-member-1-affiliation" id="label-staff-member-1-affiliation">Affiliation (Staff Member 1)</label>
-						<select id="staff-member-1-affiliation" name="staff-member-1-affiliation" aria-invalid="false" aria-describedby="error-1100" aria-labelledby="label-staff-member-1-affiliation">
+						<label for="staff-member-1-firstname" id="label-staff-member-1-firstname"><span class="sr-only">Staff Member 1 </span>Firstname</label>
+						<input type="text" value="" id="staff-member-1-firstname" name="staff-member-1-firstname" aria-invalid="false" aria-labelledby="label-staff-member-1-firstname"><br />
+						<label for="staff-member-1-lastname" id="label-staff-member-1-lastname"><span class="sr-only">Staff Member 1 </span>Lastname</label>
+						<input type="text" value="" id="staff-member-1-lastname" name="staff-member-1-lastname" aria-invalid="false" aria-labelledby="label-staff-member-1-lastname"><br />
+						<label for="staff-member-1-affiliation" id="label-staff-member-1-affiliation"><span class="sr-only">Staff Member 1 </span>Affiliation</label>
+						<select id="staff-member-1-affiliation" name="staff-member-1-affiliation" aria-invalid="false" aria-labelledby="label-staff-member-1-affiliation">
 							<option value="CAMA">CAMA</option>
 							<option value="OSSTF">OSSTF</option>
 							<option value="CUPE" selected="selected">CUPE</option>
@@ -172,19 +172,19 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="SSVPA">SSVPA</option>
 							<option value="OPC">OPC</option>
 							<option value="Management">Management</option>
-						</select>
-						<label for="staff-member-1-h-s-contact" id="label-staff-member-1-h-s-contact">H&amp;S Contact? (Staff Member 1)</label>
-						<input id="staff-member-1-h-s-contact" name="staff-member-1-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-staff-member-1-h-s-contact">
+						</select><br />
+						<label for="staff-member-1-h-s-contact" id="label-staff-member-1-h-s-contact"><span class="sr-only">Staff Member 1 is</span>H&amp;S Contact?</label>
+						<input id="staff-member-1-h-s-contact" name="staff-member-1-h-s-contact" type="checkbox" value="1" aria-labelledby="label-staff-member-1-h-s-contact">
 					</fieldset>
 
 					<fieldset>
 						<legend>Staff Member 2</legend>
-						<label for="staff-member-2-firstname" id="label-staff-member-2-firstname">Staff Member 2 firstname</label>
-						<input type="text" value="" id="staff-member-2-firstname" name="staff-member-2-firstname" aria-invalid="false" aria-describedby="error-708" aria-labelledby="label-staff-member-2-firstname">
-						<label for="staff-member-2-lastname" id="label-staff-member-2-lastname">Staff Member 2 lastname</label>
-						<input type="text" value="" id="staff-member-2-lastname" name="staff-member-2-lastname" aria-invalid="false" aria-describedby="error-1108" aria-labelledby="label-staff-member-2-lastname">
-						<label for="staff-member-2-affiliation" id="label-staff-member-2-affiliation">Affiliation (Staff Member 2)</label>
-						<select id="staff-member-2-affiliation" name="staff-member-2-affiliation" aria-invalid="false" aria-describedby="error-1100" aria-labelledby="label-staff-member-2-affiliation">
+						<label for="staff-member-2-firstname" id="label-staff-member-2-firstname"><span class="sr-only">Staff Member 2 </span>Firstname</label>
+						<input type="text" value="" id="staff-member-2-firstname" name="staff-member-2-firstname" aria-invalid="false" aria-labelledby="label-staff-member-2-firstname"><br />
+						<label for="staff-member-2-lastname" id="label-staff-member-2-lastname"><span class="sr-only">Staff Member 2 </span>Lastname</label>
+						<input type="text" value="" id="staff-member-2-lastname" name="staff-member-2-lastname" aria-invalid="false" aria-labelledby="label-staff-member-2-lastname"><br />
+						<label for="staff-member-2-affiliation" id="label-staff-member-2-affiliation"><span class="sr-only">Staff Member 2 </span>Affiliation</label>
+						<select id="staff-member-2-affiliation" name="staff-member-2-affiliation" aria-invalid="false" aria-labelledby="label-staff-member-2-affiliation">
 							<option value="CAMA">CAMA</option>
 							<option value="OSSTF">OSSTF</option>
 							<option value="CUPE" selected="selected">CUPE</option>
@@ -198,19 +198,45 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="SSVPA">SSVPA</option>
 							<option value="OPC">OPC</option>
 							<option value="Management">Management</option>
-						</select>
-						<label for="staff-member-2-h-s-contact" id="label-staff-member-2-h-s-contact">H&amp;S Contact? (Staff Member 2)</label>
-						<input id="staff-member-2-h-s-contact" name="staff-member-2-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-staff-member-2-h-s-contact">
+						</select><br />
+						<label for="staff-member-2-h-s-contact" id="label-staff-member-2-h-s-contact"><span class="sr-only">Staff Member 2 is </span>H&amp;S Contact?</label>
+						<input id="staff-member-2-h-s-contact" name="staff-member-2-h-s-contact" type="checkbox" value="1" aria-labelledby="label-staff-member-2-h-s-contact">
+					</fieldset>
+
+					<fieldset>
+						<legend>Staff Member 3</legend>
+						<label for="staff-member-3-firstname" id="label-staff-member-3-firstname"><span class="sr-only">Staff Member 3 </span>Firstname</label>
+						<input type="text" value="" id="staff-member-3-firstname" name="staff-member-3-firstname" aria-invalid="false" aria-labelledby="label-staff-member-3-firstname"><br />
+						<label for="staff-member-3-lastname" id="label-staff-member-3-lastname"><span class="sr-only">Staff Member 3 </span>Lastname</label>
+						<input type="text" value="" id="staff-member-3-lastname" name="staff-member-3-lastname" aria-invalid="false" aria-labelledby="label-staff-member-3-lastname"><br />
+						<label for="staff-member-3-affiliation" id="label-staff-member-3-affiliation"><span class="sr-only">Staff Member 3 </span>Affiliation</label>
+						<select id="staff-member-3-affiliation" name="staff-member-3-affiliation" aria-invalid="false" aria-labelledby="label-staff-member-3-affiliation">
+							<option value="CAMA">CAMA</option>
+							<option value="OSSTF">OSSTF</option>
+							<option value="CUPE" selected="selected">CUPE</option>
+							<option value="SMACA">SMACA</option>
+							<option value="ETFO">ETFO</option>
+							<option value="WREA">WREA</option>
+							<option value="EAA">EAA</option>
+							<option value="OSSTF">OSSTF</option>
+							<option value="ESS">ESS</option>
+							<option value="SSPA">SSPA</option>
+							<option value="SSVPA">SSVPA</option>
+							<option value="OPC">OPC</option>
+							<option value="Management">Management</option>
+						</select><br />
+						<label for="staff-member-3-h-s-contact" id="label-staff-member-3-h-s-contact"><span class="sr-only">Staff Member 3 is </span>H&amp;S Contact?</label>
+						<input id="staff-member-3-h-s-contact" name="staff-member-3-h-s-contact" type="checkbox" value="1" aria-labelledby="label-staff-member-3-h-s-contact">
 					</fieldset>
 
 					<fieldset>
 						<legend>Staff Member 4</legend>
-						<label for="staff-member-3-firstname" id="label-staff-member-3-firstname">Staff Member 4 firstname</label>
-						<input type="text" value="" id="staff-member-3-firstname" name="staff-member-3-firstname" aria-invalid="false" aria-describedby="error-708" aria-labelledby="label-staff-member-3-firstname">
-						<label for="staff-member-3-lastname" id="label-staff-member-3-lastname">Staff Member 4 lastname</label>
-						<input type="text" value="" id="staff-member-3-lastname" name="staff-member-3-lastname" aria-invalid="false" aria-describedby="error-1108" aria-labelledby="label-staff-member-3-lastname">
-						<label for="staff-member-3-affiliation" id="label-staff-member-3-affiliation">Affiliation (Staff Member 4)</label>
-						<select id="staff-member-3-affiliation" name="staff-member-3-affiliation" aria-invalid="false" aria-describedby="error-1100" aria-labelledby="label-staff-member-3-affiliation">
+						<label for="staff-member-4-firstname" id="label-staff-member-4-firstname"><span class="sr-only">Staff Member 4 </span>Firstname</label>
+						<input type="text" value="" id="staff-member-4-firstname" name="staff-member-4-firstname" aria-invalid="false" aria-labelledby="label-staff-member-4-firstname"><br />
+						<label for="staff-member-4-lastname" id="label-staff-member-4-lastname"><span class="sr-only">Staff Member 4 <span class="sr-only">Lastname</label>
+						<input type="text" value="" id="staff-member-4-lastname" name="staff-member-4-lastname" aria-invalid="false" aria-labelledby="label-staff-member-4-lastname"><br />
+						<label for="staff-member-4-affiliation" id="label-staff-member-4-affiliation"><span class="sr-only"><span class="sr-only">Staff Member 4 </span>Affiliation</label>
+						<select id="staff-member-4-affiliation" name="staff-member-4-affiliation" aria-invalid="false" aria-labelledby="label-staff-member-4-affiliation">
 							<option value="CAMA">CAMA</option>
 							<option value="OSSTF">OSSTF</option>
 							<option value="CUPE" selected="selected">CUPE</option>
@@ -224,35 +250,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="SSVPA">SSVPA</option>
 							<option value="OPC">OPC</option>
 							<option value="Management">Management</option>
-						</select>
-						<label for="staff-member-3-h-s-contact" id="label-staff-member-3-h-s-contact">H&amp;S Contact? (Staff Member 4)</label>
-						<input id="staff-member-3-h-s-contact" name="staff-member-3-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-staff-member-3-h-s-contact">
-					</fieldset>
-
-					<fieldset>
-						<legend>Staff Member 4</legend>
-						<label for="staff-member-4-firstname" id="label-staff-member-4-firstname">Staff Member 4 firstname</label>
-						<input type="text" value="" id="staff-member-4-firstname" name="staff-member-4-firstname" aria-invalid="false" aria-describedby="error-708" aria-labelledby="label-staff-member-4-firstname">
-						<label for="staff-member-4-lastname" id="label-staff-member-4-lastname">Staff Member 4 lastname</label>
-						<input type="text" value="" id="staff-member-4-lastname" name="staff-member-4-lastname" aria-invalid="false" aria-describedby="error-1108" aria-labelledby="label-staff-member-4-lastname">
-						<label for="staff-member-4-affiliation" id="label-staff-member-4-affiliation">Affiliation (Staff Member 4)</label>
-						<select id="staff-member-4-affiliation" name="staff-member-4-affiliation" aria-invalid="false" aria-describedby="error-1100" aria-labelledby="label-staff-member-4-affiliation">
-							<option value="CAMA">CAMA</option>
-							<option value="OSSTF">OSSTF</option>
-							<option value="CUPE" selected="selected">CUPE</option>
-							<option value="SMACA">SMACA</option>
-							<option value="ETFO">ETFO</option>
-							<option value="WREA">WREA</option>
-							<option value="EAA">EAA</option>
-							<option value="OSSTF">OSSTF</option>
-							<option value="ESS">ESS</option>
-							<option value="SSPA">SSPA</option>
-							<option value="SSVPA">SSVPA</option>
-							<option value="OPC">OPC</option>
-							<option value="Management">Management</option>
-						</select>
-						<label for="staff-member-4-h-s-contact" id="label-staff-member-4-h-s-contact">H&amp;S Contact? (Staff Member 4)</label>
-						<input id="staff-member-4-h-s-contact" name="staff-member-4-h-s-contact" aria-describedby="error-710" type="checkbox" value="1" aria-labelledby="label-staff-member-4-h-s-contact">
+						</select><br />
+						<label for="staff-member-4-h-s-contact" id="label-staff-member-4-h-s-contact"><span class="sr-only">Staff Member 4 is </span>H&amp;S Contact?</label>
+						<input id="staff-member-4-h-s-contact" name="staff-member-4-h-s-contact" type="checkbox" value="1" aria-labelledby="label-staff-member-4-h-s-contact">
 					</fieldset>
 
                     <button>Submit</button>

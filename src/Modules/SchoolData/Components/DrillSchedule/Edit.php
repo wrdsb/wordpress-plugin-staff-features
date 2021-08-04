@@ -67,15 +67,15 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         </div>
                         <div class="sub-menu-items">
                             <ul>
-								<ul>
-									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">Drill Schedule</a></li>
-									<li><a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/">Emergency Response Team</a></li>
+                                <ul>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">Drill Schedule</a></li>
+                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/">Emergency Response Team</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/evacuation-sites/">Evacuation Sites</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/">IPRC</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/scis-team">SCIS Team</a></li>
                                     <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/">Workplace Inspection Team</a></li>
-                        	    </ul>
-							</ul>
+                                </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
-				<h1><?php echo $page_title; ?></h1>
+                <h1><?php echo $page_title; ?></h1>
                 <p><button><a href="..">Cancel Update</a></button></p>
 
                 <div class="alert alert-info">
@@ -103,52 +103,51 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                     <fieldset>
                         <legend>Fire Drill 1</legend>
-                        <label for="fire-drill-1-date" id="label-fire-drill-1-date">Fire Drill 1 date</label>
+                        <label for="fire-drill-1-date" id="label-fire-drill-1-date"><span class="sr-only">Fire Drill 1 </span>Date</label>
                         <input id="fire-drill-1-date" name="fire-drill-1-date" aria-invalid="false" aria-labelledby="label-fire-drill-1-date" type="date" value="">
-                        <label for="fire-drill-1-time" id="label-fire-drill-1-time">Fire Drill 1 time</label>
-                        <input id="ffire-drill-1-time" name="fire-drill-1-time" aria-invalid="false" aria-labelledby="label-fire-drill-1-time" type="time" value="">
+                        <label for="fire-drill-1-time" id="label-fire-drill-1-time"><span class="sr-only">Fire Drill 1 </span>Time</label>
+                        <input id="fire-drill-1-time" name="fire-drill-1-time" aria-invalid="false" aria-labelledby="label-fire-drill-1-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 2</legend>
-                        <label for="fire-drill-2-date" id="label-fire-drill-2-date">Fire Drill 2 date</label>
+                        <label for="fire-drill-2-date" id="label-fire-drill-2-date"><span class="sr-only">Fire Drill 2 </span>Date</label>
                         <input id="fire-drill-2-date" name="fire-drill-2-date" aria-invalid="false" aria-labelledby="label-fire-drill-2-date" type="date" value="">
-                        <label for="fire-drill-2-time" id="label-fire-drill-2-time">Fire Drill 2 time</label>
-                        <input id="ffire-drill-2-time" name="fire-drill-2-time" aria-invalid="false" aria-labelledby="label-fire-drill-2-time" type="time" value="">
+                        <label for="fire-drill-2-time" id="label-fire-drill-2-time"><span class="sr-only">Fire Drill 2 </span>Time</label>
+                        <input id="fire-drill-2-time" name="fire-drill-2-time" aria-invalid="false" aria-labelledby="label-fire-drill-2-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 3</legend>
-                        <label for="fire-drill-3-date" id="label-fire-drill-3-date">Fire Drill 3 date</label>
+                        <label for="fire-drill-3-date" id="label-fire-drill-3-date"><span class="sr-only">Fire Drill 3 </span>Date</label>
                         <input id="fire-drill-3-date" name="fire-drill-3-date" aria-invalid="false" aria-labelledby="label-fire-drill-3-date" type="date" value="">
-                        <label for="fire-drill-3-time" id="label-fire-drill-3-time">Fire Drill 3 time</label>
-                        <input id="ffire-drill-3-time" name="fire-drill-3-time" aria-invalid="false" aria-labelledby="label-fire-drill-3-time" type="time" value="">
+                        <label for="fire-drill-3-time" id="label-fire-drill-3-time"><span class="sr-only">Fire Drill 3 </span>Time</label>
+                        <input id="fire-drill-3-time" name="fire-drill-3-time" aria-invalid="false" aria-labelledby="label-fire-drill-3-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 4</legend>
-                        <label for="fire-drill-4-date" id="label-fire-drill-4-date">Fire Drill 4 date</label>
+                        <label for="fire-drill-4-date" id="label-fire-drill-4-date"><span class="sr-only">Fire Drill 4 </span>Date</label>
                         <input id="fire-drill-4-date" name="fire-drill-4-date" aria-invalid="false" aria-labelledby="label-fire-drill-4-date" type="date" value="">
-                        <label for="fire-drill-4-time" id="label-fire-drill-4-time">Fire Drill 4 time</label>
-                        <input id="ffire-drill-4-time" name="fire-drill-4-time" aria-invalid="false" aria-labelledby="label-fire-drill-4-time" type="time" value="">
+                        <label for="fire-drill-4-time" id="label-fire-drill-4-time"><span class="sr-only">Fire Drill 4 </span>Time</label>
+                        <input id="fire-drill-4-time" name="fire-drill-4-time" aria-invalid="false" aria-labelledby="label-fire-drill-4-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire Drill 5</legend>
-                        <label for="fire-drill-5-date" id="label-fire-drill-5-date">Fire Drill 5 date</label>
+                        <label for="fire-drill-5-date" id="label-fire-drill-5-date"><span class="sr-only">Fire Drill 5 </span>Date</label>
                         <input id="fire-drill-5-date" name="fire-drill-5-date" aria-invalid="false" aria-labelledby="label-fire-drill-5-date" type="date" value="">
-                        <label for="fire-drill-5-time" id="label-fire-drill-5-time">Fire Drill 5 time</label>
-                        <input id="ffire-drill-5-time" name="fire-drill-5-time" aria-invalid="false" aria-labelledby="label-fire-drill-5-time" type="time" value="">
+                        <label for="fire-drill-5-time" id="label-fire-drill-5-time"><span class="sr-only">Fire Drill 5 </span>Time</label>
+                        <input id="fire-drill-5-time" name="fire-drill-5-time" aria-invalid="false" aria-labelledby="label-fire-drill-5-time" type="time" value="">
                     </fieldset>
 
                     <fieldset>
                         <legend>Fire/Bomb Drill</legend>
-                        <label for="fire-bomb-drill-date" id="label-fire-bomb-drill-date">Fire/Bomb Drill date</label>
+                        <label for="fire-bomb-drill-date" id="label-fire-bomb-drill-date"><span class="sr-only">Fire/Bomb Drill </span>Date</label>
                         <input id="fire-bomb-drill-date" name="fire-bomb-drill-date" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-date" type="date" value="">
-                        <label for="fire-bomb-drill-time" id="label-fire-bomb-drill-time">Fire/Bomb Drill time</label>
+                        <label for="fire-bomb-drill-time" id="label-fire-bomb-drill-time"><span class="sr-only">Fire/Bomb Drill </span>Time</label>
                         <input id="fire-bomb-drill-time" name="fire-bomb-drill-time" aria-invalid="false" aria-labelledby="label-fire-bomb-drill-time" type="time" value="">
                     </fieldset>
-
                     <button>Submit</button>
                     <button><a href="..">Cancel Update</a></button>
                 </form>

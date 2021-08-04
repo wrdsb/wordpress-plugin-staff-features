@@ -97,93 +97,92 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 					<fieldset>
 						<legend>Site 1</legend>
-						<label for="site-1-name" id="label-site-1-name">Site 1 name</label>
+						<label for="site-1-name" id="label-site-1-name"><span class="sr-only">Site 1 </span>Name</label>
 						<input type="text" value="" id="site-1-name" name="site-1-name" aria-invalid="false" aria-labelledby="label-site-1-name">
-						<label for="site-1-address" id="label-site-1-address">Site 1 address</label>
+						<label for="site-1-address" id="label-site-1-address"><span class="sr-only">Site 1 </span>Address</label>
 						<input type="text" value="" id="site-1-address" name="site-1-address" aria-invalid="false" aria-labelledby="label-site-1-address">
-						<label for="site-1-city" id="label-site-1-city">Site 1 city</label>
+						<label for="site-1-city" id="label-site-1-city"><span class="sr-only">Site 1 </span>City</label>
 						<input type="text" value="" id="site-1-city" name="site-1-city" aria-invalid="false" aria-labelledby="label-site-1-city">
-						<label for="site-1-postal-code" id="label-site-1-postal-code">Site 1 postal code</label>
-						<input type="text" value="" id="site-1-postal-code" name="site-1-postal-code" aria-invalid="false" aria-labelledby="label-site-1-postal-code">
-						<label for="site-1-firstname" id="label-site-1-firstname">Site 1 contact firstname</label>
+						<label for="site-1-postal-code" id="label-site-1-postal-code"><span class="sr-only">Site 1 </span>postal code</label>
+						<input type="text" value="" id="site-1-postal-code" name="site-1-postal-code" aria-invalid="false" aria-labelledby="label-site-1-postal-code"><br />
+						<label for="site-1-firstname" id="label-site-1-firstname"><span class="sr-only">Site 1 </span>Contact Firstname</label>
 						<input type="text" value="" id="site-1-firstname" name="site-1-firstname" aria-invalid="false" aria-labelledby="label-site-1-firstname">
-						<label for="site-1-lastname" id="label-site-1-lastname">Site 1 contact lastname</label>
+						<label for="site-1-lastname" id="label-site-1-lastname"><span class="sr-only">Site 1 </span>Contact Lastname</label>
 						<input type="text" value="" id="site-1-lastname" name="site-1-lastname" aria-invalid="false" aria-labelledby="label-site-1-lastname">
-						<label for="site-1-phone" id="label-site-1-phone">Site 1 phone number</label>
-						<input type="text" value="" id="site-1-phone" name="site-1-phone" aria-invalid="false" aria-labelledby="label-site-1-phone">
-						<label for="site-1-hours-start" id="label-site-1-hours-start">Site 1 hours available start</label>
+						<label for="site-1-phone" id="label-site-1-phone"><span class="sr-only">Site 1 </span>Contact Phone</label>
+						<input type="text" value="" id="site-1-phone" name="site-1-phone" aria-invalid="false" aria-labelledby="label-site-1-phone"><br />
+						<label for="site-1-hours-start" id="label-site-1-hours-start"><span class="sr-only">Site 1 </span>Hours Available (start)</label>
 						<input type="time" value="" id="site-1-hours-start" name="site-1-hours-start" aria-invalid="false" aria-labelledby="label-site-1-hours-start">
-						<label for="site-1-hours-end" id="label-site-1-hours-end">Site 1 hours available end</label>
+						<label for="site-1-hours-end" id="label-site-1-hours-end"><span class="sr-only">Site 1 </span>Hours Available (end)</label>
 						<input type="time" value="" id="site-1-hours-end" name="site-1-hours-end" aria-invalid="false" aria-labelledby="label-site-1-hours-end">
 					</fieldset>
 
 					<fieldset>
 						<legend>Site 2</legend>
-						<label for="site-2-name" id="label-site-2-name">Site 2 name</label>
+						<label for="site-2-name" id="label-site-2-name"><span class="sr-only">Site 2 </span>Name</label>
 						<input type="text" value="" id="site-2-name" name="site-2-name" aria-invalid="false" aria-labelledby="label-site-2-name">
-						<label for="site-2-address" id="label-site-2-address">Site 2 address</label>
+						<label for="site-2-address" id="label-site-2-address"><span class="sr-only">Site 2 </span>Address</label>
 						<input type="text" value="" id="site-2-address" name="site-2-address" aria-invalid="false" aria-labelledby="label-site-2-address">
-						<label for="site-2-city" id="label-site-2-city">Site 2 city</label>
+						<label for="site-2-city" id="label-site-2-city"><span class="sr-only">Site 2 </span>City</label>
 						<input type="text" value="" id="site-2-city" name="site-2-city" aria-invalid="false" aria-labelledby="label-site-2-city">
-						<label for="site-2-postal-code" id="label-site-2-postal-code">Site 2 postal code</label>
-						<input type="text" value="" id="site-2-postal-code" name="site-2-postal-code" aria-invalid="false" aria-labelledby="label-site-2-postal-code">
-						<label for="site-2-firstname" id="label-site-2-firstname">Site 2 contact firstname</label>
+						<label for="site-2-postal-code" id="label-site-2-postal-code"><span class="sr-only">Site 2 </span>postal code</label>
+						<input type="text" value="" id="site-2-postal-code" name="site-2-postal-code" aria-invalid="false" aria-labelledby="label-site-2-postal-code"><br />
+						<label for="site-2-firstname" id="label-site-2-firstname"><span class="sr-only">Site 2 </span>Contact Firstname</label>
 						<input type="text" value="" id="site-2-firstname" name="site-2-firstname" aria-invalid="false" aria-labelledby="label-site-2-firstname">
-						<label for="site-2-lastname" id="label-site-2-lastname">Site 2 contact lastname</label>
+						<label for="site-2-lastname" id="label-site-2-lastname"><span class="sr-only">Site 2 </span>Contact Lastname</label>
 						<input type="text" value="" id="site-2-lastname" name="site-2-lastname" aria-invalid="false" aria-labelledby="label-site-2-lastname">
-						<label for="site-2-phone" id="label-site-2-phone">Site 2 phone number</label>
-						<input type="text" value="" id="site-2-phone" name="site-2-phone" aria-invalid="false" aria-labelledby="label-site-2-phone">
-						<label for="site-2-hours-start" id="label-site-2-hours-start">Site 2 hours available start</label>
+						<label for="site-2-phone" id="label-site-2-phone"><span class="sr-only">Site 2 </span>Contact Phone</label>
+						<input type="text" value="" id="site-2-phone" name="site-2-phone" aria-invalid="false" aria-labelledby="label-site-2-phone"><br />
+						<label for="site-2-hours-start" id="label-site-2-hours-start"><span class="sr-only">Site 2 </span>Hours Available (start)</label>
 						<input type="time" value="" id="site-1-hours-start" name="site-1-hours-start" aria-invalid="false" aria-labelledby="label-site-2-hours-start">
-						<label for="site-2-hours-end" id="label-site-2-hours-end">Site 2 hours available end</label>
+						<label for="site-2-hours-end" id="label-site-2-hours-end"><span class="sr-only">Site 2 </span>Hours Available (end)</label>
 						<input type="time" value="" id="site-2-hours-end" name="site-2-hours-end" aria-invalid="false" aria-labelledby="label-site-2-hours-end">
 					</fieldset>
 
 					<fieldset>
 						<legend>Site 3</legend>
-						<label for="site-3-name" id="label-site-3-name">Site 3 name</label>
+						<label for="site-3-name" id="label-site-3-name"><span class="sr-only">Site 3 </span>Name</label>
 						<input type="text" value="" id="site-3-name" name="site-3-name" aria-invalid="false" aria-labelledby="label-site-3-name">
-						<label for="site-3-address" id="label-site-3-address">Site 3 address</label>
+						<label for="site-3-address" id="label-site-3-address"><span class="sr-only">Site 3 </span>Address</label>
 						<input type="text" value="" id="site-3-address" name="site-3-address" aria-invalid="false" aria-labelledby="label-site-3-address">
-						<label for="site-3-city" id="label-site-3-city">Site 3 city</label>
+						<label for="site-3-city" id="label-site-3-city"><span class="sr-only">Site 3 </span>City</label>
 						<input type="text" value="" id="site-3-city" name="site-3-city" aria-invalid="false" aria-labelledby="label-site-3-city">
-						<label for="site-3-postal-code" id="label-site-3-postal-code">Site 3 postal code</label>
-						<input type="text" value="" id="site-3-postal-code" name="site-3-postal-code" aria-invalid="false" aria-labelledby="label-site-3-postal-code">
-						<label for="site-3-firstname" id="label-site-3-firstname">Site 3 contact firstname</label>
+						<label for="site-3-postal-code" id="label-site-3-postal-code"><span class="sr-only">Site 3 </span>postal code</label>
+						<input type="text" value="" id="site-3-postal-code" name="site-3-postal-code" aria-invalid="false" aria-labelledby="label-site-3-postal-code"><br />
+						<label for="site-3-firstname" id="label-site-3-firstname"><span class="sr-only">Site 3 </span>Contact Firstname</label>
 						<input type="text" value="" id="site-3-firstname" name="site-3-firstname" aria-invalid="false" aria-labelledby="label-site-3-firstname">
-						<label for="site-3-lastname" id="label-site-3-lastname">Site 3 contact lastname</label>
+						<label for="site-3-lastname" id="label-site-3-lastname"><span class="sr-only">Site 3 </span>Contact Lastname</label>
 						<input type="text" value="" id="site-3-lastname" name="site-3-lastname" aria-invalid="false" aria-labelledby="label-site-3-lastname">
-						<label for="site-3-phone" id="label-site-3-phone">Site 3 phone number</label>
-						<input type="text" value="" id="site-3-phone" name="site-3-phone" aria-invalid="false" aria-labelledby="label-site-3-phone">
-						<label for="site-3-hours-start" id="label-site-3-hours-start">Site 3 hours available start</label>
+						<label for="site-3-phone" id="label-site-3-phone"><span class="sr-only">Site 3 </span>Contact Phone</label>
+						<input type="text" value="" id="site-3-phone" name="site-3-phone" aria-invalid="false" aria-labelledby="label-site-3-phone"><br />
+						<label for="site-3-hours-start" id="label-site-3-hours-start"><span class="sr-only">Site 3 </span>Hours Available (start)</label>
 						<input type="time" value="" id="site-3-hours-start" name="site-3-hours-start" aria-invalid="false" aria-labelledby="label-site-3-hours-start">
-						<label for="site-3-hours-end" id="label-site-3-hours-end">Site 3 hours available end</label>
+						<label for="site-3-hours-end" id="label-site-3-hours-end"><span class="sr-only">Site 3 </span>Hours Available (end)</label>
 						<input type="time" value="" id="site-3-hours-end" name="site-3-hours-end" aria-invalid="false" aria-labelledby="label-site-3-hours-end">
 					</fieldset>
 
 					<fieldset>
 						<legend>Site 4</legend>
-						<label for="site-4-name" id="label-site-4-name">Site 4 name</label>
+						<label for="site-4-name" id="label-site-4-name"><span class="sr-only">Site 4 </span>Name</label>
 						<input type="text" value="" id="site-4-name" name="site-4-name" aria-invalid="false" aria-labelledby="label-site-4-name">
-						<label for="site-4-address" id="label-site-4-address">Site 4 address</label>
+						<label for="site-4-address" id="label-site-4-address"><span class="sr-only">Site 4 </span>Address</label>
 						<input type="text" value="" id="site-4-address" name="site-4-address" aria-invalid="false" aria-labelledby="label-site-4-address">
-						<label for="site-4-city" id="label-site-4-city">Site 4 city</label>
+						<label for="site-4-city" id="label-site-4-city"><span class="sr-only">Site 4 </span>City</label>
 						<input type="text" value="" id="site-4-city" name="site-4-city" aria-invalid="false" aria-labelledby="label-site-4-city">
-						<label for="site-4-postal-code" id="label-site-4-postal-code">Site 4 postal code</label>
-						<input type="text" value="" id="site-4-postal-code" name="site-4-postal-code" aria-invalid="false" aria-labelledby="label-site-4-postal-code">
-						<label for="site-4-firstname" id="label-site-4-firstname">Site 4 contact firstname</label>
+						<label for="site-4-postal-code" id="label-site-4-postal-code"><span class="sr-only">Site 4 </span>postal code</label>
+						<input type="text" value="" id="site-4-postal-code" name="site-4-postal-code" aria-invalid="false" aria-labelledby="label-site-4-postal-code"><br />
+						<label for="site-4-firstname" id="label-site-4-firstname"><span class="sr-only">Site 4 </span>Contact Firstname</label>
 						<input type="text" value="" id="site-4-firstname" name="site-4-firstname" aria-invalid="false" aria-labelledby="label-site-4-firstname">
-						<label for="site-4-lastname" id="label-site-4-lastname">Site 4 contact lastname</label>
+						<label for="site-4-lastname" id="label-site-4-lastname"><span class="sr-only">Site 4 </span>Contact Lastname</label>
 						<input type="text" value="" id="site-4-lastname" name="site-4-lastname" aria-invalid="false" aria-labelledby="label-site-4-lastname">
-						<label for="site-4-phone" id="label-site-4-phone">Site 4 phone number</label>
-						<input type="text" value="" id="site-4-phone" name="site-4-phone" aria-invalid="false" aria-labelledby="label-site-4-phone">
-						<label for="site-4-hours-start" id="label-site-4-hours-start">Site 4 hours available start</label>
+						<label for="site-4-phone" id="label-site-4-phone"><span class="sr-only">Site 4 </span>Contact Phone</label>
+						<input type="text" value="" id="site-4-phone" name="site-4-phone" aria-invalid="false" aria-labelledby="label-site-4-phone"><br />
+						<label for="site-4-hours-start" id="label-site-4-hours-start"><span class="sr-only">Site 4 </span>Hours Available (start)</label>
 						<input type="time" value="" id="site-4-hours-start" name="site-4-hours-start" aria-invalid="false" aria-labelledby="label-site-4-hours-start">
-						<label for="site-4-hours-end" id="label-site-4-hours-end">Site 4 hours available end</label>
+						<label for="site-4-hours-end" id="label-site-4-hours-end"><span class="sr-only">Site 4 </span>Hours Available (end)</label>
 						<input type="time" value="" id="site-4-hours-end" name="site-4-hours-end" aria-invalid="false" aria-labelledby="label-site-4-hours-end">
 					</fieldset>
-
-					</form>
+				</form>
                 <!-- /CONTENT -->
             </div>
         </div>
