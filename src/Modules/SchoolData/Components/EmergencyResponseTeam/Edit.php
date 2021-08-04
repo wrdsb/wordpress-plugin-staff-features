@@ -96,8 +96,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 					<p>Not all members require first aid/medical training; however, at least one team member must be CPR-qualified and another must have first aid training.</p>
 				</div>
 
-				<form id="editEmergencyResponseTeam">
-					<input type="hidden" name="action" value="school_data_emergency_response_team">
+				<form id="editEmergencyResponseTeam" action="<?php echo WPCore::homeURL(); ?>/wp-admin/admin-post.php" method="post">
+					<input type="hidden" name="action" value="schoolDataEmergencyResponseTeam">
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">

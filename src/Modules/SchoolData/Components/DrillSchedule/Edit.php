@@ -93,8 +93,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                 <p class="alert alert-warning">Once this information has been collected and shared with the fire departments, any changes to these dates/times are to be communicated directly to your school’s local fire department by the school and/or administrator.</p>
     
-                <form id="editDrillSchedule">
-                    <input type="hidden" name="action" value="school_data_drill_schedule">
+                <form id="editDrillSchedule" action="<?php echo WPCore::homeURL(); ?>/wp-admin/admin-post.php" method="post">
+                    <input type="hidden" name="action" value="schoolDataDrillSchedule">
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">

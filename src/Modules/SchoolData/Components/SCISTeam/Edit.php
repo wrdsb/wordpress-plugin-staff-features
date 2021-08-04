@@ -101,7 +101,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/scis/scis-team-responsibilities/">SCIS Team Responsibilities</a>.</p>
 				</div>
 
-				<form id="editSCISTeam">
+				<form id="editSCISTeam" action="<?php echo WPCore::homeURL(); ?>/wp-admin/admin-post.php" method="post">
+					<input type="hidden" name="action" value="schoolDataSCISTeam">
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">

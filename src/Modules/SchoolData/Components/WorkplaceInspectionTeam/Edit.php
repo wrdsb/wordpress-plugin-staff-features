@@ -92,7 +92,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 				<p class="alert alert-warning">You <strong>must</strong> indicate the one (1) member designed to receive all health and safety correspondence and/or contact from the Health, Safety and Security Department, or the JHSC Co-Chairs.</p>
 
-				<form id="editWorkplaceInspectionTeam">
+				<form id="editWorkplaceInspectionTeam" action="<?php echo WPCore::homeURL(); ?>/wp-admin/admin-post.php" method="post">
+					<input type="hidden" name="action" value="schoolDataWorkplaceInspectionTeam">
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
