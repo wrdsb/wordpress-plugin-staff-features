@@ -8,6 +8,21 @@ use \WRDSB\Staff\Modules\SchoolData\SchoolDataModule as SchoolDataModule;
 
 use \WRDSB\Staff\Modules\Quartermaster\REST\DeviceLoan as DeviceLoanRESTController;
 use \WRDSB\Staff\Modules\Quartermaster\REST\AssetAssignment as AssetAssignmentRESTController;
+
+use \WRDSB\Staff\Modules\SchoolData\Model\DrillScheduleCPT as DrillScheduleCPT;
+use \WRDSB\Staff\Modules\SchoolData\Model\EmergencyResponseTeamCPT as EmergencyResponseTeamCPT;
+use \WRDSB\Staff\Modules\SchoolData\Model\EvacuationSitesCPT as EvacuationSitesCPT;
+use \WRDSB\Staff\Modules\SchoolData\Model\IPRCCPT as IPRCCPT;
+use \WRDSB\Staff\Modules\SchoolData\Model\SCISTeamCPT as SCISTeamCPT;
+use \WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeamCPT as WorkplaceInspectionTeamCPT;
+
+use \WRDSB\Staff\Modules\SchoolData\Model\DrillSchedule as DrillSchedule;
+use \WRDSB\Staff\Modules\SchoolData\Model\EmergencyResponseTeam as EmergencyResponseTeam;
+use \WRDSB\Staff\Modules\SchoolData\Model\EvacuationSites as EvacuationSites;
+use \WRDSB\Staff\Modules\SchoolData\Model\IPRCC as IPRC;
+use \WRDSB\Staff\Modules\SchoolData\Model\SCISTeam as SCISTeam;
+use \WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as WorkplaceInspectionTeam;
+
 /**
  * The plugin bootstrap file
  *
@@ -233,7 +248,7 @@ $container['routes'] = [
  * Pass plugin name and version from container to constructor.
  */
 $container['plugin'] = function ($c) {
-    return new Plugin($c, $c['plugin_name'], $c['version']);
+    return new Plugin($c);
 };
 
 $container['router'] = function ($c) {
@@ -256,11 +271,36 @@ $container['SchoolDataModule'] = function ($c) {
     return new SchoolDataModule($c['plugin']);
 };
 
+$container['DrillScheduleCPT'] = function ($c) {
+    return new DrillScheduleCPT($c['plugin']);
+};
+
+$container['EmergencyResponseTeamCPT'] = function ($c) {
+    return new EmergencyResponseTeamCPT($c['plugin']);
+};
+
+$container['EvacuationSitesCPT'] = function ($c) {
+    return new EvacuationSitesCPT($c['plugin']);
+};
+
+$container['IPRCCPT'] = function ($c) {
+    return new IPRCCPT($c['plugin']);
+};
+
+$container['SCISTeamCPT'] = function ($c) {
+    return new SCISTeamCPT($c['plugin']);
+};
+
+$container['WorkplaceInspectionTeamCPT'] = function ($c) {
+    return new WorkplaceInspectionTeamCPT($c['plugin']);
+};
+
 /**
  * Bootstrap the plugin.
  */
 $plugin = $container['plugin'];
 $plugin->init();
+
 
 // Formerly WRDSB Kitchen Sink
 add_filter('send_password_change_email', '__return_false');
@@ -275,3 +315,41 @@ add_action('rest_api_init', function () {
     $controller = new AssetAssignmentRESTController();
     $controller->registerRoutes();
 });
+
+add_action('admin_post_schoolDataDrillSchedule', __NAMESPACE__ .'\\submitSchoolDataDrillSchedule');
+add_action('admin_post_nopriv_schoolDataDrillSchedule', __NAMESPACE__ .'\\submitSchoolDataDrillSchedule');
+add_action('admin_post_schoolDataEmergencyResponseTeam', __NAMESPACE__ .'\\submitSchoolDataEmergencyResponseTeam');
+add_action('admin_post_schoolDataEvacuationSites', __NAMESPACE__ .'\\submitSchoolDataEvacuationSites');
+add_action('admin_post_schoolDataIPRC', __NAMESPACE__ .'\\submitSchoolDataIPRC');
+add_action('admin_post_schoolDataSCISTeam', __NAMESPACE__ .'\\submitSchoolDataSCISTeam');
+add_action('admin_post_schoolDataWorkplaceInspectionTeam', __NAMESPACE__ .'\\submitSchoolDataWorkplaceInspectionTeam');
+
+function submitSchoolDataDrillSchedule() {
+    DrillSchedule::fromForm($_POST);
+    exit();
+}
+
+function submitSchoolDataEmergencyResponseTeam() {
+    EmergencyResponseTeam::fromForm($_POST);
+    exit();
+}
+
+function submitSchoolDataEvacuationSites() {
+    EvacuationSites::fromForm($_POST);
+    exit();
+}
+
+function submitSchoolDataIPRC() {
+    IPRC::fromForm($_POST);
+    exit();
+}
+
+function submitSchoolDataSCISTeam() {
+    SCISTeam::fromForm($_POST);
+    exit();
+}
+
+function submitSchoolDataWorkplaceInspectionTeam() {
+    WorkplaceInspectionTeam::fromForm($_POST);
+    exit();
+}
