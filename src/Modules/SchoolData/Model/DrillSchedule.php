@@ -3,7 +3,7 @@ namespace WRDSB\Staff\Modules\SchoolData\Model;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 /**
- * Define and register custom post type "drillSchedule"
+ * Define and register class for posts of type "drillSchedule"
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -12,116 +12,223 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
  * @subpackage School Data
  */
 
-class DrillScheduleCPT {
-    public function __construct($plugin) {
-        // Add action to register the post type, if the post type does not already exist
-        if (!post_type_exists('drillSchedule')) {
-            $plugin->addAction('init', $this, 'registerPostType');
-        }
-        $plugin->addAction('save_post_drillSchedule', $this, 'customMetaSave'); // TODO: prefix with settings_
-    }
+class DrillSchedule {
+    private $ID;
+    private $content;
+    private $title;
+    private $excerpt;
+    private $slug;
+    private $guid;
 
-    // Register Custom Post Type
-    public function registerPostType() {
-        $labels = array(
-            'name'                  => _x('Drill Schedule', 'Post Type General Name', 'wrdsb'),
-            'singular_name'         => _x('Drill Schedule', 'Post Type Singular Name', 'wrdsb'),
-            'menu_name'             => __('Drill Schedule', 'wrdsb'),
-            'name_admin_bar'        => __('Drill Schedule', 'wrdsb'),
-            'archives'              => __('Drill Schedule', 'wrdsb'),
-            'parent_item_colon'     => __('Drill Schedule:', 'wrdsb'),
-            'all_items'             => __('Drill Schedule', 'wrdsb'),
-            'add_new_item'          => __('Add New Drill Schedule', 'wrdsb'),
-            'add_new'               => __('Add New', 'wrdsb'),
-            'new_item'              => __('New Drill Schedule', 'wrdsb'),
-            'edit_item'             => __('Edit Drill Schedule', 'wrdsb'),
-            'update_item'           => __('Update Drill Schedule', 'wrdsb'),
-            'view_item'             => __('View Drill Schedule', 'wrdsb'),
-            'search_items'          => __('Search Drill Schedules', 'wrdsb'),
-            'not_found'             => __('Not found', 'wrdsb'),
-            'not_found_in_trash'    => __('Not found in Trash', 'wrdsb'),
-            'featured_image'        => __('Featured Image', 'wrdsb'),
-            'set_featured_image'    => __('Set featured image', 'wrdsb'),
-            'remove_featured_image' => __('Remove featured image', 'wrdsb'),
-            'use_featured_image'    => __('Use as featured image', 'wrdsb'),
-            'insert_into_item'      => __('Insert into Drill Schedule', 'wrdsb'),
-            'uploaded_to_this_item' => __('Uploaded to this Drill Schedule', 'wrdsb'),
-            'items_list'            => __('Drill Schedules list', 'wrdsb'),
-            'items_list_navigation' => __('Drill Schedules list navigation', 'wrdsb'),
-            'filter_items_list'     => __('Filter Drill Schedules list', 'wrdsb'),
-        );
+    private $fireDrill1Date;
+    private $fireDrill1Time;
+    private $fireDrill2Date;
+    private $fireDrill2Time;
+    private $fireDrill3Date;
+    private $fireDrill3Time;
+    private $fireDrill4Date;
+    private $fireDrill4Time;
+    private $fireDrill5Date;
+    private $fireDrill5Time;
+    private $bombDrill1Date;
+    private $bombDrill1Time;
+
+    public static function getInstance() {
         $args = array(
-            'label'               => __('Drill Schedule', 'wrdsb'),
-            'description'         => __('Drill Schedule', 'wrdsb'),
-            'labels'              => $labels,
-            'supports'            => array(),
-            'taxonomies'          => array(),
-            'hierarchical'        => false,
-            'public'              => false,
-            'show_ui'             => false,
-            'show_in_menu'        => false,
-            'menu_position'       => 99,
-            'show_in_admin_bar'   => false,
-            'show_in_nav_menus'   => false,
-            'can_export'          => true,
-            'has_archive'         => false,
-            'exclude_from_search' => true,
-            'publicly_queryable'  => false,
-            'capability_type'     => 'page',
-            'rewrite'             => array(
-                'slug'       => 'drill-schedule',
-                'with_front' => false,
-            ),
+            'post_type' => 'drillSchedule',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'orderby' => 'title',
+            'order' => 'ASC',
         );
-        register_post_type('drillSchedule', $args);
+
+        $query = new \WP_Query($args);
+        $postFromDB = $query->posts[0];
+
+        $post = self::instantiate($postFromDB);
+
+        return $post;
     }
 
-    public function customMetaSave($post_id) {
+    public static function fromForm($postRequest) {
+        $postArray = array(
+            'action' => $postRequest['action'],
+
+            'postID' => $postRequest['postID'],
+            'blogID' => $postRequest['blogID'],
+            'schoolCode' => $postRequest['schoolCode'],
+            'email' => $postRequest['email'],
+
+            'fireDrill1Date' => $postRequest['fireDrill1Date'],
+            'fireDrill1Time' => $postRequest['fireDrill1Time'],
+            'fireDrill2Date' => $postRequest['fireDrill2Date'],
+            'fireDrill2Time' => $postRequest['fireDrill2Time'],
+            'fireDrill3Date' => $postRequest['fireDrill3Date'],
+            'fireDrill3Time' => $postRequest['fireDrill3Time'],
+            'fireDrill4Date' => $postRequest['fireDrill4Date'],
+            'fireDrill4Time' => $postRequest['fireDrill4Time'],
+            'fireDrill5Date' => $postRequest['fireDrill5Date'],
+            'fireDrill5Time' => $postRequest['fireDrill5Time'],
+            'bombDrillDate'  => $postRequest['bombDrillDate'],
+            'bombDrillTime'  => $postRequest['bombDrillTime'],
+        );
+
+        echo "<pre>";
+        echo "from CPT";
+        print_r($_POST);
+        print_r($_REQUEST);
+        print_r(self::getInstance());
+        echo "</pre>";
+    }
+
+    private static function instantiate($post) {
+        $instance = new DrillSchedule;
+
+        $instance->ID      = $post->ID           ?? 0;
+        $instance->content = $post->post_content ?? '';
+        $instance->title   = $post->post_title   ?? '';
+        $instance->excerpt = $post->post_excerpt ?? '';
+        $instance->slug    = $post->post_name    ?? '';
+        $instance->guid    = $post->guid         ?? '';
+
+        $instance->fireDrill1Date = $post->fireDrill1Date ?? '';
+        $instance->fireDrill1Time = $post->fireDrill1Time ?? '';
+        $instance->fireDrill2Date = $post->fireDrill2Date ?? '';
+        $instance->fireDrill2Time = $post->fireDrill2Time ?? '';
+        $instance->fireDrill3Date = $post->fireDrill3Date ?? '';
+        $instance->fireDrill3Time = $post->fireDrill3Time ?? '';
+        $instance->fireDrill4Date = $post->fireDrill4Date ?? '';
+        $instance->fireDrill4Time = $post->fireDrill4Time ?? '';
+        $instance->fireDrill5Date = $post->fireDrill5Date ?? '';
+        $instance->fireDrill5Time = $post->fireDrill5Time ?? '';
+        $instance->bombDrill1Date = $post->bombDrill1Date ?? '';
+        $instance->bombDrill1Time = $post->bombDrill1Time ?? '';
+
+        return $instance;
+    }
+
+    public function getID() {
+        return $this->ID;
+    }
+    public function getFireDrill1Date() {
+        return $this->fireDrill1Date;
+    }
+    public function getFireDrill1Time() {
+        return $this->fireDrill1Time;
+    }
+    public function getFireDrill2Date() {
+        return $this->fireDrill2Date;
+    }
+    public function getFireDrill2Time() {
+        return $this->fireDrill2Time;
+    }
+    public function getFireDrill3Date() {
+        return $this->fireDrill3Date;
+    }
+    public function getFireDrill3Time() {
+        return $this->fireDrill3Time;
+    }
+    public function getFireDrill4Date() {
+        return $this->fireDrill4Date;
+    }
+    public function getFireDrill4Time() {
+        return $this->fireDrill4Time;
+    }
+    public function getFireDrill5Date() {
+        return $this->fireDrill5Date;
+    }
+    public function getFireDrill5Time() {
+        return $this->fireDrill5Time;
+    }
+    public function getBombDrill1Date() {
+        return $this->bombDrill1Date;
+    }
+    public function getBombDrill1Time() {
+        return $this->bombDrill1Time;
+    }
+
+    public function toArray() {
+        $postArray = array(
+            'ID'      => $this->ID,
+            'content' => $this->content,
+            'title'   => $this->title,
+            'excerpt' => $this->excerpt,
+            'slug'    => $this->slug,
+            'guid'    => $this->guid,
+
+            'fireDrill1Date' => $this->fireDrill1Date,
+            'fireDrill1Time' => $this->fireDrill1Time,
+            'fireDrill2Date' => $this->fireDrill2Date,
+            'fireDrill2Time' => $this->fireDrill2Time,
+            'fireDrill3Date' => $this->fireDrill3Date,
+            'fireDrill3Time' => $this->fireDrill3Time,
+            'fireDrill4Date' => $this->fireDrill4Date,
+            'fireDrill4Time' => $this->fireDrill4Time,
+            'fireDrill5Date' => $this->fireDrill5Date,
+            'fireDrill5Time' => $this->fireDrill5Time,
+            'bombDrill1Date' => $this->bombDrill1Date,
+            'bombDrill1Time' => $this->bombDrill1Time,
+        );
+
+        return $postArray;
+    }
+
+    public function save() {
         // Checks save status
-        $is_autosave    = wp_is_post_autosave($post_id);
-        $is_revision    = wp_is_post_revision($post_id);
-        $is_valid_nonce = (isset($_POST['wrdsb_nonce']) && wp_verify_nonce($_POST['wrdsb_nonce'], basename(__FILE__))) ? 'true' : 'false';
+        //$is_autosave    = wp_is_post_autosave($post_id);
+        //$is_revision    = wp_is_post_revision($post_id);
+        //$is_valid_nonce = (isset($_POST['wrdsb_nonce']) && wp_verify_nonce($_POST['wrdsb_nonce'], basename(__FILE__))) ? 'true' : 'false';
 
         // Exits script depending on save status
-        if ($is_autosave || $is_revision || ! $is_valid_nonce) {
-            return;
+        //if ($is_autosave || $is_revision || ! $is_valid_nonce) {
+            //return;
+        //}
+
+        $post = $this->toArray;
+        $postID = $post['ID'];
+
+        if (0 !== $postID) {
+            WPCore::wpUpdatePost($post, true);
+
+        } else {
+            $postID = WPCore::wpInsertPost($post, true);
         }
 
-        if (isset($_POST['fireDrill1Date'])) {
-            update_post_meta($post_id, 'fireDrill1Date', sanitize_text_field($_POST['fireDrill1Date']));
+        if (isset($this->fireDrill1Date)) {
+            WPCore::updatePostMeta($postID, 'fireDrill1Date', WPCore::sanitizeTextField($post['fireDrill1Date']));
         }
-        if (isset($_POST['fireDrill1Time'])) {
-            update_post_meta($post_id, 'fireDrill1Time', sanitize_text_field($_POST['fireDrill1Time']));
+        if (isset($this->fireDrill1Time)) {
+            WPCore::updatePostMeta($postID, 'fireDrill1Time', WPCore::sanitizeTextField($post['fireDrill1Time']));
         }
-        if (isset($_POST['fireDrill2Date'])) {
-            update_post_meta($post_id, 'fireDrill2Date', sanitize_text_field($_POST['fireDrill2Date']));
+        if (isset($this->fireDrill2Date)) {
+            WPCore::updatePostMeta($postID, 'fireDrill2Date', WPCore::sanitizeTextField($post['fireDrill2Date']));
         }
-        if (isset($_POST['fireDrill2Time'])) {
-            update_post_meta($post_id, 'fireDrill2Time', sanitize_text_field($_POST['fireDrill2Time']));
+        if (isset($this->fireDrill2Time)) {
+            WPCore::updatePostMeta($postID, 'fireDrill2Time', WPCore::sanitizeTextField($post['fireDrill2Time']));
         }
-        if (isset($_POST['fireDrill3Date'])) {
-            update_post_meta($post_id, 'fireDrill3Date', sanitize_text_field($_POST['fireDrill3Date']));
+        if (isset($this->fireDrill3Date)) {
+            WPCore::updatePostMeta($postID, 'fireDrill3Date', WPCore::sanitizeTextField($post['fireDrill3Date']));
         }
-        if (isset($_POST['fireDrill3Time'])) {
-            update_post_meta($post_id, 'fireDrill3Time', sanitize_text_field($_POST['fireDrill3Time']));
+        if (isset($this->fireDrill3Time)) {
+            WPCore::updatePostMeta($postID, 'fireDrill3Time', WPCore::sanitizeTextField($post['fireDrill3Time']));
         }
-        if (isset($_POST['fireDrill4Date'])) {
-            update_post_meta($post_id, 'fireDrill4Date', sanitize_text_field($_POST['fireDrill4Date']));
+        if (isset($this->fireDrill4Date)) {
+            WPCore::updatePostMeta($postID, 'fireDrill4Date', WPCore::sanitizeTextField($post['fireDrill4Date']));
         }
-        if (isset($_POST['fireDrill4Time'])) {
-            update_post_meta($post_id, 'fireDrill4Time', sanitize_text_field($_POST['fireDrill4Time']));
+        if (isset($this->fireDrill4Time)) {
+            WPCore::updatePostMeta($postID, 'fireDrill4Time', WPCore::sanitizeTextField($post['fireDrill4Time']));
         }
-        if (isset($_POST['fireDrill5Date'])) {
-            update_post_meta($post_id, 'fireDrill5Date', sanitize_text_field($_POST['fireDrill5Date']));
+        if (isset($this->fireDrill5Date)) {
+            WPCore::updatePostMeta($postID, 'fireDrill5Date', WPCore::sanitizeTextField($post['fireDrill5Date']));
         }
-        if (isset($_POST['fireDrill5Time'])) {
-            update_post_meta($post_id, 'fireDrill5Time', sanitize_text_field($_POST['fireDrill5Time']));
+        if (isset($this->fireDrill5Time)) {
+            WPCore::updatePostMeta($postID, 'fireDrill5Time', WPCore::sanitizeTextField($post['fireDrill5Time']));
         }
-        if (isset($_POST['bombDrill1Date'])) {
-            update_post_meta($post_id, 'bombDrill1Date', sanitize_text_field($_POST['bombDrill1Date']));
+        if (isset($this->bombDrill1Date)) {
+            WPCore::updatePostMeta($postID, 'bombDrill1Date', WPCore::sanitizeTextField($post['bombDrill1Date']));
         }
-        if (isset($_POST['bombDrill1Time'])) {
-            update_post_meta($post_id, 'bombDrill1Time', sanitize_text_field($_POST['bombDrill1Time']));
+        if (isset($this->bombDrill1Time)) {
+            WPCore::updatePostMeta($postID, 'bombDrill1Time', WPCore::sanitizeTextField($post['bombDrill1Time']));
         }
     }
 }

@@ -3,7 +3,7 @@ namespace WRDSB\Staff\Modules\SchoolData\Model;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 /**
- * Define and register custom post type "workplaceInspectionTeam"
+ * Define and register class for posts of type "workplaceInspectionTeam"
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -12,159 +12,348 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
  * @subpackage School Data
  */
 
-class WorkplaceInspectionTeamCPT {
-    public function __construct($plugin) {
-        // Add action to register the post type, if the post type does not already exist
-        if (!post_type_exists('workplaceInspectionTeam')) {
-            $plugin->addAction('init', $this, 'registerPostType');
-        }
-        $plugin->addAction('save_post_workplaceInspectionTeam', $this, 'customMetaSave'); // TODO: prefix with settings_
-    }
+class WorkplaceInspectionTeam {
+    private $ID;
+    private $content;
+    private $title;
+    private $excerpt;
+    private $slug;
+    private $guid;
 
-    // Register Custom Post Type
-    public function registerPostType() {
-        $labels = array(
-            'name'                  => _x('Workplace Inspection Team', 'Post Type General Name', 'wrdsb'),
-            'singular_name'         => _x('Workplace Inspection Team', 'Post Type Singular Name', 'wrdsb'),
-            'menu_name'             => __('Workplace Inspection Team', 'wrdsb'),
-            'name_admin_bar'        => __('Workplace Inspection Team', 'wrdsb'),
-            'archives'              => __('Workplace Inspection Team', 'wrdsb'),
-            'parent_item_colon'     => __('Workplace Inspection Team:', 'wrdsb'),
-            'all_items'             => __('Workplace Inspection Team', 'wrdsb'),
-            'add_new_item'          => __('Add New Workplace Inspection Team', 'wrdsb'),
-            'add_new'               => __('Add New', 'wrdsb'),
-            'new_item'              => __('New Workplace Inspection Team', 'wrdsb'),
-            'edit_item'             => __('Edit Workplace Inspection Team', 'wrdsb'),
-            'update_item'           => __('Update Workplace Inspection Team', 'wrdsb'),
-            'view_item'             => __('View Workplace Inspection Team', 'wrdsb'),
-            'search_items'          => __('Search Workplace Inspection Teams', 'wrdsb'),
-            'not_found'             => __('Not found', 'wrdsb'),
-            'not_found_in_trash'    => __('Not found in Trash', 'wrdsb'),
-            'featured_image'        => __('Featured Image', 'wrdsb'),
-            'set_featured_image'    => __('Set featured image', 'wrdsb'),
-            'remove_featured_image' => __('Remove featured image', 'wrdsb'),
-            'use_featured_image'    => __('Use as featured image', 'wrdsb'),
-            'insert_into_item'      => __('Insert into Workplace Inspection Team', 'wrdsb'),
-            'uploaded_to_this_item' => __('Uploaded to this Workplace Inspection Team', 'wrdsb'),
-            'items_list'            => __('Workplace Inspection Teams list', 'wrdsb'),
-            'items_list_navigation' => __('Workplace Inspection Teams list navigation', 'wrdsb'),
-            'filter_items_list'     => __('Filter Workplace Inspection Teams list', 'wrdsb'),
-        );
+    private $principalFirstname;
+    private $principalLastname;
+    private $principalAffiliation;
+    private $principalHSContact;
+    private $custodianFirstname;
+    private $custodianLastname;
+    private $custodianAffiliation;
+    private $custodianHSContact;
+    private $staffMember1Firstname;
+    private $staffMember1Lastname;
+    private $staffMember1Affiliation;
+    private $staffMember1HSContact;
+    private $staffMember2Firstname;
+    private $staffMember2Lastname;
+    private $staffMember2Affiliation;
+    private $staffMember2HSContact;
+    private $staffMember3Firstname;
+    private $staffMember3Lastname;
+    private $staffMember3Affiliation;
+    private $staffMember3HSContact;
+    private $staffMember4Firstname;
+    private $staffMember4Lastname;
+    private $staffMember4Affiliation;
+    private $staffMember4HSContact;
+
+    public static function getInstance() {
         $args = array(
-            'label'               => __('Workplace Inspection Team', 'wrdsb'),
-            'description'         => __('Workplace Inspection Team', 'wrdsb'),
-            'labels'              => $labels,
-            'supports'            => array(),
-            'taxonomies'          => array(),
-            'hierarchical'        => false,
-            'public'              => false,
-            'show_ui'             => false,
-            'show_in_menu'        => false,
-            'menu_position'       => 99,
-            'show_in_admin_bar'   => false,
-            'show_in_nav_menus'   => false,
-            'can_export'          => true,
-            'has_archive'         => false,
-            'exclude_from_search' => true,
-            'publicly_queryable'  => false,
-            'capability_type'     => 'page',
-            'rewrite'             => array(
-                'slug'       => 'workplace-inspection-team',
-                'with_front' => false,
-            ),
+            'post_type' => 'workplaceInspectionTeam',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'orderby' => 'title',
+            'order' => 'ASC',
         );
-        register_post_type('workplaceInspectionTeam', $args);
+
+        $query = new \WP_Query($args);
+        $postFromDB = $query->posts[0];
+
+        $post = self::instantiate($postFromDB);
+
+        return $post;
     }
 
-    public function customMetaSave($post_id) {
+    public static function fromForm($postRequest) {
+        $postArray = array(
+            'action' => $postRequest['action'],
+
+            'postID' => $postRequest['postID'],
+            'blogID' => $postRequest['blogID'],
+            'schoolCode' => $postRequest['schoolCode'],
+            'email' => $postRequest['email'],
+
+            'principalFirstname' => $postRequest['principalFirstname'],
+            'principalLastname' => $postRequest['principalLastname'],
+            'principalAffiliation' => $postRequest['principalAffiliation'],
+            'principalHSContact' => $postRequest['principalHSContact'],
+            'custodianFirstname' => $postRequest['custodianFirstname'],
+            'custodianLastname' => $postRequest['custodianLastname'],
+            'custodianAffiliation' => $postRequest['custodianAffiliation'],
+            'custodianHSContact' => $postRequest['custodianHSContact'],
+            'staffMember1Firstname' => $postRequest['staffMember1Firstname'],
+            'staffMember1Lastname' => $postRequest['staffMember1Lastname'],
+            'staffMember1Affiliation' => $postRequest['staffMember1Affiliation'],
+            'staffMember1HSContact' => $postRequest['staffMember1HSContact'],
+            'staffMember2Firstname' => $postRequest['staffMember2Firstname'],
+            'staffMember2Lastname' => $postRequest['staffMember2Lastname'],
+            'staffMember2Affiliation' => $postRequest['staffMember2Affiliation'],
+            'staffMember2HSContact' => $postRequest['staffMember2HSContact'],
+            'staffMember3Firstname' => $postRequest['staffMember3Firstname'],
+            'staffMember3Lastname' => $postRequest['staffMember3Lastname'],
+            'staffMember3Affiliation' => $postRequest['staffMember3Affiliation'],
+            'staffMember3HSContact' => $postRequest['staffMember3HSContact'],
+            'staffMember4Firstname' => $postRequest['staffMember4Firstname'],
+            'staffMember4Lastname' => $postRequest['staffMember4Lastname'],
+            'staffMember4Affiliation' => $postRequest['staffMember4Affiliation'],
+            'staffMember4HSContact' => $postRequest['staffMember4HSContact'],
+        );
+
+        echo "<pre>";
+        echo "from CPT";
+        print_r($_POST);
+        print_r($_REQUEST);
+        print_r(self::getInstance());
+        echo "</pre>";
+    }
+
+    private static function instantiate($post) {
+        $instance = new DrillSchedule;
+
+        $instance->ID      = $post->ID           ?? 0;
+        $instance->content = $post->post_content ?? '';
+        $instance->title   = $post->post_title   ?? '';
+        $instance->excerpt = $post->post_excerpt ?? '';
+        $instance->slug    = $post->post_name    ?? '';
+        $instance->guid    = $post->guid         ?? '';
+
+        $instance->principalFirstname = $post->principalFirstname ?? '';
+        $instance->principalLastname = $post->principalLastname ?? '';
+        $instance->principalAffiliation = $post->principalAffiliation ?? '';
+        $instance->principalHSContact = $post->principalHSContact ?? '';
+        $instance->custodianFirstname = $post->custodianFirstname ?? '';
+        $instance->custodianLastname = $post->custodianLastname ?? '';
+        $instance->custodianAffiliation = $post->custodianAffiliation ?? '';
+        $instance->custodianHSContact = $post->custodianHSContact ?? '';
+        $instance->staffMember1Firstname = $post->staffMember1Firstname ?? '';
+        $instance->staffMember1Lastname = $post->staffMember1Lastname ?? '';
+        $instance->staffMember1Affiliation = $post->staffMember1Affiliation ?? '';
+        $instance->staffMember1HSContact = $post->staffMember1HSContact ?? '';
+        $instance->staffMember2Firstname = $post->staffMember2Firstname ?? '';
+        $instance->staffMember2Lastname = $post->staffMember2Lastname ?? '';
+        $instance->staffMember2Affiliation = $post->staffMember2Affiliation ?? '';
+        $instance->staffMember2HSContact = $post->staffMember2HSContact ?? '';
+        $instance->staffMember3Firstname = $post->staffMember3Firstname ?? '';
+        $instance->staffMember3Lastname = $post->staffMember3Lastname ?? '';
+        $instance->staffMember3Affiliation = $post->staffMember3Affiliation ?? '';
+        $instance->staffMember3HSContact = $post->staffMember3HSContact ?? '';
+        $instance->staffMember4Firstname = $post->staffMember4Firstname ?? '';
+        $instance->staffMember4Lastname = $post->staffMember4Lastname ?? '';
+        $instance->staffMember4Affiliation = $post->staffMember4Affiliation ?? '';
+        $instance->staffMember4HSContact = $post->staffMember4HSContact ?? '';
+    
+        return $instance;
+    }
+
+    public function getID() {
+        return $this->ID;
+    }
+    public function getPrincipalFirstname() {
+        return $this->principalFirstname;
+    }
+    public function getPrincipalLastname() {
+        return $this->principalLastname;
+    }
+    public function getPrincipalAffiliation() {
+        return $this->principalAffiliation;
+    }
+    public function getPrincipalHSContact() {
+        return $this->principalHSContact;
+    }
+    public function getCustodianFirstname() {
+        return $this->custodianFirstname;
+    }
+    public function getCustodianLastname() {
+        return $this->custodianLastname;
+    }
+    public function getCustodianAffiliation() {
+        return $this->custodianAffiliation;
+    }
+    public function getCustodianHSContact() {
+        return $this->custodianHSContact;
+    }
+    public function getStaffMember1Firstname() {
+        return $this->staffMember1Firstname;
+    }
+    public function getStaffMember1Lastname() {
+        return $this->staffMember1Lastname;
+    }
+    public function getStaffMember1Affiliation() {
+        return $this->staffMember1Affiliation;
+    }
+    public function getStaffMember1HSContact() {
+        return $this->staffMember1HSContact;
+    }
+    public function getStaffMember2Firstname() {
+        return $this->staffMember2Firstname;
+    }
+    public function getStaffMember2Lastname() {
+        return $this->staffMember2Lastname;
+    }
+    public function getStaffMember2Affiliation() {
+        return $this->staffMember2Affiliation;
+    }
+    public function getStaffMember2HSContact() {
+        return $this->staffMember2HSContact;
+    }
+    public function getStaffMember3Firstname() {
+        return $this->staffMember3Firstname;
+    }
+    public function getStaffMember3Lastname() {
+        return $this->staffMember3Lastname;
+    }
+    public function getStaffMember3Affiliation() {
+        return $this->staffMember3Affiliation;
+    }
+    public function getStaffMember3HSContact() {
+        return $this->staffMember3HSContact;
+    }
+    public function getStaffMember4Firstname() {
+        return $this->staffMember4Firstname;
+    }
+    public function getStaffMember4Lastname() {
+        return $this->staffMember4Lastname;
+    }
+    public function getStaffMember4Affiliation() {
+        return $this->staffMember4Affiliation;
+    }
+    public function getStaffMember4HSContact() {
+        return $this->staffMember4HSContact;
+    }
+
+    public function toArray() {
+        $postArray = array(
+            'ID'      => $this->ID,
+            'content' => $this->content,
+            'title'   => $this->title,
+            'excerpt' => $this->excerpt,
+            'slug'    => $this->slug,
+            'guid'    => $this->guid,
+
+            'principalFirstname' => $this->principalFirstname,
+            'principalLastname' => $this->principalLastname,
+            'principalAffiliation' => $this->principalAffiliation,
+            'principalHSContact' => $this->principalHSContact,
+            'custodianFirstname' => $this->custodianFirstname,
+            'custodianLastname' => $this->custodianLastname,
+            'custodianAffiliation' => $this->custodianAffiliation,
+            'custodianHSContact' => $this->custodianHSContact,
+            'staffMember1Firstname' => $this->staffMember1Firstname,
+            'staffMember1Lastname' => $this->staffMember1Lastname,
+            'staffMember1Affiliation' => $this->staffMember1Affiliation,
+            'staffMember1HSContact' => $this->staffMember1HSContact,
+            'staffMember2Firstname' => $this->staffMember2Firstname,
+            'staffMember2Lastname' => $this->staffMember2Lastname,
+            'staffMember2Affiliation' => $this->staffMember2Affiliation,
+            'staffMember2HSContact' => $this->staffMember2HSContact,
+            'staffMember3Firstname' => $this->staffMember3Firstname,
+            'staffMember3Lastname' => $this->staffMember3Lastname,
+            'staffMember3Affiliation' => $this->staffMember3Affiliation,
+            'staffMember3HSContact' => $this->staffMember3HSContact,
+            'staffMember4Firstname' => $this->staffMember4Firstname,
+            'staffMember4Lastname' => $this->staffMember4Lastname,
+            'staffMember4Affiliation' => $this->staffMember4Affiliation,
+            'staffMember4HSContact' => $this->staffMember4HSContact,
+        );
+
+        return $postArray;
+    }
+
+    public function save() {
         // Checks save status
-        $is_autosave    = wp_is_post_autosave($post_id);
-        $is_revision    = wp_is_post_revision($post_id);
-        $is_valid_nonce = (isset($_POST['wrdsb_nonce']) && wp_verify_nonce($_POST['wrdsb_nonce'], basename(__FILE__))) ? 'true' : 'false';
+        //$is_autosave    = wp_is_post_autosave($post_id);
+        //$is_revision    = wp_is_post_revision($post_id);
+        //$is_valid_nonce = (isset($_POST['wrdsb_nonce']) && wp_verify_nonce($_POST['wrdsb_nonce'], basename(__FILE__))) ? 'true' : 'false';
 
         // Exits script depending on save status
-        if ($is_autosave || $is_revision || ! $is_valid_nonce) {
-            return;
+        //if ($is_autosave || $is_revision || ! $is_valid_nonce) {
+            //return;
+        //}
+
+        $post = $this->toArray;
+        $postID = $post['ID'];
+
+        if (0 !== $postID) {
+            WPCore::wpUpdatePost($post, true);
+
+        } else {
+            $postID = WPCore::wpInsertPost($post, true);
         }
 
-        if (isset($_POST['principalFirstname'])) {
-            update_post_meta($post_id, 'principalFirstname', sanitize_text_field($_POST['principalFirstname']));
+        if (isset($this->principalFirstname)) {
+            WPCore::updatePostMeta($postID, 'principalFirstname', WPCore::sanitizeTextField($post['principalFirstname']));
         }
-        if (isset($_POST['principalLastname'])) {
-            update_post_meta($post_id, 'principalLastname', sanitize_text_field($_POST['principalLastname']));
+        if (isset($this->principalLastname)) {
+            WPCore::updatePostMeta($postID, 'principalLastname', WPCore::sanitizeTextField($post['principalLastname']));
         }
-        if (isset($_POST['principalAffiliation'])) {
-            update_post_meta($post_id, 'principalAffiliation', sanitize_text_field($_POST['principalAffiliation']));
+        if (isset($this->principalAffiliation)) {
+            WPCore::updatePostMeta($postID, 'principalAffiliation', WPCore::sanitizeTextField($post['principalAffiliation']));
         }
-        if (isset($_POST['principalHSContact'])) {
-            update_post_meta($post_id, 'principalHSContact', sanitize_text_field($_POST['principalHSContact']));
-        }
-
-        if (isset($_POST['custodianFirstname'])) {
-            update_post_meta($post_id, 'custodianFirstname', sanitize_text_field($_POST['custodianFirstname']));
-        }
-        if (isset($_POST['custodianLastname'])) {
-            update_post_meta($post_id, 'custodianLastname', sanitize_text_field($_POST['custodianLastname']));
-        }
-        if (isset($_POST['custodianAffiliation'])) {
-            update_post_meta($post_id, 'custodianAffiliation', sanitize_text_field($_POST['custodianAffiliation']));
-        }
-        if (isset($_POST['custodianHSContact'])) {
-            update_post_meta($post_id, 'custodianHSContact', sanitize_text_field($_POST['custodianHSContact']));
+        if (isset($this->principalHSContact)) {
+            WPCore::updatePostMeta($postID, 'principalHSContact', WPCore::sanitizeTextField($post['principalHSContact']));
         }
 
-        if (isset($_POST['staffMember1Firstname'])) {
-            update_post_meta($post_id, 'staffMember1Firstname', sanitize_text_field($_POST['staffMember1Firstname']));
+        if (isset($this->custodianFirstname)) {
+            WPCore::updatePostMeta($postID, 'custodianFirstname', WPCore::sanitizeTextField($post['custodianFirstname']));
         }
-        if (isset($_POST['staffMember1Lastname'])) {
-            update_post_meta($post_id, 'staffMember1Lastname', sanitize_text_field($_POST['staffMember1Lastname']));
+        if (isset($this->custodianLastname)) {
+            WPCore::updatePostMeta($postID, 'custodianLastname', WPCore::sanitizeTextField($post['custodianLastname']));
         }
-        if (isset($_POST['staffMember1Affiliation'])) {
-            update_post_meta($post_id, 'staffMember1Affiliation', sanitize_text_field($_POST['staffMember1Affiliation']));
+        if (isset($this->custodianAffiliation)) {
+            WPCore::updatePostMeta($postID, 'custodianAffiliation', WPCore::sanitizeTextField($post['custodianAffiliation']));
         }
-        if (isset($_POST['staffMember1HSContact'])) {
-            update_post_meta($post_id, 'staffMember1HSContact', sanitize_text_field($_POST['staffMember1HSContact']));
-        }
-
-        if (isset($_POST['staffMember2Firstname'])) {
-            update_post_meta($post_id, 'staffMember2Firstname', sanitize_text_field($_POST['staffMember2Firstname']));
-        }
-        if (isset($_POST['staffMember2Lastname'])) {
-            update_post_meta($post_id, 'staffMember2Lastname', sanitize_text_field($_POST['staffMember2Lastname']));
-        }
-        if (isset($_POST['staffMember2Affiliation'])) {
-            update_post_meta($post_id, 'staffMember2Affiliation', sanitize_text_field($_POST['staffMember2Affiliation']));
-        }
-        if (isset($_POST['staffMember2HSContact'])) {
-            update_post_meta($post_id, 'staffMember2HSContact', sanitize_text_field($_POST['staffMember2HSContact']));
+        if (isset($this->custodianHSContact)) {
+            WPCore::updatePostMeta($postID, 'custodianHSContact', WPCore::sanitizeTextField($post['custodianHSContact']));
         }
 
-        if (isset($_POST['staffMember3Firstname'])) {
-            update_post_meta($post_id, 'staffMember3Firstname', sanitize_text_field($_POST['staffMember3Firstname']));
+        if (isset($this->staffMember1Firstname)) {
+            WPCore::updatePostMeta($postID, 'staffMember1Firstname', WPCore::sanitizeTextField($post['staffMember1Firstname']));
         }
-        if (isset($_POST['staffMember3Lastname'])) {
-            update_post_meta($post_id, 'staffMember3Lastname', sanitize_text_field($_POST['staffMember3Lastname']));
+        if (isset($this->staffMember1Lastname)) {
+            WPCore::updatePostMeta($postID, 'staffMember1Lastname', WPCore::sanitizeTextField($post['staffMember1Lastname']));
         }
-        if (isset($_POST['staffMember3Affiliation'])) {
-            update_post_meta($post_id, 'staffMember3Affiliation', sanitize_text_field($_POST['staffMember3Affiliation']));
+        if (isset($this->staffMember1Affiliation)) {
+            WPCore::updatePostMeta($postID, 'staffMember1Affiliation', WPCore::sanitizeTextField($post['staffMember1Affiliation']));
         }
-        if (isset($_POST['staffMember3HSContact'])) {
-            update_post_meta($post_id, 'staffMember3HSContact', sanitize_text_field($_POST['staffMember3HSContact']));
+        if (isset($this->staffMember1HSContact)) {
+            WPCore::updatePostMeta($postID, 'staffMember1HSContact', WPCore::sanitizeTextField($post['staffMember1HSContact']));
         }
 
-        if (isset($_POST['staffMember4Firstname'])) {
-            update_post_meta($post_id, 'staffMember4Firstname', sanitize_text_field($_POST['staffMember4Firstname']));
+        if (isset($this->staffMember2Firstname)) {
+            WPCore::updatePostMeta($postID, 'staffMember2Firstname', WPCore::sanitizeTextField($post['staffMember2Firstname']));
         }
-        if (isset($_POST['staffMember4Lastname'])) {
-            update_post_meta($post_id, 'staffMember4Lastname', sanitize_text_field($_POST['staffMember4Lastname']));
+        if (isset($this->staffMember2Lastname)) {
+            WPCore::updatePostMeta($postID, 'staffMember2Lastname', WPCore::sanitizeTextField($post['staffMember2Lastname']));
         }
-        if (isset($_POST['staffMember4Affiliation'])) {
-            update_post_meta($post_id, 'staffMember4Affiliation', sanitize_text_field($_POST['staffMember4Affiliation']));
+        if (isset($this->staffMember2Affiliation)) {
+            WPCore::updatePostMeta($postID, 'staffMember2Affiliation', WPCore::sanitizeTextField($post['staffMember2Affiliation']));
         }
-        if (isset($_POST['staffMember4HSContact'])) {
-            update_post_meta($post_id, 'staffMember4HSContact', sanitize_text_field($_POST['staffMember4HSContact']));
+        if (isset($this->staffMember2HSContact)) {
+            WPCore::updatePostMeta($postID, 'staffMember2HSContact', WPCore::sanitizeTextField($post['staffMember2HSContact']));
+        }
+
+        if (isset($this->staffMember3Firstname)) {
+            WPCore::updatePostMeta($postID, 'staffMember3Firstname', WPCore::sanitizeTextField($post['staffMember3Firstname']));
+        }
+        if (isset($this->staffMember3Lastname)) {
+            WPCore::updatePostMeta($postID, 'staffMember3Lastname', WPCore::sanitizeTextField($post['staffMember3Lastname']));
+        }
+        if (isset($this->staffMember3Affiliation)) {
+            WPCore::updatePostMeta($postID, 'staffMember3Affiliation', WPCore::sanitizeTextField($post['staffMember3Affiliation']));
+        }
+        if (isset($this->staffMember3HSContact)) {
+            WPCore::updatePostMeta($postID, 'staffMember3HSContact', WPCore::sanitizeTextField($post['staffMember3HSContact']));
+        }
+
+        if (isset($this->staffMember4Firstname)) {
+            WPCore::updatePostMeta($postID, 'staffMember4Firstname', WPCore::sanitizeTextField($post['staffMember4Firstname']));
+        }
+        if (isset($this->staffMember4Lastname)) {
+            WPCore::updatePostMeta($postID, 'staffMember4Lastname', WPCore::sanitizeTextField($post['staffMember4Lastname']));
+        }
+        if (isset($this->staffMember4Affiliation)) {
+            WPCore::updatePostMeta($postID, 'staffMember4Affiliation', WPCore::sanitizeTextField($post['staffMember4Affiliation']));
+        }
+        if (isset($this->staffMember4HSContact)) {
+            WPCore::updatePostMeta($postID, 'staffMember4HSContact', WPCore::sanitizeTextField($post['staffMember4HSContact']));
         }
     }
 }
-
-

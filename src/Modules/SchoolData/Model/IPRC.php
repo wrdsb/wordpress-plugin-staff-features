@@ -3,7 +3,7 @@ namespace WRDSB\Staff\Modules\SchoolData\Model;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 
 /**
- * Define and register custom post type "iprc"
+ * Define and register class for posts of type "iprc"
  * *
  * @link       https://www.wrdsb.ca
  * @since      1.0.0
@@ -12,121 +12,228 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
  * @subpackage School Data
  */
 
-class IPRCCPT {
-    public function __construct($plugin) {
-        // Add action to register the post type, if the post type does not already exist
-        if (!post_type_exists('iprc')) {
-            $plugin->addAction('init', $this, 'registerPostType');
-        }
-        $plugin->addAction('save_post_iprc', $this, 'customMetaSave'); // TODO: prefix with settings_
-    }
+class IPRC {
+    private $ID;
+    private $content;
+    private $title;
+    private $excerpt;
+    private $slug;
+    private $guid;
 
-    // Register Custom Post Type
-    public function registerPostType() {
-        $labels = array(
-            'name'                  => _x('IPRC', 'Post Type General Name', 'wrdsb'),
-            'singular_name'         => _x('IPRC', 'Post Type Singular Name', 'wrdsb'),
-            'menu_name'             => __('IPRC', 'wrdsb'),
-            'name_admin_bar'        => __('IPRC', 'wrdsb'),
-            'archives'              => __('IPRC', 'wrdsb'),
-            'parent_item_colon'     => __('IPRC:', 'wrdsb'),
-            'all_items'             => __('IPRC', 'wrdsb'),
-            'add_new_item'          => __('Add New IPRC', 'wrdsb'),
-            'add_new'               => __('Add New', 'wrdsb'),
-            'new_item'              => __('New IPRC', 'wrdsb'),
-            'edit_item'             => __('Edit IPRC', 'wrdsb'),
-            'update_item'           => __('Update IPRC', 'wrdsb'),
-            'view_item'             => __('View IPRC', 'wrdsb'),
-            'search_items'          => __('Search IPRCs', 'wrdsb'),
-            'not_found'             => __('Not found', 'wrdsb'),
-            'not_found_in_trash'    => __('Not found in Trash', 'wrdsb'),
-            'featured_image'        => __('Featured Image', 'wrdsb'),
-            'set_featured_image'    => __('Set featured image', 'wrdsb'),
-            'remove_featured_image' => __('Remove featured image', 'wrdsb'),
-            'use_featured_image'    => __('Use as featured image', 'wrdsb'),
-            'insert_into_item'      => __('Insert into IPRC', 'wrdsb'),
-            'uploaded_to_this_item' => __('Uploaded to this IPRC', 'wrdsb'),
-            'items_list'            => __('IPRCs list', 'wrdsb'),
-            'items_list_navigation' => __('IPRCs list navigation', 'wrdsb'),
-            'filter_items_list'     => __('Filter IPRCs list', 'wrdsb'),
-        );
+    private $principalFirstname;
+    private $principalLastname;
+    private $teacher1Firstname;
+    private $teacher1Lastname;
+    private $teacher2Firstname;
+    private $teacher2Lastname;
+    private $teacher3Firstname;
+    private $teacher3Lastname;
+    private $teacher4Firstname;
+    private $teacher4Lastname;
+    private $teacher5Firstname;
+    private $teacher5Lastname;
+
+    public static function getInstance() {
         $args = array(
-            'label'               => __('IPRC', 'wrdsb'),
-            'description'         => __('IPRC', 'wrdsb'),
-            'labels'              => $labels,
-            'supports'            => array(),
-            'taxonomies'          => array(),
-            'hierarchical'        => false,
-            'public'              => false,
-            'show_ui'             => false,
-            'show_in_menu'        => false,
-            'menu_position'       => 99,
-            'show_in_admin_bar'   => false,
-            'show_in_nav_menus'   => false,
-            'can_export'          => true,
-            'has_archive'         => false,
-            'exclude_from_search' => true,
-            'publicly_queryable'  => false,
-            'capability_type'     => 'page',
-            'rewrite'             => array(
-                'slug'       => 'iprc',
-                'with_front' => false,
-            ),
+            'post_type' => 'iprc',
+            'post_status' => 'publish',
+            'posts_per_page' => 1,
+            'orderby' => 'title',
+            'order' => 'ASC',
         );
-        register_post_type('iprc', $args);
+
+        $query = new \WP_Query($args);
+        $postFromDB = $query->posts[0];
+
+        $post = self::instantiate($postFromDB);
+
+        return $post;
     }
 
-    public function customMetaSave($post_id) {
+    public static function fromForm($postRequest) {
+        $postArray = array(
+            'action' => $postRequest['action'],
+
+            'postID' => $postRequest['postID'],
+            'blogID' => $postRequest['blogID'],
+            'schoolCode' => $postRequest['schoolCode'],
+            'email' => $postRequest['email'],
+
+            'principalFirstname' => $postRequest['principalFirstname'],
+            'principalLastname' => $postRequest['principalLastname'],
+            'teacher1Firstname' => $postRequest['teacher1Firstname'],
+            'teacher1Lastname' => $postRequest['teacher1Lastname'],
+            'teacher2Firstname' => $postRequest['teacher2Firstname'],
+            'teacher2Lastname' => $postRequest['teacher2Lastname'],
+            'teacher3Firstname' => $postRequest['teacher3Firstname'],
+            'teacher3Lastname' => $postRequest['teacher3Lastname'],
+            'teacher4Firstname' => $postRequest['teacher4Firstname'],
+            'teacher4Lastname' => $postRequest['teacher4Lastname'],
+            'teacher5Firstname' => $postRequest['teacher5Firstname'],
+            'teacher5Lastname' => $postRequest['teacher5Lastname'],
+        );
+
+        echo "<pre>";
+        echo "from CPT";
+        print_r($_POST);
+        print_r($_REQUEST);
+        print_r(self::getInstance());
+        echo "</pre>";
+    }
+
+    private static function instantiate($post) {
+        $instance = new DrillSchedule;
+
+        $instance->ID      = $post->ID           ?? 0;
+        $instance->content = $post->post_content ?? '';
+        $instance->title   = $post->post_title   ?? '';
+        $instance->excerpt = $post->post_excerpt ?? '';
+        $instance->slug    = $post->post_name    ?? '';
+        $instance->guid    = $post->guid         ?? '';
+
+        $instance->principalFirstname = $post->principalFirstname ?? '';
+        $instance->principalLastname = $post->principalLastname ?? '';
+        $instance->teacher1Firstname = $post->teacher1Firstname ?? '';
+        $instance->teacher1Lastname = $post->teacher1Lastname ?? '';
+        $instance->teacher2Firstname = $post->teacher2Firstname ?? '';
+        $instance->teacher2Lastname = $post->teacher2Lastname ?? '';
+        $instance->teacher3Firstname = $post->teacher3Firstname ?? '';
+        $instance->teacher3Lastname = $post->teacher3Lastname ?? '';
+        $instance->teacher4Firstname = $post->teacher4Firstname ?? '';
+        $instance->teacher4Lastname = $post->teacher4Lastname ?? '';
+        $instance->teacher5Firstname = $post->teacher5Firstname ?? '';
+        $instance->teacher5Lastname = $post->teacher5Lastname ?? '';
+
+        return $instance;
+    }
+
+    public function getID() {
+        return $this->ID;
+    }
+    public function getPrincipalFirstname() {
+        return $this->principalFirstname;
+    }
+    public function getPrincipalLastname() {
+        return $this->principalLastname;
+    }
+    public function getTeacher1Firstname() {
+        return $this->teacher1Firstname;
+    }
+    public function getTeacher1Lastname() {
+        return $this->teacher1Lastname;
+    }
+    public function getTeacher2Firstname() {
+        return $this->teacher2Firstname;
+    }
+    public function getTeacher2Lastname() {
+        return $this->teacher2Lastname;
+    }
+    public function getTeacher3Firstname() {
+        return $this->teacher3Firstname;
+    }
+    public function getTeacher3Lastname() {
+        return $this->teacher3Lastname;
+    }
+    public function getTeacher4Firstname() {
+        return $this->teacher4Firstname;
+    }
+    public function getTeacher4Lastname() {
+        return $this->teacher4Lastname;
+    }
+    public function getTeacher5Firstname() {
+        return $this->teacher5Firstname;
+    }
+    public function getteacher5Lastname() {
+        return $this->teacher5Lastname;
+    }
+
+    public function toArray() {
+        $postArray = array(
+            'ID'      => $this->ID,
+            'content' => $this->content,
+            'title'   => $this->title,
+            'excerpt' => $this->excerpt,
+            'slug'    => $this->slug,
+            'guid'    => $this->guid,
+
+            'principalFirstname' => $this->principalFirstname,
+            'principalLastname' => $this->principalLastname,
+            'teacher1Firstname' => $this->teacher1Firstname,
+            'teacher1Lastname' => $this->teacher1Lastname,
+            'teacher2Firstname' => $this->teacher2Firstname,
+            'teacher2Lastname' => $this->teacher2Lastname,
+            'teacher3Firstname' => $this->teacher3Firstname,
+            'teacher3Lastname' => $this->teacher3Lastname,
+            'teacher4Firstname' => $this->teacher4Firstname,
+            'teacher4Lastname' => $this->teacher4Lastname,
+            'teacher5Firstname' => $this->teacher5Firstname,
+            'teacher5Lastname' => $this->teacher5Lastname,
+        );
+
+        return $postArray;
+    }
+
+    public function save() {
         // Checks save status
-        $is_autosave    = wp_is_post_autosave($post_id);
-        $is_revision    = wp_is_post_revision($post_id);
-        $is_valid_nonce = (isset($_POST['wrdsb_nonce']) && wp_verify_nonce($_POST['wrdsb_nonce'], basename(__FILE__))) ? 'true' : 'false';
+        //$is_autosave    = wp_is_post_autosave($post_id);
+        //$is_revision    = wp_is_post_revision($post_id);
+        //$is_valid_nonce = (isset($_POST['wrdsb_nonce']) && wp_verify_nonce($_POST['wrdsb_nonce'], basename(__FILE__))) ? 'true' : 'false';
 
         // Exits script depending on save status
-        if ($is_autosave || $is_revision || ! $is_valid_nonce) {
-            return;
+        //if ($is_autosave || $is_revision || ! $is_valid_nonce) {
+            //return;
+        //}
+
+        $post = $this->toArray;
+        $postID = $post['ID'];
+
+        if (0 !== $postID) {
+            WPCore::wpUpdatePost($post, true);
+
+        } else {
+            $postID = WPCore::wpInsertPost($post, true);
         }
 
-        if (isset($_POST['principalFirstname'])) {
-            update_post_meta($post_id, 'principalFirstname', sanitize_text_field($_POST['principalFirstname']));
+        if (isset($this->principalFirstname)) {
+            WPCore::updatePostMeta($postID, 'principalFirstname', WPCore::sanitizeTextField($post['principalFirstname']));
         }
-        if (isset($_POST['principalLastname'])) {
-            update_post_meta($post_id, 'principalLastname', sanitize_text_field($_POST['principalLastname']));
-        }
-
-        if (isset($_POST['teacher1Firstname'])) {
-            update_post_meta($post_id, 'teacher1Firstname', sanitize_text_field($_POST['teacher1Firstname']));
-        }
-        if (isset($_POST['teacher1Lastname'])) {
-            update_post_meta($post_id, 'teacher1Lastname', sanitize_text_field($_POST['teacher1Lastname']));
+        if (isset($this->principalLastname)) {
+            WPCore::updatePostMeta($postID, 'principalLastname', WPCore::sanitizeTextField($post['principalLastname']));
         }
 
-        if (isset($_POST['teacher2Firstname'])) {
-            update_post_meta($post_id, 'teacher2Firstname', sanitize_text_field($_POST['teacher2Firstname']));
+        if (isset($this->teacher1Firstname)) {
+            WPCore::updatePostMeta($postID, 'teacher1Firstname', WPCore::sanitizeTextField($post['teacher1Firstname']));
         }
-        if (isset($_POST['teacher2Lastname'])) {
-            update_post_meta($post_id, 'teacher2Lastname', sanitize_text_field($_POST['teacher2Lastname']));
-        }
-
-        if (isset($_POST['teacher3Firstname'])) {
-            update_post_meta($post_id, 'teacher3Firstname', sanitize_text_field($_POST['teacher3Firstname']));
-        }
-        if (isset($_POST['teacher3Lastname'])) {
-            update_post_meta($post_id, 'teacher3Lastname', sanitize_text_field($_POST['teacher3Lastname']));
+        if (isset($this->teacher1Lastname)) {
+            WPCore::updatePostMeta($postID, 'teacher1Lastname', WPCore::sanitizeTextField($post['teacher1Lastname']));
         }
 
-        if (isset($_POST['teacher4Firstname'])) {
-            update_post_meta($post_id, 'teacher4Firstname', sanitize_text_field($_POST['teacher4Firstname']));
+        if (isset($this->teacher2Firstname)) {
+            WPCore::updatePostMeta($postID, 'teacher2Firstname', WPCore::sanitizeTextField($post['teacher2Firstname']));
         }
-        if (isset($_POST['teacher4Lastname'])) {
-            update_post_meta($post_id, 'teacher4Lastname', sanitize_text_field($_POST['teacher4Lastname']));
+        if (isset($this->teacher2Lastname)) {
+            WPCore::updatePostMeta($postID, 'teacher2Lastname', WPCore::sanitizeTextField($post['teacher2Lastname']));
         }
 
-        if (isset($_POST['teacher5Firstname'])) {
-            update_post_meta($post_id, 'teacher5Firstname', sanitize_text_field($_POST['teacher5Firstname']));
+        if (isset($this->teacher3Firstname)) {
+            WPCore::updatePostMeta($postID, 'teacher3Firstname', WPCore::sanitizeTextField($post['teacher3Firstname']));
         }
-        if (isset($_POST['teacher5Lastname'])) {
-            update_post_meta($post_id, 'teacher5Lastname', sanitize_text_field($_POST['teacher5Lastname']));
+        if (isset($this->teacher3Lastname)) {
+            WPCore::updatePostMeta($postID, 'teacher3Lastname', WPCore::sanitizeTextField($post['teacher3Lastname']));
+        }
+
+        if (isset($this->teacher4Firstname)) {
+            WPCore::updatePostMeta($postID, 'teacher4Firstname', WPCore::sanitizeTextField($post['teacher4Firstname']));
+        }
+        if (isset($this->teacher4Lastname)) {
+            WPCore::updatePostMeta($postID, 'teacher4Lastname', WPCore::sanitizeTextField($post['teacher4Lastname']));
+        }
+
+        if (isset($this->teacher5Firstname)) {
+            WPCore::updatePostMeta($postID, 'teacher5Firstname', WPCore::sanitizeTextField($post['teacher5Firstname']));
+        }
+        if (isset($this->teacher5Lastname)) {
+            WPCore::updatePostMeta($postID, 'teacher5Lastname', WPCore::sanitizeTextField($post['teacher5Lastname']));
         }
     }
 }
