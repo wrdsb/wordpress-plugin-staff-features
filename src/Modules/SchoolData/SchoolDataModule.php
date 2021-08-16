@@ -25,18 +25,20 @@ class SchoolDataModule {
      */
     private $version;
 
+    private $container;
+
     public function __construct($plugin) {
         $this->plugin      = $plugin;
         $this->plugin_name = $plugin->getPluginName();
         $this->version     = $plugin->getVersion();
+        $this->container   = $plugin->getContainer();
     }
 
     public function init() {
         $this->addViews();
         $this->addPageTemplates();
-
-        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
-        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
+        $this->registerPostTypes();
+        $this->addActions();
     }
 
     public static function getCodexSearchURL(): string {
@@ -185,5 +187,19 @@ class SchoolDataModule {
 
         $this->plugin->addPageTemplate('workplace-inspection-team-view', 'SchoolData/Components/WorkplaceInspectionTeam/View.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-edit', 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php');
+    }
+
+    private function registerPostTypes() {
+        $this->container['drillScheduleCPT'] = $this->container['DrillScheduleCPT'];
+        $this->container['emergencyResponseTeamCPT'] = $this->container['EmergencyResponseTeamCPT'];
+        $this->container['evacuationSitesCPT'] = $this->container['EvacuationSitesCPT'];
+        $this->container['iprcCPT'] = $this->container['IPRCCPT'];
+        $this->container['scisTeamCPT'] = $this->container['SCISTeamCPT'];
+        $this->container['workplaceInspectionTeamCPT'] = $this->container['WorkplaceInspectionTeamCPT'];
+    }
+
+    private function addActions() {
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueStyles');
+        $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 }
