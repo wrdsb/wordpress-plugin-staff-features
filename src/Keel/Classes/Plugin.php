@@ -129,10 +129,10 @@ class Plugin
      *
      * @since    1.0.0
      */
-    public function __construct($container, $plugin_name, $version = '1.5.0')
+    public function __construct($container)
     {
-        $this->plugin_name = $plugin_name;
-        $this->version     = $version;
+        $this->plugin_name = $container['plugin_name'];
+        $this->version     = $container['version'];
         $this->container   = $container;
 
         $this->actions = array();
@@ -151,8 +151,7 @@ class Plugin
      *
      * @since    1.0.0
      */
-    public function init()
-    {
+    public function init() {
         $this->addQueryVar('view');
 
         add_action('do_parse_request', array($this, 'parseRequest'), 30, 3);
@@ -481,9 +480,8 @@ class Plugin
         return $current_url;
     }
 
-    public function parseRequest($doParse, $environment, $extra_query_vars)
-    {
-        $container = Plugin::getContainer();
+    public function parseRequest($doParse, $environment, $extra_query_vars) {
+        $container = $this->getContainer();
         $current_url = $container['plugin']->getCurrentURL();
         $routes = $container['routes'];
         
