@@ -111,6 +111,22 @@ class WPCore
         wp_redirect($location, $status, $x_redirect_by);
         exit;
     }
+
+    public static function wpInsertPost(array $postarr, bool $wp_error = false, bool $fire_after_hooks = true ) {
+        wp_insert_post($postarr, $wp_error, $fire_after_hooks);
+    }
+
+    public static function wpUpdatePost(array $postarr = array(), bool $wp_error = false, bool $fire_after_hooks = true ) {
+        wp_update_post($postarr = array(), $wp_error = false, $fire_after_hooks = true);
+    }
+
+    public static function updatePostMeta(int $post_id, string $meta_key, $meta_value, $prev_value = '') {
+        update_post_meta($post_id, $meta_key, $meta_value, $prev_value);
+    }
+
+    public static function sanitizeTextField($str) {
+        sanitize_text_field($str);
+    }
 }
 
 
