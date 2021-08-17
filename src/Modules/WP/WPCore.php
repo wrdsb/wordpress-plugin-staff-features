@@ -113,11 +113,11 @@ class WPCore
     }
 
     public static function wpInsertPost(array $postarr, bool $wp_error = false, bool $fire_after_hooks = true ) {
-        wp_insert_post($postarr, $wp_error, $fire_after_hooks);
+        return wp_insert_post($postarr, $wp_error, $fire_after_hooks);
     }
 
     public static function wpUpdatePost(array $postarr = array(), bool $wp_error = false, bool $fire_after_hooks = true ) {
-        wp_update_post($postarr = array(), $wp_error = false, $fire_after_hooks = true);
+        return wp_update_post($postarr, $wp_error, $fire_after_hooks);
     }
 
     public static function updatePostMeta(int $post_id, string $meta_key, $meta_value, $prev_value = '') {
