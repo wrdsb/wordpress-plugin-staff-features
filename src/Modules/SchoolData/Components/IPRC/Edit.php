@@ -113,49 +113,49 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <fieldset>
                         <legend>Principal</legend>
                         <label for="principal-firstname" id="label-principal-firstname"><span class="sr-only">Principal </span>Firstname</label>
-                        <input type="text" value="" id="principal-firstname" name="principalFirstname" aria-invalid="false" aria-labelledby="label-principal-firstname">
+                        <input type="text" value="<?php echo $currentInstance->getPrincipalFirstname(); ?>" id="principal-firstname" name="principalFirstname" aria-invalid="false" aria-labelledby="label-principal-firstname">
                         <label for="principal-lastname" id="label-principal"><span class="sr-only">Principal </span>Lastname</label>
-                        <input type="text" value="" id="principal-lastname" name="principalLastname" aria-invalid="false" aria-labelledby="label-principal-lastname">
+                        <input type="text" value="<?php echo $currentInstance->getPrincipalLastname(); ?>" id="principal-lastname" name="principalLastname" aria-invalid="false" aria-labelledby="label-principal-lastname">
                     </fieldset>
 
                     <fieldset>
                         <legend>Teacher 1</legend>
                         <label for="teacher-1-firstname" id="label-teacher-1-firstname"><span class="sr-only">Teacher 1 </span>Firstname</label>
-                        <input type="text" value="" id="teacher-1-firstname" name="teacher1Firstname" aria-invalid="false" aria-labelledby="label-teacher-1-firstname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher1Firstname(); ?>" id="teacher-1-firstname" name="teacher1Firstname" aria-invalid="false" aria-labelledby="label-teacher-1-firstname">
                         <label for="teacher-1-lastname" id="teacher-1-lastname"><span class="sr-only">Teacher 1 </span>Lastname</label>
-                        <input type="text" value="" id="teacher-1-lastname" name="teacher1Lastname" aria-invalid="false" aria-labelledby="label-teacher-1-lastname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher1Lastname(); ?>" id="teacher-1-lastname" name="teacher1Lastname" aria-invalid="false" aria-labelledby="label-teacher-1-lastname">
                     </fieldset>
 
                     <fieldset>
                         <legend>Teacher 2</legend>
                         <label for="teacher-2-firstname" id="label-teacher-2-firstname"><span class="sr-only">Teacher 2 </span>Firstname</label>
-                        <input type="text" value="" id="teacher-2-firstname" name="teacher2Firstname" aria-invalid="false" aria-labelledby="label-teacher-2-firstname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher2Firstname(); ?>" id="teacher-2-firstname" name="teacher2Firstname" aria-invalid="false" aria-labelledby="label-teacher-2-firstname">
                         <label for="teacher-2-lastname" id="teacher-2-lastname"><span class="sr-only">Teacher 2 </span>Lastname</label>
-                        <input type="text" value="" id="teacher-2-lastname" name="teacher2Lastname" aria-invalid="false" aria-labelledby="label-teacher-2-lastname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher2Lastname(); ?>" id="teacher-2-lastname" name="teacher2Lastname" aria-invalid="false" aria-labelledby="label-teacher-2-lastname">
                     </fieldset>
 
                     <fieldset>
                         <legend>Teacher 3</legend>
                         <label for="teacher-3-firstname" id="label-teacher-3-firstname"><span class="sr-only">Teacher 3 </span>Firstname</label>
-                        <input type="text" value="" id="teacher-3-firstname" name="teacher3Firstname" aria-invalid="false" aria-labelledby="label-teacher-3-firstname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher3Firstname(); ?>" id="teacher-3-firstname" name="teacher3Firstname" aria-invalid="false" aria-labelledby="label-teacher-3-firstname">
                         <label for="teacher-3-lastname" id="teacher-3-lastname"><span class="sr-only">Teacher 3 </span>Lastname</label>
-                        <input type="text" value="" id="teacher-3-lastname" name="teacher3Lastname" aria-invalid="false" aria-labelledby="label-teacher-3-lastname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher3Lastname(); ?>" id="teacher-3-lastname" name="teacher3Lastname" aria-invalid="false" aria-labelledby="label-teacher-3-lastname">
                     </fieldset> 
 
                     <fieldset>
                         <legend>Teacher 4</legend>
                         <label for="teacher-4-firstname" id="label-teacher-4-firstname"><span class="sr-only">Teacher 4 </span>Firstname</label>
-                        <input type="text" value="" id="teacher-4-firstname" name="teacher4Firstname" aria-invalid="false" aria-labelledby="label-teacher-4-firstname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher4Firstname(); ?>" id="teacher-4-firstname" name="teacher4Firstname" aria-invalid="false" aria-labelledby="label-teacher-4-firstname">
                         <label for="teacher-4-lastname" id="teacher-4-lastname"><span class="sr-only">Teacher 4 </span>Lastname</label>
-                        <input type="text" value="" id="teacher-4-lastname" name="teacher4Lastname" aria-invalid="false" aria-labelledby="label-teacher-4-lastname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher4Lastname(); ?>" id="teacher-4-lastname" name="teacher4Lastname" aria-invalid="false" aria-labelledby="label-teacher-4-lastname">
                     </fieldset>
 
                     <fieldset>
                         <legend>Teacher 5</legend>
                         <label for="teacher-5-firstname" id="label-teacher-5-firstname"><span class="sr-only">Teacher 5 </span>Firstname</label>
-                        <input type="text" value="" id="teacher-5-firstname" name="teacher5Firstname" aria-invalid="false" aria-labelledby="label-teacher-5-firstname">
+                        <input type="text" value="<?php echo $currentInstance->getTeacher5Firstname(); ?>" id="teacher-5-firstname" name="teacher5Firstname" aria-invalid="false" aria-labelledby="label-teacher-5-firstname">
                         <label for="teacher-5-lastname" id="teacher-5-lastname"><span class="sr-only">Teacher 5 </span>Lastname</label>
-                        <input type="text" value="" id="teacher-5-lastname" name="teacher5Lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
+                        <input type="text" value="<?php echo $currentInstance->getteacher5Lastname(); ?>" id="teacher-5-lastname" name="teacher5Lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
                     </fieldset> 
                     <button>Submit</button>
                     <button><a href="..">Cancel Update</a></button>
