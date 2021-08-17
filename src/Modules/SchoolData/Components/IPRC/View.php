@@ -101,6 +101,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
+                    <input type="hidden" id="postID" name="postID" value="<?php echo $currentInstance->getID(); ?>">
 
                     <p>Fields marked with <span class="required">*</span> are required.</p>
                     
