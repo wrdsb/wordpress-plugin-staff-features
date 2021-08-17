@@ -94,8 +94,8 @@ class DrillSchedule {
         $instance = self::getInstance();
 
         $instance->title   = "{$postArray['schoolCode']} Drill Schedule";
-        $instance->content = "{$postArray['schoolCode']} Drill Schedule";
-        $instance->excerpt = "{$postArray['schoolCode']} Drill Schedule";
+        $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+        $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
 
         $instance->blogID     = $postArray['blogID']     ?? $instance->blogID;
         $instance->schoolCode = $postArray['schoolCode'] ?? $instance->schoolCode;
