@@ -17,8 +17,10 @@ class DrillSchedule {
     private $content;
     private $title;
     private $excerpt;
-    private $slug;
-    private $guid;
+
+    private $blogID;
+    private $schoolCode;
+    private $email;
 
     private $fireDrill1Date;
     private $fireDrill1Time;
@@ -43,17 +45,33 @@ class DrillSchedule {
         );
 
         $query = new \WP_Query($args);
+        
         $postFromDB = $query->posts[0];
+        $customFields = get_post_custom($postFromDB->ID);
 
+        $postFromDB->fireDrill1Date = $customFields['fireDrill1Date'][0];
+        $postFromDB->fireDrill1Time = $customFields['fireDrill1Time'][0];
+        $postFromDB->fireDrill2Date = $customFields['fireDrill2Date'][0];
+        $postFromDB->fireDrill2Time = $customFields['fireDrill2Time'][0];
+        $postFromDB->fireDrill3Date = $customFields['fireDrill3Date'][0];
+        $postFromDB->fireDrill3Time = $customFields['fireDrill3Time'][0];
+        $postFromDB->fireDrill4Date = $customFields['fireDrill4Date'][0];
+        $postFromDB->fireDrill4Time = $customFields['fireDrill4Time'][0];
+        $postFromDB->fireDrill5Date = $customFields['fireDrill5Date'][0];
+        $postFromDB->fireDrill5Time = $customFields['fireDrill5Time'][0];
+        $postFromDB->bombDrill1Date = $customFields['bombDrill1Date'][0];
+        $postFromDB->bombDrill1Time = $customFields['bombDrill1Time'][0];
+    
         $post = self::instantiate($postFromDB);
 
         return $post;
     }
 
     public static function fromForm($postRequest) {
-        $postArray = array(
-            'action' => $postRequest['action'],
+        $action = $postRequest['action'];
+        $wpRedirect = $postRequest['wpRedirect'];
 
+        $postArray = array(
             'postID' => $postRequest['postID'],
             'blogID' => $postRequest['blogID'],
             'schoolCode' => $postRequest['schoolCode'],
@@ -73,12 +91,36 @@ class DrillSchedule {
             'bombDrillTime'  => $postRequest['bombDrillTime'],
         );
 
-        echo "<pre>";
-        echo "from CPT";
-        print_r($_POST);
-        print_r($_REQUEST);
-        print_r(self::getInstance());
-        echo "</pre>";
+        $instance = self::getInstance();
+
+        $instance->title   = "{$postArray['schoolCode']} Drill Schedule";
+        $instance->content = "{$postArray['schoolCode']} Drill Schedule";
+        $instance->excerpt = "{$postArray['schoolCode']} Drill Schedule";
+
+        $instance->blogID     = $postArray['blogID']     ?? $instance->blogID;
+        $instance->schoolCode = $postArray['schoolCode'] ?? $instance->schoolCode;
+        $instance->email      = $postArray['email']      ?? $instance->email;
+
+        $instance->fireDrill1Date = $postArray['fireDrill1Date'] ?? $instance->fireDrill1Date;
+        $instance->fireDrill1Time = $postArray['fireDrill1Time'] ?? $instance->fireDrill1Time;
+        $instance->fireDrill2Date = $postArray['fireDrill2Date'] ?? $instance->fireDrill2Date;
+        $instance->fireDrill2Time = $postArray['fireDrill2Time'] ?? $instance->fireDrill2Time;
+        $instance->fireDrill3Date = $postArray['fireDrill3Date'] ?? $instance->fireDrill3Date;
+        $instance->fireDrill3Time = $postArray['fireDrill3Time'] ?? $instance->fireDrill3Time;
+        $instance->fireDrill4Date = $postArray['fireDrill4Date'] ?? $instance->fireDrill4Date;
+        $instance->fireDrill4Time = $postArray['fireDrill4Time'] ?? $instance->fireDrill4Time;
+        $instance->fireDrill5Date = $postArray['fireDrill5Date'] ?? $instance->fireDrill5Date;
+        $instance->fireDrill5Time = $postArray['fireDrill5Time'] ?? $instance->fireDrill5Time;
+        $instance->bombDrill1Date = $postArray['bombDrill1Date'] ?? $instance->bombDrill1Date;
+        $instance->bombDrill1Time = $postArray['bombDrill1Time'] ?? $instance->bombDrill1Time;
+
+        $saved = $instance->save();
+
+        if ($saved) {
+            WPCore::wpRedirect($wpRedirect);
+        } else {
+
+        }
     }
 
     private static function instantiate($post) {
@@ -88,9 +130,11 @@ class DrillSchedule {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
-        $instance->slug    = $post->post_name    ?? '';
-        $instance->guid    = $post->guid         ?? '';
 
+        $instance->blogID     = $post->blogID ?? '';
+        $instance->schoolCode = $post->schoolCode ?? '';
+        $instance->email      = $post->email ?? '';
+    
         $instance->fireDrill1Date = $post->fireDrill1Date ?? '';
         $instance->fireDrill1Time = $post->fireDrill1Time ?? '';
         $instance->fireDrill2Date = $post->fireDrill2Date ?? '';
@@ -147,14 +191,20 @@ class DrillSchedule {
         return $this->bombDrill1Time;
     }
 
-    public function toArray() {
+    public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
-            'content' => $this->content,
-            'title'   => $this->title,
-            'excerpt' => $this->excerpt,
-            'slug'    => $this->slug,
-            'guid'    => $this->guid,
+
+            'post_type'    => 'drillSchedule',
+            'post_status'  => 'publish',
+
+            'post_content' => $this->content,
+            'post_title'   => $this->title,
+            'post_excerpt' => $this->excerpt,
+
+            'blogID'     => $this->blogID,
+            'schoolCode' => $this->schoolCode,
+            'email'      => $this->email,
 
             'fireDrill1Date' => $this->fireDrill1Date,
             'fireDrill1Time' => $this->fireDrill1Time,
@@ -184,51 +234,37 @@ class DrillSchedule {
             //return;
         //}
 
-        $post = $this->toArray;
-        $postID = $post['ID'];
+        $post = $this->toWPPostArray();
+        $postID = (int) $post['ID'];
 
-        if (0 !== $postID) {
-            WPCore::wpUpdatePost($post, true);
-
+        if (0 == $postID) {
+            $saveResult = WPCore::wpInsertPost($post, true);
         } else {
-            $postID = WPCore::wpInsertPost($post, true);
+            $saveResult = WPCore::wpUpdatePost($post, true);
         }
 
-        if (isset($this->fireDrill1Date)) {
-            WPCore::updatePostMeta($postID, 'fireDrill1Date', WPCore::sanitizeTextField($post['fireDrill1Date']));
+        if (is_wp_error($saveResult)) {
+            $error_string = $saveResult->get_error_message();
+            echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
+            return false;
+        } else {
+            WPCore::updatePostMeta($postID, 'blogID',         $post['blogID']);
+            WPCore::updatePostMeta($postID, 'schoolCode',     $post['schoolCode']);
+            WPCore::updatePostMeta($postID, 'email',          $post['email']);
+            WPCore::updatePostMeta($postID, 'fireDrill1Date', $post['fireDrill1Date']);
+            WPCore::updatePostMeta($postID, 'fireDrill1Time', $post['fireDrill1Time']);
+            WPCore::updatePostMeta($postID, 'fireDrill2Date', $post['fireDrill2Date']);
+            WPCore::updatePostMeta($postID, 'fireDrill2Time', $post['fireDrill2Time']);
+            WPCore::updatePostMeta($postID, 'fireDrill3Date', $post['fireDrill3Date']);
+            WPCore::updatePostMeta($postID, 'fireDrill3Time', $post['fireDrill3Time']);
+            WPCore::updatePostMeta($postID, 'fireDrill4Date', $post['fireDrill4Date']);
+            WPCore::updatePostMeta($postID, 'fireDrill4Time', $post['fireDrill4Time']);
+            WPCore::updatePostMeta($postID, 'fireDrill5Date', $post['fireDrill5Date']);
+            WPCore::updatePostMeta($postID, 'fireDrill5Time', $post['fireDrill5Time']);
+            WPCore::updatePostMeta($postID, 'bombDrill1Date', $post['bombDrill1Date']);
+            WPCore::updatePostMeta($postID, 'bombDrill1Time', $post['bombDrill1Time']);
         }
-        if (isset($this->fireDrill1Time)) {
-            WPCore::updatePostMeta($postID, 'fireDrill1Time', WPCore::sanitizeTextField($post['fireDrill1Time']));
-        }
-        if (isset($this->fireDrill2Date)) {
-            WPCore::updatePostMeta($postID, 'fireDrill2Date', WPCore::sanitizeTextField($post['fireDrill2Date']));
-        }
-        if (isset($this->fireDrill2Time)) {
-            WPCore::updatePostMeta($postID, 'fireDrill2Time', WPCore::sanitizeTextField($post['fireDrill2Time']));
-        }
-        if (isset($this->fireDrill3Date)) {
-            WPCore::updatePostMeta($postID, 'fireDrill3Date', WPCore::sanitizeTextField($post['fireDrill3Date']));
-        }
-        if (isset($this->fireDrill3Time)) {
-            WPCore::updatePostMeta($postID, 'fireDrill3Time', WPCore::sanitizeTextField($post['fireDrill3Time']));
-        }
-        if (isset($this->fireDrill4Date)) {
-            WPCore::updatePostMeta($postID, 'fireDrill4Date', WPCore::sanitizeTextField($post['fireDrill4Date']));
-        }
-        if (isset($this->fireDrill4Time)) {
-            WPCore::updatePostMeta($postID, 'fireDrill4Time', WPCore::sanitizeTextField($post['fireDrill4Time']));
-        }
-        if (isset($this->fireDrill5Date)) {
-            WPCore::updatePostMeta($postID, 'fireDrill5Date', WPCore::sanitizeTextField($post['fireDrill5Date']));
-        }
-        if (isset($this->fireDrill5Time)) {
-            WPCore::updatePostMeta($postID, 'fireDrill5Time', WPCore::sanitizeTextField($post['fireDrill5Time']));
-        }
-        if (isset($this->bombDrill1Date)) {
-            WPCore::updatePostMeta($postID, 'bombDrill1Date', WPCore::sanitizeTextField($post['bombDrill1Date']));
-        }
-        if (isset($this->bombDrill1Time)) {
-            WPCore::updatePostMeta($postID, 'bombDrill1Time', WPCore::sanitizeTextField($post['bombDrill1Time']));
-        }
+
+        return true;
     }
 }

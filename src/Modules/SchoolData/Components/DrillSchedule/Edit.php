@@ -102,6 +102,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
                     <input type="hidden" id="postID" name="postID" value="<?php echo $currentInstance->getID(); ?>">
+                    <input type="hidden" id="wpRedirect" name="wpRedirect" value="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/">
 
                     <p>Fields marked with <span class="required">*</span> are required.</p>
 
