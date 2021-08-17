@@ -18,6 +18,10 @@ class SCISTeam {
     private $title;
     private $excerpt;
 
+    private $blogID;
+    private $schoolCode;
+    private $email;
+
     private $administratorFirstname;
     private $administratorLastname;
     private $administratorIELiasion;
@@ -65,7 +69,46 @@ class SCISTeam {
         );
 
         $query = new \WP_Query($args);
+        
         $postFromDB = $query->posts[0];
+        $customFields = get_post_custom($postFromDB->ID);
+
+        $postFromDB->administratorFirstname = $customFields['administratorFirstname'][0];
+        $postFromDB->administratorLastname = $customFields['administratorLastname'][0];
+        $postFromDB->administratorIELiasion = $customFields['administratorIELiasion'][0];
+        $postFromDB->teacherFirstname = $customFields['teacherFirstname'][0];
+        $postFromDB->teacherLastname = $customFields['teacherLastname'][0];
+        $postFromDB->teacherIELiasion = $customFields['teacherIELiasion'][0];
+        $postFromDB->paraprofessionalFirstname = $customFields['paraprofessionalFirstname'][0];
+        $postFromDB->paraprofessionalLastname = $customFields['paraprofessionalLastname'][0];
+        $postFromDB->paraprofessionalIELiasion = $customFields['paraprofessionalIELiasion'][0];
+        $postFromDB->parentFirstname = $customFields['parentFirstname'][0];
+        $postFromDB->parentLastname = $customFields['parentLastname'][0];
+        $postFromDB->parentIELiasion = $customFields['parentIELiasion'][0];
+        $postFromDB->communityMemberFirstname = $customFields['communityMemberFirstname'][0];
+        $postFromDB->communityMemberLastname = $customFields['communityMemberLastname'][0];
+        $postFromDB->communityMemberIELiasion = $customFields['communityMemberIELiasion'][0];
+        $postFromDB->student1Firstname = $customFields['student1Firstname'][0];
+        $postFromDB->student1Lastname = $customFields['student1Lastname'][0];
+        $postFromDB->student1IELiasion = $customFields['student1IELiasion'][0];
+        $postFromDB->student2Firstname = $customFields['student2Firstname'][0];
+        $postFromDB->student2Lastname = $customFields['student2Lastname'][0];
+        $postFromDB->student2IELiasion = $customFields['student2IELiasion'][0];
+        $postFromDB->optional1Firstname = $customFields['optional1Firstname'][0];
+        $postFromDB->optional1Lastname = $customFields['optional1Lastname'][0];
+        $postFromDB->optional1IELiasion = $customFields['optional1IELiasion'][0];
+        $postFromDB->optional2Firstname = $customFields['optional2Firstname'][0];
+        $postFromDB->optional2Lastname = $customFields['optional2Lastname'][0];
+        $postFromDB->optional2IELiasion = $customFields['optional2IELiasion'][0];
+        $postFromDB->optional3Firstname = $customFields['optional3Firstname'][0];
+        $postFromDB->optional3Lastname = $customFields['optional3Lastname'][0];
+        $postFromDB->optional3IELiasion = $customFields['optional3IELiasion'][0];
+        $postFromDB->optional4Firstname = $customFields['optional4Firstname'][0];
+        $postFromDB->optional4Lastname = $customFields['optional4Lastname'][0];
+        $postFromDB->optional4IELiasion = $customFields['optional4IELiasion'][0];
+        $postFromDB->optional5Firstname = $customFields['optional5Firstname'][0];
+        $postFromDB->optional5Lastname = $customFields['optional5Lastname'][0];
+        $postFromDB->optional5IELiasion = $customFields['optional5IELiasion'][0];
 
         $post = self::instantiate($postFromDB);
 
@@ -73,9 +116,10 @@ class SCISTeam {
     }
 
     public static function fromForm($postRequest) {
-        $postArray = array(
-            'action' => $postRequest['action'],
+        $action = $postRequest['action'];
+        $wpRedirect = $postRequest['wpRedirect'];
 
+        $postArray = array(
             'postID' => $postRequest['postID'],
             'blogID' => $postRequest['blogID'],
             'schoolCode' => $postRequest['schoolCode'],
@@ -119,12 +163,60 @@ class SCISTeam {
             'optional5IELiasion' => $postRequest['optional5IELiasion'],
         );
 
-        echo "<pre>";
-        echo "from CPT";
-        print_r($_POST);
-        print_r($_REQUEST);
-        print_r(self::getInstance());
-        echo "</pre>";
+        $instance = self::getInstance();
+
+        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+        $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+
+        $instance->blogID     = $postArray['blogID']     ?? $instance->blogID;
+        $instance->schoolCode = $postArray['schoolCode'] ?? $instance->schoolCode;
+        $instance->email      = $postArray['email']      ?? $instance->email;
+
+        $instance->administratorFirstname = $postArray['administratorFirstname'] ?? $instance->administratorFirstname;
+        $instance->administratorLastname = $postArray['administratorLastname'] ?? $instance->administratorLastname;
+        $instance->administratorIELiasion = $postArray['administratorIELiasion'] ?? $instance->administratorIELiasion;
+        $instance->teacherFirstname = $postArray['teacherFirstname'] ?? $instance->teacherFirstname;
+        $instance->teacherLastname = $postArray['teacherLastname'] ?? $instance->teacherLastname;
+        $instance->teacherIELiasion = $postArray['teacherIELiasion'] ?? $instance->teacherIELiasion;
+        $instance->paraprofessionalFirstname = $postArray['paraprofessionalFirstname'] ?? $instance->paraprofessionalFirstname;
+        $instance->paraprofessionalLastname = $postArray['paraprofessionalLastname'] ?? $instance->paraprofessionalLastname;
+        $instance->paraprofessionalIELiasion = $postArray['paraprofessionalIELiasion'] ?? $instance->paraprofessionalIELiasion;
+        $instance->parentFirstname = $postArray['parentFirstname'] ?? $instance->parentFirstname;
+        $instance->parentLastname = $postArray['parentLastname'] ?? $instance->parentLastname;
+        $instance->parentIELiasion = $postArray['parentIELiasion'] ?? $instance->parentIELiasion;
+        $instance->communityMemberFirstname = $postArray['communityMemberFirstname'] ?? $instance->communityMemberFirstname;
+        $instance->communityMemberLastname = $postArray['communityMemberLastname'] ?? $instance->communityMemberLastname;
+        $instance->communityMemberIELiasion = $postArray['communityMemberIELiasion'] ?? $instance->communityMemberIELiasion;
+        $instance->student1Firstname = $postArray['student1Firstname'] ?? $instance->student1Firstname;
+        $instance->student1Lastname = $postArray['student1Lastname'] ?? $instance->student1Lastname;
+        $instance->student1IELiasion = $postArray['student1IELiasion'] ?? $instance->student1IELiasion;
+        $instance->student2Firstname = $postArray['student2Firstname'] ?? $instance->student2Firstname;
+        $instance->student2Lastname = $postArray['student2Lastname'] ?? $instance->student2Lastname;
+        $instance->student2IELiasion = $postArray['student2IELiasion'] ?? $instance->student2IELiasion;
+        $instance->optional1Firstname = $postArray['optional1Firstname'] ?? $instance->optional1Firstname;
+        $instance->optional1Lastname = $postArray['optional1Lastname'] ?? $instance->optional1Lastname;
+        $instance->optional1IELiasion = $postArray['optional1IELiasion'] ?? $instance->optional1IELiasion;
+        $instance->optional2Firstname = $postArray['optional2Firstname'] ?? $instance->optional2Firstname;
+        $instance->optional2Lastname = $postArray['optional2Lastname'] ?? $instance->optional2Lastname;
+        $instance->optional2IELiasion = $postArray['optional2IELiasion'] ?? $instance->optional2IELiasion;
+        $instance->optional3Firstname = $postArray['optional3Firstname'] ?? $instance->optional3Firstname;
+        $instance->optional3Lastname = $postArray['optional3Lastname'] ?? $instance->optional3Lastname;
+        $instance->optional3IELiasion = $postArray['optional3IELiasion'] ?? $instance->optional3IELiasion;
+        $instance->optional4Firstname = $postArray['optional4Firstname'] ?? $instance->optional4Firstname;
+        $instance->optional4Lastname = $postArray['optional4Lastname'] ?? $instance->optional4Lastname;
+        $instance->optional4IELiasion = $postArray['optional4IELiasion'] ?? $instance->optional4IELiasion;
+        $instance->optional5Firstname = $postArray['optional5Firstname'] ?? $instance->optional5Firstname;
+        $instance->optional5Lastname = $postArray['optional5Lastname'] ?? $instance->optional5Lastname;
+        $instance->optional5IELiasion = $postArray['optional5IELiasion'] ?? $instance->optional5IELiasion;
+    
+        $saved = $instance->save();
+
+        if ($saved) {
+            WPCore::wpRedirect($wpRedirect);
+        } else {
+
+        }
     }
 
     private static function instantiate($post) {
@@ -134,6 +226,10 @@ class SCISTeam {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
+
+        $instance->blogID     = $post->blogID ?? '';
+        $instance->schoolCode = $post->schoolCode ?? '';
+        $instance->email      = $post->email ?? '';
 
         $instance->administratorFirstname = $post->administratorFirstname ?? '';
         $instance->administratorLastname = $post->administratorLastname ?? '';
@@ -334,9 +430,13 @@ class SCISTeam {
         return ($this->optional5IELiasion === 1) ? true : false;
     }
 
-    public function toArray() {
+    public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
+
+            'post_type'    => 'scisTeam',
+            'post_status'  => 'publish',
+
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
@@ -393,133 +493,66 @@ class SCISTeam {
             //return;
         //}
 
-        $post = $this->toArray;
-        $postID = $post['ID'];
+        $post = $this->toWPPostArray();
+        $postID = (int) $post['ID'];
 
-        if (0 !== $postID) {
-            WPCore::wpUpdatePost($post, true);
-
+        if (0 == $postID) {
+            $saveResult = WPCore::wpInsertPost($post, true);
         } else {
-            $postID = WPCore::wpInsertPost($post, true);
+            $saveResult = WPCore::wpUpdatePost($post, true);
         }
 
-        if (isset($this->administratorFirstname)) {
+        if (is_wp_error($saveResult)) {
+            $error_string = $saveResult->get_error_message();
+            echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
+            return false;
+        } else {
             WPCore::updatePostMeta($postID, 'administratorFirstname', WPCore::sanitizeTextField($post['administratorFirstname']));
-        }
-        if (isset($this->administratorLastname)) {
             WPCore::updatePostMeta($postID, 'administratorLastname', WPCore::sanitizeTextField($post['administratorLastname']));
-        }
-        if (isset($this->administratorIELiasion)) {
             WPCore::updatePostMeta($postID, 'administratorIELiasion', WPCore::sanitizeTextField($post['administratorIELiasion']));
-        }
 
-        if (isset($this->teacherFirstname)) {
             WPCore::updatePostMeta($postID, 'teacherFirstname', WPCore::sanitizeTextField($post['teacherFirstname']));
-        }
-        if (isset($this->teacherLastname)) {
             WPCore::updatePostMeta($postID, 'teacherLastname', WPCore::sanitizeTextField($post['teacherLastname']));
-        }
-        if (isset($this->teacherIELiasion)) {
             WPCore::updatePostMeta($postID, 'teacherIELiasion', WPCore::sanitizeTextField($post['teacherIELiasion']));
-        }
 
-        if (isset($this->paraprofessionalFirstname)) {
             WPCore::updatePostMeta($postID, 'paraprofessionalFirstname', WPCore::sanitizeTextField($post['paraprofessionalFirstname']));
-        }
-        if (isset($this->paraprofessionalLastname)) {
             WPCore::updatePostMeta($postID, 'paraprofessionalLastname', WPCore::sanitizeTextField($post['paraprofessionalLastname']));
-        }
-        if (isset($this->paraprofessionalIELiasion)) {
             WPCore::updatePostMeta($postID, 'paraprofessionalIELiasion', WPCore::sanitizeTextField($post['paraprofessionalIELiasion']));
-        }
 
-        if (isset($this->parentFirstname)) {
             WPCore::updatePostMeta($postID, 'parentFirstname', WPCore::sanitizeTextField($post['parentFirstname']));
-        }
-        if (isset($this->parentLastname)) {
             WPCore::updatePostMeta($postID, 'parentLastname', WPCore::sanitizeTextField($post['parentLastname']));
-        }
-        if (isset($this->parentIELiasion)) {
             WPCore::updatePostMeta($postID, 'parentIELiasion', WPCore::sanitizeTextField($post['parentIELiasion']));
-        }
 
-        if (isset($this->communityMemberFirstname)) {
             WPCore::updatePostMeta($postID, 'communityMemberFirstname', WPCore::sanitizeTextField($post['communityMemberFirstname']));
-        }
-        if (isset($this->communityMemberLastname)) {
             WPCore::updatePostMeta($postID, 'communityMemberLastname', WPCore::sanitizeTextField($post['communityMemberLastname']));
-        }
-        if (isset($this->communityMemberIELiasion)) {
             WPCore::updatePostMeta($postID, 'communityMemberIELiasion', WPCore::sanitizeTextField($post['communityMemberIELiasion']));
-        }
 
-        if (isset($this->student1Firstname)) {
             WPCore::updatePostMeta($postID, 'student1Firstname', WPCore::sanitizeTextField($post['student1Firstname']));
-        }
-        if (isset($this->student1Lastname)) {
             WPCore::updatePostMeta($postID, 'student1Lastname', WPCore::sanitizeTextField($post['student1Lastname']));
-        }
-        if (isset($this->student1IELiasion)) {
             WPCore::updatePostMeta($postID, 'student1IELiasion', WPCore::sanitizeTextField($post['student1IELiasion']));
-        }
 
-        if (isset($this->student2Firstname)) {
             WPCore::updatePostMeta($postID, 'student2Firstname', WPCore::sanitizeTextField($post['student2Firstname']));
-        }
-        if (isset($this->student2Lastname)) {
             WPCore::updatePostMeta($postID, 'student2Lastname', WPCore::sanitizeTextField($post['student2Lastname']));
-        }
-        if (isset($this->student2IELiasion)) {
             WPCore::updatePostMeta($postID, 'student2IELiasion', WPCore::sanitizeTextField($post['student2IELiasion']));
-        }
 
-        if (isset($this->optional1Firstname)) {
             WPCore::updatePostMeta($postID, 'optional1Firstname', WPCore::sanitizeTextField($post['optional1Firstname']));
-        }
-        if (isset($this->optional1Lastname)) {
             WPCore::updatePostMeta($postID, 'optional1Lastname', WPCore::sanitizeTextField($post['optional1Lastname']));
-        }
-        if (isset($this->optional1IELiasion)) {
             WPCore::updatePostMeta($postID, 'optional1IELiasion', WPCore::sanitizeTextField($post['optional1IELiasion']));
-        }
 
-        if (isset($this->optional2Firstname)) {
             WPCore::updatePostMeta($postID, 'optional2Firstname', WPCore::sanitizeTextField($post['optional2Firstname']));
-        }
-        if (isset($this->optional2Lastname)) {
             WPCore::updatePostMeta($postID, 'optional2Lastname', WPCore::sanitizeTextField($post['optional2Lastname']));
-        }
-        if (isset($this->optional2IELiasion)) {
             WPCore::updatePostMeta($postID, 'optional2IELiasion', WPCore::sanitizeTextField($post['optional2IELiasion']));
-        }
 
-        if (isset($this->optional3Firstname)) {
             WPCore::updatePostMeta($postID, 'optional3Firstname', WPCore::sanitizeTextField($post['optional3Firstname']));
-        }
-        if (isset($this->optional3Lastname)) {
             WPCore::updatePostMeta($postID, 'optional3Lastname', WPCore::sanitizeTextField($post['optional3Lastname']));
-        }
-        if (isset($this->optional3IELiasion)) {
             WPCore::updatePostMeta($postID, 'optional3IELiasion', WPCore::sanitizeTextField($post['optional3IELiasion']));
-        }
 
-        if (isset($this->optional4Firstname)) {
             WPCore::updatePostMeta($postID, 'optional4Firstname', WPCore::sanitizeTextField($post['optional4Firstname']));
-        }
-        if (isset($this->optional4Lastname)) {
             WPCore::updatePostMeta($postID, 'optional4Lastname', WPCore::sanitizeTextField($post['optional4Lastname']));
-        }
-        if (isset($this->optional4IELiasion)) {
             WPCore::updatePostMeta($postID, 'optional4IELiasion', WPCore::sanitizeTextField($post['optional4IELiasion']));
-        }
 
-        if (isset($this->optional5Firstname)) {
             WPCore::updatePostMeta($postID, 'optional5Firstname', WPCore::sanitizeTextField($post['optional5Firstname']));
-        }
-        if (isset($this->optional5Lastname)) {
             WPCore::updatePostMeta($postID, 'optional5Lastname', WPCore::sanitizeTextField($post['optional5Lastname']));
-        }
-        if (isset($this->optional5IELiasion)) {
             WPCore::updatePostMeta($postID, 'optional5IELiasion', WPCore::sanitizeTextField($post['optional5IELiasion']));
         }
     }

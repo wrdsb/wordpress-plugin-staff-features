@@ -18,6 +18,10 @@ class EvacuationSites {
     private $title;
     private $excerpt;
 
+    private $blogID;
+    private $schoolCode;
+    private $email;
+
     private $site1Name;
     private $site1Address;
     private $site1City;
@@ -65,7 +69,46 @@ class EvacuationSites {
         );
 
         $query = new \WP_Query($args);
+
         $postFromDB = $query->posts[0];
+        $customFields = get_post_custom($postFromDB->ID);
+
+        $postFromDB->site1Name = $customFields['site1Name'][0];
+        $postFromDB->site1Address = $customFields['site1Address'][0];
+        $postFromDB->site1City = $customFields['site1City'][0];
+        $postFromDB->site1PostalCode = $customFields['site1PostalCode'][0];
+        $postFromDB->site1Firstname = $customFields['site1Firstname'][0];
+        $postFromDB->site1Lastname = $customFields['site1Lastname'][0];
+        $postFromDB->site1Phone = $customFields['site1Phone'][0];
+        $postFromDB->site1HoursStart = $customFields['site1HoursStart'][0];
+        $postFromDB->site1HoursEnd = $customFields['site1HoursEnd'][0];
+        $postFromDB->site2Name = $customFields['site2Name'][0];
+        $postFromDB->site2Address = $customFields['site2Address'][0];
+        $postFromDB->site2City = $customFields['site2City'][0];
+        $postFromDB->site2PostalCode = $customFields['site2PostalCode'][0];
+        $postFromDB->site2Firstname = $customFields['site2Firstname'][0];
+        $postFromDB->site2Lastname = $customFields['site2Lastname'][0];
+        $postFromDB->site2Phone = $customFields['site2Phone'][0];
+        $postFromDB->site2HoursStart = $customFields['site2HoursStart'][0];
+        $postFromDB->site2HoursEnd = $customFields['site2HoursEnd'][0];
+        $postFromDB->site3Name = $customFields['site3Name'][0];
+        $postFromDB->site3Address = $customFields['site3Address'][0];
+        $postFromDB->site3City = $customFields['site3City'][0];
+        $postFromDB->site3PostalCode = $customFields['site3PostalCode'][0];
+        $postFromDB->site3Firstname = $customFields['site3Firstname'][0];
+        $postFromDB->site3Lastname = $customFields['site3Lastname'][0];
+        $postFromDB->site3Phone = $customFields['site3Phone'][0];
+        $postFromDB->site3HoursStart = $customFields['site3HoursStart'][0];
+        $postFromDB->site3HoursEnd = $customFields['site3HoursEnd'][0];
+        $postFromDB->site4Name = $customFields['site4Name'][0];
+        $postFromDB->site4Address = $customFields['site4Address'][0];
+        $postFromDB->site4City = $customFields['site4City'][0];
+        $postFromDB->site4PostalCode = $customFields['site4PostalCode'][0];
+        $postFromDB->site4Firstname = $customFields['site4Firstname'][0];
+        $postFromDB->site4Lastname = $customFields['site4Lastname'][0];
+        $postFromDB->site4Phone = $customFields['site4Phone'][0];
+        $postFromDB->site4HoursStart = $customFields['site4HoursStart'][0];
+        $postFromDB->site4HoursEnd = $customFields['site4HoursEnd'][0];
 
         $post = self::instantiate($postFromDB);
 
@@ -73,9 +116,10 @@ class EvacuationSites {
     }
 
     public static function fromForm($postRequest) {
-        $postArray = array(
-            'action' => $postRequest['action'],
+        $action = $postRequest['action'];
+        $wpRedirect = $postRequest['wpRedirect'];
 
+        $postArray = array(
             'postID' => $postRequest['postID'],
             'blogID' => $postRequest['blogID'],
             'schoolCode' => $postRequest['schoolCode'],
@@ -119,12 +163,60 @@ class EvacuationSites {
             'site4HoursEnd' => $postRequest['site4HoursEnd'],
         );
 
-        echo "<pre>";
-        echo "from CPT";
-        print_r($_POST);
-        print_r($_REQUEST);
-        print_r(self::getInstance());
-        echo "</pre>";
+        $instance = self::getInstance();
+
+        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+        $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+
+        $instance->blogID     = $postArray['blogID']     ?? $instance->blogID;
+        $instance->schoolCode = $postArray['schoolCode'] ?? $instance->schoolCode;
+        $instance->email      = $postArray['email']      ?? $instance->email;
+
+        $instance->site1Name = $postArray['site1Name'] ?? $instance->site1Name;
+        $instance->site1Address = $postArray['site1Address'] ?? $instance->site1Address;
+        $instance->site1City = $postArray['site1City'] ?? $instance->site1City;
+        $instance->site1PostalCode = $postArray['site1PostalCode'] ?? $instance->site1PostalCode;
+        $instance->site1Firstname = $postArray['site1Firstname'] ?? $instance->site1Firstname;
+        $instance->site1Lastname = $postArray['site1Lastname'] ?? $instance->site1Lastname;
+        $instance->site1Phone = $postArray['site1Phone'] ?? $instance->site1Phone;
+        $instance->site1HoursStart = $postArray['site1HoursStart'] ?? $instance->site1HoursStart;
+        $instance->site1HoursEnd = $postArray['site1HoursEnd'] ?? $instance->site1HoursEnd;
+        $instance->site2Name = $postArray['site2Name'] ?? $instance->site2Name;
+        $instance->site2Address = $postArray['site2Address'] ?? $instance->site2Address;
+        $instance->site2City = $postArray['site2City'] ?? $instance->site2City;
+        $instance->site2PostalCode = $postArray['site2PostalCode'] ?? $instance->site2PostalCode;
+        $instance->site2Firstname = $postArray['site2Firstname'] ?? $instance->site2Firstname;
+        $instance->site2Lastname = $postArray['site2Lastname'] ?? $instance->site2Lastname;
+        $instance->site2Phone = $postArray['site2Phone'] ?? $instance->site2Phone;
+        $instance->site2HoursStart = $postArray['site2HoursStart'] ?? $instance->site2HoursStart;
+        $instance->site2HoursEnd = $postArray['site2HoursEnd'] ?? $instance->site2HoursEnd;
+        $instance->site3Name = $postArray['site3Name'] ?? $instance->site3Name;
+        $instance->site3Address = $postArray['site3Address'] ?? $instance->site3Address;
+        $instance->site3City = $postArray['site3City'] ?? $instance->site3City;
+        $instance->site3PostalCode = $postArray['site3PostalCode'] ?? $instance->site3PostalCode;
+        $instance->site3Firstname = $postArray['site3Firstname'] ?? $instance->site3Firstname;
+        $instance->site3Lastname = $postArray['site3Lastname'] ?? $instance->site3Lastname;
+        $instance->site3Phone = $postArray['site3Phone'] ?? $instance->site3Phone;
+        $instance->site3HoursStart = $postArray['site3HoursStart'] ?? $instance->site3HoursStart;
+        $instance->site3HoursEnd = $postArray['site3HoursEnd'] ?? $instance->site3HoursEnd;
+        $instance->site4Name = $postArray['site4Name'] ?? $instance->site4Name;
+        $instance->site4Address = $postArray['site4Address'] ?? $instance->site4Address;
+        $instance->site4City = $postArray['site4City'] ?? $instance->site4City;
+        $instance->site4PostalCode = $postArray['site4PostalCode'] ?? $instance->site4PostalCode;
+        $instance->site4Firstname = $postArray['site4Firstname'] ?? $instance->site4Firstname;
+        $instance->site4Lastname = $postArray['site4Lastname'] ?? $instance->site4Lastname;
+        $instance->site4Phone = $postArray['site4Phone'] ?? $instance->site4Phone;
+        $instance->site4HoursStart = $postArray['site4HoursStart'] ?? $instance->site4HoursStart;
+        $instance->site4HoursEnd = $postArray['site4HoursEnd'] ?? $instance->site4HoursEnd;
+
+        $saved = $instance->save();
+
+        if ($saved) {
+            WPCore::wpRedirect($wpRedirect);
+        } else {
+
+        }
     }
 
     private static function instantiate($post) {
@@ -134,6 +226,10 @@ class EvacuationSites {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
+
+        $instance->blogID     = $post->blogID ?? '';
+        $instance->schoolCode = $post->schoolCode ?? '';
+        $instance->email      = $post->email ?? '';
 
         $instance->site1Name = $post->site1Name ?? '';
         $instance->site1Address = $post->site1Address ?? '';
@@ -287,9 +383,13 @@ class EvacuationSites {
         return $this->site4HoursEnd;
     }
 
-    public function toArray() {
+    public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
+
+            'post_type'    => 'evacuationSites',
+            'post_status'  => 'publish',
+
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
@@ -346,125 +446,58 @@ class EvacuationSites {
             //return;
         //}
 
-        $post = $this->toArray;
-        $postID = $post['ID'];
+        $post = $this->toWPPostArray();
+        $postID = (int) $post['ID'];
 
-        if (0 !== $postID) {
-            WPCore::wpUpdatePost($post, true);
-
+        if (0 == $postID) {
+            $saveResult = WPCore::wpInsertPost($post, true);
         } else {
-            $postID = WPCore::wpInsertPost($post, true);
+            $saveResult = WPCore::wpUpdatePost($post, true);
         }
 
-        if (isset($this->site1Name)) {
+        if (is_wp_error($saveResult)) {
+            $error_string = $saveResult->get_error_message();
+            echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
+            return false;
+        } else {
             WPCore::updatePostMeta($postID, 'site1Name', WPCore::sanitizeTextField($post['site1Name']));
-        }
-        if (isset($this->site1Address)) {
             WPCore::updatePostMeta($postID, 'site1Address', WPCore::sanitizeTextField($post['site1Address']));
-        }
-        if (isset($this->site1City)) {
             WPCore::updatePostMeta($postID, 'site1City', WPCore::sanitizeTextField($post['site1City']));
-        }
-        if (isset($this->site1PostalCode)) {
             WPCore::updatePostMeta($postID, 'site1PostalCode', WPCore::sanitizeTextField($post['site1PostalCode']));
-        }
-        if (isset($this->site1Firstname)) {
             WPCore::updatePostMeta($postID, 'site1Firstname', WPCore::sanitizeTextField($post['site1Firstname']));
-        }
-        if (isset($this->site1Lastname)) {
             WPCore::updatePostMeta($postID, 'site1Lastname', WPCore::sanitizeTextField($post['site1Lastname']));
-        }
-        if (isset($this->site1Phone)) {
             WPCore::updatePostMeta($postID, 'site1Phone', WPCore::sanitizeTextField($post['site1Phone']));
-        }
-        if (isset($this->site1HoursStart)) {
             WPCore::updatePostMeta($postID, 'site1HoursStart', WPCore::sanitizeTextField($post['site1HoursStart']));
-        }
-        if (isset($this->site1HoursEnd)) {
             WPCore::updatePostMeta($postID, 'site1HoursEnd', WPCore::sanitizeTextField($post['site1HoursEnd']));
-        }
 
-        if (isset($this->site2Name)) {
             WPCore::updatePostMeta($postID, 'site2Name', WPCore::sanitizeTextField($post['site2Name']));
-        }
-        if (isset($this->site2Address)) {
             WPCore::updatePostMeta($postID, 'site2Address', WPCore::sanitizeTextField($post['site2Address']));
-        }
-        if (isset($this->site2City)) {
             WPCore::updatePostMeta($postID, 'site2City', WPCore::sanitizeTextField($post['site2City']));
-        }
-        if (isset($this->site2PostalCode)) {
             WPCore::updatePostMeta($postID, 'site2PostalCode', WPCore::sanitizeTextField($post['site2PostalCode']));
-        }
-        if (isset($this->site2Firstname)) {
             WPCore::updatePostMeta($postID, 'site2Firstname', WPCore::sanitizeTextField($post['site2Firstname']));
-        }
-        if (isset($this->site2Lastname)) {
             WPCore::updatePostMeta($postID, 'site2Lastname', WPCore::sanitizeTextField($post['site2Lastname']));
-        }
-        if (isset($this->site2Phone)) {
             WPCore::updatePostMeta($postID, 'site2Phone', WPCore::sanitizeTextField($post['site2Phone']));
-        }
-        if (isset($this->site2HoursStart)) {
             WPCore::updatePostMeta($postID, 'site2HoursStart', WPCore::sanitizeTextField($post['site2HoursStart']));
-        }
-        if (isset($this->site2HoursEnd)) {
             WPCore::updatePostMeta($postID, 'site2HoursEnd', WPCore::sanitizeTextField($post['site2HoursEnd']));
-        }
 
-        if (isset($this->site3Name)) {
             WPCore::updatePostMeta($postID, 'site3Name', WPCore::sanitizeTextField($post['site3Name']));
-        }
-        if (isset($this->site3Address)) {
             WPCore::updatePostMeta($postID, 'site3Address', WPCore::sanitizeTextField($post['site3Address']));
-        }
-        if (isset($this->site3City)) {
             WPCore::updatePostMeta($postID, 'site3City', WPCore::sanitizeTextField($post['site3City']));
-        }
-        if (isset($this->site3PostalCode)) {
             WPCore::updatePostMeta($postID, 'site3PostalCode', WPCore::sanitizeTextField($post['site3PostalCode']));
-        }
-        if (isset($this->site3Firstname)) {
             WPCore::updatePostMeta($postID, 'site3Firstname', WPCore::sanitizeTextField($post['site3Firstname']));
-        }
-        if (isset($this->site3Lastname)) {
             WPCore::updatePostMeta($postID, 'site3Lastname', WPCore::sanitizeTextField($post['site3Lastname']));
-        }
-        if (isset($this->site3Phone)) {
             WPCore::updatePostMeta($postID, 'site3Phone', WPCore::sanitizeTextField($post['site3Phone']));
-        }
-        if (isset($this->site3HoursStart)) {
             WPCore::updatePostMeta($postID, 'site3HoursStart', WPCore::sanitizeTextField($post['site3HoursStart']));
-        }
-        if (isset($this->site3HoursEnd)) {
             WPCore::updatePostMeta($postID, 'site3HoursEnd', WPCore::sanitizeTextField($post['site3HoursEnd']));
-        }
 
-        if (isset($this->site4Name)) {
             WPCore::updatePostMeta($postID, 'site4Name', WPCore::sanitizeTextField($post['site4Name']));
-        }
-        if (isset($this->site4Address)) {
             WPCore::updatePostMeta($postID, 'site4Address', WPCore::sanitizeTextField($post['site4Address']));
-        }
-        if (isset($this->site4City)) {
             WPCore::updatePostMeta($postID, 'site4City', WPCore::sanitizeTextField($post['site4City']));
-        }
-        if (isset($this->site4PostalCode)) {
             WPCore::updatePostMeta($postID, 'site4PostalCode', WPCore::sanitizeTextField($post['site4PostalCode']));
-        }
-        if (isset($this->site4Firstname)) {
             WPCore::updatePostMeta($postID, 'site4Firstname', WPCore::sanitizeTextField($post['site4Firstname']));
-        }
-        if (isset($this->site4Lastname)) {
             WPCore::updatePostMeta($postID, 'site4Lastname', WPCore::sanitizeTextField($post['site4Lastname']));
-        }
-        if (isset($this->site4Phone)) {
             WPCore::updatePostMeta($postID, 'site4Phone', WPCore::sanitizeTextField($post['site4Phone']));
-        }
-        if (isset($this->site4HoursStart)) {
             WPCore::updatePostMeta($postID, 'site4HoursStart', WPCore::sanitizeTextField($post['site4HoursStart']));
-        }
-        if (isset($this->site4HoursEnd)) {
             WPCore::updatePostMeta($postID, 'site4HoursEnd', WPCore::sanitizeTextField($post['site4HoursEnd']));
         }
     }

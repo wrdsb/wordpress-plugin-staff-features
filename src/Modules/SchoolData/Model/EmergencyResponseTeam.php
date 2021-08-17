@@ -18,6 +18,10 @@ class EmergencyResponseTeam {
     private $title;
     private $excerpt;
 
+    private $blogID;
+    private $schoolCode;
+    private $email;
+
     private $firstname1;
     private $lastname1;
     private $cprExpiry1;
@@ -89,7 +93,70 @@ class EmergencyResponseTeam {
         );
 
         $query = new \WP_Query($args);
+
         $postFromDB = $query->posts[0];
+        $customFields = get_post_custom($postFromDB->ID);
+
+        $postFromDB->firstname1 = $customFields['firstname1'][0];
+        $postFromDB->lastname1 = $customFields['lastname1'][0];
+        $postFromDB->cprExpiry1 = $customFields['cprExpiry1'][0];
+        $postFromDB->firstAidExpiry1 = $customFields['firstAidExpiry1'][0];
+        $postFromDB->bmsExpiry1 = $customFields['bmsExpiry1'][0];
+        $postFromDB->firstname2 = $customFields['firstname2'][0];
+        $postFromDB->lastname2 = $customFields['lastname2'][0];
+        $postFromDB->cprExpiry2 = $customFields['cprExpiry2'][0];
+        $postFromDB->firstAidExpiry2 = $customFields['firstAidExpiry2'][0];
+        $postFromDB->bmsExpiry2 = $customFields['bmsExpiry2'][0];
+        $postFromDB->firstname3 = $customFields['firstname3'][0];
+        $postFromDB->lastname3 = $customFields['lastname3'][0];
+        $postFromDB->cprExpiry3 = $customFields['cprExpiry3'][0];
+        $postFromDB->firstAidExpiry3 = $customFields['firstAidExpiry3'][0];
+        $postFromDB->bmsExpiry3 = $customFields['bmsExpiry3'][0];
+        $postFromDB->firstname4 = $customFields['firstname4'][0];
+        $postFromDB->lastname4 = $customFields['lastname4'][0];
+        $postFromDB->cprExpiry4 = $customFields['cprExpiry4'][0];
+        $postFromDB->firstAidExpiry4 = $customFields['firstAidExpiry4'][0];
+        $postFromDB->bmsExpiry4 = $customFields['bmsExpiry4'][0];
+        $postFromDB->firstname5 = $customFields['firstname5'][0];
+        $postFromDB->lastname5 = $customFields['lastname5'][0];
+        $postFromDB->cprExpiry5 = $customFields['cprExpiry5'][0];
+        $postFromDB->firstAidExpiry5 = $customFields['firstAidExpiry5'][0];
+        $postFromDB->bmsExpiry5 = $customFields['bmsExpiry5'][0];
+        $postFromDB->firstname6 = $customFields['firstname6'][0];
+        $postFromDB->lastname6 = $customFields['lastname6'][0];
+        $postFromDB->cprExpiry6 = $customFields['cprExpiry6'][0];
+        $postFromDB->firstAidExpiry6 = $customFields['firstAidExpiry6'][0];
+        $postFromDB->bmsExpiry6 = $customFields['bmsExpiry6'][0];
+        $postFromDB->firstname7 = $customFields['firstname7'][0];
+        $postFromDB->lastname7 = $customFields['lastname7'][0];
+        $postFromDB->cprExpiry7 = $customFields['cprExpiry7'][0];
+        $postFromDB->firstAidExpiry7 = $customFields['firstAidExpiry7'][0];
+        $postFromDB->bmsExpiry7 = $customFields['bmsExpiry7'][0];
+        $postFromDB->firstname8 = $customFields['firstname8'][0];
+        $postFromDB->lastname8 = $customFields['lastname8'][0];
+        $postFromDB->cprExpiry8 = $customFields['cprExpiry8'][0];
+        $postFromDB->firstAidExpiry8 = $customFields['firstAidExpiry8'][0];
+        $postFromDB->bmsExpiry8 = $customFields['bmsExpiry8'][0];
+        $postFromDB->firstname9 = $customFields['firstname9'][0];
+        $postFromDB->lastname9 = $customFields['lastname9'][0];
+        $postFromDB->cprExpiry9 = $customFields['cprExpiry9'][0];
+        $postFromDB->firstAidExpiry9 = $customFields['firstAidExpiry9'][0];
+        $postFromDB->bmsExpiry9 = $customFields['bmsExpiry9'][0];
+        $postFromDB->firstname10 = $customFields['firstname10'][0];
+        $postFromDB->lastname10 = $customFields['lastname10'][0];
+        $postFromDB->cprExpiry10 = $customFields['cprExpiry10'][0];
+        $postFromDB->firstAidExpiry10 = $customFields['firstAidExpiry10'][0];
+        $postFromDB->bmsExpiry10 = $customFields['bmsExpiry10'][0];
+        $postFromDB->firstname11 = $customFields['firstname11'][0];
+        $postFromDB->lastname11 = $customFields['lastname11'][0];
+        $postFromDB->cprExpiry11 = $customFields['cprExpiry11'][0];
+        $postFromDB->firstAidExpiry11 = $customFields['firstAidExpiry11'][0];
+        $postFromDB->bmsExpiry11 = $customFields['bmsExpiry11'][0];
+        $postFromDB->firstname12 = $customFields['firstname12'][0];
+        $postFromDB->lastname12 = $customFields['lastname12'][0];
+        $postFromDB->cprExpiry12 = $customFields['cprExpiry12'][0];
+        $postFromDB->firstAidExpiry12 = $customFields['firstAidExpiry12'][0];
+        $postFromDB->bmsExpiry12 = $customFields['bmsExpiry12'][0];
 
         $post = self::instantiate($postFromDB);
 
@@ -97,9 +164,10 @@ class EmergencyResponseTeam {
     }
 
     public static function fromForm($postRequest) {
-        $postArray = array(
-            'action' => $postRequest['action'],
+        $action = $postRequest['action'];
+        $wpRedirect = $postRequest['wpRedirect'];
 
+        $postArray = array(
             'postID' => $postRequest['postID'],
             'blogID' => $postRequest['blogID'],
             'schoolCode' => $postRequest['schoolCode'],
@@ -167,12 +235,84 @@ class EmergencyResponseTeam {
             'bmsExpiry12' => $postRequest['bmsExpiry12'],
         );
 
-        echo "<pre>";
-        echo "from CPT";
-        print_r($_POST);
-        print_r($_REQUEST);
-        print_r(self::getInstance());
-        echo "</pre>";
+        $instance = self::getInstance();
+
+        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+        $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+
+        $instance->blogID     = $postArray['blogID']     ?? $instance->blogID;
+        $instance->schoolCode = $postArray['schoolCode'] ?? $instance->schoolCode;
+        $instance->email      = $postArray['email']      ?? $instance->email;
+
+        $instance->firstname1 = $postArray['firstname1'] ?? $instance->firstname1;
+        $instance->lastname1 = $postArray['lastname1'] ?? $instance->lastname1;
+        $instance->cprExpiry1 = $postArray['cprExpiry1'] ?? $instance->cprExpiry1;
+        $instance->firstAidExpiry1 = $postArray['firstAidExpiry1'] ?? $instance->firstAidExpiry1;
+        $instance->bmsExpiry1 = $postArray['bmsExpiry1'] ?? $instance->bmsExpiry1;
+        $instance->firstname2 = $postArray['firstname2'] ?? $instance->firstname2;
+        $instance->lastname2 = $postArray['lastname2'] ?? $instance->lastname2;
+        $instance->cprExpiry2 = $postArray['cprExpiry2'] ?? $instance->cprExpiry2;
+        $instance->firstAidExpiry2 = $postArray['firstAidExpiry2'] ?? $instance->firstAidExpiry2;
+        $instance->bmsExpiry2 = $postArray['bmsExpiry2'] ?? $instance->bmsExpiry2;
+        $instance->firstname3 = $postArray['firstname3'] ?? $instance->firstname3;
+        $instance->lastname3 = $postArray['lastname3'] ?? $instance->lastname3;
+        $instance->cprExpiry3 = $postArray['cprExpiry3'] ?? $instance->cprExpiry3;
+        $instance->firstAidExpiry3 = $postArray['firstAidExpiry3'] ?? $instance->firstAidExpiry3;
+        $instance->bmsExpiry3 = $postArray['bmsExpiry3'] ?? $instance->bmsExpiry3;
+        $instance->firstname4 = $postArray['firstname4'] ?? $instance->firstname4;
+        $instance->lastname4 = $postArray['lastname4'] ?? $instance->lastname4;
+        $instance->cprExpiry4 = $postArray['cprExpiry4'] ?? $instance->cprExpiry4;
+        $instance->firstAidExpiry4 = $postArray['firstAidExpiry4'] ?? $instance->firstAidExpiry4;
+        $instance->bmsExpiry4 = $postArray['bmsExpiry4'] ?? $instance->bmsExpiry4;
+        $instance->firstname5 = $postArray['firstname5'] ?? $instance->firstname5;
+        $instance->lastname5 = $postArray['lastname5'] ?? $instance->lastname5;
+        $instance->cprExpiry5 = $postArray['cprExpiry5'] ?? $instance->cprExpiry5;
+        $instance->firstAidExpiry5 = $postArray['firstAidExpiry5'] ?? $instance->firstAidExpiry5;
+        $instance->bmsExpiry5 = $postArray['bmsExpiry5'] ?? $instance->bmsExpiry5;
+        $instance->firstname6 = $postArray['firstname6'] ?? $instance->firstname6;
+        $instance->lastname6 = $postArray['lastname6'] ?? $instance->lastname6;
+        $instance->cprExpiry6 = $postArray['cprExpiry6'] ?? $instance->cprExpiry6;
+        $instance->firstAidExpiry6 = $postArray['firstAidExpiry6'] ?? $instance->firstAidExpiry6;
+        $instance->bmsExpiry6 = $postArray['bmsExpiry6'] ?? $instance->bmsExpiry6;
+        $instance->firstname7 = $postArray['firstname7'] ?? $instance->firstname7;
+        $instance->lastname7 = $postArray['lastname7'] ?? $instance->lastname7;
+        $instance->cprExpiry7 = $postArray['cprExpiry7'] ?? $instance->cprExpiry7;
+        $instance->firstAidExpiry7 = $postArray['firstAidExpiry7'] ?? $instance->firstAidExpiry7;
+        $instance->bmsExpiry7 = $postArray['bmsExpiry7'] ?? $instance->bmsExpiry7;
+        $instance->firstname8 = $postArray['firstname8'] ?? $instance->firstname8;
+        $instance->lastname8 = $postArray['lastname8'] ?? $instance->lastname8;
+        $instance->cprExpiry8 = $postArray['cprExpiry8'] ?? $instance->cprExpiry8;
+        $instance->firstAidExpiry8 = $postArray['firstAidExpiry8'] ?? $instance->firstAidExpiry8;
+        $instance->bmsExpiry8 = $postArray['bmsExpiry8'] ?? $instance->bmsExpiry8;
+        $instance->firstname9 = $postArray['firstname9'] ?? $instance->firstname9;
+        $instance->lastname9 = $postArray['lastname9'] ?? $instance->lastname9;
+        $instance->cprExpiry9 = $postArray['cprExpiry9'] ?? $instance->cprExpiry9;
+        $instance->firstAidExpiry9 = $postArray['firstAidExpiry9'] ?? $instance->firstAidExpiry9;
+        $instance->bmsExpiry9 = $postArray['bmsExpiry9'] ?? $instance->bmsExpiry9;
+        $instance->firstname10 = $postArray['firstname10'] ?? $instance->firstname10;
+        $instance->lastname10 = $postArray['lastname10'] ?? $instance->lastname10;
+        $instance->cprExpiry10 = $postArray['cprExpiry10'] ?? $instance->cprExpiry10;
+        $instance->firstAidExpiry10 = $postArray['firstAidExpiry10'] ?? $instance->firstAidExpiry10;
+        $instance->bmsExpiry10 = $postArray['bmsExpiry10'] ?? $instance->bmsExpiry10;
+        $instance->firstname11 = $postArray['firstname11'] ?? $instance->firstname11;
+        $instance->lastname11 = $postArray['lastname11'] ?? $instance->lastname11;
+        $instance->cprExpiry11 = $postArray['cprExpiry11'] ?? $instance->cprExpiry11;
+        $instance->firstAidExpiry11 = $postArray['firstAidExpiry11'] ?? $instance->firstAidExpiry11;
+        $instance->bmsExpiry11 = $postArray['bmsExpiry11'] ?? $instance->bmsExpiry11;
+        $instance->firstname12 = $postArray['firstname12'] ?? $instance->firstname12;
+        $instance->lastname12 = $postArray['lastname12'] ?? $instance->lastname12;
+        $instance->cprExpiry12 = $postArray['cprExpiry12'] ?? $instance->cprExpiry12;
+        $instance->firstAidExpiry12 = $postArray['firstAidExpiry12'] ?? $instance->firstAidExpiry12;
+        $instance->bmsExpiry12 = $postArray['bmsExpiry12'] ?? $instance->bmsExpiry12;
+    
+        $saved = $instance->save();
+
+        if ($saved) {
+            WPCore::wpRedirect($wpRedirect);
+        } else {
+
+        }
     }
 
     private static function instantiate($post) {
@@ -182,6 +322,10 @@ class EmergencyResponseTeam {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
+
+        $instance->blogID     = $post->blogID ?? '';
+        $instance->schoolCode = $post->schoolCode ?? '';
+        $instance->email      = $post->email ?? '';
 
         $instance->firstname1 = $post->firstname1 ?? '';
         $instance->lastname1 = $post->lastname1 ?? '';
@@ -431,12 +575,16 @@ class EmergencyResponseTeam {
         return $this->bmsExpiry12;
     }
 
-    public function toArray() {
+    public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
-            'content' => $this->content,
-            'title'   => $this->title,
-            'excerpt' => $this->excerpt,
+
+            'post_type'    => 'emergencyResponseTeam',
+            'post_status'  => 'publish',
+
+            'post_content' => $this->content,
+            'post_title'   => $this->title,
+            'post_excerpt' => $this->excerpt,
 
             'firstname1' => $this->firstname1,
             'lastname1' => $this->lastname1,
@@ -514,205 +662,90 @@ class EmergencyResponseTeam {
             //return;
         //}
 
-        $post = $this->toArray;
-        $postID = $post['ID'];
+        $post = $this->toWPPostArray();
+        $postID = (int) $post['ID'];
 
-        if (0 !== $postID) {
-            WPCore::wpUpdatePost($post, true);
-
+        if (0 == $postID) {
+            $saveResult = WPCore::wpInsertPost($post, true);
         } else {
-            $postID = WPCore::wpInsertPost($post, true);
+            $saveResult = WPCore::wpUpdatePost($post, true);
         }
 
-        if (isset($this->firstname1)) {
+        if (is_wp_error($saveResult)) {
+            $error_string = $saveResult->get_error_message();
+            echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
+            return false;
+        } else {
             WPCore::updatePostMeta($postID, 'firstname1', WPCore::sanitizeTextField($post['firstname1']));
-        }
-        if (isset($this->lastname1)) {
             WPCore::updatePostMeta($postID, 'lastname1', WPCore::sanitizeTextField($post['lastname1']));
-        }
-        if (isset($this->cprExpiry1)) {
             WPCore::updatePostMeta($postID, 'cprExpiry1', WPCore::sanitizeTextField($post['cprExpiry1']));
-        }
-        if (isset($this->firstAidExpiry1)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry1', WPCore::sanitizeTextField($post['firstAidExpiry1']));
-        }
-        if (isset($this->bmsExpiry1)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry1', WPCore::sanitizeTextField($post['bmsExpiry1']));
-        }
 
-        if (isset($this->firstname2)) {
             WPCore::updatePostMeta($postID, 'firstname2', WPCore::sanitizeTextField($post['firstname2']));
-        }
-        if (isset($this->lastname2)) {
             WPCore::updatePostMeta($postID, 'lastname2', WPCore::sanitizeTextField($post['lastname2']));
-        }
-        if (isset($this->cprExpiry2)) {
             WPCore::updatePostMeta($postID, 'cprExpiry2', WPCore::sanitizeTextField($post['cprExpiry2']));
-        }
-        if (isset($this->firstAidExpiry2)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry2', WPCore::sanitizeTextField($post['firstAidExpiry2']));
-        }
-        if (isset($this->bmsExpiry2)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry2', WPCore::sanitizeTextField($post['bmsExpiry2']));
-        }
 
-        if (isset($this->firstname3)) {
             WPCore::updatePostMeta($postID, 'firstname3', WPCore::sanitizeTextField($post['firstname3']));
-        }
-        if (isset($this->lastname3)) {
             WPCore::updatePostMeta($postID, 'lastname3', WPCore::sanitizeTextField($post['lastname3']));
-        }
-        if (isset($this->cprExpiry3)) {
             WPCore::updatePostMeta($postID, 'cprExpiry3', WPCore::sanitizeTextField($post['cprExpiry3']));
-        }
-        if (isset($this->firstAidExpiry3)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry3', WPCore::sanitizeTextField($post['firstAidExpiry3']));
-        }
-        if (isset($this->bmsExpiry3)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry3', WPCore::sanitizeTextField($post['bmsExpiry3']));
-        }
 
-        if (isset($this->firstname4)) {
             WPCore::updatePostMeta($postID, 'firstname4', WPCore::sanitizeTextField($post['firstname4']));
-        }
-        if (isset($this->lastname4)) {
             WPCore::updatePostMeta($postID, 'lastname4', WPCore::sanitizeTextField($post['lastname4']));
-        }
-        if (isset($this->cprExpiry4)) {
             WPCore::updatePostMeta($postID, 'cprExpiry4', WPCore::sanitizeTextField($post['cprExpiry4']));
-        }
-        if (isset($this->firstAidExpiry4)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry4', WPCore::sanitizeTextField($post['firstAidExpiry4']));
-        }
-        if (isset($this->bmsExpiry4)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry4', WPCore::sanitizeTextField($post['bmsExpiry4']));
-        }
 
-        if (isset($this->firstname5)) {
             WPCore::updatePostMeta($postID, 'firstname5', WPCore::sanitizeTextField($post['firstname5']));
-        }
-        if (isset($this->lastname5)) {
             WPCore::updatePostMeta($postID, 'lastname5', WPCore::sanitizeTextField($post['lastname5']));
-        }
-        if (isset($this->cprExpiry5)) {
             WPCore::updatePostMeta($postID, 'cprExpiry5', WPCore::sanitizeTextField($post['cprExpiry5']));
-        }
-        if (isset($this->firstAidExpiry5)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry5', WPCore::sanitizeTextField($post['firstAidExpiry5']));
-        }
-        if (isset($this->bmsExpiry5)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry5', WPCore::sanitizeTextField($post['bmsExpiry5']));
-        }
 
-        if (isset($this->firstname6)) {
             WPCore::updatePostMeta($postID, 'firstname6', WPCore::sanitizeTextField($post['firstname6']));
-        }
-        if (isset($this->lastname6)) {
             WPCore::updatePostMeta($postID, 'lastname6', WPCore::sanitizeTextField($post['lastname6']));
-        }
-        if (isset($this->cprExpiry6)) {
             WPCore::updatePostMeta($postID, 'cprExpiry6', WPCore::sanitizeTextField($post['cprExpiry6']));
-        }
-        if (isset($this->firstAidExpiry6)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry6', WPCore::sanitizeTextField($post['firstAidExpiry6']));
-        }
-        if (isset($this->bmsExpiry6)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry6', WPCore::sanitizeTextField($post['bmsExpiry6']));
-        }
 
-        if (isset($this->firstname7)) {
             WPCore::updatePostMeta($postID, 'firstname7', WPCore::sanitizeTextField($post['firstname7']));
-        }
-        if (isset($this->lastname7)) {
             WPCore::updatePostMeta($postID, 'lastname7', WPCore::sanitizeTextField($post['lastname7']));
-        }
-        if (isset($this->cprExpiry7)) {
             WPCore::updatePostMeta($postID, 'cprExpiry7', WPCore::sanitizeTextField($post['cprExpiry7']));
-        }
-        if (isset($this->firstAidExpiry7)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry7', WPCore::sanitizeTextField($post['firstAidExpiry7']));
-        }
-        if (isset($this->bmsExpiry7)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry7', WPCore::sanitizeTextField($post['bmsExpiry7']));
-        }
 
-        if (isset($this->firstname8)) {
             WPCore::updatePostMeta($postID, 'firstname8', WPCore::sanitizeTextField($post['firstname8']));
-        }
-        if (isset($this->lastname8)) {
             WPCore::updatePostMeta($postID, 'lastname8', WPCore::sanitizeTextField($post['lastname8']));
-        }
-        if (isset($this->cprExpiry8)) {
             WPCore::updatePostMeta($postID, 'cprExpiry8', WPCore::sanitizeTextField($post['cprExpiry8']));
-        }
-        if (isset($this->firstAidExpiry8)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry8', WPCore::sanitizeTextField($post['firstAidExpiry8']));
-        }
-        if (isset($this->bmsExpiry8)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry8', WPCore::sanitizeTextField($post['bmsExpiry8']));
-        }
 
-        if (isset($this->firstname9)) {
             WPCore::updatePostMeta($postID, 'firstname9', WPCore::sanitizeTextField($post['firstname9']));
-        }
-        if (isset($this->lastname9)) {
             WPCore::updatePostMeta($postID, 'lastname9', WPCore::sanitizeTextField($post['lastname9']));
-        }
-        if (isset($this->cprExpiry9)) {
             WPCore::updatePostMeta($postID, 'cprExpiry9', WPCore::sanitizeTextField($post['cprExpiry9']));
-        }
-        if (isset($this->firstAidExpiry9)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry9', WPCore::sanitizeTextField($post['firstAidExpiry9']));
-        }
-        if (isset($this->bmsExpiry9)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry9', WPCore::sanitizeTextField($post['bmsExpiry9']));
-        }
 
-        if (isset($this->firstname10)) {
             WPCore::updatePostMeta($postID, 'firstname10', WPCore::sanitizeTextField($post['firstname10']));
-        }
-        if (isset($this->lastname10)) {
             WPCore::updatePostMeta($postID, 'lastname10', WPCore::sanitizeTextField($post['lastname10']));
-        }
-        if (isset($this->cprExpiry10)) {
             WPCore::updatePostMeta($postID, 'cprExpiry10', WPCore::sanitizeTextField($post['cprExpiry10']));
-        }
-        if (isset($this->firstAidExpiry10)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry10', WPCore::sanitizeTextField($post['firstAidExpiry10']));
-        }
-        if (isset($this->bmsExpiry10)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry10', WPCore::sanitizeTextField($post['bmsExpiry10']));
-        }
 
-        if (isset($this->firstname11)) {
             WPCore::updatePostMeta($postID, 'firstname11', WPCore::sanitizeTextField($post['firstname11']));
-        }
-        if (isset($this->lastname11)) {
             WPCore::updatePostMeta($postID, 'lastname11', WPCore::sanitizeTextField($post['lastname11']));
-        }
-        if (isset($this->cprExpiry11)) {
             WPCore::updatePostMeta($postID, 'cprExpiry11', WPCore::sanitizeTextField($post['cprExpiry11']));
-        }
-        if (isset($this->firstAidExpiry11)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry11', WPCore::sanitizeTextField($post['firstAidExpiry11']));
-        }
-        if (isset($this->bmsExpiry11)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry11', WPCore::sanitizeTextField($post['bmsExpiry11']));
-        }
 
-        if (isset($this->firstname12)) {
             WPCore::updatePostMeta($postID, 'firstname12', WPCore::sanitizeTextField($post['firstname12']));
-        }
-        if (isset($this->lastname12)) {
             WPCore::updatePostMeta($postID, 'lastname12', WPCore::sanitizeTextField($post['lastname12']));
-        }
-        if (isset($this->cprExpiry12)) {
             WPCore::updatePostMeta($postID, 'cprExpiry12', WPCore::sanitizeTextField($post['cprExpiry12']));
-        }
-        if (isset($this->firstAidExpiry12)) {
             WPCore::updatePostMeta($postID, 'firstAidExpiry12', WPCore::sanitizeTextField($post['firstAidExpiry12']));
-        }
-        if (isset($this->bmsExpiry12)) {
             WPCore::updatePostMeta($postID, 'bmsExpiry12', WPCore::sanitizeTextField($post['bmsExpiry12']));
         }
     }

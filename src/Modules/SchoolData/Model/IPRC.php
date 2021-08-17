@@ -18,6 +18,10 @@ class IPRC {
     private $title;
     private $excerpt;
 
+    private $blogID;
+    private $schoolCode;
+    private $email;
+
     private $principalFirstname;
     private $principalLastname;
     private $teacher1Firstname;
@@ -41,17 +45,33 @@ class IPRC {
         );
 
         $query = new \WP_Query($args);
+        
         $postFromDB = $query->posts[0];
+        $customFields = get_post_custom($postFromDB->ID);
 
+        $postFromDB->principalFirstname = $customFields['principalFirstname'][0];
+        $postFromDB->principalLastname = $customFields['principalLastname'][0];
+        $postFromDB->teacher1Firstname = $customFields['teacher1Firstname'][0];
+        $postFromDB->teacher1Lastname = $customFields['teacher1Lastname'][0];
+        $postFromDB->teacher2Firstname = $customFields['teacher2Firstname'][0];
+        $postFromDB->teacher2Lastname = $customFields['teacher2Lastname'][0];
+        $postFromDB->teacher3Firstname = $customFields['teacher3Firstname'][0];
+        $postFromDB->teacher3Lastname = $customFields['teacher3Lastname'][0];
+        $postFromDB->teacher4Firstname = $customFields['teacher4Firstname'][0];
+        $postFromDB->teacher4Lastname = $customFields['teacher4Lastname'][0];
+        $postFromDB->teacher5Firstname = $customFields['teacher5Firstname'][0];
+        $postFromDB->teacher5Lastname = $customFields['teacher5Lastname'][0];
+    
         $post = self::instantiate($postFromDB);
 
         return $post;
     }
 
     public static function fromForm($postRequest) {
-        $postArray = array(
-            'action' => $postRequest['action'],
+        $action = $postRequest['action'];
+        $wpRedirect = $postRequest['wpRedirect'];
 
+        $postArray = array(
             'postID' => $postRequest['postID'],
             'blogID' => $postRequest['blogID'],
             'schoolCode' => $postRequest['schoolCode'],
@@ -71,12 +91,36 @@ class IPRC {
             'teacher5Lastname' => $postRequest['teacher5Lastname'],
         );
 
-        echo "<pre>";
-        echo "from CPT";
-        print_r($_POST);
-        print_r($_REQUEST);
-        print_r(self::getInstance());
-        echo "</pre>";
+        $instance = self::getInstance();
+
+        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+        $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
+
+        $instance->blogID     = $postArray['blogID']     ?? $instance->blogID;
+        $instance->schoolCode = $postArray['schoolCode'] ?? $instance->schoolCode;
+        $instance->email      = $postArray['email']      ?? $instance->email;
+
+        $instance->principalFirstname = $postArray['principalFirstname'] ?? $instance->principalFirstname;
+        $instance->principalLastname = $postArray['principalLastname'] ?? $instance->principalLastname;
+        $instance->teacher1Firstname = $postArray['teacher1Firstname'] ?? $instance->teacher1Firstname;
+        $instance->teacher1Lastname = $postArray['teacher1Lastname'] ?? $instance->teacher1Lastname;
+        $instance->teacher2Firstname = $postArray['teacher2Firstname'] ?? $instance->teacher2Firstname;
+        $instance->teacher2Lastname = $postArray['teacher2Lastname'] ?? $instance->teacher2Lastname;
+        $instance->teacher3Firstname = $postArray['teacher3Firstname'] ?? $instance->teacher3Firstname;
+        $instance->teacher3Lastname = $postArray['teacher3Lastname'] ?? $instance->teacher3Lastname;
+        $instance->teacher4Firstname = $postArray['teacher4Firstname'] ?? $instance->teacher4Firstname;
+        $instance->teacher4Lastname = $postArray['teacher4Lastname'] ?? $instance->teacher4Lastname;
+        $instance->teacher5Firstname = $postArray['teacher5Firstname'] ?? $instance->teacher5Firstname;
+        $instance->teacher5Lastname = $postArray['teacher5Lastname'] ?? $instance->teacher5Lastname;
+
+        $saved = $instance->save();
+
+        if ($saved) {
+            WPCore::wpRedirect($wpRedirect);
+        } else {
+
+        }
     }
 
     private static function instantiate($post) {
@@ -86,6 +130,10 @@ class IPRC {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
+
+        $instance->blogID     = $post->blogID ?? '';
+        $instance->schoolCode = $post->schoolCode ?? '';
+        $instance->email      = $post->email ?? '';
 
         $instance->principalFirstname = $post->principalFirstname ?? '';
         $instance->principalLastname = $post->principalLastname ?? '';
@@ -143,9 +191,13 @@ class IPRC {
         return $this->teacher5Lastname;
     }
 
-    public function toArray() {
+    public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
+
+            'post_type'    => 'iprc',
+            'post_status'  => 'publish',
+
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
@@ -178,55 +230,36 @@ class IPRC {
             //return;
         //}
 
-        $post = $this->toArray;
-        $postID = $post['ID'];
+        $post = $this->toWPPostArray();
+        $postID = (int) $post['ID'];
 
-        if (0 !== $postID) {
-            WPCore::wpUpdatePost($post, true);
-
+        if (0 == $postID) {
+            $saveResult = WPCore::wpInsertPost($post, true);
         } else {
-            $postID = WPCore::wpInsertPost($post, true);
+            $saveResult = WPCore::wpUpdatePost($post, true);
         }
 
-        if (isset($this->principalFirstname)) {
+        if (is_wp_error($saveResult)) {
+            $error_string = $saveResult->get_error_message();
+            echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
+            return false;
+        } else {
             WPCore::updatePostMeta($postID, 'principalFirstname', WPCore::sanitizeTextField($post['principalFirstname']));
-        }
-        if (isset($this->principalLastname)) {
             WPCore::updatePostMeta($postID, 'principalLastname', WPCore::sanitizeTextField($post['principalLastname']));
-        }
 
-        if (isset($this->teacher1Firstname)) {
             WPCore::updatePostMeta($postID, 'teacher1Firstname', WPCore::sanitizeTextField($post['teacher1Firstname']));
-        }
-        if (isset($this->teacher1Lastname)) {
             WPCore::updatePostMeta($postID, 'teacher1Lastname', WPCore::sanitizeTextField($post['teacher1Lastname']));
-        }
 
-        if (isset($this->teacher2Firstname)) {
             WPCore::updatePostMeta($postID, 'teacher2Firstname', WPCore::sanitizeTextField($post['teacher2Firstname']));
-        }
-        if (isset($this->teacher2Lastname)) {
             WPCore::updatePostMeta($postID, 'teacher2Lastname', WPCore::sanitizeTextField($post['teacher2Lastname']));
-        }
 
-        if (isset($this->teacher3Firstname)) {
             WPCore::updatePostMeta($postID, 'teacher3Firstname', WPCore::sanitizeTextField($post['teacher3Firstname']));
-        }
-        if (isset($this->teacher3Lastname)) {
             WPCore::updatePostMeta($postID, 'teacher3Lastname', WPCore::sanitizeTextField($post['teacher3Lastname']));
-        }
 
-        if (isset($this->teacher4Firstname)) {
             WPCore::updatePostMeta($postID, 'teacher4Firstname', WPCore::sanitizeTextField($post['teacher4Firstname']));
-        }
-        if (isset($this->teacher4Lastname)) {
             WPCore::updatePostMeta($postID, 'teacher4Lastname', WPCore::sanitizeTextField($post['teacher4Lastname']));
-        }
 
-        if (isset($this->teacher5Firstname)) {
             WPCore::updatePostMeta($postID, 'teacher5Firstname', WPCore::sanitizeTextField($post['teacher5Firstname']));
-        }
-        if (isset($this->teacher5Lastname)) {
             WPCore::updatePostMeta($postID, 'teacher5Lastname', WPCore::sanitizeTextField($post['teacher5Lastname']));
         }
     }
