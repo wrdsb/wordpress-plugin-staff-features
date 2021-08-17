@@ -326,30 +326,24 @@ add_action('admin_post_schoolDataWorkplaceInspectionTeam', __NAMESPACE__ .'\\sub
 
 function submitSchoolDataDrillSchedule() {
     DrillSchedule::fromForm($_POST);
-    exit();
 }
 
 function submitSchoolDataEmergencyResponseTeam() {
     EmergencyResponseTeam::fromForm($_POST);
-    exit();
 }
 
 function submitSchoolDataEvacuationSites() {
     EvacuationSites::fromForm($_POST);
-    exit();
 }
 
 function submitSchoolDataIPRC() {
     IPRC::fromForm($_POST);
-    exit();
 }
 
 function submitSchoolDataSCISTeam() {
     SCISTeam::fromForm($_POST);
-    exit();
 }
 
 function submitSchoolDataWorkplaceInspectionTeam() {
     WorkplaceInspectionTeam::fromForm($_POST);
-    exit();
 }
