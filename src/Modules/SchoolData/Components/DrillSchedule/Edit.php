@@ -8,8 +8,9 @@ use WRDSB\Staff\Modules\SchoolData\Model\DrillSchedule as Model;
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
-$page_title = "Update Drill Schedule";
 $currentInstance = Model::getInstance();
+
+$page_title = "Update Drill Schedule";
 
 function setCustomTitle() {
     $page_title = "Update Drill Schedule";
@@ -96,7 +97,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
     
                 <form id="editDrillSchedule" action="<?php echo WPCore::homeURL(); ?>/wp-admin/admin-post.php" method="post">
                     <input type="hidden" name="action" value="schoolDataDrillSchedule">
-                    <?php wp_nonce_field('schoolDataDrillSchedule', 'schoolData'); ?>
+                    <?php WPCore::wpNonceField('schoolDataDrillSchedule', 'schoolData'); ?>
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">

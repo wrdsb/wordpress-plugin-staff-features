@@ -2,12 +2,14 @@
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
-//use WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as Model;
+use WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as Model;
 
 //$apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
+$currentInstance = Model::getInstance();
+
 $page_title = "Workplace Inspection Team";
 
 function setCustomTitle() {

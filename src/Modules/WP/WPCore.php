@@ -127,6 +127,8 @@ class WPCore
     public static function sanitizeTextField($str) {
         sanitize_text_field($str);
     }
+
+    public static function wpNonceField($action = -1, string $name = '_wpnonce', bool $referer = true, bool $echo = true ) {
+        wp_nonce_field($action, $name, $referer, $echo);
+    }
 }
-
-

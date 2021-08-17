@@ -2,12 +2,14 @@
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
-//use WRDSB\Staff\Modules\SchoolData\Model\IPRC as Model;
+use WRDSB\Staff\Modules\SchoolData\Model\IPRC as Model;
 
 //$apiKey = Module::getCodexSearchKey();
 $schoolCode = strtoupper(WPCore::getOption('wrdsb_school_code'));
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
+$currentInstance = Model::getInstance();
+
 $page_title = "Update IPRC";
 
 function setCustomTitle() {
@@ -100,9 +102,11 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                 <form id="editIPRC" action="<?php echo WPCore::homeURL(); ?>/wp-admin/admin-post.php" method="post">
                     <input type="hidden" name="action" value="schoolDataIPRC">
+                    <?php WPCore::wpNonceField('schoolDataDrillSchedule', 'schoolData'); ?>
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">
                     <input type="hidden" id="schoolCode" name="schoolCode" value="<?php echo $schoolCode; ?>">
                     <input type="hidden" id="email" name="email" value="<?php echo $current_user->user_email ?>">
+                    <input type="hidden" id="postID" name="postID" value="<?php echo $currentInstance->getID(); ?>">
 
                     <p>Fields marked with <span class="required">*</span> are required.</p>
                     
