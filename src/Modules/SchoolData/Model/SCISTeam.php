@@ -130,7 +130,7 @@ class SCISTeam {
     }
 
     private static function instantiate($post) {
-        $instance = new DrillSchedule;
+        $instance = new SCISTeam;
 
         $instance->ID      = $post->ID           ?? 0;
         $instance->content = $post->post_content ?? '';
@@ -191,6 +191,10 @@ class SCISTeam {
     public function getAdministratorIELiasion() {
         return $this->administratorIELiasion;
     }
+    public function administratorIELiasionIsChecked() {
+        return ($this->administratorIELiasion === 1) ? true : false;
+    }
+
     public function getTeacherFirstname() {
         return $this->teacherFirstname;
     }
@@ -200,6 +204,10 @@ class SCISTeam {
     public function getTeacherIELiasion() {
         return $this->teacherIELiasion;
     }
+    public function teacherIELiasionIsChecked() {
+        return ($this->teacherIELiasion === 1) ? true : false;
+    }
+
     public function getParaprofessionalFirstname() {
         return $this->paraprofessionalFirstname;
     }
@@ -209,6 +217,10 @@ class SCISTeam {
     public function getParaprofessionalIELiasion() {
         return $this->paraprofessionalIELiasion;
     }
+    public function paraprofessionalIELiasionIsChecked() {
+        return ($this->paraprofessionalIELiasion === 1) ? true : false;
+    }
+
     public function getParentFirstname() {
         return $this->parentFirstname;
     }
@@ -218,6 +230,10 @@ class SCISTeam {
     public function getParentIELiasion() {
         return $this->parentIELiasion;
     }
+    public function parentIELiasionIsChecked() {
+        return ($this->parentIELiasion === 1) ? true : false;
+    }
+
     public function getCommunityMemberFirstname() {
         return $this->communityMemberFirstname;
     }
@@ -227,6 +243,10 @@ class SCISTeam {
     public function getCommunityMemberIELiasion() {
         return $this->communityMemberIELiasion;
     }
+    public function communityMemberIELiasionIsChecked() {
+        return ($this->communityMemberIELiasion === 1) ? true : false;
+    }
+
     public function getStudent1Firstname() {
         return $this->student1Firstname;
     }
@@ -236,6 +256,10 @@ class SCISTeam {
     public function getStudent1IELiasion() {
         return $this->student1IELiasion;
     }
+    public function student1IELiasionIsChecked() {
+        return ($this->student1IELiasion === 1) ? true : false;
+    }
+
     public function getStudent2Firstname() {
         return $this->student2Firstname;
     }
@@ -245,6 +269,10 @@ class SCISTeam {
     public function getStudent2IELiasion() {
         return $this->student2IELiasion;
     }
+    public function student2IELiasionIsChecked() {
+        return ($this->student2IELiasion === 1) ? true : false;
+    }
+
     public function getOptional1Firstname() {
         return $this->optional1Firstname;
     }
@@ -254,6 +282,10 @@ class SCISTeam {
     public function getOptional1IELiasion() {
         return $this->optional1IELiasion;
     }
+    public function optional1IELiasionIsChecked() {
+        return ($this->optional1IELiasion === 1) ? true : false;
+    }
+
     public function getOptional2Firstname() {
         return $this->optional2Firstname;
     }
@@ -263,6 +295,10 @@ class SCISTeam {
     public function getOptional2IELiasion() {
         return $this->optional2IELiasion;
     }
+    public function optional2IELiasionIsChecked() {
+        return ($this->optional2IELiasion === 1) ? true : false;
+    }
+
     public function getOptional3Firstname() {
         return $this->optional3Firstname;
     }
@@ -272,6 +308,10 @@ class SCISTeam {
     public function getOptional3IELiasion() {
         return $this->optional3IELiasion;
     }
+    public function optional3IELiasionIsChecked() {
+        return ($this->optional3IELiasion === 1) ? true : false;
+    }
+
     public function getOptional4Firstname() {
         return $this->optional4Firstname;
     }
@@ -281,6 +321,10 @@ class SCISTeam {
     public function getOptional4IELiasion() {
         return $this->optional4IELiasion;
     }
+    public function optional4IELiasionIsChecked() {
+        return ($this->optional4IELiasion === 1) ? true : false;
+    }
+
     public function getOptional5Firstname() {
         return $this->optional5Firstname;
     }
@@ -289,6 +333,9 @@ class SCISTeam {
     }
     public function getOptional5IELiasion() {
         return $this->optional5IELiasion;
+    }
+    public function optional5IELiasionIsChecked() {
+        return ($this->optional5IELiasion === 1) ? true : false;
     }
 
     public function toArray() {

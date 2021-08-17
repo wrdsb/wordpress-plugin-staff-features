@@ -106,7 +106,7 @@ class WorkplaceInspectionTeam {
     }
 
     private static function instantiate($post) {
-        $instance = new DrillSchedule;
+        $instance = new WorkplaceInspectionTeam;
 
         $instance->ID      = $post->ID           ?? 0;
         $instance->content = $post->post_content ?? '';
@@ -158,6 +158,10 @@ class WorkplaceInspectionTeam {
     public function getPrincipalHSContact() {
         return $this->principalHSContact;
     }
+    public function principalHSContactIsChecked() {
+        return ($this->principalHSContact === 1) ? true : false;
+    }
+
     public function getCustodianFirstname() {
         return $this->custodianFirstname;
     }
@@ -170,6 +174,10 @@ class WorkplaceInspectionTeam {
     public function getCustodianHSContact() {
         return $this->custodianHSContact;
     }
+    public function custodianHSContactIsChecked() {
+        return ($this->custodianHSContact === 1) ? true : false;
+    }
+
     public function getStaffMember1Firstname() {
         return $this->staffMember1Firstname;
     }
@@ -182,6 +190,10 @@ class WorkplaceInspectionTeam {
     public function getStaffMember1HSContact() {
         return $this->staffMember1HSContact;
     }
+    public function staffMember1HSContactIsChecked() {
+        return ($this->staffMember1HSContact === 1) ? true : false;
+    }
+
     public function getStaffMember2Firstname() {
         return $this->staffMember2Firstname;
     }
@@ -194,6 +206,10 @@ class WorkplaceInspectionTeam {
     public function getStaffMember2HSContact() {
         return $this->staffMember2HSContact;
     }
+    public function staffMember2HSContactIsChecked() {
+        return ($this->staffMember2HSContact === 1) ? true : false;
+    }
+
     public function getStaffMember3Firstname() {
         return $this->staffMember3Firstname;
     }
@@ -206,6 +222,10 @@ class WorkplaceInspectionTeam {
     public function getStaffMember3HSContact() {
         return $this->staffMember3HSContact;
     }
+    public function staffMember3HSContactIsChecked() {
+        return ($this->staffMember3HSContact === 1) ? true : false;
+    }
+
     public function getStaffMember4Firstname() {
         return $this->staffMember4Firstname;
     }
@@ -217,6 +237,9 @@ class WorkplaceInspectionTeam {
     }
     public function getStaffMember4HSContact() {
         return $this->staffMember4HSContact;
+    }
+    public function staffMember4HSContactIsChecked() {
+        return ($this->staffMember4HSContact === 1) ? true : false;
     }
 
     public function toArray() {
