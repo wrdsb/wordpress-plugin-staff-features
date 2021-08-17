@@ -130,7 +130,7 @@ class EvacuationSites {
     }
 
     private static function instantiate($post) {
-        $instance = new DrillSchedule;
+        $instance = new EvacuationSites;
 
         $instance->ID      = $post->ID           ?? 0;
         $instance->content = $post->post_content ?? '';
@@ -179,6 +179,9 @@ class EvacuationSites {
         return $instance;
     }
 
+    public function getID() {
+        return $this->ID;
+    }
     public function getSite1Name() {
         return $this->site1Name;
     }

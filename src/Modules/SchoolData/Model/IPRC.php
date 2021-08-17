@@ -82,7 +82,7 @@ class IPRC {
     }
 
     private static function instantiate($post) {
-        $instance = new DrillSchedule;
+        $instance = new IPRC;
 
         $instance->ID      = $post->ID           ?? 0;
         $instance->content = $post->post_content ?? '';
