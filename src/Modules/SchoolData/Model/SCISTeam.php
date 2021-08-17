@@ -17,8 +17,6 @@ class SCISTeam {
     private $content;
     private $title;
     private $excerpt;
-    private $slug;
-    private $guid;
 
     private $administratorFirstname;
     private $administratorLastname;
@@ -136,8 +134,6 @@ class SCISTeam {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
-        $instance->slug    = $post->post_name    ?? '';
-        $instance->guid    = $post->guid         ?? '';
 
         $instance->administratorFirstname = $post->administratorFirstname ?? '';
         $instance->administratorLastname = $post->administratorLastname ?? '';
@@ -344,8 +340,6 @@ class SCISTeam {
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
-            'slug'    => $this->slug,
-            'guid'    => $this->guid,
 
             'administratorFirstname' => $this->administratorFirstname,
             'administratorLastname' => $this->administratorLastname,

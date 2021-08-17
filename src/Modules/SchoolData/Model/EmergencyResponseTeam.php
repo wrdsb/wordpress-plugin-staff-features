@@ -17,8 +17,6 @@ class EmergencyResponseTeam {
     private $content;
     private $title;
     private $excerpt;
-    private $slug;
-    private $guid;
 
     private $firstname1;
     private $lastname1;
@@ -184,8 +182,6 @@ class EmergencyResponseTeam {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
-        $instance->slug    = $post->post_name    ?? '';
-        $instance->guid    = $post->guid         ?? '';
 
         $instance->firstname1 = $post->firstname1 ?? '';
         $instance->lastname1 = $post->lastname1 ?? '';
@@ -441,8 +437,6 @@ class EmergencyResponseTeam {
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
-            'slug'    => $this->slug,
-            'guid'    => $this->guid,
 
             'firstname1' => $this->firstname1,
             'lastname1' => $this->lastname1,

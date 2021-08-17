@@ -17,8 +17,6 @@ class EvacuationSites {
     private $content;
     private $title;
     private $excerpt;
-    private $slug;
-    private $guid;
 
     private $site1Name;
     private $site1Address;
@@ -136,8 +134,6 @@ class EvacuationSites {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
-        $instance->slug    = $post->post_name    ?? '';
-        $instance->guid    = $post->guid         ?? '';
 
         $instance->site1Name = $post->site1Name ?? '';
         $instance->site1Address = $post->site1Address ?? '';
@@ -297,8 +293,6 @@ class EvacuationSites {
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
-            'slug'    => $this->slug,
-            'guid'    => $this->guid,
 
             'site1Name' => $this->site1Name,
             'site1Address' => $this->site1Address,

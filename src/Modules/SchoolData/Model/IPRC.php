@@ -17,8 +17,6 @@ class IPRC {
     private $content;
     private $title;
     private $excerpt;
-    private $slug;
-    private $guid;
 
     private $principalFirstname;
     private $principalLastname;
@@ -88,8 +86,6 @@ class IPRC {
         $instance->content = $post->post_content ?? '';
         $instance->title   = $post->post_title   ?? '';
         $instance->excerpt = $post->post_excerpt ?? '';
-        $instance->slug    = $post->post_name    ?? '';
-        $instance->guid    = $post->guid         ?? '';
 
         $instance->principalFirstname = $post->principalFirstname ?? '';
         $instance->principalLastname = $post->principalLastname ?? '';
@@ -153,8 +149,6 @@ class IPRC {
             'content' => $this->content,
             'title'   => $this->title,
             'excerpt' => $this->excerpt,
-            'slug'    => $this->slug,
-            'guid'    => $this->guid,
 
             'principalFirstname' => $this->principalFirstname,
             'principalLastname' => $this->principalLastname,
