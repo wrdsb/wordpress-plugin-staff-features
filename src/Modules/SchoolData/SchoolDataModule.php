@@ -41,6 +41,14 @@ class SchoolDataModule {
         $this->addActions();
     }
 
+    public static function currentUserCanEdit() {
+        $currentUser = WPCore::getCurrentUser();
+        $userMeta = get_user_meta($currentUser->ID);
+        //print_r($user_meta);
+
+        return true;
+    }
+
     public static function getCodexSearchURL(): string {
         $currentEnv = defined('WRDSB_ENV') ? WRDSB_ENV : 'dev';
         switch ($currentEnv) {
