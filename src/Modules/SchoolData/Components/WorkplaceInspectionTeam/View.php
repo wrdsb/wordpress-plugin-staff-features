@@ -1,6 +1,7 @@
 <?php
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 use WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as Model;
 
@@ -48,9 +49,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
     <?php } ?>
 </div>
 
-<?php if (WPCore::currentUserCanViewContent()) { ?>
-    <div class="container">
-		<div class="row">
+<div class="container">
+    <div class="row">
+        <?php if (!WPCore::currentUserCanViewContent()) { ?>
+            <?php //echo PermissionDenied::cannotView(); ?>
+
+        <?php } else { ?>
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -85,7 +89,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-                <p><button><a href="./edit/">Update this Information</a></button></p>
+                <?php if (Module::currentUserCanEdit()) { ?>
+                    <p><button><a href="./edit/">Update this Information</a></button></p>
+                <?php } ?>
 
 				<div class="alert alert-info">
 					<p>The Workplace Inspection Team (WIT) keeps the workplace healthy and safe with a team of 3-5 members, including the principal, custodian, and a teacher or other staff members.</p>
@@ -186,11 +192,15 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input disabled id="staff-member-4-h-s-contact" name="staffMember4HSContact" type="checkbox" value="1" aria-labelledby="label-staff-member-4-h-s-contact">
 					</fieldset>
 				</form>
+
+                <?php if (Module::currentUserCanEdit()) { ?>
+                    <p><button><a href="./edit/">Update this Information</a></button></p>
+                <?php } ?>
 				<!-- /CONTENT -->
 			</div>
-        </div>
-    </div>
-<?php } ?>
+		<?php } ?>
+	</div>
+</div>
 
 <script>
     function disable(id) {

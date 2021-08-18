@@ -1,6 +1,7 @@
 <?php
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 use WRDSB\Staff\Modules\SchoolData\Model\IPRC as Model;
 
@@ -45,10 +46,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
     <?php } ?>
 </div>
 
-<?php if (WPCore::currentUserCanViewContent()) { ?>
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
+        <?php if (!WPCore::currentUserCanViewContent()) { ?>
+            <?php //echo PermissionDenied::cannotView(); ?>
 
+        <?php } else { ?>
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -83,7 +86,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
-                <p><button><a href="./edit/">Update this Information</a></button></p>
+                <?php if (Module::currentUserCanEdit()) { ?>
+                    <p><button><a href="./edit/">Update this Information</a></button></p>
+                <?php } ?>
 
                 <div class="alert alert-info">
                     <p>Each school must have an Identification, Placement and Review Committee (IPRC). <a href="https://staff.wrdsb.ca/school-teams/team-data-collection/iprc-responsibilities/" target="_blank" rel="noopener noreferrer">Review the IPRC responsibilities, process and composition.</a></p>
@@ -153,11 +158,15 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <input disabled type="text" value="<?php echo $currentInstance->getteacher5Lastname(); ?>" id="teacher-5-lastname" name="teacher5Lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
                     </fieldset> 
                 </form>
+
+                <?php if (Module::currentUserCanEdit()) { ?>
+                    <p><button><a href="./edit/">Update this Information</a></button></p>
+                <?php } ?>
                 <!-- /CONTENT -->
             </div>
-        </div>
+        <?php } ?>
     </div>
-<?php } ?>
+</div>
 
 <script>
     function disable(id) {
