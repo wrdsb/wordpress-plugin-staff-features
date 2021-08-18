@@ -52,7 +52,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 <div class="container">
     <div class="row">
         <?php if (!WPCore::currentUserCanViewContent()) { ?>
-            <?php echo PermissionDenied::cannotView(); ?>
+            <?php //echo PermissionDenied::cannotView(); ?>
         
         <?php } elseif (!Module::currentUserCanEdit()) { ?>
             <?php echo PermissionDenied::cannotEdit(); ?>
