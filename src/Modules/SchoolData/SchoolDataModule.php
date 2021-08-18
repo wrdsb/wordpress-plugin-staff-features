@@ -150,6 +150,8 @@ class SchoolDataModule {
     }
 
     private function addViews() {
+        $this->plugin->addView('home-page', 'home-page');
+
         $this->plugin->addView('drill-schedule-view', 'drill-schedule-view');
         $this->plugin->addView('drill-schedule-edit', 'drill-schedule-edit');
 
@@ -170,6 +172,8 @@ class SchoolDataModule {
     }
 
     private function addPageTemplates() {
+        $this->plugin->addPageTemplate('home-page', 'SchoolData/Components/Static/HomePage.php');
+
         $this->plugin->addPageTemplate('drill-schedule-view', 'SchoolData/Components/DrillSchedule/View.php');
         $this->plugin->addPageTemplate('drill-schedule-edit', 'SchoolData/Components/DrillSchedule/Edit.php');
 

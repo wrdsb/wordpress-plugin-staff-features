@@ -175,6 +175,11 @@ $container['routes'] = [
         'template' => 'Quartermaster/Components/DeviceLoans/ListAll.php',
     ],
 
+    '^school-data/home$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'home-page',
+        'template' => 'SchoolData/Components/Static/HomePage.php'
+    ],
 
     '^school-data/drill-schedule/edit$' => [
         'module' => 'SchoolDataModule',

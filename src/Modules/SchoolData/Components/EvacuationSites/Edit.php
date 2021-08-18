@@ -35,7 +35,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <a href="<?php echo WPCore::getOption('home'); ?>">Home</a>
                 </li>
                 <li>
-                    <a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a>
+                    <a href="<?php echo WPCore::homeURL(); ?>/school-data/home">School Data</a>
                 </li>
                 <li>
 					<a href="..">Evacuation Sites</a>
@@ -65,7 +65,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a></span>
+                            <span><a href="<?php echo WPCore::homeURL(); ?>/school-data/home">School Data</a></span>
                         </div>
                         <div class="sub-menu-items">
 							<ul>

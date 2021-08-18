@@ -64,7 +64,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     </div>
                     <div class="collapse sub-navbar-collapse">
                         <div class="sub-menu-heading">
-                            <span><a href="<?php echo WPCore::homeURL(); ?>/school-data/menu">School Data</a></span>
+                            <span><a href="<?php echo WPCore::homeURL(); ?>/school-data/home">School Data</a></span>
                         </div>
                         <div class="sub-menu-items">
                             <ul>
