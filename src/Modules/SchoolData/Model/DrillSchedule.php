@@ -87,8 +87,8 @@ class DrillSchedule {
             'fireDrill4Time' => $postRequest['fireDrill4Time'],
             'fireDrill5Date' => $postRequest['fireDrill5Date'],
             'fireDrill5Time' => $postRequest['fireDrill5Time'],
-            'bombDrillDate'  => $postRequest['bombDrillDate'],
-            'bombDrillTime'  => $postRequest['bombDrillTime'],
+            'bombDrill1Date'  => $postRequest['bombDrill1Date'],
+            'bombDrill1Time'  => $postRequest['bombDrill1Time'],
         );
 
         $instance = self::getInstance();
