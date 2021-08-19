@@ -186,6 +186,11 @@ $container['routes'] = [
         'view' => 'drill-schedule-edit',
         'template' => 'SchoolData/Components/DrillSchedule/Edit.php'
     ],
+    '^school-data/drill-schedule/instructions$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'drill-schedule-instructions',
+        'template' => 'SchoolData/Components/Static/DrillScheduleInstructions.php'
+    ],
     '^school-data/drill-schedule$' => [
         'module' => 'SchoolDataModule',
         'view' => 'drill-schedule-view',
@@ -196,6 +201,11 @@ $container['routes'] = [
         'module' => 'SchoolDataModule',
         'view' => 'emergency-response-team-edit',
         'template' => 'SchoolData/Components/EmergencyResponseTeam/Edit.php'
+    ],
+    '^school-data/emergency-response-team/instructions$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'emergency-response-team-instructions',
+        'template' => 'SchoolData/Components/Static/EmergencyResponseTeamInstructions.php'
     ],
     '^school-data/emergency-response-team$' => [
         'module' => 'SchoolDataModule',
@@ -208,6 +218,11 @@ $container['routes'] = [
         'view' => 'evacuation-sites-edit',
         'template' => 'SchoolData/Components/EvacuationSites/Edit.php'
     ],
+    '^school-data/evacuation-sites/instructions$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'evacuation-sites-instructions',
+        'template' => 'SchoolData/Components/Static/EvacuationSitesInstructions.php'
+    ],
     '^school-data/evacuation-sites$' => [
         'module' => 'SchoolDataModule',
         'view' => 'evacuation-sites-view',
@@ -218,6 +233,11 @@ $container['routes'] = [
         'module' => 'SchoolDataModule',
         'view' => 'iprc-edit',
         'template' => 'SchoolData/Components/IPRC/Edit.php'
+    ],
+    '^school-data/iprc/instructions$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'iprc-instructions',
+        'template' => 'SchoolData/Components/Static/IPRCInstructions.php'
     ],
     '^school-data/iprc$' => [
         'module' => 'SchoolDataModule',
@@ -230,6 +250,11 @@ $container['routes'] = [
         'view' => 'scis-team-edit',
         'template' => 'SchoolData/Components/SCISTeam/Edit.php'
     ],
+    '^school-data/scis-team/instructions$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'scis-team-instructions',
+        'template' => 'SchoolData/Components/Static/SCISTeamInstructions.php'
+    ],
     '^school-data/scis-team$' => [
         'module' => 'SchoolDataModule',
         'view' => 'scis-team-view',
@@ -240,6 +265,11 @@ $container['routes'] = [
         'module' => 'SchoolDataModule',
         'view' => 'workplace-inspection-team-edit',
         'template' => 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php'
+    ],
+    '^school-data/workplace-inspection-team/instructions$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'workplace-inspection-team-instructions',
+        'template' => 'SchoolData/Components/Static/WorkplaceInspectionTeamInstructions.php'
     ],
     '^school-data/workplace-inspection-team$' => [
         'module' => 'SchoolDataModule',

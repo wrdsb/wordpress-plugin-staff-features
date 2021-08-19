@@ -162,21 +162,27 @@ class SchoolDataModule {
 
         $this->plugin->addView('drill-schedule-view', 'drill-schedule-view');
         $this->plugin->addView('drill-schedule-edit', 'drill-schedule-edit');
+        $this->plugin->addView('drill-schedule-instructions', 'drill-schedule-instructions');
 
         $this->plugin->addView('emergency-response-team-view', 'emergency-response-team-view');
         $this->plugin->addView('emergency-response-team-edit', 'emergency-response-team-edit');
+        $this->plugin->addView('emergency-response-team-instructions', 'emergency-response-team-instructions');
 
         $this->plugin->addView('evacuation-sites-view', 'evacuation-sites-view');
         $this->plugin->addView('evacuation-sites-edit', 'evacuation-sites-edit');
+        $this->plugin->addView('evacuation-sites-instructions', 'evacuation-sites-instructions');
 
         $this->plugin->addView('iprc-view', 'iprc-view');
         $this->plugin->addView('iprc-edit', 'iprc-edit');
+        $this->plugin->addView('iprc-instructions', 'iprc-instructions');
 
         $this->plugin->addView('scis-team-view', 'scis-team-view');
         $this->plugin->addView('scis-team-edit', 'scis-team-edit');
+        $this->plugin->addView('scis-team-instructions', 'scis-team-instructions');
 
         $this->plugin->addView('workplace-inspection-team-view', 'workplace-inspection-team-view');
         $this->plugin->addView('workplace-inspection-team-edit', 'workplace-inspection-team-edit');
+        $this->plugin->addView('workplace-inspection-team-instructions', 'workplace-inspection-team-instructions');
     }
 
     private function addPageTemplates() {
@@ -184,21 +190,27 @@ class SchoolDataModule {
 
         $this->plugin->addPageTemplate('drill-schedule-view', 'SchoolData/Components/DrillSchedule/View.php');
         $this->plugin->addPageTemplate('drill-schedule-edit', 'SchoolData/Components/DrillSchedule/Edit.php');
+        $this->plugin->addPageTemplate('drill-schedule-instructions', 'SchoolData/Components/Static/DrillScheduleInstructions.php');
 
         $this->plugin->addPageTemplate('emergency-response-team-view', 'SchoolData/Components/EmergencyResponseTeam/View.php');
         $this->plugin->addPageTemplate('emergency-response-team-edit', 'SchoolData/Components/EmergencyResponseTeam/Edit.php');
+        $this->plugin->addPageTemplate('emergency-response-team-instructions', 'SchoolData/Components/Static/EmergencyResponseTeamInstructions.php');
 
         $this->plugin->addPageTemplate('evacuation-sites-view', 'SchoolData/Components/EvacuationSites/View.php');
         $this->plugin->addPageTemplate('evacuation-sites-edit', 'SchoolData/Components/EvacuationSites/Edit.php');
+        $this->plugin->addPageTemplate('evacuation-sites-instructions', 'SchoolData/Components/Static/EvacuationSitesInstructions.php');
 
         $this->plugin->addPageTemplate('iprc-view', 'SchoolData/Components/IPRC/View.php');
         $this->plugin->addPageTemplate('iprc-edit', 'SchoolData/Components/IPRC/Edit.php');
+        $this->plugin->addPageTemplate('iprc-instructions', 'SchoolData/Components/Static/IPRCInstructions.php');
 
         $this->plugin->addPageTemplate('scis-team-view', 'SchoolData/Components/SCISTeam/View.php');
         $this->plugin->addPageTemplate('scis-team-edit', 'SchoolData/Components/SCISTeam/Edit.php');
+        $this->plugin->addPageTemplate('scis-team-instructions', 'SchoolData/Components/Static/SCISTeamInstructions.php');
 
         $this->plugin->addPageTemplate('workplace-inspection-team-view', 'SchoolData/Components/WorkplaceInspectionTeam/View.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-edit', 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php');
+        $this->plugin->addPageTemplate('workplace-inspection-team-instructions', 'SchoolData/Components/Static/WorkplaceInspectionTeamInstructions.php');
     }
 
     private function registerPostTypes() {
