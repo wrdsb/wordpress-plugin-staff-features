@@ -95,7 +95,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 				<div class="alert alert-info">
 					<p>The Workplace Inspection Team (WIT) keeps the workplace healthy and safe with a team of 3-5 members, including the principal, custodian, and a teacher or other staff members.</p>
-					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/wit/wit-responsibilities/">WIT Responsibilities</a>.</p>
+					<p>Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/instructions">Workplace Inspection Team Instructions</a>.</p>
 				</div>
 
 				<p class="alert alert-warning">You <strong>must</strong> indicate the one (1) member designed to receive all health and safety correspondence and/or contact from the Health, Safety and Security Department, or the JHSC Co-Chairs.</p>

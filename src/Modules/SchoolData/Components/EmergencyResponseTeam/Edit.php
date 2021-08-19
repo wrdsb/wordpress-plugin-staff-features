@@ -96,7 +96,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 				<div class="alert alert-info">
 					<p>Each school's Emergency Response Team takes leadership in dealing with crises and emergency situations. Carefully consider the membership of the team to ensure the team has the requisite skills and training to be effective.</p>
-					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/ert/ert-responsibilities/">ERT Responsibilities</a>.</p>
+					<p>Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/emergency-response-team/instructions">Emergency Response Team Instructions</a>.</p>
 				</div>
 
 				<div class="note">

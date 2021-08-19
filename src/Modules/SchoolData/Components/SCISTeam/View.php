@@ -102,7 +102,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<li>Student (2)</li>
 						</ul>
 					<p>One staff member should be identified as the school's Indigenous &amp; Equity Liaison. This staff member can be a teacher, paraprofessional and, if necessary, an administrator (administrator(s) can be identified as a contact in addition to a staff member). The role will be to share messaging with staff from the Indigenous, Equity, and Human Rights Department (IEHR).</p>
-					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/scis/scis-team-responsibilities/">SCIS Team Responsibilities</a>.</p>
+					<p>Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/scis-team/instructions">SCIS Team Instructions</a>.</p>
 				</div>
 
 				<form id="viewSCISTeam">

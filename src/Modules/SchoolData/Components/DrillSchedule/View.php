@@ -92,7 +92,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                 <div class="alert alert-info">
                     <p>All schools must now provide scheduled dates and times of their five (5) fire drills and one (1) combination fire/bomb drill to the local fire departments so they may support the schools by arranging for Fire Prevention Officers to be present during the drills.</p>
-                    <p>Please see all the <a href="https://staff.wrdsb.ca/school-teams/bomb-drill/fire-department-schedule/">Fire Drill Schedule Information</a>.</p>
+                    <p>Please see all the <a href="<?php echo WPCore::homeURL(); ?>/school-data/drill-schedule/instructions">Drill Schedule Instructions</a>.</p>
                 </div>
 
                 <p class="alert alert-warning">Once this information has been collected and shared with the fire departments, any changes to these dates/times are to be communicated directly to your school’s local fire department by the school and/or administrator.</p>
@@ -148,9 +148,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <fieldset>
                         <legend>Fire/Bomb Drill</legend>
                         <label for="bomb-drill-date" id="label-bomb-drill-date"><span class="sr-only">Fire/Bomb Drill </span>Date</label>
-                        <input disabled id="bomb-drill-date" name="bombDrillDate" aria-invalid="false" aria-labelledby="label-bomb-drill-date" type="date" value="<?php echo $currentInstance->getBombDrill1Date(); ?>">
+                        <input disabled id="bomb-drill-date" name="bombDrill1Date" aria-invalid="false" aria-labelledby="label-bomb-drill-date" type="date" value="<?php echo $currentInstance->getBombDrill1Date(); ?>">
                         <label for="bomb-drill-time" id="label-bomb-drill-time"><span class="sr-only">Fire/Bomb Drill </span>Time</label>
-                        <input disabled id="bomb-drill-time" name="bombDrillTime" aria-invalid="false" aria-labelledby="label-bomb-drill-time" type="time" value="<?php echo $currentInstance->getBombDrill1Time(); ?>">
+                        <input disabled id="bomb-drill-time" name="bombDrill1Time" aria-invalid="false" aria-labelledby="label-bomb-drill-time" type="time" value="<?php echo $currentInstance->getBombDrill1Time(); ?>">
                     </fieldset>
                 </form>
 

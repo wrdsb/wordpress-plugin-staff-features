@@ -91,7 +91,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <?php } ?>
 
                 <div class="alert alert-info">
-                    <p>Each school must have an Identification, Placement and Review Committee (IPRC). <a href="https://staff.wrdsb.ca/school-teams/team-data-collection/iprc-responsibilities/" target="_blank" rel="noopener noreferrer">Review the IPRC responsibilities, process and composition.</a></p>
+                    <p>Each school must have an Identification, Placement and Review Committee (IPRC). Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/instructions">IPRC Instructions</a>.</p>
 
                     <h2>Committee Members</h2>
                     <ul>

@@ -91,6 +91,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <?php } ?>
 
 				<p class="alert alert-info"><strong>All schools</strong> must provide alternate evacuation site(s) information to be used in case of emergencies.</p>
+
+				<!--<p>Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/evacuation-sites/instructions">Evacuation Sites Instructions</a>.</p>-->
 				
                 <form id="viewEvacuationSites">
                     <input type="hidden" id="blogID" name="blogID" value="<?php echo WPCore::getCurrentBlogID(); ?>">

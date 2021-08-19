@@ -96,7 +96,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 				<div class="alert alert-info">
 					<p>The Workplace Inspection Team (WIT) keeps the workplace healthy and safe with a team of 3-5 members, including the principal, custodian, and a teacher or other staff members.</p>
-					<p>Please review the <a href="https://staff.wrdsb.ca/school-teams/wit/wit-responsibilities/">WIT Responsibilities</a>.</p>
+					<p>Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/workplace-inspection-team/instructions">Workplace Inspection Team Instructions</a>.</p>
 				</div>
 
 				<p class="alert alert-warning">You <strong>must</strong> indicate the one (1) member designed to receive all health and safety correspondence and/or contact from the Health, Safety and Security Department, or the JHSC Co-Chairs.</p>
@@ -130,7 +130,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'EAA') ? 'selected' : ''; ?> value="EAA">EAA</option>
 							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'OSSTF') ? 'selected' : ''; ?> value="OSSTF">OSSTF</option>
 							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'ESS') ? 'selected' : ''; ?> value="ESS">ESS</option>
-							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA" selected="selected">SSPA</option>
+							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA">SSPA</option>
 							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'SSVPA') ? 'selected' : ''; ?> value="SSVPA">SSVPA</option>
 							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'OPC') ? 'selected' : ''; ?> value="OPC">OPC</option>
 							<option <?php echo ($currentInstance->getPrincipalAffiliation() === 'Management') ? 'selected' : ''; ?> value="Management">Management</option>
@@ -157,7 +157,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'EAA') ? 'selected' : ''; ?> value="EAA">EAA</option>
 							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'OSSTF') ? 'selected' : ''; ?> value="OSSTF">OSSTF</option>
 							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'ESS') ? 'selected' : ''; ?> value="ESS">ESS</option>
-							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA" selected="selected">SSPA</option>
+							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA">SSPA</option>
 							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'SSVPA') ? 'selected' : ''; ?> value="SSVPA">SSVPA</option>
 							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'OPC') ? 'selected' : ''; ?> value="OPC">OPC</option>
 							<option <?php echo ($currentInstance->getCustodianAffiliation() === 'Management') ? 'selected' : ''; ?> value="Management">Management</option>
@@ -184,7 +184,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'EAA') ? 'selected' : ''; ?> value="EAA">EAA</option>
 							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'OSSTF') ? 'selected' : ''; ?> value="OSSTF">OSSTF</option>
 							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'ESS') ? 'selected' : ''; ?> value="ESS">ESS</option>
-							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA" selected="selected">SSPA</option>
+							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA">SSPA</option>
 							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'SSVPA') ? 'selected' : ''; ?> value="SSVPA">SSVPA</option>
 							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'OPC') ? 'selected' : ''; ?> value="OPC">OPC</option>
 							<option <?php echo ($currentInstance->getStaffMember1Affiliation() === 'Management') ? 'selected' : ''; ?> value="Management">Management</option>
@@ -211,7 +211,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'EAA') ? 'selected' : ''; ?> value="EAA">EAA</option>
 							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'OSSTF') ? 'selected' : ''; ?> value="OSSTF">OSSTF</option>
 							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'ESS') ? 'selected' : ''; ?> value="ESS">ESS</option>
-							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA" selected="selected">SSPA</option>
+							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA">SSPA</option>
 							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'SSVPA') ? 'selected' : ''; ?> value="SSVPA">SSVPA</option>
 							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'OPC') ? 'selected' : ''; ?> value="OPC">OPC</option>
 							<option <?php echo ($currentInstance->getStaffMember2Affiliation() === 'Management') ? 'selected' : ''; ?> value="Management">Management</option>
@@ -238,7 +238,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'EAA') ? 'selected' : ''; ?> value="EAA">EAA</option>
 							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'OSSTF') ? 'selected' : ''; ?> value="OSSTF">OSSTF</option>
 							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'ESS') ? 'selected' : ''; ?> value="ESS">ESS</option>
-							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA" selected="selected">SSPA</option>
+							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA">SSPA</option>
 							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'SSVPA') ? 'selected' : ''; ?> value="SSVPA">SSVPA</option>
 							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'OPC') ? 'selected' : ''; ?> value="OPC">OPC</option>
 							<option <?php echo ($currentInstance->getStaffMember3Affiliation() === 'Management') ? 'selected' : ''; ?> value="Management">Management</option>
@@ -251,9 +251,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<legend>Staff Member 4</legend>
 						<label for="staff-member-4-firstname" id="label-staff-member-4-firstname"><span class="sr-only">Staff Member 4 </span>Firstname</label>
 						<input type="text" value="<?php echo $currentInstance->getStaffMember4Firstname(); ?>" id="staff-member-4-firstname" name="staffMember4Firstname" aria-invalid="false" aria-labelledby="label-staff-member-4-firstname"><br />
-						<label for="staff-member-4-lastname" id="label-staff-member-4-lastname"><span class="sr-only">Staff Member 4 <span class="sr-only">Lastname</label>
+						<label for="staff-member-4-lastname" id="label-staff-member-4-lastname"><span class="sr-only">Staff Member 4 </span>Lastname</label>
 						<input type="text" value="<?php echo $currentInstance->getStaffMember4Lastname(); ?>" id="staff-member-4-lastname" name="staffMember4Lastname" aria-invalid="false" aria-labelledby="label-staff-member-4-lastname"><br />
-						<label for="staff-member-4-affiliation" id="label-staff-member-4-affiliation"><span class="sr-only"><span class="sr-only">Staff Member 4 </span>Affiliation</label>
+						<label for="staff-member-4-affiliation" id="label-staff-member-4-affiliation"><span class="sr-only">Staff Member 4 </span>Affiliation</label>
 						<select id="staff-member-4-affiliation" name="staffMember4Affiliation" aria-invalid="false" aria-labelledby="label-staff-member-4-affiliation">
 							<?php echo ($currentInstance->getStaffMember4Affiliation() === '') ? '<option value="">--Please choose an option--</option>' : ''; ?>
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'CAMA') ? 'selected' : ''; ?> value="CAMA">CAMA</option>
@@ -265,7 +265,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'EAA') ? 'selected' : ''; ?> value="EAA">EAA</option>
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'OSSTF') ? 'selected' : ''; ?> value="OSSTF">OSSTF</option>
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'ESS') ? 'selected' : ''; ?> value="ESS">ESS</option>
-							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA" selected="selected">SSPA</option>
+							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'SSPA') ? 'selected' : ''; ?> value="SSPA">SSPA</option>
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'SSVPA') ? 'selected' : ''; ?> value="SSVPA">SSVPA</option>
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'OPC') ? 'selected' : ''; ?> value="OPC">OPC</option>
 							<option <?php echo ($currentInstance->getStaffMember4Affiliation() === 'Management') ? 'selected' : ''; ?> value="Management">Management</option>
