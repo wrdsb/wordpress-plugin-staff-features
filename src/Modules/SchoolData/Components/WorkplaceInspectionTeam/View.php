@@ -182,9 +182,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<legend>Staff Member 4</legend>
 						<label for="staff-member-4-firstname" id="label-staff-member-4-firstname"><span class="sr-only">Staff Member 4 </span>Firstname</label>
 						<input disabled type="text" value="<?php echo $currentInstance->getStaffMember4Firstname();  ?>" id="staff-member-4-firstname" name="staffMember4Firstname" aria-invalid="false" aria-labelledby="label-staff-member-4-firstname"><br />
-						<label for="staff-member-4-lastname" id="label-staff-member-4-lastname"><span class="sr-only">Staff Member 4 <span class="sr-only">Lastname</label>
+						<label for="staff-member-4-lastname" id="label-staff-member-4-lastname"><span class="sr-only">Staff Member 4 </span>Lastname</label>
 						<input disabled type="text" value="<?php echo $currentInstance->getStaffMember4Lastname();  ?>" id="staff-member-4-lastname" name="staffMember4Lastname" aria-invalid="false" aria-labelledby="label-staff-member-4-lastname"><br />
-						<label for="staff-member-4-affiliation" id="label-staff-member-4-affiliation"><span class="sr-only"><span class="sr-only">Staff Member 4 </span>Affiliation</label>
+						<label for="staff-member-4-affiliation" id="label-staff-member-4-affiliation"><span class="sr-only">Staff Member 4 </span>Affiliation</label>
 						<select disabled id="staff-member-4-affiliation" name="staffMember4Affiliation" aria-invalid="false" aria-labelledby="label-staff-member-4-affiliation">
 							<option value="<?php echo $currentInstance->getStaffMember4Affiliation() === ''; ?>"><?php echo $currentInstance->getStaffMember4Affiliation(); ?></option>
 						</select><br />
