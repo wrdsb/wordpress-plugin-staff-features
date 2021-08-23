@@ -151,7 +151,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="site-2-phone" id="label-site-2-phone"><span class="sr-only">Site 2 </span>Contact Phone</label>
 						<input type="text" value="<?php echo $currentInstance->getSite2Phone(); ?>" id="site-2-phone" name="site2Phone" aria-invalid="false" aria-labelledby="label-site-2-phone"><br />
 						<label for="site-2-hours-start" id="label-site-2-hours-start"><span class="sr-only">Site 2 </span>Hours Available (start)</label>
-						<input type="time" value="<?php echo $currentInstance->getSite2HoursStart(); ?>" id="site-1-hours-start" name="site1HoursStart" aria-invalid="false" aria-labelledby="label-site-2-hours-start">
+						<input type="time" value="<?php echo $currentInstance->getSite2HoursStart(); ?>" id="site-1-hours-start" name="site2HoursStart" aria-invalid="false" aria-labelledby="label-site-2-hours-start">
 						<label for="site-2-hours-end" id="label-site-2-hours-end"><span class="sr-only">Site 2 </span>Hours Available (end)</label>
 						<input type="time" value="<?php echo $currentInstance->getSite2HoursEnd(); ?>" id="site-2-hours-end" name="site2HoursEnd" aria-invalid="false" aria-labelledby="label-site-2-hours-end">
 					</fieldset>
