@@ -76,33 +76,37 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
 
-				<div class="announcement">Data Collection is closed for the 2020/2021 school year. If you have changes to your teams, please contact Mary Hingley directly (via email or ext. 4438).</div>
+                <p>School Data includes team composition, dates for fire and bomb drills and evacuation sites. If you have data you think should show here, please drop us a line at <a href="mailto:website@wrdsb.ca">website@wrdsb.ca</a> with your ideas.</p>
 
-				<h2>Prepare Your Teams</h2>
-				<div class="alert alert-info">
-				If you need to leave the form before you finish entering your team information, you will now have the ability to save your progress and return to the form at a more convenient time.
 
-				Begin entering your School Teams data by choosing the appropriate Team tab above and completing the information. You will then have an option to either save your progress or submit.
+                <?php if (Module::currentUserCanEdit()) { ?>
 
-				If you save your progress, you can reload your saved data by hovering over the data in the <strong>Edit previously saved data</strong> box and click on the <strong>Load</strong> link that appears to the right.
+                <p>Each school year, Principals are required to submit the following information relating to their schools:</p>
+                
+                <ul>
+                    <li>Emergency Response Team</li>
+                    <li>Evacuation Site Information</li>
+                    <li>Fire Drill and Fire/Bomb Threat &ndash; drill dates and times for local Fire Departments</li>
+                    <li>Health &amp; Safety – Workplace Inspection Team</li>
+                    <li>Identification, Placement and Review Committee Membership</li>
+                    <li>Safe, Caring, and Inclusive Schools</li>
+                </ul>
+                
+                <p><strong>This information is due by Friday, Sept. 17, 2021.</strong></p>
 
-				Once a team is submitted, it cannot be edited. Please contact Mary Hingley (via email or ext. 4438) with the necessary changes.
+                <p>To update the information for any collection of data, go to that data page and choose the "Update this Information" button and change the data. This button is only visible to you.</p>
 
-				</div>
-				Each school year, Principals are required to submit the following information relating to their schools:
-				<ul>
-					<li><a href="https://staff.wrdsb.ca/school-teams/ert/">Emergency Response Team</a></li>
-					<li><a href="https://staff.wrdsb.ca/school-teams/evacuation-sites/">Evacuation Site Information</a></li>
-					<li><a href="https://staff.wrdsb.ca/school-teams/fire-bomb-drill/">Fire Drill and Fire/Bomb Threat</a> drill dates and times for local Fire Departments</li>
-					<li>Health &amp; Safety – <a href="https://staff.wrdsb.ca/school-teams/wit/">Workplace Inspection Team</a>
-				<ul>
-					<li>Please have the members of the WIT identify a worker health and safety contact (‘Auxiliary Member’) for the site</li>
-				</ul>
-				</li>
-					<li><a href="https://staff.wrdsb.ca/school-teams/iprc/">Identification, Placement and Review Committee</a> Membership</li>
-					<li><a href="https://staff.wrdsb.ca/school-teams/scis/">Safe, Caring, and Inclusive Schools</a></li>
-				</ul>
-				<strong>This information is due by Friday, Sept. 18, 2020. </strong> Please contact <a href="mailto:mary_hingley@wrdsb.ca">Mary Hingley</a>, ext. 4438, if you have difficulty accessing the reporting tool.
+                <p>If you do not wish to change the data after starting, choose "Cancel Update".</p>
+
+                <p>To complete updating the information, choose "Update" at the bottom of each form. The updates will be live the moment you choose "Update".</p>
+
+                <p>If you have requests or feedback, please pop in a ticket to <a href="https://itservicedesk.wrdsb.ca/" target="_blank" rel="noopener">ITService Desk</a>!</p>
+
+                <p>For questions regarding the collection of data itself, please contact Julianne Amaral, ext. 4208 for assistance.</p>
+
+
+                <?php } ?>
+				
                 <!-- /CONTENT -->
             </div>
         </div>
