@@ -140,7 +140,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="paraprofessional-lastname" id="label-paraprofessional-lastname"><span class="sr-only">Paraprofessional (CYW, EA, etc) </span>Lastname</label>
 						<input disabled type="text" value="<?php echo $currentInstance->getParaprofessionalLastname(); ?>" id="paraprofessional-lastname" name="paraprofessionalLastname" aria-invalid="false" aria-labelledby="label-paraprofessional-lastname"><br />
 						<label for="paraprofessional-i-e-liasion" id="label-paraprofessional-i-e-liasion">Indigenous &amp; Equity Liaison</label>
-						<input disabled id="paraprofessional-i-e-liasion" name="paraprofessionalIELiasion" type="checkbox" value="1" <?php echo ($currentInstance->paraprofessionalIELiasionIsChecked()) ? 'checked' : ''; ?>aria-labelledby="label-paraprofessional-i-e-liasion">
+						<input disabled id="paraprofessional-i-e-liasion" name="paraprofessionalIELiasion" type="checkbox" value="1" <?php echo ($currentInstance->paraprofessionalIELiasionIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-paraprofessional-i-e-liasion">
 					</fieldset>
 
 					<fieldset>
