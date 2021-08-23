@@ -19,7 +19,7 @@ use \WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeamCPT as Workplac
 use \WRDSB\Staff\Modules\SchoolData\Model\DrillSchedule as DrillSchedule;
 use \WRDSB\Staff\Modules\SchoolData\Model\EmergencyResponseTeam as EmergencyResponseTeam;
 use \WRDSB\Staff\Modules\SchoolData\Model\EvacuationSites as EvacuationSites;
-use \WRDSB\Staff\Modules\SchoolData\Model\IPRCC as IPRC;
+use \WRDSB\Staff\Modules\SchoolData\Model\IPRC as IPRC;
 use \WRDSB\Staff\Modules\SchoolData\Model\SCISTeam as SCISTeam;
 use \WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as WorkplaceInspectionTeam;
 
@@ -352,7 +352,6 @@ add_action('rest_api_init', function () {
 });
 
 add_action('admin_post_schoolDataDrillSchedule', __NAMESPACE__ .'\\submitSchoolDataDrillSchedule');
-add_action('admin_post_nopriv_schoolDataDrillSchedule', __NAMESPACE__ .'\\submitSchoolDataDrillSchedule');
 add_action('admin_post_schoolDataEmergencyResponseTeam', __NAMESPACE__ .'\\submitSchoolDataEmergencyResponseTeam');
 add_action('admin_post_schoolDataEvacuationSites', __NAMESPACE__ .'\\submitSchoolDataEvacuationSites');
 add_action('admin_post_schoolDataIPRC', __NAMESPACE__ .'\\submitSchoolDataIPRC');
