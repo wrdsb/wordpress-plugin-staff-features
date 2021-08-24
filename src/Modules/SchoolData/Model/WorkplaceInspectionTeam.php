@@ -374,12 +374,6 @@ class WorkplaceInspectionTeam {
         if (is_wp_error($saveResult)) {
             $error_string = $saveResult->get_error_message();
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
-            echo '<pre>';
-            print_r($saveResult);
-            echo '</pre>';
-            echo '<pre>';
-            print_r($post);
-            echo '</pre>';
             return false;
         } else {
             $postID = $saveResult;
