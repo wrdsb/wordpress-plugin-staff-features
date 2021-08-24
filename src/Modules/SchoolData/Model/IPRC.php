@@ -93,7 +93,7 @@ class IPRC {
 
         $instance = self::getInstance();
 
-        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->title   = "{$postArray['schoolCode']} IPRC";
         $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
         $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
 
@@ -198,9 +198,13 @@ class IPRC {
             'post_type'    => 'iprc',
             'post_status'  => 'publish',
 
-            'content' => $this->content,
-            'title'   => $this->title,
-            'excerpt' => $this->excerpt,
+            'post_content' => $this->content,
+            'post_title'   => $this->title,
+            'post_excerpt' => $this->excerpt,
+
+            'blogID'     => $this->blogID,
+            'schoolCode' => $this->schoolCode,
+            'email'      => $this->email,
 
             'principalFirstname' => $this->principalFirstname,
             'principalLastname' => $this->principalLastname,
@@ -244,23 +248,25 @@ class IPRC {
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
             return false;
         } else {
-            WPCore::updatePostMeta($postID, 'principalFirstname', WPCore::sanitizeTextField($post['principalFirstname']));
-            WPCore::updatePostMeta($postID, 'principalLastname', WPCore::sanitizeTextField($post['principalLastname']));
+            WPCore::updatePostMeta($postID, 'principalFirstname', $post['principalFirstname']);
+            WPCore::updatePostMeta($postID, 'principalLastname', $post['principalLastname']);
 
-            WPCore::updatePostMeta($postID, 'teacher1Firstname', WPCore::sanitizeTextField($post['teacher1Firstname']));
-            WPCore::updatePostMeta($postID, 'teacher1Lastname', WPCore::sanitizeTextField($post['teacher1Lastname']));
+            WPCore::updatePostMeta($postID, 'teacher1Firstname', $post['teacher1Firstname']);
+            WPCore::updatePostMeta($postID, 'teacher1Lastname', $post['teacher1Lastname']);
 
-            WPCore::updatePostMeta($postID, 'teacher2Firstname', WPCore::sanitizeTextField($post['teacher2Firstname']));
-            WPCore::updatePostMeta($postID, 'teacher2Lastname', WPCore::sanitizeTextField($post['teacher2Lastname']));
+            WPCore::updatePostMeta($postID, 'teacher2Firstname', $post['teacher2Firstname']);
+            WPCore::updatePostMeta($postID, 'teacher2Lastname', $post['teacher2Lastname']);
 
-            WPCore::updatePostMeta($postID, 'teacher3Firstname', WPCore::sanitizeTextField($post['teacher3Firstname']));
-            WPCore::updatePostMeta($postID, 'teacher3Lastname', WPCore::sanitizeTextField($post['teacher3Lastname']));
+            WPCore::updatePostMeta($postID, 'teacher3Firstname', $post['teacher3Firstname']);
+            WPCore::updatePostMeta($postID, 'teacher3Lastname', $post['teacher3Lastname']);
 
-            WPCore::updatePostMeta($postID, 'teacher4Firstname', WPCore::sanitizeTextField($post['teacher4Firstname']));
-            WPCore::updatePostMeta($postID, 'teacher4Lastname', WPCore::sanitizeTextField($post['teacher4Lastname']));
+            WPCore::updatePostMeta($postID, 'teacher4Firstname', $post['teacher4Firstname']);
+            WPCore::updatePostMeta($postID, 'teacher4Lastname', $post['teacher4Lastname']);
 
-            WPCore::updatePostMeta($postID, 'teacher5Firstname', WPCore::sanitizeTextField($post['teacher5Firstname']));
-            WPCore::updatePostMeta($postID, 'teacher5Lastname', WPCore::sanitizeTextField($post['teacher5Lastname']));
+            WPCore::updatePostMeta($postID, 'teacher5Firstname', $post['teacher5Firstname']);
+            WPCore::updatePostMeta($postID, 'teacher5Lastname', $post['teacher5Lastname']);
         }
+
+        return true;
     }
 }
