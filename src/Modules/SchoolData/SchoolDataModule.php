@@ -43,10 +43,83 @@ class SchoolDataModule {
 
     public static function currentUserCanEdit() {
         $currentUser = WPCore::getCurrentUser();
-        $userMeta = get_user_meta($currentUser->ID);
-        //print_r($user_meta);
+        $userID = $currentUser->ID;
 
-        return true;
+        if (WPCore::isSuperAdmin($userID)) {
+            return true;
+        }
+
+        if (self::isSchoolAdmin($userID)) {
+            return true;
+        }
+
+        if (self::isFirstSecretary($userID)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isSchoolAdmin(int $userID) {
+        $isSchoolAdmin = WPCore::getUserMeta($userID, 'isSchoolAdmin', true);
+
+        if ('true' === $isSchoolAdmin) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isPrincipal(int $userID) {
+        $isPrincipal = WPCore::getUserMeta($userID, 'isPrincipal', true);
+
+        if ('true' === $isPrincipal) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isVicePrincipal(int $userID) {
+        $isVicePrincipal = WPCore::getUserMeta($userID, 'isVicePrincipal', true);
+
+        if ('true' === $isVicePrincipal) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isFirstSecretary(int $userID) {
+        if (self::isHeadSecretary($userID)) {
+            return true;
+        }
+
+        if (self::isOfficeSupervisor($userID)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isHeadSecretary(int $userID) {
+        $isHeadSecretary = WPCore::getUserMeta($userID, 'isHeadSecretary', true);
+
+        if ('true' === $isHeadSecretary) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function isOfficeSupervisor(int $userID) {
+        $isOfficeSupervisor = WPCore::getUserMeta($userID, 'isOfficeSupervisor', true);
+
+        if ('true' === $isOfficeSupervisor) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function getCodexSearchURL(): string {

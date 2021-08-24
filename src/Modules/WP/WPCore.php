@@ -131,4 +131,15 @@ class WPCore
     public static function wpNonceField($action = -1, string $name = '_wpnonce', bool $referer = true, bool $echo = true ) {
         wp_nonce_field($action, $name, $referer, $echo);
     }
+
+    public static function getUserMeta(int $user_id, string $key = '', bool $single = false) {
+        get_user_meta($user_id, $key,$single);
+    }
+
+    public static function isSuperAdmin($userID) {
+        if (user_can($userID, 'setup_network')) {
+            return true;
+        }
+        return false;
+    }
 }
