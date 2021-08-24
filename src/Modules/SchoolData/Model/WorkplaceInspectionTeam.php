@@ -49,7 +49,7 @@ class WorkplaceInspectionTeam {
 
     public static function getInstance() {
         $args = array(
-            'post_type' => 'workplaceInspectionTeam',
+            'post_type' => 'wit',
             'post_status' => 'publish',
             'posts_per_page' => 1,
             'orderby' => 'title',
@@ -104,27 +104,27 @@ class WorkplaceInspectionTeam {
             'principalFirstname' => $postRequest['principalFirstname'],
             'principalLastname' => $postRequest['principalLastname'],
             'principalAffiliation' => $postRequest['principalAffiliation'],
-            'principalHSContact' => $postRequest['principalHSContact'],
+            'principalHSContact' => $postRequest['principalHSContact'] ?? '0',
             'custodianFirstname' => $postRequest['custodianFirstname'],
             'custodianLastname' => $postRequest['custodianLastname'],
             'custodianAffiliation' => $postRequest['custodianAffiliation'],
-            'custodianHSContact' => $postRequest['custodianHSContact'],
+            'custodianHSContact' => $postRequest['custodianHSContact'] ?? '0',
             'staffMember1Firstname' => $postRequest['staffMember1Firstname'],
             'staffMember1Lastname' => $postRequest['staffMember1Lastname'],
             'staffMember1Affiliation' => $postRequest['staffMember1Affiliation'],
-            'staffMember1HSContact' => $postRequest['staffMember1HSContact'],
+            'staffMember1HSContact' => $postRequest['staffMember1HSContact'] ?? '0',
             'staffMember2Firstname' => $postRequest['staffMember2Firstname'],
             'staffMember2Lastname' => $postRequest['staffMember2Lastname'],
             'staffMember2Affiliation' => $postRequest['staffMember2Affiliation'],
-            'staffMember2HSContact' => $postRequest['staffMember2HSContact'],
+            'staffMember2HSContact' => $postRequest['staffMember2HSContact'] ?? '0',
             'staffMember3Firstname' => $postRequest['staffMember3Firstname'],
             'staffMember3Lastname' => $postRequest['staffMember3Lastname'],
             'staffMember3Affiliation' => $postRequest['staffMember3Affiliation'],
-            'staffMember3HSContact' => $postRequest['staffMember3HSContact'],
+            'staffMember3HSContact' => $postRequest['staffMember3HSContact'] ?? '0',
             'staffMember4Firstname' => $postRequest['staffMember4Firstname'],
             'staffMember4Lastname' => $postRequest['staffMember4Lastname'],
             'staffMember4Affiliation' => $postRequest['staffMember4Affiliation'],
-            'staffMember4HSContact' => $postRequest['staffMember4HSContact'],
+            'staffMember4HSContact' => $postRequest['staffMember4HSContact'] ?? '0',
         );
 
         $instance = self::getInstance();
@@ -227,7 +227,7 @@ class WorkplaceInspectionTeam {
         return $this->principalHSContact;
     }
     public function principalHSContactIsChecked() {
-        return ($this->principalHSContact === 1) ? true : false;
+        return ($this->principalHSContact === '1') ? true : false;
     }
 
     public function getCustodianFirstname() {
@@ -243,7 +243,7 @@ class WorkplaceInspectionTeam {
         return $this->custodianHSContact;
     }
     public function custodianHSContactIsChecked() {
-        return ($this->custodianHSContact === 1) ? true : false;
+        return ($this->custodianHSContact === '1') ? true : false;
     }
 
     public function getStaffMember1Firstname() {
@@ -259,7 +259,7 @@ class WorkplaceInspectionTeam {
         return $this->staffMember1HSContact;
     }
     public function staffMember1HSContactIsChecked() {
-        return ($this->staffMember1HSContact === 1) ? true : false;
+        return ($this->staffMember1HSContact === '1') ? true : false;
     }
 
     public function getStaffMember2Firstname() {
@@ -275,7 +275,7 @@ class WorkplaceInspectionTeam {
         return $this->staffMember2HSContact;
     }
     public function staffMember2HSContactIsChecked() {
-        return ($this->staffMember2HSContact === 1) ? true : false;
+        return ($this->staffMember2HSContact === '1') ? true : false;
     }
 
     public function getStaffMember3Firstname() {
@@ -291,7 +291,7 @@ class WorkplaceInspectionTeam {
         return $this->staffMember3HSContact;
     }
     public function staffMember3HSContactIsChecked() {
-        return ($this->staffMember3HSContact === 1) ? true : false;
+        return ($this->staffMember3HSContact === '1') ? true : false;
     }
 
     public function getStaffMember4Firstname() {
@@ -307,19 +307,19 @@ class WorkplaceInspectionTeam {
         return $this->staffMember4HSContact;
     }
     public function staffMember4HSContactIsChecked() {
-        return ($this->staffMember4HSContact === 1) ? true : false;
+        return ($this->staffMember4HSContact === '1') ? true : false;
     }
 
     public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
 
-            'post_type'    => 'workplaceInspectionTeam',
+            'post_type'    => 'wit',
             'post_status'  => 'publish',
 
-            'content' => $this->content,
-            'title'   => $this->title,
-            'excerpt' => $this->excerpt,
+            'post_content' => $this->content,
+            'post_title'   => $this->title,
+            'post_excerpt' => $this->excerpt,
 
             'principalFirstname' => $this->principalFirstname,
             'principalLastname' => $this->principalLastname,
@@ -365,6 +365,7 @@ class WorkplaceInspectionTeam {
         $postID = (int) $post['ID'];
 
         if (0 == $postID) {
+            unset($post['ID']);
             $saveResult = WPCore::wpInsertPost($post, true);
         } else {
             $saveResult = WPCore::wpUpdatePost($post, true);
@@ -373,37 +374,47 @@ class WorkplaceInspectionTeam {
         if (is_wp_error($saveResult)) {
             $error_string = $saveResult->get_error_message();
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
+            echo '<pre>';
+            print_r($saveResult);
+            echo '</pre>';
+            echo '<pre>';
+            print_r($post);
+            echo '</pre>';
             return false;
         } else {
-            WPCore::updatePostMeta($postID, 'principalFirstname', WPCore::sanitizeTextField($post['principalFirstname']));
-            WPCore::updatePostMeta($postID, 'principalLastname', WPCore::sanitizeTextField($post['principalLastname']));
-            WPCore::updatePostMeta($postID, 'principalAffiliation', WPCore::sanitizeTextField($post['principalAffiliation']));
-            WPCore::updatePostMeta($postID, 'principalHSContact', WPCore::sanitizeTextField($post['principalHSContact']));
+            $postID = $saveResult;
 
-            WPCore::updatePostMeta($postID, 'custodianFirstname', WPCore::sanitizeTextField($post['custodianFirstname']));
-            WPCore::updatePostMeta($postID, 'custodianLastname', WPCore::sanitizeTextField($post['custodianLastname']));
-            WPCore::updatePostMeta($postID, 'custodianAffiliation', WPCore::sanitizeTextField($post['custodianAffiliation']));
-            WPCore::updatePostMeta($postID, 'custodianHSContact', WPCore::sanitizeTextField($post['custodianHSContact']));
+            WPCore::updatePostMeta($postID, 'principalFirstname', $post['principalFirstname']);
+            WPCore::updatePostMeta($postID, 'principalLastname', $post['principalLastname']);
+            WPCore::updatePostMeta($postID, 'principalAffiliation', $post['principalAffiliation']);
+            WPCore::updatePostMeta($postID, 'principalHSContact', $post['principalHSContact']);
 
-            WPCore::updatePostMeta($postID, 'staffMember1Firstname', WPCore::sanitizeTextField($post['staffMember1Firstname']));
-            WPCore::updatePostMeta($postID, 'staffMember1Lastname', WPCore::sanitizeTextField($post['staffMember1Lastname']));
-            WPCore::updatePostMeta($postID, 'staffMember1Affiliation', WPCore::sanitizeTextField($post['staffMember1Affiliation']));
-            WPCore::updatePostMeta($postID, 'staffMember1HSContact', WPCore::sanitizeTextField($post['staffMember1HSContact']));
+            WPCore::updatePostMeta($postID, 'custodianFirstname', $post['custodianFirstname']);
+            WPCore::updatePostMeta($postID, 'custodianLastname', $post['custodianLastname']);
+            WPCore::updatePostMeta($postID, 'custodianAffiliation', $post['custodianAffiliation']);
+            WPCore::updatePostMeta($postID, 'custodianHSContact', $post['custodianHSContact']);
 
-            WPCore::updatePostMeta($postID, 'staffMember2Firstname', WPCore::sanitizeTextField($post['staffMember2Firstname']));
-            WPCore::updatePostMeta($postID, 'staffMember2Lastname', WPCore::sanitizeTextField($post['staffMember2Lastname']));
-            WPCore::updatePostMeta($postID, 'staffMember2Affiliation', WPCore::sanitizeTextField($post['staffMember2Affiliation']));
-            WPCore::updatePostMeta($postID, 'staffMember2HSContact', WPCore::sanitizeTextField($post['staffMember2HSContact']));
+            WPCore::updatePostMeta($postID, 'staffMember1Firstname', $post['staffMember1Firstname']);
+            WPCore::updatePostMeta($postID, 'staffMember1Lastname', $post['staffMember1Lastname']);
+            WPCore::updatePostMeta($postID, 'staffMember1Affiliation', $post['staffMember1Affiliation']);
+            WPCore::updatePostMeta($postID, 'staffMember1HSContact', $post['staffMember1HSContact']);
 
-            WPCore::updatePostMeta($postID, 'staffMember3Firstname', WPCore::sanitizeTextField($post['staffMember3Firstname']));
-            WPCore::updatePostMeta($postID, 'staffMember3Lastname', WPCore::sanitizeTextField($post['staffMember3Lastname']));
-            WPCore::updatePostMeta($postID, 'staffMember3Affiliation', WPCore::sanitizeTextField($post['staffMember3Affiliation']));
-            WPCore::updatePostMeta($postID, 'staffMember3HSContact', WPCore::sanitizeTextField($post['staffMember3HSContact']));
+            WPCore::updatePostMeta($postID, 'staffMember2Firstname', $post['staffMember2Firstname']);
+            WPCore::updatePostMeta($postID, 'staffMember2Lastname', $post['staffMember2Lastname']);
+            WPCore::updatePostMeta($postID, 'staffMember2Affiliation', $post['staffMember2Affiliation']);
+            WPCore::updatePostMeta($postID, 'staffMember2HSContact', $post['staffMember2HSContact']);
 
-            WPCore::updatePostMeta($postID, 'staffMember4Firstname', WPCore::sanitizeTextField($post['staffMember4Firstname']));
-            WPCore::updatePostMeta($postID, 'staffMember4Lastname', WPCore::sanitizeTextField($post['staffMember4Lastname']));
-            WPCore::updatePostMeta($postID, 'staffMember4Affiliation', WPCore::sanitizeTextField($post['staffMember4Affiliation']));
-            WPCore::updatePostMeta($postID, 'staffMember4HSContact', WPCore::sanitizeTextField($post['staffMember4HSContact']));
+            WPCore::updatePostMeta($postID, 'staffMember3Firstname', $post['staffMember3Firstname']);
+            WPCore::updatePostMeta($postID, 'staffMember3Lastname', $post['staffMember3Lastname']);
+            WPCore::updatePostMeta($postID, 'staffMember3Affiliation', $post['staffMember3Affiliation']);
+            WPCore::updatePostMeta($postID, 'staffMember3HSContact', $post['staffMember3HSContact']);
+
+            WPCore::updatePostMeta($postID, 'staffMember4Firstname', $post['staffMember4Firstname']);
+            WPCore::updatePostMeta($postID, 'staffMember4Lastname', $post['staffMember4Lastname']);
+            WPCore::updatePostMeta($postID, 'staffMember4Affiliation', $post['staffMember4Affiliation']);
+            WPCore::updatePostMeta($postID, 'staffMember4HSContact', $post['staffMember4HSContact']);
         }
+
+        return true;
     }
 }

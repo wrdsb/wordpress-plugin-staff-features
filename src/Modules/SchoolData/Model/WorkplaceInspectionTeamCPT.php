@@ -15,7 +15,7 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 class WorkplaceInspectionTeamCPT {
     public function __construct($plugin) {
         // Add action to register the post type, if the post type does not already exist
-        if (!post_type_exists('workplaceInspectionTeam')) {
+        if (!post_type_exists('wit')) {
             $plugin->addAction('init', $this, 'registerPostType');
         }
     }
@@ -72,6 +72,6 @@ class WorkplaceInspectionTeamCPT {
                 'with_front' => false,
             ),
         );
-        register_post_type('workplaceInspectionTeam', $args);
+        register_post_type('wit', $args);
     }
 }
