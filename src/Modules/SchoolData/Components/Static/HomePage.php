@@ -78,7 +78,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
 
-                <p>School Data includes team composition, dates for fire and bomb drills and evacuation sites. If you have data you think should show here, please drop us a line at <a href="mailto:website@wrdsb.ca">website@wrdsb.ca</a> with your ideas.</p>
+                <p>School Data includes team composition, dates for fire and bomb drills and evacuation sites.</p>
 
 
                 <?php if (Module::currentUserCanEdit()) { ?>
@@ -102,7 +102,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
                 <p>To complete updating the information, choose "Update" at the bottom of each form. The updates will be live the moment you choose "Update".</p>
 
-                <p>If you have requests or feedback, please pop in a ticket to <a href="https://itservicedesk.wrdsb.ca/" target="_blank" rel="noopener">ITService Desk</a>!</p>
+                <p>If you have requests or feedback, please send in a ticket to <a href="https://itservicedesk.wrdsb.ca/" target="_blank" rel="noopener">ITService Desk</a>!</p>
 
                 <p>For questions regarding the collection of data itself, please contact Julianne Amaral, ext. 4208 for assistance.</p>
 
