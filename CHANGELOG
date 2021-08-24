@@ -1,3 +1,18 @@
+# 1.6.0
+* Add "School Data" module
+** This module replaces the current "WRDSB School Team Reporting" website on the Staff Intranet.
+** This module includes the ability for each school to enter, edit, and manage six types of school-related data:
+*** Fire Drill Schedule
+*** Emergency Response Team
+*** Evacuation Sites
+*** IPRC
+*** SCIS Team
+*** Workplace Inspection Team
+** Each type of data has its own form for data collection.
+** The forms are "regular HTML forms", replacing the current Ninja Forms forms in the school teams website.
+** Only authorized personnel from a given school can edit that school's data
+** Data is collected through these forms and reported to those who need it, in a manner similar to the school teams website it replaces.
+
 # 1.5.0
 * Add "Asset Assignment" module
 ** This is the end-to-end solution requested for device assignment at ECPP.
