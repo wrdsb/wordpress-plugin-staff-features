@@ -92,7 +92,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
 				<!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-				<p><button><a href="..">Cancel Update</a></button></p>
+				<p><button onclick="location.href='..';"><a href="..">Cancel Update</a></button></p>
 
 				<div class="alert alert-info">
 					<p>Each school's Emergency Response Team takes leadership in dealing with crises and emergency situations. Carefully consider the membership of the team to ensure the team has the requisite skills and training to be effective.</p>
@@ -282,8 +282,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="bms-expiry-12" id="label-bms-expiry-12">BMS Expiry<span class="sr-only"> 12</span></label>
 						<input id="bms-expiry-12" name="bmsExpiry12" aria-invalid="false" aria-labelledby="label-bms-expiry-12" type="date" value="<?php echo $currentInstance->getBMSExpiry12(); ?>">
 					</fieldset>
-					<button>Submit</button>
-                    <button><a href="..">Cancel Update</a></button>
+					
+					<input type="submit" value="Update">
+                    <button onclick="location.href='..';"><a href="..">Cancel Update</a></button>
 				</form>
                 <!-- /CONTENT -->
             </div>

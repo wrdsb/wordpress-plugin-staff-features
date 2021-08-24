@@ -92,7 +92,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-                <p><button><a href="..">Cancel Update</a></button></p>
+                <p><button onclick="location.href='..';"><a href="..">Cancel Update</a></button></p>
 
                 <div class="alert alert-info">
                     <p>Each school must have an Identification, Placement and Review Committee (IPRC). Please review the <a href="<?php echo WPCore::homeURL(); ?>/school-data/iprc/instructions">IPRC Instructions</a>.</p>
@@ -163,9 +163,10 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <input type="text" value="<?php echo $currentInstance->getTeacher5Firstname(); ?>" id="teacher-5-firstname" name="teacher5Firstname" aria-invalid="false" aria-labelledby="label-teacher-5-firstname">
                         <label for="teacher-5-lastname" id="teacher-5-lastname"><span class="sr-only">Teacher 5 </span>Lastname</label>
                         <input type="text" value="<?php echo $currentInstance->getteacher5Lastname(); ?>" id="teacher-5-lastname" name="teacher5Lastname" aria-invalid="false" aria-labelledby="label-teacher-5-lastname">
-                    </fieldset> 
-                    <button>Submit</button>
-                    <button><a href="..">Cancel Update</a></button>
+                    </fieldset>
+                    
+                    <input type="submit" value="Update">
+                    <button onclick="location.href='..';"><a href="..">Cancel Update</a></button>
                 </form>
                 <!-- /CONTENT -->
             </div>

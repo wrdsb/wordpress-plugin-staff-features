@@ -92,7 +92,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-                <p><button><a href="..">Cancel Update</a></button></p>
+                <p><button onclick="location.href='..';"><a href="..">Cancel Update</a></button></p>
 
 				<div class="alert alert-info">
 					<p>The Workplace Inspection Team (WIT) keeps the workplace healthy and safe with a team of 3-5 members, including the principal, custodian, and a teacher or other staff members.</p>
@@ -274,8 +274,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<input id="staff-member-4-h-s-contact" name="staffMember4HSContact" type="checkbox" value="1" <?php echo ($currentInstance->staffMember4HSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-staff-member-4-h-s-contact">
 					</fieldset>
 
-                    <button>Submit</button>
-                    <button><a href="..">Cancel Update</a></button>
+                    <input type="submit" value="Update">
+                    <button onclick="location.href='..';"><a href="..">Cancel Update</a></button>
 				</form>
 				<!-- /CONTENT -->
 			</div>

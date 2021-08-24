@@ -92,7 +92,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-                <p><button><a href="..">Cancel Update</a></button></p>
+                <p><button onclick="location.href='..';"><a href="..">Cancel Update</a></button></p>
 
 				<div class="alert alert-info">
 					<p>Each school must have in place a Safe, Caring and Inclusive Schools team. The school-based Safe, Caring and Inclusive Schools team will operate in accordance with the <a href="https://staff.wrdsb.ca/learning-services/safe-caring-and-inclusive-schools/safe-caring-and-inclusive-schools/" target="_blank" rel="noopener noreferrer">SCIS Terms of Reference</a>, school Code of Conduct, Board policies and procedures, Ministry of Education directions for school boards, and align with other relevant legislation, including the Canadian Charter of Rights and Freedoms and the Ontario Human Rights Code.</p>
@@ -239,8 +239,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="optional-5-i-e-liasion" id="label-optional-5-i-e-liasion"><span class="sr-only">Optional member and role 5 is </span>Indigenous &amp; Equity Liaison</label>
 						<input id="optional-5-i-e-liasion" name="optional5IELiasion" type="checkbox" value="1" <?php echo ($currentInstance->optional5IELiasionIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-optional-5-i-e-liasion">
 					</fieldset>
-                    <button>Submit</button>
-                    <button><a href="..">Cancel Update</a></button>
+					
+                    <input type="submit" value="Update">
+                    <button onclick="location.href='..';"><a href="..">Cancel Update</a></button>
 				</form>
                 <!-- /CONTENT -->
             </div>

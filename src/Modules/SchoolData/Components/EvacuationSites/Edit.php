@@ -92,7 +92,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-                <p><button><a href="..">Cancel Update</a></button></p>
+                <p><button onclick="location.href='..';"><a href="..">Cancel Update</a></button></p>
 
 				<p class="alert alert-info"><strong>All schools</strong> must provide alternate evacuation site(s) information to be used in case of emergencies.</p>
 
@@ -199,8 +199,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="site-4-hours-end" id="label-site-4-hours-end"><span class="sr-only">Site 4 </span>Hours Available (end)</label>
 						<input type="time" value="<?php echo $currentInstance->getSite4HoursEnd(); ?>" id="site-4-hours-end" name="site4HoursEnd" aria-invalid="false" aria-labelledby="label-site-4-hours-end">
 					</fieldset>
-                    <button>Submit</button>
-                    <button><a href="..">Cancel Update</a></button>
+					
+                    <input type="submit" value="Update">
+                    <button onclick="location.href='..';"><a href="..">Cancel Update</a></button>
 				</form>
                 <!-- /CONTENT -->
             </div>
