@@ -90,7 +90,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
                 <?php if (Module::currentUserCanEdit()) { ?>
-                    <p><button><a href="./edit/">Update this Information</a></button></p>
+                    <p><button onclick="location.href='./edit/';"><a href="./edit/">Update this Information</a></button></p>
                 <?php } ?>
 
 				<div class="alert alert-info">
@@ -119,7 +119,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="<?php echo $currentInstance->getPrincipalAffiliation(); ?>"><?php echo $currentInstance->getPrincipalAffiliation(); ?></option>
 						</select><br />
 						<label for="principal-h-s-contact" id="label-principal-h-s-contact"><span class="sr-only">Principal is </span>H&amp;S Contact?</label>
-						<input disabled id="principal-h-s-contact" name="principalHSContact" type="checkbox" value="1" aria-labelledby="label-principal-h-s-contact">
+						<input disabled id="principal-h-s-contact" name="principalHSContact" type="checkbox" value="1" <?php echo ($currentInstance->principalHSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-principal-h-s-contact">
 					</fieldset>
 
 					<fieldset>
@@ -133,7 +133,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="<?php echo $currentInstance->getCustodianAffiliation(); ?>"><?php echo $currentInstance->getCustodianAffiliation(); ?></option>
 						</select><br />
 						<label for="custodian-h-s-contact" id="label-custodian-h-s-contact"><span class="sr-only">Custodian is </span>H&amp;S Contact?</span></label>
-						<input disabled id="custodian-h-s-contact" name="custodianHSContact" type="checkbox" value="1" aria-labelledby="label-custodian-h-s-contact">
+						<input disabled id="custodian-h-s-contact" name="custodianHSContact" type="checkbox" value="1" <?php echo ($currentInstance->custodianHSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-custodian-h-s-contact">
 					</fieldset>
 
 					<fieldset>
@@ -147,7 +147,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="<?php echo $currentInstance->getStaffMember1Affiliation(); ?>"><?php echo $currentInstance->getStaffMember1Affiliation(); ?></option>
 						</select><br />
 						<label for="staff-member-1-h-s-contact" id="label-staff-member-1-h-s-contact"><span class="sr-only">Staff Member 1 is</span>H&amp;S Contact?</label>
-						<input disabled id="staff-member-1-h-s-contact" name="staffMember1HSContact" type="checkbox" value="1" aria-labelledby="label-staff-member-1-h-s-contact">
+						<input disabled id="staff-member-1-h-s-contact" name="staffMember1HSContact" type="checkbox" value="1" <?php echo ($currentInstance->staffMember1HSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-staff-member-1-h-s-contact">
 					</fieldset>
 
 					<fieldset>
@@ -161,7 +161,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="<?php echo $currentInstance->getStaffMember2Affiliation() === ''; ?>"><?php echo $currentInstance->getStaffMember2Affiliation(); ?></option>
 						</select><br />
 						<label for="staff-member-2-h-s-contact" id="label-staff-member-2-h-s-contact"><span class="sr-only">Staff Member 2 is </span>H&amp;S Contact?</label>
-						<input disabled id="staff-member-2-h-s-contact" name="staffMember2HSContact" type="checkbox" value="1" aria-labelledby="label-staff-member-2-h-s-contact">
+						<input disabled id="staff-member-2-h-s-contact" name="staffMember2HSContact" type="checkbox" value="1" <?php echo ($currentInstance->staffMember2HSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-staff-member-2-h-s-contact">
 					</fieldset>
 
 					<fieldset>
@@ -175,7 +175,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="<?php echo $currentInstance->getStaffMember3Affiliation() === ''; ?>"><?php echo $currentInstance->getStaffMember3Affiliation(); ?></option>
 						</select><br />
 						<label for="staff-member-3-h-s-contact" id="label-staff-member-3-h-s-contact"><span class="sr-only">Staff Member 3 is </span>H&amp;S Contact?</label>
-						<input disabled id="staff-member-3-h-s-contact" name="staffMember3HSContact" type="checkbox" value="1" aria-labelledby="label-staff-member-3-h-s-contact">
+						<input disabled id="staff-member-3-h-s-contact" name="staffMember3HSContact" type="checkbox" value="1" <?php echo ($currentInstance->staffMember3HSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-staff-member-3-h-s-contact">
 					</fieldset>
 
 					<fieldset>
@@ -189,12 +189,12 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 							<option value="<?php echo $currentInstance->getStaffMember4Affiliation() === ''; ?>"><?php echo $currentInstance->getStaffMember4Affiliation(); ?></option>
 						</select><br />
 						<label for="staff-member-4-h-s-contact" id="label-staff-member-4-h-s-contact"><span class="sr-only">Staff Member 4 is </span>H&amp;S Contact?</label>
-						<input disabled id="staff-member-4-h-s-contact" name="staffMember4HSContact" type="checkbox" value="1" aria-labelledby="label-staff-member-4-h-s-contact">
+						<input disabled id="staff-member-4-h-s-contact" name="staffMember4HSContact" type="checkbox" value="1" <?php echo ($currentInstance->staffMember4HSContactIsChecked()) ? 'checked' : ''; ?> aria-labelledby="label-staff-member-4-h-s-contact">
 					</fieldset>
 				</form>
 
                 <?php if (Module::currentUserCanEdit()) { ?>
-                    <p><button><a href="./edit/">Update this Information</a></button></p>
+                    <p><button onclick="location.href='./edit/';"><a href="./edit/">Update this Information</a></button></p>
                 <?php } ?>
 				<!-- /CONTENT -->
 			</div>
