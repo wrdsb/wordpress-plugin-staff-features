@@ -111,6 +111,35 @@ class WPCore
         wp_redirect($location, $status, $x_redirect_by);
         exit;
     }
+
+    public static function wpInsertPost(array $postarr, bool $wp_error = false, bool $fire_after_hooks = true ) {
+        return wp_insert_post($postarr, $wp_error, $fire_after_hooks);
+    }
+
+    public static function wpUpdatePost(array $postarr = array(), bool $wp_error = false, bool $fire_after_hooks = true ) {
+        return wp_update_post($postarr, $wp_error, $fire_after_hooks);
+    }
+
+    public static function updatePostMeta(int $post_id, string $meta_key, $meta_value, $prev_value = '') {
+        update_post_meta($post_id, $meta_key, $meta_value, $prev_value);
+    }
+
+    public static function sanitizeTextField($str) {
+        sanitize_text_field($str);
+    }
+
+    public static function wpNonceField($action = -1, string $name = '_wpnonce', bool $referer = true, bool $echo = true ) {
+        wp_nonce_field($action, $name, $referer, $echo);
+    }
+
+    public static function getUserMeta(int $user_id, string $key = '', bool $single = false) {
+        return get_user_meta($user_id, $key, $single);
+    }
+
+    public static function isSuperAdmin($userID) {
+        if (user_can($userID, 'setup_network')) {
+            return true;
+        }
+        return false;
+    }
 }
-
-
