@@ -165,7 +165,7 @@ class EvacuationSites {
 
         $instance = self::getInstance();
 
-        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->title   = "{$postArray['schoolCode']} Evacuation Sites";
         $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
         $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
 
@@ -390,9 +390,13 @@ class EvacuationSites {
             'post_type'    => 'evacuationSites',
             'post_status'  => 'publish',
 
-            'content' => $this->content,
-            'title'   => $this->title,
-            'excerpt' => $this->excerpt,
+            'post_content' => $this->content,
+            'post_title'   => $this->title,
+            'post_excerpt' => $this->excerpt,
+
+            'blogID'     => $this->blogID,
+            'schoolCode' => $this->schoolCode,
+            'email'      => $this->email,
 
             'site1Name' => $this->site1Name,
             'site1Address' => $this->site1Address,
@@ -450,6 +454,7 @@ class EvacuationSites {
         $postID = (int) $post['ID'];
 
         if (0 == $postID) {
+            unset($post['ID']);
             $saveResult = WPCore::wpInsertPost($post, true);
         } else {
             $saveResult = WPCore::wpUpdatePost($post, true);
@@ -460,45 +465,49 @@ class EvacuationSites {
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
             return false;
         } else {
-            WPCore::updatePostMeta($postID, 'site1Name', WPCore::sanitizeTextField($post['site1Name']));
-            WPCore::updatePostMeta($postID, 'site1Address', WPCore::sanitizeTextField($post['site1Address']));
-            WPCore::updatePostMeta($postID, 'site1City', WPCore::sanitizeTextField($post['site1City']));
-            WPCore::updatePostMeta($postID, 'site1PostalCode', WPCore::sanitizeTextField($post['site1PostalCode']));
-            WPCore::updatePostMeta($postID, 'site1Firstname', WPCore::sanitizeTextField($post['site1Firstname']));
-            WPCore::updatePostMeta($postID, 'site1Lastname', WPCore::sanitizeTextField($post['site1Lastname']));
-            WPCore::updatePostMeta($postID, 'site1Phone', WPCore::sanitizeTextField($post['site1Phone']));
-            WPCore::updatePostMeta($postID, 'site1HoursStart', WPCore::sanitizeTextField($post['site1HoursStart']));
-            WPCore::updatePostMeta($postID, 'site1HoursEnd', WPCore::sanitizeTextField($post['site1HoursEnd']));
+            $postID = $saveResult;
+            
+            WPCore::updatePostMeta($postID, 'site1Name', $post['site1Name']);
+            WPCore::updatePostMeta($postID, 'site1Address', $post['site1Address']);
+            WPCore::updatePostMeta($postID, 'site1City', $post['site1City']);
+            WPCore::updatePostMeta($postID, 'site1PostalCode', $post['site1PostalCode']);
+            WPCore::updatePostMeta($postID, 'site1Firstname', $post['site1Firstname']);
+            WPCore::updatePostMeta($postID, 'site1Lastname', $post['site1Lastname']);
+            WPCore::updatePostMeta($postID, 'site1Phone', $post['site1Phone']);
+            WPCore::updatePostMeta($postID, 'site1HoursStart', $post['site1HoursStart']);
+            WPCore::updatePostMeta($postID, 'site1HoursEnd', $post['site1HoursEnd']);
 
-            WPCore::updatePostMeta($postID, 'site2Name', WPCore::sanitizeTextField($post['site2Name']));
-            WPCore::updatePostMeta($postID, 'site2Address', WPCore::sanitizeTextField($post['site2Address']));
-            WPCore::updatePostMeta($postID, 'site2City', WPCore::sanitizeTextField($post['site2City']));
-            WPCore::updatePostMeta($postID, 'site2PostalCode', WPCore::sanitizeTextField($post['site2PostalCode']));
-            WPCore::updatePostMeta($postID, 'site2Firstname', WPCore::sanitizeTextField($post['site2Firstname']));
-            WPCore::updatePostMeta($postID, 'site2Lastname', WPCore::sanitizeTextField($post['site2Lastname']));
-            WPCore::updatePostMeta($postID, 'site2Phone', WPCore::sanitizeTextField($post['site2Phone']));
-            WPCore::updatePostMeta($postID, 'site2HoursStart', WPCore::sanitizeTextField($post['site2HoursStart']));
-            WPCore::updatePostMeta($postID, 'site2HoursEnd', WPCore::sanitizeTextField($post['site2HoursEnd']));
+            WPCore::updatePostMeta($postID, 'site2Name', $post['site2Name']);
+            WPCore::updatePostMeta($postID, 'site2Address', $post['site2Address']);
+            WPCore::updatePostMeta($postID, 'site2City', $post['site2City']);
+            WPCore::updatePostMeta($postID, 'site2PostalCode', $post['site2PostalCode']);
+            WPCore::updatePostMeta($postID, 'site2Firstname', $post['site2Firstname']);
+            WPCore::updatePostMeta($postID, 'site2Lastname', $post['site2Lastname']);
+            WPCore::updatePostMeta($postID, 'site2Phone', $post['site2Phone']);
+            WPCore::updatePostMeta($postID, 'site2HoursStart', $post['site2HoursStart']);
+            WPCore::updatePostMeta($postID, 'site2HoursEnd', $post['site2HoursEnd']);
 
-            WPCore::updatePostMeta($postID, 'site3Name', WPCore::sanitizeTextField($post['site3Name']));
-            WPCore::updatePostMeta($postID, 'site3Address', WPCore::sanitizeTextField($post['site3Address']));
-            WPCore::updatePostMeta($postID, 'site3City', WPCore::sanitizeTextField($post['site3City']));
-            WPCore::updatePostMeta($postID, 'site3PostalCode', WPCore::sanitizeTextField($post['site3PostalCode']));
-            WPCore::updatePostMeta($postID, 'site3Firstname', WPCore::sanitizeTextField($post['site3Firstname']));
-            WPCore::updatePostMeta($postID, 'site3Lastname', WPCore::sanitizeTextField($post['site3Lastname']));
-            WPCore::updatePostMeta($postID, 'site3Phone', WPCore::sanitizeTextField($post['site3Phone']));
-            WPCore::updatePostMeta($postID, 'site3HoursStart', WPCore::sanitizeTextField($post['site3HoursStart']));
-            WPCore::updatePostMeta($postID, 'site3HoursEnd', WPCore::sanitizeTextField($post['site3HoursEnd']));
+            WPCore::updatePostMeta($postID, 'site3Name', $post['site3Name']);
+            WPCore::updatePostMeta($postID, 'site3Address', $post['site3Address']);
+            WPCore::updatePostMeta($postID, 'site3City', $post['site3City']);
+            WPCore::updatePostMeta($postID, 'site3PostalCode', $post['site3PostalCode']);
+            WPCore::updatePostMeta($postID, 'site3Firstname', $post['site3Firstname']);
+            WPCore::updatePostMeta($postID, 'site3Lastname', $post['site3Lastname']);
+            WPCore::updatePostMeta($postID, 'site3Phone', $post['site3Phone']);
+            WPCore::updatePostMeta($postID, 'site3HoursStart', $post['site3HoursStart']);
+            WPCore::updatePostMeta($postID, 'site3HoursEnd', $post['site3HoursEnd']);
 
-            WPCore::updatePostMeta($postID, 'site4Name', WPCore::sanitizeTextField($post['site4Name']));
-            WPCore::updatePostMeta($postID, 'site4Address', WPCore::sanitizeTextField($post['site4Address']));
-            WPCore::updatePostMeta($postID, 'site4City', WPCore::sanitizeTextField($post['site4City']));
-            WPCore::updatePostMeta($postID, 'site4PostalCode', WPCore::sanitizeTextField($post['site4PostalCode']));
-            WPCore::updatePostMeta($postID, 'site4Firstname', WPCore::sanitizeTextField($post['site4Firstname']));
-            WPCore::updatePostMeta($postID, 'site4Lastname', WPCore::sanitizeTextField($post['site4Lastname']));
-            WPCore::updatePostMeta($postID, 'site4Phone', WPCore::sanitizeTextField($post['site4Phone']));
-            WPCore::updatePostMeta($postID, 'site4HoursStart', WPCore::sanitizeTextField($post['site4HoursStart']));
-            WPCore::updatePostMeta($postID, 'site4HoursEnd', WPCore::sanitizeTextField($post['site4HoursEnd']));
+            WPCore::updatePostMeta($postID, 'site4Name', $post['site4Name']);
+            WPCore::updatePostMeta($postID, 'site4Address', $post['site4Address']);
+            WPCore::updatePostMeta($postID, 'site4City', $post['site4City']);
+            WPCore::updatePostMeta($postID, 'site4PostalCode', $post['site4PostalCode']);
+            WPCore::updatePostMeta($postID, 'site4Firstname', $post['site4Firstname']);
+            WPCore::updatePostMeta($postID, 'site4Lastname', $post['site4Lastname']);
+            WPCore::updatePostMeta($postID, 'site4Phone', $post['site4Phone']);
+            WPCore::updatePostMeta($postID, 'site4HoursStart', $post['site4HoursStart']);
+            WPCore::updatePostMeta($postID, 'site4HoursEnd', $post['site4HoursEnd']);
         }
+
+        return true;
     }
 }
