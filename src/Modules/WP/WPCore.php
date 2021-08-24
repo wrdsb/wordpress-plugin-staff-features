@@ -133,7 +133,7 @@ class WPCore
     }
 
     public static function getUserMeta(int $user_id, string $key = '', bool $single = false) {
-        get_user_meta($user_id, $key,$single);
+        return get_user_meta($user_id, $key, $single);
     }
 
     public static function isSuperAdmin($userID) {
