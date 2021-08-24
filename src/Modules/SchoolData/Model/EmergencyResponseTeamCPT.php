@@ -15,7 +15,7 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 class EmergencyResponseTeamCPT {
     public function __construct($plugin) {
         // Add action to register the post type, if the post type does not already exist
-        if (!post_type_exists('emergencyResponseTeam')) {
+        if (!post_type_exists('ert')) {
             $plugin->addAction('init', $this, 'registerPostType');
         }
     }
@@ -72,6 +72,6 @@ class EmergencyResponseTeamCPT {
                 'with_front' => false,
             ),
         );
-        register_post_type('emergencyResponseTeam', $args);
+        register_post_type('ert', $args);
     }
 }

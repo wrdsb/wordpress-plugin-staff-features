@@ -85,7 +85,7 @@ class EmergencyResponseTeam {
 
     public static function getInstance() {
         $args = array(
-            'post_type' => 'emergencyResponseTeam',
+            'post_type' => 'ert',
             'post_status' => 'publish',
             'posts_per_page' => 1,
             'orderby' => 'title',
@@ -305,7 +305,7 @@ class EmergencyResponseTeam {
         $instance->cprExpiry12 = $postArray['cprExpiry12'] ?? $instance->cprExpiry12;
         $instance->firstAidExpiry12 = $postArray['firstAidExpiry12'] ?? $instance->firstAidExpiry12;
         $instance->bmsExpiry12 = $postArray['bmsExpiry12'] ?? $instance->bmsExpiry12;
-    
+
         $saved = $instance->save();
 
         if ($saved) {
@@ -579,12 +579,16 @@ class EmergencyResponseTeam {
         $postArray = array(
             'ID'      => $this->ID,
 
-            'post_type'    => 'emergencyResponseTeam',
+            'post_type'    => 'ert',
             'post_status'  => 'publish',
 
             'post_content' => $this->content,
             'post_title'   => $this->title,
             'post_excerpt' => $this->excerpt,
+
+            'blogID'     => $this->blogID,
+            'schoolCode' => $this->schoolCode,
+            'email'      => $this->email,
 
             'firstname1' => $this->firstname1,
             'lastname1' => $this->lastname1,
@@ -666,6 +670,7 @@ class EmergencyResponseTeam {
         $postID = (int) $post['ID'];
 
         if (0 == $postID) {
+            unset($post['ID']);
             $saveResult = WPCore::wpInsertPost($post, true);
         } else {
             $saveResult = WPCore::wpUpdatePost($post, true);
@@ -676,77 +681,85 @@ class EmergencyResponseTeam {
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
             return false;
         } else {
-            WPCore::updatePostMeta($postID, 'firstname1', WPCore::sanitizeTextField($post['firstname1']));
-            WPCore::updatePostMeta($postID, 'lastname1', WPCore::sanitizeTextField($post['lastname1']));
-            WPCore::updatePostMeta($postID, 'cprExpiry1', WPCore::sanitizeTextField($post['cprExpiry1']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry1', WPCore::sanitizeTextField($post['firstAidExpiry1']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry1', WPCore::sanitizeTextField($post['bmsExpiry1']));
+            $postID = $saveResult;
 
-            WPCore::updatePostMeta($postID, 'firstname2', WPCore::sanitizeTextField($post['firstname2']));
-            WPCore::updatePostMeta($postID, 'lastname2', WPCore::sanitizeTextField($post['lastname2']));
-            WPCore::updatePostMeta($postID, 'cprExpiry2', WPCore::sanitizeTextField($post['cprExpiry2']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry2', WPCore::sanitizeTextField($post['firstAidExpiry2']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry2', WPCore::sanitizeTextField($post['bmsExpiry2']));
+            WPCore::updatePostMeta($postID, 'blogID',         $post['blogID']);
+            WPCore::updatePostMeta($postID, 'schoolCode',     $post['schoolCode']);
+            WPCore::updatePostMeta($postID, 'email',          $post['email']);
 
-            WPCore::updatePostMeta($postID, 'firstname3', WPCore::sanitizeTextField($post['firstname3']));
-            WPCore::updatePostMeta($postID, 'lastname3', WPCore::sanitizeTextField($post['lastname3']));
-            WPCore::updatePostMeta($postID, 'cprExpiry3', WPCore::sanitizeTextField($post['cprExpiry3']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry3', WPCore::sanitizeTextField($post['firstAidExpiry3']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry3', WPCore::sanitizeTextField($post['bmsExpiry3']));
+            WPCore::updatePostMeta($postID, 'firstname1', $post['firstname1']);
+            WPCore::updatePostMeta($postID, 'lastname1', $post['lastname1']);
+            WPCore::updatePostMeta($postID, 'cprExpiry1', $post['cprExpiry1']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry1', $post['firstAidExpiry1']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry1', $post['bmsExpiry1']);
 
-            WPCore::updatePostMeta($postID, 'firstname4', WPCore::sanitizeTextField($post['firstname4']));
-            WPCore::updatePostMeta($postID, 'lastname4', WPCore::sanitizeTextField($post['lastname4']));
-            WPCore::updatePostMeta($postID, 'cprExpiry4', WPCore::sanitizeTextField($post['cprExpiry4']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry4', WPCore::sanitizeTextField($post['firstAidExpiry4']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry4', WPCore::sanitizeTextField($post['bmsExpiry4']));
+            WPCore::updatePostMeta($postID, 'firstname2', $post['firstname2']);
+            WPCore::updatePostMeta($postID, 'lastname2', $post['lastname2']);
+            WPCore::updatePostMeta($postID, 'cprExpiry2', $post['cprExpiry2']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry2', $post['firstAidExpiry2']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry2', $post['bmsExpiry2']);
 
-            WPCore::updatePostMeta($postID, 'firstname5', WPCore::sanitizeTextField($post['firstname5']));
-            WPCore::updatePostMeta($postID, 'lastname5', WPCore::sanitizeTextField($post['lastname5']));
-            WPCore::updatePostMeta($postID, 'cprExpiry5', WPCore::sanitizeTextField($post['cprExpiry5']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry5', WPCore::sanitizeTextField($post['firstAidExpiry5']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry5', WPCore::sanitizeTextField($post['bmsExpiry5']));
+            WPCore::updatePostMeta($postID, 'firstname3', $post['firstname3']);
+            WPCore::updatePostMeta($postID, 'lastname3', $post['lastname3']);
+            WPCore::updatePostMeta($postID, 'cprExpiry3', $post['cprExpiry3']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry3', $post['firstAidExpiry3']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry3', $post['bmsExpiry3']);
 
-            WPCore::updatePostMeta($postID, 'firstname6', WPCore::sanitizeTextField($post['firstname6']));
-            WPCore::updatePostMeta($postID, 'lastname6', WPCore::sanitizeTextField($post['lastname6']));
-            WPCore::updatePostMeta($postID, 'cprExpiry6', WPCore::sanitizeTextField($post['cprExpiry6']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry6', WPCore::sanitizeTextField($post['firstAidExpiry6']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry6', WPCore::sanitizeTextField($post['bmsExpiry6']));
+            WPCore::updatePostMeta($postID, 'firstname4', $post['firstname4']);
+            WPCore::updatePostMeta($postID, 'lastname4', $post['lastname4']);
+            WPCore::updatePostMeta($postID, 'cprExpiry4', $post['cprExpiry4']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry4', $post['firstAidExpiry4']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry4', $post['bmsExpiry4']);
 
-            WPCore::updatePostMeta($postID, 'firstname7', WPCore::sanitizeTextField($post['firstname7']));
-            WPCore::updatePostMeta($postID, 'lastname7', WPCore::sanitizeTextField($post['lastname7']));
-            WPCore::updatePostMeta($postID, 'cprExpiry7', WPCore::sanitizeTextField($post['cprExpiry7']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry7', WPCore::sanitizeTextField($post['firstAidExpiry7']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry7', WPCore::sanitizeTextField($post['bmsExpiry7']));
+            WPCore::updatePostMeta($postID, 'firstname5', $post['firstname5']);
+            WPCore::updatePostMeta($postID, 'lastname5', $post['lastname5']);
+            WPCore::updatePostMeta($postID, 'cprExpiry5', $post['cprExpiry5']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry5', $post['firstAidExpiry5']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry5', $post['bmsExpiry5']);
 
-            WPCore::updatePostMeta($postID, 'firstname8', WPCore::sanitizeTextField($post['firstname8']));
-            WPCore::updatePostMeta($postID, 'lastname8', WPCore::sanitizeTextField($post['lastname8']));
-            WPCore::updatePostMeta($postID, 'cprExpiry8', WPCore::sanitizeTextField($post['cprExpiry8']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry8', WPCore::sanitizeTextField($post['firstAidExpiry8']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry8', WPCore::sanitizeTextField($post['bmsExpiry8']));
+            WPCore::updatePostMeta($postID, 'firstname6', $post['firstname6']);
+            WPCore::updatePostMeta($postID, 'lastname6', $post['lastname6']);
+            WPCore::updatePostMeta($postID, 'cprExpiry6', $post['cprExpiry6']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry6', $post['firstAidExpiry6']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry6', $post['bmsExpiry6']);
 
-            WPCore::updatePostMeta($postID, 'firstname9', WPCore::sanitizeTextField($post['firstname9']));
-            WPCore::updatePostMeta($postID, 'lastname9', WPCore::sanitizeTextField($post['lastname9']));
-            WPCore::updatePostMeta($postID, 'cprExpiry9', WPCore::sanitizeTextField($post['cprExpiry9']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry9', WPCore::sanitizeTextField($post['firstAidExpiry9']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry9', WPCore::sanitizeTextField($post['bmsExpiry9']));
+            WPCore::updatePostMeta($postID, 'firstname7', $post['firstname7']);
+            WPCore::updatePostMeta($postID, 'lastname7', $post['lastname7']);
+            WPCore::updatePostMeta($postID, 'cprExpiry7', $post['cprExpiry7']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry7', $post['firstAidExpiry7']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry7', $post['bmsExpiry7']);
 
-            WPCore::updatePostMeta($postID, 'firstname10', WPCore::sanitizeTextField($post['firstname10']));
-            WPCore::updatePostMeta($postID, 'lastname10', WPCore::sanitizeTextField($post['lastname10']));
-            WPCore::updatePostMeta($postID, 'cprExpiry10', WPCore::sanitizeTextField($post['cprExpiry10']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry10', WPCore::sanitizeTextField($post['firstAidExpiry10']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry10', WPCore::sanitizeTextField($post['bmsExpiry10']));
+            WPCore::updatePostMeta($postID, 'firstname8', $post['firstname8']);
+            WPCore::updatePostMeta($postID, 'lastname8', $post['lastname8']);
+            WPCore::updatePostMeta($postID, 'cprExpiry8', $post['cprExpiry8']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry8', $post['firstAidExpiry8']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry8', $post['bmsExpiry8']);
 
-            WPCore::updatePostMeta($postID, 'firstname11', WPCore::sanitizeTextField($post['firstname11']));
-            WPCore::updatePostMeta($postID, 'lastname11', WPCore::sanitizeTextField($post['lastname11']));
-            WPCore::updatePostMeta($postID, 'cprExpiry11', WPCore::sanitizeTextField($post['cprExpiry11']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry11', WPCore::sanitizeTextField($post['firstAidExpiry11']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry11', WPCore::sanitizeTextField($post['bmsExpiry11']));
+            WPCore::updatePostMeta($postID, 'firstname9', $post['firstname9']);
+            WPCore::updatePostMeta($postID, 'lastname9', $post['lastname9']);
+            WPCore::updatePostMeta($postID, 'cprExpiry9', $post['cprExpiry9']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry9', $post['firstAidExpiry9']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry9', $post['bmsExpiry9']);
 
-            WPCore::updatePostMeta($postID, 'firstname12', WPCore::sanitizeTextField($post['firstname12']));
-            WPCore::updatePostMeta($postID, 'lastname12', WPCore::sanitizeTextField($post['lastname12']));
-            WPCore::updatePostMeta($postID, 'cprExpiry12', WPCore::sanitizeTextField($post['cprExpiry12']));
-            WPCore::updatePostMeta($postID, 'firstAidExpiry12', WPCore::sanitizeTextField($post['firstAidExpiry12']));
-            WPCore::updatePostMeta($postID, 'bmsExpiry12', WPCore::sanitizeTextField($post['bmsExpiry12']));
+            WPCore::updatePostMeta($postID, 'firstname10', $post['firstname10']);
+            WPCore::updatePostMeta($postID, 'lastname10', $post['lastname10']);
+            WPCore::updatePostMeta($postID, 'cprExpiry10', $post['cprExpiry10']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry10', $post['firstAidExpiry10']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry10', $post['bmsExpiry10']);
+
+            WPCore::updatePostMeta($postID, 'firstname11', $post['firstname11']);
+            WPCore::updatePostMeta($postID, 'lastname11', $post['lastname11']);
+            WPCore::updatePostMeta($postID, 'cprExpiry11', $post['cprExpiry11']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry11', $post['firstAidExpiry11']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry11', $post['bmsExpiry11']);
+
+            WPCore::updatePostMeta($postID, 'firstname12', $post['firstname12']);
+            WPCore::updatePostMeta($postID, 'lastname12', $post['lastname12']);
+            WPCore::updatePostMeta($postID, 'cprExpiry12', $post['cprExpiry12']);
+            WPCore::updatePostMeta($postID, 'firstAidExpiry12', $post['firstAidExpiry12']);
+            WPCore::updatePostMeta($postID, 'bmsExpiry12', $post['bmsExpiry12']);
         }
+
+        return true;
     }
 }
