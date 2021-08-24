@@ -39,7 +39,7 @@ use \WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as WorkplaceIn
  * Plugin Name:       WRDSB Staff Features
  * Plugin URI:        https://github.com/wrdsb/wordpress-plugin-staff-features
  * Description:       An omnibus plugin to provide features unique to our wrdsbstaff WordPress install.
- * Version:           1.5.0
+ * Version:           1.6.0
  * Author:            WRDSB
  * Author URI:        https://github.com/wrdsb
  * License:           GPL-3.0+
