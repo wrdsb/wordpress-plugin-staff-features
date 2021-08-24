@@ -238,6 +238,7 @@ class DrillSchedule {
         $postID = (int) $post['ID'];
 
         if (0 == $postID) {
+            unset($post['ID']);
             $saveResult = WPCore::wpInsertPost($post, true);
         } else {
             $saveResult = WPCore::wpUpdatePost($post, true);
@@ -248,9 +249,12 @@ class DrillSchedule {
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
             return false;
         } else {
+            $postID = $saveResult;
+            
             WPCore::updatePostMeta($postID, 'blogID',         $post['blogID']);
             WPCore::updatePostMeta($postID, 'schoolCode',     $post['schoolCode']);
             WPCore::updatePostMeta($postID, 'email',          $post['email']);
+
             WPCore::updatePostMeta($postID, 'fireDrill1Date', $post['fireDrill1Date']);
             WPCore::updatePostMeta($postID, 'fireDrill1Time', $post['fireDrill1Time']);
             WPCore::updatePostMeta($postID, 'fireDrill2Date', $post['fireDrill2Date']);
