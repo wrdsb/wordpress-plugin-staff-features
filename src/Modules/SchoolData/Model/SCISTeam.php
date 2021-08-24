@@ -61,7 +61,7 @@ class SCISTeam {
 
     public static function getInstance() {
         $args = array(
-            'post_type' => 'drillSchedule',
+            'post_type' => 'scisTeam',
             'post_status' => 'publish',
             'posts_per_page' => 1,
             'orderby' => 'title',
@@ -127,45 +127,45 @@ class SCISTeam {
 
             'administratorFirstname' => $postRequest['administratorFirstname'],
             'administratorLastname' => $postRequest['administratorLastname'],
-            'administratorIELiasion' => $postRequest['administratorIELiasion'],
+            'administratorIELiasion' => $postRequest['administratorIELiasion'] ?? '0',
             'teacherFirstname' => $postRequest['teacherFirstname'],
             'teacherLastname' => $postRequest['teacherLastname'],
-            'teacherIELiasion' => $postRequest['teacherIELiasion'],
+            'teacherIELiasion' => $postRequest['teacherIELiasion'] ?? '0',
             'paraprofessionalFirstname' => $postRequest['paraprofessionalFirstname'],
             'paraprofessionalLastname' => $postRequest['paraprofessionalLastname'],
-            'paraprofessionalIELiasion' => $postRequest['paraprofessionalIELiasion'],
+            'paraprofessionalIELiasion' => $postRequest['paraprofessionalIELiasion'] ?? '0',
             'parentFirstname' => $postRequest['parentFirstname'],
             'parentLastname' => $postRequest['parentLastname'],
-            'parentIELiasion' => $postRequest['parentIELiasion'],
+            'parentIELiasion' => $postRequest['parentIELiasion'] ?? '0',
             'communityMemberFirstname' => $postRequest['communityMemberFirstname'],
             'communityMemberLastname' => $postRequest['communityMemberLastname'],
-            'communityMemberIELiasion' => $postRequest['communityMemberIELiasion'],
+            'communityMemberIELiasion' => $postRequest['communityMemberIELiasion'] ?? '0',
             'student1Firstname' => $postRequest['student1Firstname'],
             'student1Lastname' => $postRequest['student1Lastname'],
-            'student1IELiasion' => $postRequest['student1IELiasion'],
+            'student1IELiasion' => $postRequest['student1IELiasion'] ?? '0',
             'student2Firstname' => $postRequest['student2Firstname'],
             'student2Lastname' => $postRequest['student2Lastname'],
-            'student2IELiasion' => $postRequest['student2IELiasion'],
+            'student2IELiasion' => $postRequest['student2IELiasion'] ?? '0',
             'optional1Firstname' => $postRequest['optional1Firstname'],
             'optional1Lastname' => $postRequest['optional1Lastname'],
-            'optional1IELiasion' => $postRequest['optional1IELiasion'],
+            'optional1IELiasion' => $postRequest['optional1IELiasion'] ?? '0',
             'optional2Firstname' => $postRequest['optional2Firstname'],
             'optional2Lastname' => $postRequest['optional2Lastname'],
-            'optional2IELiasion' => $postRequest['optional2IELiasion'],
+            'optional2IELiasion' => $postRequest['optional2IELiasion'] ?? '0',
             'optional3Firstname' => $postRequest['optional3Firstname'],
             'optional3Lastname' => $postRequest['optional3Lastname'],
-            'optional3IELiasion' => $postRequest['optional3IELiasion'],
+            'optional3IELiasion' => $postRequest['optional3IELiasion'] ?? '0',
             'optional4Firstname' => $postRequest['optional4Firstname'],
             'optional4Lastname' => $postRequest['optional4Lastname'],
-            'optional4IELiasion' => $postRequest['optional4IELiasion'],
+            'optional4IELiasion' => $postRequest['optional4IELiasion'] ?? '0',
             'optional5Firstname' => $postRequest['optional5Firstname'],
             'optional5Lastname' => $postRequest['optional5Lastname'],
-            'optional5IELiasion' => $postRequest['optional5IELiasion'],
+            'optional5IELiasion' => $postRequest['optional5IELiasion'] ?? '0',
         );
 
         $instance = self::getInstance();
 
-        $instance->title   = "{$postArray['schoolCode']} Emergency Response Team";
+        $instance->title   = "{$postArray['schoolCode']} SCIS Team";
         $instance->content = $instance->content . "<br/>Updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
         $instance->excerpt = "Last updated by {$postArray['email']} at " . date('Y-m-d H:i:s');
 
@@ -284,7 +284,7 @@ class SCISTeam {
         return $this->administratorIELiasion;
     }
     public function administratorIELiasionIsChecked() {
-        return ($this->administratorIELiasion === 1) ? true : false;
+        return ($this->administratorIELiasion === '1') ? true : false;
     }
 
     public function getTeacherFirstname() {
@@ -297,7 +297,7 @@ class SCISTeam {
         return $this->teacherIELiasion;
     }
     public function teacherIELiasionIsChecked() {
-        return ($this->teacherIELiasion === 1) ? true : false;
+        return ($this->teacherIELiasion === '1') ? true : false;
     }
 
     public function getParaprofessionalFirstname() {
@@ -310,7 +310,7 @@ class SCISTeam {
         return $this->paraprofessionalIELiasion;
     }
     public function paraprofessionalIELiasionIsChecked() {
-        return ($this->paraprofessionalIELiasion === 1) ? true : false;
+        return ($this->paraprofessionalIELiasion === '1') ? true : false;
     }
 
     public function getParentFirstname() {
@@ -323,7 +323,7 @@ class SCISTeam {
         return $this->parentIELiasion;
     }
     public function parentIELiasionIsChecked() {
-        return ($this->parentIELiasion === 1) ? true : false;
+        return ($this->parentIELiasion === '1') ? true : false;
     }
 
     public function getCommunityMemberFirstname() {
@@ -336,7 +336,7 @@ class SCISTeam {
         return $this->communityMemberIELiasion;
     }
     public function communityMemberIELiasionIsChecked() {
-        return ($this->communityMemberIELiasion === 1) ? true : false;
+        return ($this->communityMemberIELiasion === '1') ? true : false;
     }
 
     public function getStudent1Firstname() {
@@ -349,7 +349,7 @@ class SCISTeam {
         return $this->student1IELiasion;
     }
     public function student1IELiasionIsChecked() {
-        return ($this->student1IELiasion === 1) ? true : false;
+        return ($this->student1IELiasion === '1') ? true : false;
     }
 
     public function getStudent2Firstname() {
@@ -362,7 +362,7 @@ class SCISTeam {
         return $this->student2IELiasion;
     }
     public function student2IELiasionIsChecked() {
-        return ($this->student2IELiasion === 1) ? true : false;
+        return ($this->student2IELiasion === '1') ? true : false;
     }
 
     public function getOptional1Firstname() {
@@ -375,7 +375,7 @@ class SCISTeam {
         return $this->optional1IELiasion;
     }
     public function optional1IELiasionIsChecked() {
-        return ($this->optional1IELiasion === 1) ? true : false;
+        return ($this->optional1IELiasion === '1') ? true : false;
     }
 
     public function getOptional2Firstname() {
@@ -388,7 +388,7 @@ class SCISTeam {
         return $this->optional2IELiasion;
     }
     public function optional2IELiasionIsChecked() {
-        return ($this->optional2IELiasion === 1) ? true : false;
+        return ($this->optional2IELiasion === '1') ? true : false;
     }
 
     public function getOptional3Firstname() {
@@ -401,7 +401,7 @@ class SCISTeam {
         return $this->optional3IELiasion;
     }
     public function optional3IELiasionIsChecked() {
-        return ($this->optional3IELiasion === 1) ? true : false;
+        return ($this->optional3IELiasion === '1') ? true : false;
     }
 
     public function getOptional4Firstname() {
@@ -414,7 +414,7 @@ class SCISTeam {
         return $this->optional4IELiasion;
     }
     public function optional4IELiasionIsChecked() {
-        return ($this->optional4IELiasion === 1) ? true : false;
+        return ($this->optional4IELiasion === '1') ? true : false;
     }
 
     public function getOptional5Firstname() {
@@ -427,7 +427,7 @@ class SCISTeam {
         return $this->optional5IELiasion;
     }
     public function optional5IELiasionIsChecked() {
-        return ($this->optional5IELiasion === 1) ? true : false;
+        return ($this->optional5IELiasion === '1') ? true : false;
     }
 
     public function toWPPostArray() {
@@ -437,9 +437,9 @@ class SCISTeam {
             'post_type'    => 'scisTeam',
             'post_status'  => 'publish',
 
-            'content' => $this->content,
-            'title'   => $this->title,
-            'excerpt' => $this->excerpt,
+            'post_content' => $this->content,
+            'post_title'   => $this->title,
+            'post_excerpt' => $this->excerpt,
 
             'administratorFirstname' => $this->administratorFirstname,
             'administratorLastname' => $this->administratorLastname,
@@ -507,53 +507,57 @@ class SCISTeam {
             echo '<div id="message" class="error"><p>' . $error_string . '</p></div>';
             return false;
         } else {
-            WPCore::updatePostMeta($postID, 'administratorFirstname', WPCore::sanitizeTextField($post['administratorFirstname']));
-            WPCore::updatePostMeta($postID, 'administratorLastname', WPCore::sanitizeTextField($post['administratorLastname']));
-            WPCore::updatePostMeta($postID, 'administratorIELiasion', WPCore::sanitizeTextField($post['administratorIELiasion']));
+            $postID = $saveResult;
 
-            WPCore::updatePostMeta($postID, 'teacherFirstname', WPCore::sanitizeTextField($post['teacherFirstname']));
-            WPCore::updatePostMeta($postID, 'teacherLastname', WPCore::sanitizeTextField($post['teacherLastname']));
-            WPCore::updatePostMeta($postID, 'teacherIELiasion', WPCore::sanitizeTextField($post['teacherIELiasion']));
+            WPCore::updatePostMeta($postID, 'administratorFirstname', $post['administratorFirstname']);
+            WPCore::updatePostMeta($postID, 'administratorLastname', $post['administratorLastname']);
+            WPCore::updatePostMeta($postID, 'administratorIELiasion', $post['administratorIELiasion']);
 
-            WPCore::updatePostMeta($postID, 'paraprofessionalFirstname', WPCore::sanitizeTextField($post['paraprofessionalFirstname']));
-            WPCore::updatePostMeta($postID, 'paraprofessionalLastname', WPCore::sanitizeTextField($post['paraprofessionalLastname']));
-            WPCore::updatePostMeta($postID, 'paraprofessionalIELiasion', WPCore::sanitizeTextField($post['paraprofessionalIELiasion']));
+            WPCore::updatePostMeta($postID, 'teacherFirstname', $post['teacherFirstname']);
+            WPCore::updatePostMeta($postID, 'teacherLastname', $post['teacherLastname']);
+            WPCore::updatePostMeta($postID, 'teacherIELiasion', $post['teacherIELiasion']);
 
-            WPCore::updatePostMeta($postID, 'parentFirstname', WPCore::sanitizeTextField($post['parentFirstname']));
-            WPCore::updatePostMeta($postID, 'parentLastname', WPCore::sanitizeTextField($post['parentLastname']));
-            WPCore::updatePostMeta($postID, 'parentIELiasion', WPCore::sanitizeTextField($post['parentIELiasion']));
+            WPCore::updatePostMeta($postID, 'paraprofessionalFirstname', $post['paraprofessionalFirstname']);
+            WPCore::updatePostMeta($postID, 'paraprofessionalLastname', $post['paraprofessionalLastname']);
+            WPCore::updatePostMeta($postID, 'paraprofessionalIELiasion', $post['paraprofessionalIELiasion']);
 
-            WPCore::updatePostMeta($postID, 'communityMemberFirstname', WPCore::sanitizeTextField($post['communityMemberFirstname']));
-            WPCore::updatePostMeta($postID, 'communityMemberLastname', WPCore::sanitizeTextField($post['communityMemberLastname']));
-            WPCore::updatePostMeta($postID, 'communityMemberIELiasion', WPCore::sanitizeTextField($post['communityMemberIELiasion']));
+            WPCore::updatePostMeta($postID, 'parentFirstname', $post['parentFirstname']);
+            WPCore::updatePostMeta($postID, 'parentLastname', $post['parentLastname']);
+            WPCore::updatePostMeta($postID, 'parentIELiasion', $post['parentIELiasion']);
 
-            WPCore::updatePostMeta($postID, 'student1Firstname', WPCore::sanitizeTextField($post['student1Firstname']));
-            WPCore::updatePostMeta($postID, 'student1Lastname', WPCore::sanitizeTextField($post['student1Lastname']));
-            WPCore::updatePostMeta($postID, 'student1IELiasion', WPCore::sanitizeTextField($post['student1IELiasion']));
+            WPCore::updatePostMeta($postID, 'communityMemberFirstname', $post['communityMemberFirstname']);
+            WPCore::updatePostMeta($postID, 'communityMemberLastname', $post['communityMemberLastname']);
+            WPCore::updatePostMeta($postID, 'communityMemberIELiasion', $post['communityMemberIELiasion']);
 
-            WPCore::updatePostMeta($postID, 'student2Firstname', WPCore::sanitizeTextField($post['student2Firstname']));
-            WPCore::updatePostMeta($postID, 'student2Lastname', WPCore::sanitizeTextField($post['student2Lastname']));
-            WPCore::updatePostMeta($postID, 'student2IELiasion', WPCore::sanitizeTextField($post['student2IELiasion']));
+            WPCore::updatePostMeta($postID, 'student1Firstname', $post['student1Firstname']);
+            WPCore::updatePostMeta($postID, 'student1Lastname', $post['student1Lastname']);
+            WPCore::updatePostMeta($postID, 'student1IELiasion', $post['student1IELiasion']);
 
-            WPCore::updatePostMeta($postID, 'optional1Firstname', WPCore::sanitizeTextField($post['optional1Firstname']));
-            WPCore::updatePostMeta($postID, 'optional1Lastname', WPCore::sanitizeTextField($post['optional1Lastname']));
-            WPCore::updatePostMeta($postID, 'optional1IELiasion', WPCore::sanitizeTextField($post['optional1IELiasion']));
+            WPCore::updatePostMeta($postID, 'student2Firstname', $post['student2Firstname']);
+            WPCore::updatePostMeta($postID, 'student2Lastname', $post['student2Lastname']);
+            WPCore::updatePostMeta($postID, 'student2IELiasion', $post['student2IELiasion']);
 
-            WPCore::updatePostMeta($postID, 'optional2Firstname', WPCore::sanitizeTextField($post['optional2Firstname']));
-            WPCore::updatePostMeta($postID, 'optional2Lastname', WPCore::sanitizeTextField($post['optional2Lastname']));
-            WPCore::updatePostMeta($postID, 'optional2IELiasion', WPCore::sanitizeTextField($post['optional2IELiasion']));
+            WPCore::updatePostMeta($postID, 'optional1Firstname', $post['optional1Firstname']);
+            WPCore::updatePostMeta($postID, 'optional1Lastname', $post['optional1Lastname']);
+            WPCore::updatePostMeta($postID, 'optional1IELiasion', $post['optional1IELiasion']);
 
-            WPCore::updatePostMeta($postID, 'optional3Firstname', WPCore::sanitizeTextField($post['optional3Firstname']));
-            WPCore::updatePostMeta($postID, 'optional3Lastname', WPCore::sanitizeTextField($post['optional3Lastname']));
-            WPCore::updatePostMeta($postID, 'optional3IELiasion', WPCore::sanitizeTextField($post['optional3IELiasion']));
+            WPCore::updatePostMeta($postID, 'optional2Firstname', $post['optional2Firstname']);
+            WPCore::updatePostMeta($postID, 'optional2Lastname', $post['optional2Lastname']);
+            WPCore::updatePostMeta($postID, 'optional2IELiasion', $post['optional2IELiasion']);
 
-            WPCore::updatePostMeta($postID, 'optional4Firstname', WPCore::sanitizeTextField($post['optional4Firstname']));
-            WPCore::updatePostMeta($postID, 'optional4Lastname', WPCore::sanitizeTextField($post['optional4Lastname']));
-            WPCore::updatePostMeta($postID, 'optional4IELiasion', WPCore::sanitizeTextField($post['optional4IELiasion']));
+            WPCore::updatePostMeta($postID, 'optional3Firstname', $post['optional3Firstname']);
+            WPCore::updatePostMeta($postID, 'optional3Lastname', $post['optional3Lastname']);
+            WPCore::updatePostMeta($postID, 'optional3IELiasion', $post['optional3IELiasion']);
 
-            WPCore::updatePostMeta($postID, 'optional5Firstname', WPCore::sanitizeTextField($post['optional5Firstname']));
-            WPCore::updatePostMeta($postID, 'optional5Lastname', WPCore::sanitizeTextField($post['optional5Lastname']));
-            WPCore::updatePostMeta($postID, 'optional5IELiasion', WPCore::sanitizeTextField($post['optional5IELiasion']));
+            WPCore::updatePostMeta($postID, 'optional4Firstname', $post['optional4Firstname']);
+            WPCore::updatePostMeta($postID, 'optional4Lastname', $post['optional4Lastname']);
+            WPCore::updatePostMeta($postID, 'optional4IELiasion', $post['optional4IELiasion']);
+
+            WPCore::updatePostMeta($postID, 'optional5Firstname', $post['optional5Firstname']);
+            WPCore::updatePostMeta($postID, 'optional5Lastname', $post['optional5Lastname']);
+            WPCore::updatePostMeta($postID, 'optional5IELiasion', $post['optional5IELiasion']);
         }
+
+        return true;
     }
 }
