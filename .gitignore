@@ -47,3 +47,8 @@ cypress.env.json
 # Cypress artifacts
 /cypress/screenshots
 /cypress/videos
+
+# ignore log files and databases
+*.log
+*.sql
+*.sqlite
