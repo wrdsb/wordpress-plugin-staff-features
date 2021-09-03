@@ -14,5 +14,8 @@
     },
     "require": {
         "pimple/pimple": "^3.2"
+    },
+    "require-dev": {
+        "pestphp/pest": "^1.18"
     }
 }
