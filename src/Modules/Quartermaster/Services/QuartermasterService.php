@@ -75,7 +75,7 @@ class QuartermasterService {
         }
 
         $args = array(
-            'url'         => Module::getCodexSearchURL() . "/{$searchIndex}/docs/search?api-version=2016-09-01",
+            'url'         => "https://wrdsb-codex.search.windows.net/indexes/{$searchIndex}/docs/search?api-version=2016-09-01",
             'timeout'     => 15,
             'redirection' => 5,
             'httpversion' => '1.0',
@@ -175,7 +175,7 @@ class QuartermasterService {
         $dataType = $command->getDataType();
         $returnObjectClass = (string) '\WRDSB\Staff\Modules\Quartermaster\Model\\' . $dataType;
 
-        $url = Module::getQuartermasterCommandURL() . "?code={$functionKey}";
+        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
         $body = array(
             'jobType' => 'Quartermaster.'.$dataType.'.Create',
             'operation' => $command->getOperation(),
@@ -215,7 +215,7 @@ class QuartermasterService {
         $dataType = $command->getDataType();
         $returnObjectClass = (string) '\WRDSB\Staff\Modules\Quartermaster\Model\\' . $dataType;
 
-        $url = Module::getQuartermasterCommandURL() . "?code={$functionKey}";
+        $url = "https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command?code={$functionKey}";
         $body = array(
             'jobType' => 'Quartermaster.'.$dataType.'.Store',
             'operation' => $command->getOperation(),

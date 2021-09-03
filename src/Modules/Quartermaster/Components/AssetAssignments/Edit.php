@@ -95,7 +95,7 @@ $assignment = Model::getBySearchID($id);
                     <input type="hidden" id="updatedBy" name="updatedBy" value="<?php echo $current_user->user_email ?>">
 
                     <h3>Assignment Info</h3>
-                    <fieldset id="assignmentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <label class="radio-inline">
@@ -119,7 +119,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Student Info</h3>
-                    <fieldset id="studentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="assignedToPerson">Assigned To</label>
@@ -161,7 +161,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Device Info</h3>
-                    <fieldset id="deviceInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-3">
                                 <label for="assetID">Device Barcode</label>
@@ -186,7 +186,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Additional Info</h3>
-                    <fieldset id="additionalInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group-inline">
                                 <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;

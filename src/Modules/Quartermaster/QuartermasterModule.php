@@ -39,65 +39,14 @@ class QuartermasterModule {
         $this->plugin->addAction('wp_enqueue_scripts', $this, 'enqueueScripts');
     }
 
-    public static function getCodexSearchURL(): string {
-        $currentEnv = defined('WRDSB_ENV') ? WRDSB_ENV : 'dev';
-        switch ($currentEnv) {
-            case 'prod':
-                return 'https://wrdsb-codex.search.windows.net/indexes';
-                break;
-            
-            case 'test':
-                return 'https://wrdsb-codex.search.windows.net/indexes';
-                break;
-
-            default:
-                return 'https://wrdsb-codex.search.windows.net/indexes';
-                break;
-        }
-    }
-
     public static function getCodexSearchKey() {
         $key = defined('WRDSB_CODEX_SEARCH_KEY') ? WRDSB_CODEX_SEARCH_KEY : false;
         return $key;
     }
 
-    public static function getQuartermasterCommandURL(): string {
-        $currentEnv = defined('WRDSB_ENV') ? WRDSB_ENV : 'dev';
-        switch ($currentEnv) {
-            case 'prod':
-                return 'https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command';
-                break;
-            
-            case 'test':
-                return 'https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command';
-                break;
-
-            default:
-                return 'https://wrdsb-tollbooth.azurewebsites.net/api/quartermaster-command';
-                break;
-        }
-    }
-
     public static function getQuartermasterCommandKey() {
         $key = defined('WRDSB_TOLLBOOTH_QUARTERMASTER_COMMAND_KEY') ? WRDSB_TOLLBOOTH_QUARTERMASTER_COMMAND_KEY : false;
         return $key;
-    }
-
-    public static function getQuartermasterQueryURL(): string {
-        $currentEnv = defined('WRDSB_ENV') ? WRDSB_ENV : 'dev';
-        switch ($currentEnv) {
-            case 'prod':
-                return '';
-                break;
-            
-            case 'test':
-                return '';
-                break;
-
-            default:
-                return '';
-                break;
-        }
     }
 
     public static function getQuartermasterQueryKey() {

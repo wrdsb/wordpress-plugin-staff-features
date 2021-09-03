@@ -179,16 +179,16 @@ class DeviceLoan extends WP_REST_Controller {
      */
     public function updateItem(WP_REST_Request $request): WP_REST_Response {
         $currentTime = WPCore::currentTime();
-        $id = $this->getFormID($request);
+        $searchID = $this->getFormID($request);
         $body = $request->get_json_params();
 
         $coreArray = array(
-            'id' => $id,
+            'searchID' => $searchID,
             'updatedAt' => $currentTime
         );
         $patch = array_merge($coreArray, $body);
 
-        $command = Model::patch($id, $patch);
+        $command = Model::patch($searchID, $patch);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());
@@ -226,20 +226,20 @@ class DeviceLoan extends WP_REST_Controller {
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_REST_Response
      */
-    public function markItemReturned(WP_REST_Request $request): WP_REST_Response
-    {
-        $current_time = current_time('mysql');
-        $id = $this->getFormID($request);
+    public function markItemReturned(WP_REST_Request $request): WP_REST_Response {
+        $currentTime = WPCore::currentTime();
+        $searchID = $this->getFormID($request);
         $body = $request->get_json_params();
 
         $patch = array(
-            'id' => $id,
+            'searchID' => $searchID,
+            'updatedAt' => $currentTime,
             'wasReturned' => true,
             'returnedAt' => $body['returnedAt'],
             'returnedBy' => $body['returnedBy'],
         );
-        $deviceLoan = new Model($patch);
-        $command = Model::patch($id, $deviceLoan);
+
+        $command = Model::patch($searchID, $patch);
 
         if ($command->getState() === 'success') {
             return new WP_REST_Response($command, $command->getStatus());

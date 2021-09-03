@@ -22,6 +22,7 @@ if ($wp_query->query_vars['id']) {
 }
 
 $assignment = Model::getBySearchID($id);
+$assignmentEndDate = strlen($assignment->getEndDate()) > 0 ? date("F j, Y", strtotime($assignment->getEndDate())) : '';
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -94,7 +95,7 @@ $assignment = Model::getBySearchID($id);
                     <input type="hidden" name="email" value="<?php echo $currentUser->user_email ?>">
 
                     <h3>Assignment Info</h3>
-                    <fieldset id="assignmentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <label class="col-md-9">Assignment Type&nbsp;&nbsp;&nbsp;
                                 <?php if ($assignment->getIsTemporary() === false) { ?>
@@ -111,17 +112,17 @@ $assignment = Model::getBySearchID($id);
                         <div class="form-row col-md-12" style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="startDate">Start Date</label>
-                                <input type="text" name="startDate" id="startDate" class="form-control" aria-describedby="startDateHelp" value="<?php echo $assignment->getStartDate(); ?>" readonly>
+                                <input type="text" name="startDateReadonly" id="startDateReadonly" class="form-control" aria-describedby="startDateReadonlyHelp" value="<?php echo date("F j, Y", strtotime($assignment->getStartDate())); ?>" readonly>
                             </div>
                             <div id="isTemporaryBlock" class="form-group col-md-5" style="<?php if ($assignment->getIsTemporary() === false) {echo 'display:none;';} ?>">
                                 <label for="endDate">End Date</label>
-                                <input type="text" name="endDate" id="endDate" class="form-control" aria-describedby="endDateHelp" value="<?php echo $assignment->getEndDate(); ?>" readonly>
+                                <input type="text" name="endDateReadonly" id="endDateReadonly" class="form-control" aria-describedby="endDateReadonlyHelp" value="<?php echo $assignmentEndDate; ?>" readonly>
                             </div>
                         </div>
                     </fieldset>
 
                     <h3>Student Info</h3>
-                    <fieldset id="studentInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:20px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-5">
                                 <label for="assignedToPerson">Assigned To</label>
@@ -168,7 +169,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Device Info</h3>
-                    <fieldset id="deviceInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group col-md-3">
                                 <label for="assetID">Device Barcode</label>
@@ -193,7 +194,7 @@ $assignment = Model::getBySearchID($id);
                     </fieldset>
 
                     <h3>Additional Info</h3>
-                    <fieldset id="additionalInfo" class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
+                    <fieldset class="form-group col-md-12" style="padding-top:10px;padding-bottom:28px;margin-bottom:50px;">
                         <div class="form-row col-md-12"  style="padding-top:15px;">
                             <div class="form-group-inline">
                                 <label class="form-element-inline" style="padding-top:15px;">Peripherals&nbsp;Provided&nbsp;&nbsp;&nbsp;
@@ -215,15 +216,15 @@ $assignment = Model::getBySearchID($id);
                     <div class="form-row col-md-12" style="padding-top:10px;padding-bottom:28px;">
                         <div class="form-group col-md-6">
                             <label for="assignedBy">Assigned By</label>
-                            <input type="text" name="assignedBy" id="assignedBy" class="form-control" aria-describedby="assignedByHelp" value="<?php echo $currentUser->display_name; ?>" readonly tabindex="-1">
+                            <input type="text" name="assignedBy" id="assignedBy" class="form-control" aria-describedby="assignedByHelp" value="<?php echo $assignment->getAssignedBy(); ?>" readonly tabindex="-1">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="assignedFromLocation">School Code</label>
-                            <input type="text" name="assignedFromLocation" id="assignedFromLocation" class="form-control" aria-describedby="assignedFromLocationHelp" value="<?php echo strtoupper($schoolCode); ?>" readonly tabindex="-1">
+                            <input type="text" name="assignedFromLocation" id="assignedFromLocation" class="form-control" aria-describedby="assignedFromLocationHelp" value="<?php echo $assignment->getAssignedFromLocation(); ?>" readonly tabindex="-1">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label for="createdAt">Date/Time Submitted</label>
-                            <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo $currentTime; ?>" readonly tabindex="-1">
+                            <input type="text" name="createdAt" id="createdAt" class="form-control" aria-describedby="createdAtHelp" value="<?php echo date("F j, Y h:i A", strtotime($assignment->getCreatedAt())); ?>" readonly tabindex="-1">
                         </div>
                     </div>
                 </form>

@@ -10,11 +10,8 @@ $page_title = "Returned Devices";
 $currentUser = WPCore::getCurrentUser();
 $userIsAdmin = (WPCore::currentUserCan('setup_network') || WPCore::currentUserCan('manage_options')) ? true : false;
 
-$disabledFor = ['DSPS', 'WSS'];
-if (in_array($schoolCode, $disabledFor)) {
-    $url = WPCore::homeURL() . '/quartermaster/asset-assignments/returned';
-    WPCore::wpRedirect($url);
-}
+$url = WPCore::homeURL() . '/quartermaster/asset-assignments/returned';
+WPCore::wpRedirect($url);
 
 function setCustomTitle()
 {
@@ -24,7 +21,7 @@ function setCustomTitle()
 WPCore::addFilter('pre_get_document_title', 'setCustomTitle');
 
 global $wp_version;
-$url = Module::getCodexSearchURL() . '/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
+$url = 'https://wrdsb-codex.search.windows.net/indexes/quartermaster-device-loan-submissions/docs/search?api-version=2016-09-01';
 $args = array(
     'timeout'     => 5,
     'redirection' => 5,
