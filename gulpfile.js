@@ -15,13 +15,13 @@ function autoload() {
     return exec('composer dumpautoload');
 }
 
-function keelCopy() {
-    return src('./src/Keel/*.php')
+function chassisCopy() {
+    return src('./src/Chassis/*.php')
         .pipe(dest('./dist/'));
 }
 
-function keelClassesCopy() {
-    return src('./src/Keel/Classes/*.php')
+function chassisClassesCopy() {
+    return src('./src/Chassis/Classes/*.php')
         .pipe(dest('./dist/src/'));
 }
 
@@ -36,6 +36,6 @@ function vendorCopy() {
 }
 
 
-exports.build = series(clean, autoload, parallel(keelCopy, keelClassesCopy, modulesCopy, vendorCopy));
+exports.build = series(clean, autoload, parallel(chassisCopy, chassisClassesCopy, modulesCopy, vendorCopy));
 
 exports.default = defaultTask;
