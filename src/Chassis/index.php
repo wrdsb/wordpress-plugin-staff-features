@@ -180,6 +180,11 @@ $container['routes'] = [
         'view' => 'home-page',
         'template' => 'SchoolData/Components/Static/HomePage.php'
     ],
+    '^school-data/admin$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'admin-home-page',
+        'template' => 'SchoolData/Components/Static/AdminHomePage.php'
+    ],
 
     '^school-data/drill-schedule/edit$' => [
         'module' => 'SchoolDataModule',
