@@ -31,7 +31,10 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <a href="<?php echo WPCore::homeURL(); ?>/school-data/home">School Data</a>
                 </li>
                 <li>
-                    <?php echo $page_title; ?>
+                    <a href="..">List</a>
+                </li>
+                <li>
+                    Drill Schedule
                 </li>
             </ol>
         </div>

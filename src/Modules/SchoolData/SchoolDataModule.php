@@ -235,8 +235,6 @@ class SchoolDataModule {
 
         $this->plugin->addView('drill-schedule-view', 'drill-schedule-view');
         $this->plugin->addView('drill-schedule-edit', 'drill-schedule-edit');
-        $this->plugin->addView('drill-schedule-audit', 'drill-schedule-audit');
-        $this->plugin->addView('drill-schedule-list', 'drill-schedule-list');
         $this->plugin->addView('drill-schedule-instructions', 'drill-schedule-instructions');
 
         $this->plugin->addView('emergency-response-team-view', 'emergency-response-team-view');
@@ -258,6 +256,9 @@ class SchoolDataModule {
         $this->plugin->addView('workplace-inspection-team-view', 'workplace-inspection-team-view');
         $this->plugin->addView('workplace-inspection-team-edit', 'workplace-inspection-team-edit');
         $this->plugin->addView('workplace-inspection-team-instructions', 'workplace-inspection-team-instructions');
+
+        $this->plugin->addView('drill-schedule-audit', 'drill-schedule-audit');
+        $this->plugin->addView('drill-schedule-list', 'drill-schedule-list');
     }
 
     private function addPageTemplates() {
@@ -265,8 +266,6 @@ class SchoolDataModule {
 
         $this->plugin->addPageTemplate('drill-schedule-view', 'SchoolData/Components/DrillSchedule/View.php');
         $this->plugin->addPageTemplate('drill-schedule-edit', 'SchoolData/Components/DrillSchedule/Edit.php');
-        $this->plugin->addPageTemplate('drill-schedule-audit', 'SchoolData/Components/DrillSchedule/Audit.php');
-        $this->plugin->addPageTemplate('drill-schedule-list', 'SchoolData/Components/DrillSchedule/List.php');
         $this->plugin->addPageTemplate('drill-schedule-instructions', 'SchoolData/Components/Static/DrillScheduleInstructions.php');
 
         $this->plugin->addPageTemplate('emergency-response-team-view', 'SchoolData/Components/EmergencyResponseTeam/View.php');
@@ -288,6 +287,9 @@ class SchoolDataModule {
         $this->plugin->addPageTemplate('workplace-inspection-team-view', 'SchoolData/Components/WorkplaceInspectionTeam/View.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-edit', 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-instructions', 'SchoolData/Components/Static/WorkplaceInspectionTeamInstructions.php');
+
+        $this->plugin->addPageTemplate('drill-schedule-audit', 'SchoolData/Components/Audit/DrillSchedule.php');
+        $this->plugin->addPageTemplate('drill-schedule-list', 'SchoolData/Components/List/DrillSchedule.php');
     }
 
     private function registerPostTypes() {
