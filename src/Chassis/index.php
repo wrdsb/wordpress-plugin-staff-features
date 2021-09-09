@@ -181,10 +181,20 @@ $container['routes'] = [
         'template' => 'SchoolData/Components/Static/HomePage.php'
     ],
 
+    '^school-data/drill-schedule/audit$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'drill-schedule-audit',
+        'template' => 'SchoolData/Components/DrillSchedule/Audit.php'
+    ],
     '^school-data/drill-schedule/edit$' => [
         'module' => 'SchoolDataModule',
         'view' => 'drill-schedule-edit',
         'template' => 'SchoolData/Components/DrillSchedule/Edit.php'
+    ],
+    '^school-data/drill-schedule/list$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'drill-schedule-list',
+        'template' => 'SchoolData/Components/DrillSchedule/List.php'
     ],
     '^school-data/drill-schedule/instructions$' => [
         'module' => 'SchoolDataModule',
