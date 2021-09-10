@@ -51,7 +51,10 @@ class DrillScheduleSearch {
         $search_params['select']  = '*';
         $search_params['top']     = '200';
 
-        return new DrillScheduleSearch($search_params);
+        $search = new DrillScheduleSearch($search_params);
+        $search->run();
+
+        return $search->results;
     }
 
     public function __construct($params) {
