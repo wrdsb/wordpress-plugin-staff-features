@@ -57,6 +57,23 @@ class DrillScheduleSearch {
         return $search->results;
     }
 
+    public static function getBySchoolCode($schoolCode) {
+        $schoolCode = strtoupper($schoolCode);
+
+        $search_params = [];
+        $search_params['count']   = true;
+        $search_params['filter']  = "post_type eq 'drillschedule' and schoolCode eq '{$schoolCode}'";
+        $search_params['orderby'] = 'post_title';
+        $search_params['search']  = '*';
+        $search_params['select']  = '*';
+        $search_params['top']     = '200';
+
+        $search = new DrillScheduleSearch($search_params);
+        $search->run();
+
+        return $search->results[0];
+    }
+
     public function __construct($params) {
         $this->count        = $params['count']        ?? true;
         $this->facets       = $params['facets']       ?? null;
