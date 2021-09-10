@@ -11,10 +11,50 @@ namespace WRDSB\Staff\Modules\SchoolData\Model;
  * @author     WRDSB <website@wrdsb.ca>
  */
 class DrillScheduleSearch {
-    public function __construct($params) {
-        $this->target_url = $params['target_url'];
-        $this->api_key = $params['api_key'];
+    private $target_url = 'https://wrdsb-codex.search.windows.net/indexes/lamson-wp-posts2/docs/search?api-version=2016-09-01';
+    private $api_key = WRDSB_CODEX_SEARCH_KEY;
 
+    public static function audit() {
+        $good = [];
+        $bad = SchoolsList::all();
+
+        $search_params = [];
+        $search_params['count']   = true;
+        $search_params['filter']  = "post_type eq 'drillschedule'";
+        $search_params['orderby'] = 'post_title';
+        $search_params['search']  = '*';
+        $search_params['select']  = '*';
+        $search_params['top']     = '200';
+
+        $search = new DrillScheduleSearch($search_params);
+        $search->run();
+
+        foreach ($search->results as $post) {
+            if (strtoupper($post->schoolCode) != "DSPS") {
+                $good[strtoupper($post->schoolCode)] = $post;
+                unset($bad[strtolower($post->schoolCode)]);
+            }
+        }
+
+        return [
+            'good' => $good,
+            'bad' => $bad
+        ];
+    }
+
+    public static function list() {
+        $search_params = [];
+        $search_params['count']   = true;
+        $search_params['filter']  = "post_type eq 'drillschedule'";
+        $search_params['orderby'] = 'post_title';
+        $search_params['search']  = '*';
+        $search_params['select']  = '*';
+        $search_params['top']     = '200';
+
+        return new DrillScheduleSearch($search_params);
+    }
+
+    public function __construct($params) {
         $this->count        = $params['count']        ?? true;
         $this->facets       = $params['facets']       ?? null;
         $this->filter       = $params['filter']       ?? null;
