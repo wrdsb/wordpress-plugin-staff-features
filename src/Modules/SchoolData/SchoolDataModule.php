@@ -260,6 +260,7 @@ class SchoolDataModule {
 
         $this->plugin->addView('drill-schedule-audit', 'drill-schedule-audit');
         $this->plugin->addView('drill-schedule-list', 'drill-schedule-list');
+        $this->plugin->addView('drill-schedule-single', 'drill-schedule-single');
     }
 
     private function addPageTemplates() {
@@ -292,6 +293,7 @@ class SchoolDataModule {
 
         $this->plugin->addPageTemplate('drill-schedule-audit', 'SchoolData/Components/Search/Audit/DrillSchedule.php');
         $this->plugin->addPageTemplate('drill-schedule-list', 'SchoolData/Components/Search/List/DrillSchedule.php');
+        $this->plugin->addPageTemplate('drill-schedule-single', 'SchoolData/Components/Search/Single/DrillSchedule.php');
     }
 
     private function registerPostTypes() {

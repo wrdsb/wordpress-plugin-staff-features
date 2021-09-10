@@ -292,6 +292,12 @@ $container['routes'] = [
         'view' => 'drill-schedule-list',
         'template' => 'SchoolData/Components/Search/List//DrillSchedule.php'
     ],
+    '^school-data/single/drill-schedule/([^/]*)/?' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'drill-schedule-single',
+        'template' => 'SchoolData/Components/Search/List//DrillSchedule.php',
+        'matches' => array('route', 'schoolCode')
+    ],
 ];
 
 /**
