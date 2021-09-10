@@ -2,6 +2,9 @@
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+use WRDSB\Staff\Modules\SchoolData\Model\SchoolsList as SchoolsList;
+use WRDSB\Staff\Modules\SchoolData\Model\PrincipalsList as PrincipalsList;
+use WRDSB\Staff\Modules\SchoolData\Model\DrillScheduleSearch as DrillScheduleSearch;
 
 $page_title = "Drill Schedule Audit";
 
@@ -10,6 +13,10 @@ function setCustomTitle() {
     return $page_title;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Components\setCustomTitle');
+
+$schools = SchoolsList::all();
+$principals = PrincipalsList::all();
+$audit = DrillScheduleSearch::audit();
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -51,6 +58,67 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
 
+                <table id="sample-data-table" class="table">
+                    <thead>
+                        <tr>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Code</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Name</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Last Update</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($audit['good'] as $schoolCode => $post) { ?>
+                            <tr>
+                                <td><?php echo strtoupper($schoolCode); ?></td>
+                                <td><?php echo $schools[strtolower($schoolCode)]; ?></td>
+                                <td><?php echo $post->post_modified; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+
+                <table id="sample-data-table" class="table">
+                    <thead>
+                        <tr>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Code</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Name</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($audit['bad'] as $schoolCode => $schoolName) { ?>
+                            <tr>
+                                <td><?php echo strtoupper($schoolCode); ?></td>
+                                <td><?php echo $schoolName; ?></td>
+                                <td><?php echo $principals[strtolower($schoolCode)]; ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
                 <!-- /CONTENT -->
             </div>
         <?php } ?>
