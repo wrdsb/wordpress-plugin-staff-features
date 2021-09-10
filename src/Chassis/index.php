@@ -285,12 +285,12 @@ $container['routes'] = [
     '^school-data/audits/drill-schedule$' => [
         'module' => 'SchoolDataModule',
         'view' => 'drill-schedule-audit',
-        'template' => 'SchoolData/Components/Audit/DrillSchedule.php'
+        'template' => 'SchoolData/Components/Search/Audit/DrillSchedule.php'
     ],
     '^school-data/lists/drill-schedule$' => [
         'module' => 'SchoolDataModule',
         'view' => 'drill-schedule-list',
-        'template' => 'SchoolData/Components/List//DrillSchedule.php'
+        'template' => 'SchoolData/Components/Search/List//DrillSchedule.php'
     ],
 ];
 

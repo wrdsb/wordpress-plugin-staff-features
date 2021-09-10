@@ -290,8 +290,8 @@ class SchoolDataModule {
         $this->plugin->addPageTemplate('workplace-inspection-team-edit', 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-instructions', 'SchoolData/Components/Static/WorkplaceInspectionTeamInstructions.php');
 
-        $this->plugin->addPageTemplate('drill-schedule-audit', 'SchoolData/Components/Audit/DrillSchedule.php');
-        $this->plugin->addPageTemplate('drill-schedule-list', 'SchoolData/Components/List/DrillSchedule.php');
+        $this->plugin->addPageTemplate('drill-schedule-audit', 'SchoolData/Components/Search/Audit/DrillSchedule.php');
+        $this->plugin->addPageTemplate('drill-schedule-list', 'SchoolData/Components/Search/List/DrillSchedule.php');
     }
 
     private function registerPostTypes() {
