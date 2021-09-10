@@ -2,6 +2,8 @@
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+use WRDSB\Staff\Modules\SchoolData\Model\SchoolsList as SchoolsList;
+use WRDSB\Staff\Modules\SchoolData\Model\DrillScheduleSearch as DrillScheduleSearch;
 
 $page_title = "Drill Schedule List";
 
@@ -10,6 +12,9 @@ function setCustomTitle() {
     return $page_title;
 }
 WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Components\setCustomTitle');
+
+$schools = SchoolsList::all();
+$list = DrillScheduleSearch::list();
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -51,6 +56,38 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
 
+                <table id="sample-data-table" class="table">
+                    <thead>
+                        <tr>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Code</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Name</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Last Update</span>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($list as $post) { ?>
+                            <?php if ($post->schoolCode != "DSPS") { ?>
+                                <tr>
+                                    <td><?php echo strtoupper($post->schoolCode); ?></td>
+                                    <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
+                                    <td><?php echo $post->post_modified; ?></td>
+                                </tr>
+                            <?php } ?>
+                        <?php } ?>
+                    </tbody>
+                </table>
                 <!-- /CONTENT -->
             </div>
         <?php } ?>
