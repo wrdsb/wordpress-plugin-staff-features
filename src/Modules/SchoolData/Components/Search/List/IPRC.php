@@ -1,4 +1,4 @@
-IPRC<?php
+<?php
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
