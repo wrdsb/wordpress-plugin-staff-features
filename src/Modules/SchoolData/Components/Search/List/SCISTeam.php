@@ -65,7 +65,7 @@ $list = SCISTeamSearch::list();
                     </div>
                 </div>
 
-                <table id="school-data-iprc-table" class="table">
+                <table id="school-data-scis-team-table" class="table">
                     <thead>
                         <tr>
                             <th class="secondary-text">
@@ -84,7 +84,7 @@ $list = SCISTeamSearch::list();
                         <?php foreach ($list as $post) { ?>
                             <?php if ($post->schoolCode != "DSPS") { ?>
                                 <tr>
-                                    <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/iprc/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
+                                    <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/scis-team/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
                                 </tr>
                             <?php } ?>
