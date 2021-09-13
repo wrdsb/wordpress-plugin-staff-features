@@ -6,10 +6,10 @@
 
         var retrieved = new Date().toLocaleString('en-CA');
 
-        if ($('#school-data-data-table').length > 0) {
+        if ($('#school-data-scis-team-table').length > 0) {
             console.log('building datatable...');
 
-            var table = $('#school-data-data-table').DataTable({
+            var table = $('#school-data-scis-team-table').DataTable({
                 dom: '<"dataTables_header"Bi>t<"dataTables_footer"i>',
                 columnDefs: [
                     {
