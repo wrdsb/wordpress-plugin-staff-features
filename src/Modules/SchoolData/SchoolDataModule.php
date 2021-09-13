@@ -187,12 +187,48 @@ class SchoolDataModule {
      */
     public function enqueueScripts() {
         WPCore::wpEnqueueScript(
-            'datatable',
-            WPCore::pluginDirURL(__FILE__) . 'assets/js/datatable.js',
+            'drill-schedule-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/drill-schedule-datatable.js',
             array('jquery'),
             $this->version,
             false
         );
+        WPCore::wpEnqueueScript(
+            'emergency-response-team-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/emergency-response-team-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'evacuation-sites-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/evacuation-sites-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'iprc-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/iprc-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'scis-team-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/scis-team-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'workplace-inspection-team-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/workplace-inspection-team-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+
         WPCore::wpEnqueueScript(
             'pdfMake',
             'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js',
@@ -232,6 +268,7 @@ class SchoolDataModule {
 
     private function addViews() {
         $this->plugin->addView('home-page', 'home-page');
+        $this->plugin->addView('admin-home-page', 'admin-home-page');
 
         $this->plugin->addView('drill-schedule-view', 'drill-schedule-view');
         $this->plugin->addView('drill-schedule-edit', 'drill-schedule-edit');
@@ -256,10 +293,35 @@ class SchoolDataModule {
         $this->plugin->addView('workplace-inspection-team-view', 'workplace-inspection-team-view');
         $this->plugin->addView('workplace-inspection-team-edit', 'workplace-inspection-team-edit');
         $this->plugin->addView('workplace-inspection-team-instructions', 'workplace-inspection-team-instructions');
+
+        $this->plugin->addView('drill-schedule-audit', 'drill-schedule-audit');
+        $this->plugin->addView('drill-schedule-list', 'drill-schedule-list');
+        $this->plugin->addView('drill-schedule-single', 'drill-schedule-single');
+
+        $this->plugin->addView('emergency-response-team-audit', 'emergency-response-team-audit');
+        $this->plugin->addView('emergency-response-team-list', 'emergency-response-team-list');
+        $this->plugin->addView('emergency-response-team-single', 'emergency-response-team-single');
+
+        $this->plugin->addView('evacuation-sites-audit', 'evacuation-sites-audit');
+        $this->plugin->addView('evacuation-sites-list', 'evacuation-sites-list');
+        $this->plugin->addView('evacuation-sites-single', 'evacuation-sites-single');
+
+        $this->plugin->addView('iprc-audit', 'iprc-audit');
+        $this->plugin->addView('iprc-list', 'iprc-list');
+        $this->plugin->addView('iprc-single', 'iprc-single');
+
+        $this->plugin->addView('scis-team-audit', 'scis-team-audit');
+        $this->plugin->addView('scis-team-list', 'scis-team-list');
+        $this->plugin->addView('scis-teamsingle', 'scis-team-single');
+
+        $this->plugin->addView('workplace-inspection-team-audit', 'workplace-inspection-team-audit');
+        $this->plugin->addView('workplace-inspection-team-list', 'workplace-inspection-team-list');
+        $this->plugin->addView('workplace-inspection-team-single', 'workplace-inspection-team-single');
     }
 
     private function addPageTemplates() {
         $this->plugin->addPageTemplate('home-page', 'SchoolData/Components/Static/HomePage.php');
+        $this->plugin->addPageTemplate('admin-home-page', 'SchoolData/Components/Static/AdminHomePage.php');
 
         $this->plugin->addPageTemplate('drill-schedule-view', 'SchoolData/Components/DrillSchedule/View.php');
         $this->plugin->addPageTemplate('drill-schedule-edit', 'SchoolData/Components/DrillSchedule/Edit.php');
@@ -284,6 +346,30 @@ class SchoolDataModule {
         $this->plugin->addPageTemplate('workplace-inspection-team-view', 'SchoolData/Components/WorkplaceInspectionTeam/View.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-edit', 'SchoolData/Components/WorkplaceInspectionTeam/Edit.php');
         $this->plugin->addPageTemplate('workplace-inspection-team-instructions', 'SchoolData/Components/Static/WorkplaceInspectionTeamInstructions.php');
+
+        $this->plugin->addPageTemplate('drill-schedule-audit', 'SchoolData/Components/Search/Audit/DrillSchedule.php');
+        $this->plugin->addPageTemplate('drill-schedule-list', 'SchoolData/Components/Search/List/DrillSchedule.php');
+        $this->plugin->addPageTemplate('drill-schedule-single', 'SchoolData/Components/Search/Single/DrillSchedule.php');
+
+        $this->plugin->addPageTemplate('emergency-response-team-audit', 'SchoolData/Components/Search/Audit/EmergencyResponseTeam.php');
+        $this->plugin->addPageTemplate('emergency-response-team-list', 'SchoolData/Components/Search/List/EmergencyResponseTeam.php');
+        $this->plugin->addPageTemplate('emergency-response-team-single', 'SchoolData/Components/Search/Single/EmergencyResponseTeam.php');
+
+        $this->plugin->addPageTemplate('evacuation-sites-audit', 'SchoolData/Components/Search/Audit/EvacuationSites.php');
+        $this->plugin->addPageTemplate('evacuation-sites-list', 'SchoolData/Components/Search/List/EvacuationSites.php');
+        $this->plugin->addPageTemplate('evacuation-sites-single', 'SchoolData/Components/Search/Single/EvacuationSites.php');
+
+        $this->plugin->addPageTemplate('iprc-audit', 'SchoolData/Components/Search/Audit/IPRC.php');
+        $this->plugin->addPageTemplate('iprc-list', 'SchoolData/Components/Search/List/IPRC.php');
+        $this->plugin->addPageTemplate('iprc-single', 'SchoolData/Components/Search/Single/IPRC.php');
+
+        $this->plugin->addPageTemplate('scis-team-audit', 'SchoolData/Components/Search/Audit/SCISTeam.php');
+        $this->plugin->addPageTemplate('scis-team-list', 'SchoolData/Components/Search/List/SCISTeam.php');
+        $this->plugin->addPageTemplate('scis-team-single', 'SchoolData/Components/Search/Single/SCISTeam.php');
+
+        $this->plugin->addPageTemplate('workplace-inspection-team-audit', 'SchoolData/Components/Search/Audit/WorkplaceInspectionTeam.php');
+        $this->plugin->addPageTemplate('workplace-inspection-team-list', 'SchoolData/Components/Search/List/WorkplaceInspectionTeam.php');
+        $this->plugin->addPageTemplate('workplace-inspection-team-single', 'SchoolData/Components/Search/Single/WorkplaceInspectionTeam.php');
     }
 
     private function registerPostTypes() {

@@ -6,19 +6,26 @@
 
         var retrieved = new Date().toLocaleString('en-CA');
 
-        if ($('#school-data-data-table').length > 0) {
-            console.log('building datatable');
+        if ($('#school-data-scis-team-table').length > 0) {
+            console.log('building datatable...');
 
-            var table = $('#school-data-data-table').DataTable( {
+            var table = $('#school-data-scis-team-table').DataTable({
                 dom: '<"dataTables_header"Bi>t<"dataTables_footer"i>',
                 columnDefs: [
+                    {
+                        "targets": [ 1 ],
+                        "visible": false
+                    },
                 ],
                 buttons: [
+                    'columnsToggle',
                 ],
                 lengthMenu: [[-1], ["All"]],
                 responsive: true
-            } );
-    
+            });
+
+            console.log('got datatable');
+
             new $.fn.dataTable.Buttons(table, {
                 name: 'copy',
                 buttons: [
@@ -78,6 +85,8 @@
                 ]
             });
             table.buttons('pdf', null).containers().appendTo('#button-pdf');
+
+            console.log(table.buttons);
         } else {
             console.log('no datatable detected');
         }

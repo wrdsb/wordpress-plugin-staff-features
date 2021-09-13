@@ -11,8 +11,17 @@ function clean() {
     return del(['dist/**/*']);
 }
 
+function composerCopy() {
+    return src('./composer*')
+        .pipe(dest('./dist/'));
+}
+
 function autoload() {
-    return exec('composer dumpautoload');
+    return exec('composer dumpautoload -d ./dist/');
+}
+
+function composerInstallProd() {
+    return exec('composer install -d ./dist/ --no-dev --optimize-autoloader');
 }
 
 function chassisCopy() {
@@ -30,12 +39,7 @@ function modulesCopy() {
         .pipe(dest('./dist/src/Modules/'));
 }
 
-function vendorCopy() {
-    return src('./vendor/**/*')
-        .pipe(dest('./dist/vendor/'));
-}
 
-
-exports.build = series(clean, autoload, parallel(chassisCopy, chassisClassesCopy, modulesCopy, vendorCopy));
+exports.build = series(clean, composerCopy, autoload, composerInstallProd, parallel(chassisCopy, chassisClassesCopy, modulesCopy));
 
 exports.default = defaultTask;

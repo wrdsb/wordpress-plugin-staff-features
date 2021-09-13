@@ -72,6 +72,6 @@ class SCISTeamCPT {
                 'with_front' => false,
             ),
         );
-        register_post_type('scisTeam', $args);
+        register_post_type('scisteam', $args);
     }
 }
