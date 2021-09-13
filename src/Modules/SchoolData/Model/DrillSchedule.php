@@ -151,6 +151,29 @@ class DrillSchedule {
         return $instance;
     }
 
+    public function __construct($params = [])
+    {
+        $this->ID = $params['ID'];
+        $this->content = $params['content'];
+        $this->title = $params['title'];
+        $this->excerpt = $params['excerpt'];
+        $this->blogID = $params['blogID'];
+        $this->schoolCode = $params['schoolCode'];
+        $this->email = $params['email'];
+        $this->fireDrill1Date = $params['fireDrill1Date'];
+        $this->fireDrill1Time = $params['fireDrill1Time'];
+        $this->fireDrill2Date = $params['fireDrill2Date'];
+        $this->fireDrill2Time = $params['fireDrill2Time'];
+        $this->fireDrill3Date = $params['fireDrill3Date'];
+        $this->fireDrill3Time = $params['fireDrill3Time'];
+        $this->fireDrill4Date = $params['fireDrill4Date'];
+        $this->fireDrill4Time = $params['fireDrill4Time'];
+        $this->fireDrill5Date = $params['fireDrill5Date'];
+        $this->fireDrill5Time = $params['fireDrill5Time'];
+        $this->bombDrill1Date = $params['bombDrill1Date'];
+        $this->bombDrill1Time = $params['bombDrill1Time'];
+    }
+
     public function getID() {
         return $this->ID;
     }
