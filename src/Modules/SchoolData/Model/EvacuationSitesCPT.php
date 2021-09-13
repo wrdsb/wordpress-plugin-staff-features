@@ -72,6 +72,6 @@ class EvacuationSitesCPT {
                 'with_front' => false,
             ),
         );
-        register_post_type('evacuationSites', $args);
+        register_post_type('evacuationsites', $args);
     }
 }
