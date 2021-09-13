@@ -367,19 +367,19 @@ $container['routes'] = [
         'matches' => array('route', 'schoolCode')
     ],
 
-    '^school-data/audits/workplace-inspection$' => [
+    '^school-data/audits/workplace-inspection-team$' => [
         'module' => 'SchoolDataModule',
-        'view' => 'workplace-inspection-audit',
+        'view' => 'workplace-inspection-team-audit',
         'template' => 'SchoolData/Components/Search/Audit/WorkplaceInspectionTeam.php'
     ],
-    '^school-data/lists/workplace-inspection$' => [
+    '^school-data/lists/workplace-inspection-team$' => [
         'module' => 'SchoolDataModule',
-        'view' => 'workplace-inspection-list',
+        'view' => 'workplace-inspection-team-list',
         'template' => 'SchoolData/Components/Search/List//WorkplaceInspectionTeam.php'
     ],
-    '^school-data/single/workplace-inspection/([^/]*)/?' => [
+    '^school-data/single/workplace-inspection-team/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
-        'view' => 'workplace-inspection-single',
+        'view' => 'workplace-inspection-team-single',
         'template' => 'SchoolData/Components/Search/List//WorkplaceInspectionTeam.php',
         'matches' => array('route', 'schoolCode')
     ],
