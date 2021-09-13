@@ -298,6 +298,91 @@ $container['routes'] = [
         'template' => 'SchoolData/Components/Search/List//DrillSchedule.php',
         'matches' => array('route', 'schoolCode')
     ],
+
+    '^school-data/audits/emergency-response-team$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'emergency-response-team-audit',
+        'template' => 'SchoolData/Components/Search/Audit/EmergencyResponseTeam.php'
+    ],
+    '^school-data/lists/emergency-response-team$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'emergency-response-team-list',
+        'template' => 'SchoolData/Components/Search/List//EmergencyResponseTeam.php'
+    ],
+    '^school-data/single/emergency-response-team/([^/]*)/?' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'emergency-response-team-single',
+        'template' => 'SchoolData/Components/Search/List//EmergencyResponseTeam.php',
+        'matches' => array('route', 'schoolCode')
+    ],
+
+    '^school-data/audits/evacuation-sites$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'evacuation-sites-audit',
+        'template' => 'SchoolData/Components/Search/Audit/EvacuationSites.php'
+    ],
+    '^school-data/lists/evacuation-sites$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'evacuation-sites-list',
+        'template' => 'SchoolData/Components/Search/List//EvacuationSites.php'
+    ],
+    '^school-data/single/evacuation-sites/([^/]*)/?' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'evacuation-sites-single',
+        'template' => 'SchoolData/Components/Search/List//EvacuationSites.php',
+        'matches' => array('route', 'schoolCode')
+    ],
+
+    '^school-data/audits/iprc$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'iprc-audit',
+        'template' => 'SchoolData/Components/Search/Audit/IPRC.php'
+    ],
+    '^school-data/lists/iprc$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'iprc-list',
+        'template' => 'SchoolData/Components/Search/List//IPRC.php'
+    ],
+    '^school-data/single/iprc/([^/]*)/?' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'iprc-single',
+        'template' => 'SchoolData/Components/Search/List//IPRC.php',
+        'matches' => array('route', 'schoolCode')
+    ],
+
+    '^school-data/audits/scis-team$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'scis-team-audit',
+        'template' => 'SchoolData/Components/Search/Audit/SCISTeam.php'
+    ],
+    '^school-data/lists/scis-team$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'scis-team-list',
+        'template' => 'SchoolData/Components/Search/List//SCISTeam.php'
+    ],
+    '^school-data/single/scis-team/([^/]*)/?' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'scis-team-single',
+        'template' => 'SchoolData/Components/Search/List//SCISTeam.php',
+        'matches' => array('route', 'schoolCode')
+    ],
+
+    '^school-data/audits/workplace-inspection$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'workplace-inspection-audit',
+        'template' => 'SchoolData/Components/Search/Audit/WorkplaceInspectionTeam.php'
+    ],
+    '^school-data/lists/workplace-inspection$' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'workplace-inspection-list',
+        'template' => 'SchoolData/Components/Search/List//WorkplaceInspectionTeam.php'
+    ],
+    '^school-data/single/workplace-inspection/([^/]*)/?' => [
+        'module' => 'SchoolDataModule',
+        'view' => 'workplace-inspection-single',
+        'template' => 'SchoolData/Components/Search/List//WorkplaceInspectionTeam.php',
+        'matches' => array('route', 'schoolCode')
+    ],
 ];
 
 /**
