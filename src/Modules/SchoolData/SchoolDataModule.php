@@ -187,12 +187,48 @@ class SchoolDataModule {
      */
     public function enqueueScripts() {
         WPCore::wpEnqueueScript(
-            'datatable',
-            WPCore::pluginDirURL(__FILE__) . 'assets/js/datatable.js',
+            'drill-schedule-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/drill-schedule-datatable.js',
             array('jquery'),
             $this->version,
             false
         );
+        WPCore::wpEnqueueScript(
+            'emergency-response-team-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/emergency-response-team-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'evacuation-sites-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/evacuation-sites-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'iprc-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/iprc-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'scis-team-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/scis-team-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+        WPCore::wpEnqueueScript(
+            'workplace-inspection-team-datatable',
+            WPCore::pluginDirURL(__FILE__) . 'assets/js/workplace-inspection-team-datatable.js',
+            array('jquery'),
+            $this->version,
+            false
+        );
+
         WPCore::wpEnqueueScript(
             'pdfMake',
             'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js',
