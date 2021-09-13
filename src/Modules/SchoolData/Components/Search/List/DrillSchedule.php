@@ -55,8 +55,17 @@ $list = DrillScheduleSearch::list();
             <div class="col-sm-12 col-lg-12" role="main">
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
+                <div class="description">
+                    <div class="description-text">
+                    </div>
+                    <div class="download-buttons" style="float:right">
+                        <span id="button-copy" class="nav-item"></span>
+                        <span id="button-csv" class="nav-item"></span>
+                        <span id="button-pdf" class="nav-item"></span>
+                    </div>
+                </div>
 
-                <table id="sample-data-table" class="table">
+                <table id="school-data-data-table" class="table">
                     <thead>
                         <tr>
                             <th class="secondary-text">
@@ -71,7 +80,62 @@ $list = DrillScheduleSearch::list();
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Last Update</span>
+                                    <span class="column-title">Date 1</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Time 1</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Date 2</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Time 2</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Date 3</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Time 3</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Date 4</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Time 4</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Date 5</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Time 5</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Bomb Drill Date</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Bomb Drill Time</span>
                                 </div>
                             </th>
                         </tr>
@@ -80,9 +144,20 @@ $list = DrillScheduleSearch::list();
                         <?php foreach ($list as $post) { ?>
                             <?php if ($post->schoolCode != "DSPS") { ?>
                                 <tr>
-                                    <td><?php echo strtoupper($post->schoolCode); ?></td>
+                                    <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/drill-schedule/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
-                                    <td><?php echo $post->post_modified; ?></td>
+                                    <td><?php echo $post->fireDrill1Date; ?></td>
+                                    <td><?php echo $post->fireDrill1Time; ?></td>
+                                    <td><?php echo $post->fireDrill2Date; ?></td>
+                                    <td><?php echo $post->fireDrill2Time; ?></td>
+                                    <td><?php echo $post->fireDrill3Date; ?></td>
+                                    <td><?php echo $post->fireDrill3Time; ?></td>
+                                    <td><?php echo $post->fireDrill4Date; ?></td>
+                                    <td><?php echo $post->fireDrill4Time; ?></td>
+                                    <td><?php echo $post->fireDrill5Date; ?></td>
+                                    <td><?php echo $post->fireDrill5Time; ?></td>
+                                    <td><?php echo $post->bombDrill1Date; ?></td>
+                                    <td><?php echo $post->bombDrill1Time; ?></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>
