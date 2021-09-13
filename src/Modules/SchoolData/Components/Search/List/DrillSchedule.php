@@ -65,7 +65,7 @@ $list = DrillScheduleSearch::list();
                     </div>
                 </div>
 
-                <table id="school-data-data-table" class="table">
+                <table id="school-data-drill-schedule-table" class="table">
                     <thead>
                         <tr>
                             <th class="secondary-text">
