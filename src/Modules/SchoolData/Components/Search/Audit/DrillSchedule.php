@@ -81,7 +81,7 @@ $audit = DrillScheduleSearch::audit();
                     <tbody>
                         <?php foreach ($audit['good'] as $schoolCode => $post) { ?>
                             <tr>
-                                <td><?php echo strtoupper($schoolCode); ?></td>
+                            <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/drill-schedule/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                 <td><?php echo $schools[strtolower($schoolCode)]; ?></td>
                                 <td><?php echo $post->post_modified; ?></td>
                             </tr>
