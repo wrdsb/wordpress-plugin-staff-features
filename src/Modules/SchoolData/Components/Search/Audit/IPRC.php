@@ -73,17 +73,17 @@ $audit = IPRCSearch::audit();
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Last Update</span>
+                                    <span class="column-title">Principal</span>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($audit['good'] as $schoolCode => $post) { ?>
+                        <?php foreach ($audit['bad'] as $schoolCode => $schoolName) { ?>
                             <tr>
-                            <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/iprc/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
-                                <td><?php echo $schools[strtolower($schoolCode)]; ?></td>
-                                <td><?php echo $post->post_modified; ?></td>
+                                <td><?php echo strtoupper($schoolCode); ?></td>
+                                <td><?php echo $schoolName; ?></td>
+                                <td><?php echo $principals[strtolower($schoolCode)]; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
@@ -104,17 +104,17 @@ $audit = IPRCSearch::audit();
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Principal</span>
+                                    <span class="column-title">Last Update</span>
                                 </div>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($audit['bad'] as $schoolCode => $schoolName) { ?>
+                        <?php foreach ($audit['good'] as $schoolCode => $post) { ?>
                             <tr>
-                                <td><?php echo strtoupper($schoolCode); ?></td>
-                                <td><?php echo $schoolName; ?></td>
-                                <td><?php echo $principals[strtolower($schoolCode)]; ?></td>
+                            <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/iprc/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
+                                <td><?php echo $schools[strtolower($schoolCode)]; ?></td>
+                                <td><?php echo $post->post_modified; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>
