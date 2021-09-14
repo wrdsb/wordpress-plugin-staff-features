@@ -271,6 +271,53 @@ class SCISTeam {
         return $instance;
     }
 
+    public function __construct($params = []) {
+        $this->ID = $params['ID'];
+        $this->content = $params['content'];
+        $this->title = $params['title'];
+        $this->excerpt = $params['excerpt'];
+        $this->blogID = $params['blogID'];
+        $this->schoolCode = $params['schoolCode'];
+        $this->email = $params['email'];
+        $this->administratorFirstname = $params['administratorFirstname'];
+        $this->administratorLastname = $params['administratorLastname'];
+        $this->administratorIELiasion = $params['administratorIELiasion'];
+        $this->teacherFirstname = $params['teacherFirstname'];
+        $this->teacherLastname = $params['teacherLastname'];
+        $this->teacherIELiasion = $params['teacherIELiasion'];
+        $this->paraprofessionalFirstname = $params['paraprofessionalFirstname'];
+        $this->paraprofessionalLastname = $params['paraprofessionalLastname'];
+        $this->paraprofessionalIELiasion = $params['paraprofessionalIELiasion'];
+        $this->parentFirstname = $params['parentFirstname'];
+        $this->parentLastname = $params['parentLastname'];
+        $this->parentIELiasion = $params['parentIELiasion'];
+        $this->communityMemberFirstname = $params['communityMemberFirstname'];
+        $this->communityMemberLastname = $params['communityMemberLastname'];
+        $this->communityMemberIELiasion = $params['communityMemberIELiasion'];
+        $this->student1Firstname = $params['student1Firstname'];
+        $this->student1Lastname = $params['student1Lastname'];
+        $this->student1IELiasion = $params['student1IELiasion'];
+        $this->student2Firstname = $params['student2Firstname'];
+        $this->student2Lastname = $params['student2Lastname'];
+        $this->student2IELiasion = $params['student2IELiasion'];
+        $this->optional1Firstname = $params['optional1Firstname'];
+        $this->optional1Lastname = $params['optional1Lastname'];
+        $this->optional1IELiasion = $params['optional1IELiasion'];
+        $this->optional2Firstname = $params['optional2Firstname'];
+        $this->optional2Lastname = $params['optional2Lastname'];
+        $this->optional2IELiasion = $params['optional2IELiasion'];
+        $this->optional3Firstname = $params['optional3Firstname'];
+        $this->optional3Lastname = $params['optional3Lastname'];
+        $this->optional3IELiasion = $params['optional3IELiasion'];
+        $this->optional4Firstname = $params['optional4Firstname'];
+        $this->optional4Lastname = $params['optional4Lastname'];
+        $this->optional4IELiasion = $params['optional4IELiasion'];
+        $this->optional5Firstname = $params['optional5Firstname'];
+        $this->optional5Lastname = $params['optional5Lastname'];
+        $this->optional5IELiasion = $params['optional5IELiasion'];
+    }
+
+
     public function getID() {
         return $this->ID;
     }

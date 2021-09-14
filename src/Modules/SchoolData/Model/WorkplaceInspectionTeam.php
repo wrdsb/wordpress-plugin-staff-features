@@ -211,6 +211,41 @@ class WorkplaceInspectionTeam {
         return $instance;
     }
 
+    public function __construct($params = []) {
+        $this->ID = $params['ID'];
+        $this->content = $params['content'];
+        $this->title = $params['title'];
+        $this->excerpt = $params['excerpt'];
+        $this->blogID = $params['blogID'];
+        $this->schoolCode = $params['schoolCode'];
+        $this->email = $params['email'];
+        $this->principalFirstname = $params['principalFirstname'];
+        $this->principalLastname = $params['principalLastname'];
+        $this->principalAffiliation = $params['principalAffiliation'];
+        $this->principalHSContact = $params['principalHSContact'];
+        $this->custodianFirstname = $params['custodianFirstname'];
+        $this->custodianLastname = $params['custodianLastname'];
+        $this->custodianAffiliation = $params['custodianAffiliation'];
+        $this->custodianHSContact = $params['custodianHSContact'];
+        $this->staffMember1Firstname = $params['staffMember1Firstname'];
+        $this->staffMember1Lastname = $params['staffMember1Lastname'];
+        $this->staffMember1Affiliation = $params['staffMember1Affiliation'];
+        $this->staffMember1HSContact = $params['staffMember1HSContact'];
+        $this->staffMember2Firstname = $params['staffMember2Firstname'];
+        $this->staffMember2Lastname = $params['staffMember2Lastname'];
+        $this->staffMember2Affiliation = $params['staffMember2Affiliation'];
+        $this->staffMember2HSContact = $params['staffMember2HSContact'];
+        $this->staffMember3Firstname = $params['staffMember3Firstname'];
+        $this->staffMember3Lastname = $params['staffMember3Lastname'];
+        $this->staffMember3Affiliation = $params['staffMember3Affiliation'];
+        $this->staffMember3HSContact = $params['staffMember3HSContact'];
+        $this->staffMember4Firstname = $params['staffMember4Firstname'];
+        $this->staffMember4Lastname = $params['staffMember4Lastname'];
+        $this->staffMember4Affiliation = $params['staffMember4Affiliation'];
+        $this->staffMember4HSContact = $params['staffMember4HSContact'];
+    }
+
+
     public function getID() {
         return $this->ID;
     }

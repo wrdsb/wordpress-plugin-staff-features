@@ -391,6 +391,76 @@ class EmergencyResponseTeam {
         return $instance;
     }
 
+    public function __construct($params = []) {
+        $this->ID = $params['ID'];
+        $this->content = $params['content'];
+        $this->title = $params['title'];
+        $this->excerpt = $params['excerpt'];
+        $this->blogID = $params['blogID'];
+        $this->schoolCode = $params['schoolCode'];
+        $this->email = $params['email'];
+        $this->firstname1 = $params['firstname1'];
+        $this->lastname1 = $params['lastname1'];
+        $this->cprExpiry1 = $params['cprExpiry1'];
+        $this->firstAidExpiry1 = $params['firstAidExpiry1'];
+        $this->bmsExpiry1 = $params['bmsExpiry1'];
+        $this->firstname2 = $params['firstname2'];
+        $this->lastname2 = $params['lastname2'];
+        $this->cprExpiry2 = $params['cprExpiry2'];
+        $this->firstAidExpiry2 = $params['firstAidExpiry2'];
+        $this->bmsExpiry2 = $params['bmsExpiry2'];
+        $this->firstname3 = $params['firstname3'];
+        $this->lastname3 = $params['lastname3'];
+        $this->cprExpiry3 = $params['cprExpiry3'];
+        $this->firstAidExpiry3 = $params['firstAidExpiry3'];
+        $this->bmsExpiry3 = $params['bmsExpiry3'];
+        $this->firstname4 = $params['firstname4'];
+        $this->lastname4 = $params['lastname4'];
+        $this->cprExpiry4 = $params['cprExpiry4'];
+        $this->firstAidExpiry4 = $params['firstAidExpiry4'];
+        $this->bmsExpiry4 = $params['bmsExpiry4'];
+        $this->firstname5 = $params['firstname5'];
+        $this->lastname5 = $params['lastname5'];
+        $this->cprExpiry5 = $params['cprExpiry5'];
+        $this->firstAidExpiry5 = $params['firstAidExpiry5'];
+        $this->bmsExpiry5 = $params['bmsExpiry5'];
+        $this->firstname6 = $params['firstname6'];
+        $this->lastname6 = $params['lastname6'];
+        $this->cprExpiry6 = $params['cprExpiry6'];
+        $this->firstAidExpiry6 = $params['firstAidExpiry6'];
+        $this->bmsExpiry6 = $params['bmsExpiry6'];
+        $this->firstname7 = $params['firstname7'];
+        $this->lastname7 = $params['lastname7'];
+        $this->cprExpiry7 = $params['cprExpiry7'];
+        $this->firstAidExpiry7 = $params['firstAidExpiry7'];
+        $this->bmsExpiry7 = $params['bmsExpiry7'];
+        $this->firstname8 = $params['firstname8'];
+        $this->lastname8 = $params['lastname8'];
+        $this->cprExpiry8 = $params['cprExpiry8'];
+        $this->firstAidExpiry8 = $params['firstAidExpiry8'];
+        $this->bmsExpiry8 = $params['bmsExpiry8'];
+        $this->firstname9 = $params['firstname9'];
+        $this->lastname9 = $params['lastname9'];
+        $this->cprExpiry9 = $params['cprExpiry9'];
+        $this->firstAidExpiry9 = $params['firstAidExpiry9'];
+        $this->bmsExpiry9 = $params['bmsExpiry9'];
+        $this->firstname10 = $params['firstname10'];
+        $this->lastname10 = $params['lastname10'];
+        $this->cprExpiry10 = $params['cprExpiry10'];
+        $this->firstAidExpiry10 = $params['firstAidExpiry10'];
+        $this->bmsExpiry10 = $params['bmsExpiry10'];
+        $this->firstname11 = $params['firstname11'];
+        $this->lastname11 = $params['lastname11'];
+        $this->cprExpiry11 = $params['cprExpiry11'];
+        $this->firstAidExpiry11 = $params['firstAidExpiry11'];
+        $this->bmsExpiry11 = $params['bmsExpiry11'];
+        $this->firstname12 = $params['firstname12'];
+        $this->lastname12 = $params['lastname12'];
+        $this->cprExpiry12 = $params['cprExpiry12'];
+        $this->firstAidExpiry12 = $params['firstAidExpiry12'];
+        $this->bmsExpiry12 = $params['bmsExpiry12'];
+    }
+
     public function getID() {
         return $this->ID;
     }
