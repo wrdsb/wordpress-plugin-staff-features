@@ -60,8 +60,8 @@ $list = DrillScheduleSearch::list();
                     </div>
                     <div class="download-buttons" style="float:right">
                         <span id="button-copy" class="nav-item"></span>
-                        <span id="button-csv" class="nav-item"></span>
-                        <span id="button-pdf" class="nav-item"></span>
+                        <span id="button-csv-visible" class="nav-item"></span>
+                        <span id="button-csv-all" class="nav-item"></span>
                     </div>
                 </div>
 
@@ -70,62 +70,62 @@ $list = DrillScheduleSearch::list();
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Code</span>
+                                    <span class="column-title">School Code</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Name</span>
+                                    <span class="column-title">School Name</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Date 1</span>
+                                    <span class="column-title">Drill 1 Date</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Time 1</span>
+                                    <span class="column-title">Drill 1 Time</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Date 2</span>
+                                    <span class="column-title">Drill 2 Date</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Time 2</span>
+                                    <span class="column-title">Drill 2 Time</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Date 3</span>
+                                    <span class="column-title">Drill 3 Date</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Time 3</span>
+                                    <span class="column-title">Drill 3 Time</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Date 4</span>
+                                    <span class="column-title">Drill 4 Date</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Time 4</span>
+                                    <span class="column-title">Drill 4 Time</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Date 5</span>
+                                    <span class="column-title">Drill 5 Date</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Time 5</span>
+                                    <span class="column-title">Drill 5 Time</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
