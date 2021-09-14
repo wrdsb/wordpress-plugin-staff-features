@@ -312,7 +312,7 @@ class SchoolDataModule {
 
         $this->plugin->addView('scis-team-audit', 'scis-team-audit');
         $this->plugin->addView('scis-team-list', 'scis-team-list');
-        $this->plugin->addView('scis-teamsingle', 'scis-team-single');
+        $this->plugin->addView('scis-team-single', 'scis-team-single');
 
         $this->plugin->addView('workplace-inspection-team-audit', 'workplace-inspection-team-audit');
         $this->plugin->addView('workplace-inspection-team-list', 'workplace-inspection-team-list');
