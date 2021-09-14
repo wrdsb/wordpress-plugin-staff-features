@@ -290,12 +290,12 @@ $container['routes'] = [
     '^school-data/lists/drill-schedule$' => [
         'module' => 'SchoolDataModule',
         'view' => 'drill-schedule-list',
-        'template' => 'SchoolData/Components/Search/List//DrillSchedule.php'
+        'template' => 'SchoolData/Components/Search/List/DrillSchedule.php'
     ],
     '^school-data/single/drill-schedule/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
         'view' => 'drill-schedule-single',
-        'template' => 'SchoolData/Components/Search/List//DrillSchedule.php',
+        'template' => 'SchoolData/Components/Search/Single/DrillSchedule.php',
         'matches' => array('route', 'schoolCode')
     ],
 
@@ -307,12 +307,12 @@ $container['routes'] = [
     '^school-data/lists/emergency-response-team$' => [
         'module' => 'SchoolDataModule',
         'view' => 'emergency-response-team-list',
-        'template' => 'SchoolData/Components/Search/List//EmergencyResponseTeam.php'
+        'template' => 'SchoolData/Components/Search/List/EmergencyResponseTeam.php'
     ],
     '^school-data/single/emergency-response-team/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
         'view' => 'emergency-response-team-single',
-        'template' => 'SchoolData/Components/Search/List//EmergencyResponseTeam.php',
+        'template' => 'SchoolData/Components/Search/Single/EmergencyResponseTeam.php',
         'matches' => array('route', 'schoolCode')
     ],
 
@@ -324,12 +324,12 @@ $container['routes'] = [
     '^school-data/lists/evacuation-sites$' => [
         'module' => 'SchoolDataModule',
         'view' => 'evacuation-sites-list',
-        'template' => 'SchoolData/Components/Search/List//EvacuationSites.php'
+        'template' => 'SchoolData/Components/Search/List/EvacuationSites.php'
     ],
     '^school-data/single/evacuation-sites/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
         'view' => 'evacuation-sites-single',
-        'template' => 'SchoolData/Components/Search/List//EvacuationSites.php',
+        'template' => 'SchoolData/Components/Search/Single/EvacuationSites.php',
         'matches' => array('route', 'schoolCode')
     ],
 
@@ -341,12 +341,12 @@ $container['routes'] = [
     '^school-data/lists/iprc$' => [
         'module' => 'SchoolDataModule',
         'view' => 'iprc-list',
-        'template' => 'SchoolData/Components/Search/List//IPRC.php'
+        'template' => 'SchoolData/Components/Search/List/IPRC.php'
     ],
     '^school-data/single/iprc/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
         'view' => 'iprc-single',
-        'template' => 'SchoolData/Components/Search/List//IPRC.php',
+        'template' => 'SchoolData/Components/Search/Single/IPRC.php',
         'matches' => array('route', 'schoolCode')
     ],
 
@@ -358,12 +358,12 @@ $container['routes'] = [
     '^school-data/lists/scis-team$' => [
         'module' => 'SchoolDataModule',
         'view' => 'scis-team-list',
-        'template' => 'SchoolData/Components/Search/List//SCISTeam.php'
+        'template' => 'SchoolData/Components/Search/List/SCISTeam.php'
     ],
     '^school-data/single/scis-team/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
         'view' => 'scis-team-single',
-        'template' => 'SchoolData/Components/Search/List//SCISTeam.php',
+        'template' => 'SchoolData/Components/Search/Single/SCISTeam.php',
         'matches' => array('route', 'schoolCode')
     ],
 
@@ -375,12 +375,12 @@ $container['routes'] = [
     '^school-data/lists/workplace-inspection-team$' => [
         'module' => 'SchoolDataModule',
         'view' => 'workplace-inspection-team-list',
-        'template' => 'SchoolData/Components/Search/List//WorkplaceInspectionTeam.php'
+        'template' => 'SchoolData/Components/Search/List/WorkplaceInspectionTeam.php'
     ],
     '^school-data/single/workplace-inspection-team/([^/]*)/?' => [
         'module' => 'SchoolDataModule',
         'view' => 'workplace-inspection-team-single',
-        'template' => 'SchoolData/Components/Search/List//WorkplaceInspectionTeam.php',
+        'template' => 'SchoolData/Components/Search/Single/WorkplaceInspectionTeam.php',
         'matches' => array('route', 'schoolCode')
     ],
 ];
