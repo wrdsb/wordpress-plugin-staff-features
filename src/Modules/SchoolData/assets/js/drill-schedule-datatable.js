@@ -13,7 +13,51 @@
                 dom: '<"dataTables_header"Bi>t<"dataTables_footer"i>',
                 columnDefs: [
                     {
-                        "targets": [ 1 ],
+                        "targets": [ 2 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 3 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 4 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 5 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 6 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 7 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 8 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 9 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 10 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 11 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 12 ],
+                        "visible": false
+                    },
+                    {
+                        "targets": [ 13 ],
                         "visible": false
                     },
                 ],
@@ -47,11 +91,11 @@
             table.buttons('copy', null).containers().appendTo('#button-copy');
     
             new $.fn.dataTable.Buttons(table, {
-                name: 'csv',
+                name: 'csv-visible',
                 buttons: [
                     {
                         extend: 'csv',
-                        text: 'Save as CSV',
+                        text: 'Save current view as CSV',
                         exportOptions: {
                             columns: ':visible',
                             modifier: {
@@ -63,28 +107,25 @@
                     }
                 ]
             });
-            table.buttons('csv', null).containers().appendTo('#button-csv');
+            table.buttons('csv-visible', null).containers().appendTo('#button-csv-visible');
     
             new $.fn.dataTable.Buttons(table, {
-                name: 'pdf',
+                name: 'csv-all',
                 buttons: [
                     {
-                        extend: 'pdf',
-                        text: 'Save as PDF',
+                        extend: 'csv',
+                        text: 'Save all columns as CSV',
                         exportOptions: {
-                            columns: ':visible',
                             modifier: {
                                 search: 'applied',
                                 order: 'applied'
                             }
                         },
-                        title: document.title,
-                        messageTop: 'Retrieved ' + retrieved,
                         filename: document.title.replace(/\W+/g, '-').toLowerCase()
                     }
                 ]
             });
-            table.buttons('pdf', null).containers().appendTo('#button-pdf');
+            table.buttons('csv-all', null).containers().appendTo('#button-csv-all');
 
             console.log(table.buttons);
         } else {

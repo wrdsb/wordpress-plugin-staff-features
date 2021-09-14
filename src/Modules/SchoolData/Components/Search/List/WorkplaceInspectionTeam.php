@@ -60,8 +60,8 @@ $list = WorkplaceInspectionTeamSearch::list();
                     </div>
                     <div class="download-buttons" style="float:right">
                         <span id="button-copy" class="nav-item"></span>
-                        <span id="button-csv" class="nav-item"></span>
-                        <span id="button-pdf" class="nav-item"></span>
+                        <span id="button-csv-visible" class="nav-item"></span>
+                        <span id="button-csv-all" class="nav-item"></span>
                     </div>
                 </div>
 

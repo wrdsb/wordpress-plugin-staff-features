@@ -271,6 +271,52 @@ class EvacuationSites {
         return $instance;
     }
 
+    public function __construct($params = []) {
+        $this->ID = $params['ID'];
+        $this->content = $params['content'];
+        $this->title = $params['title'];
+        $this->excerpt = $params['excerpt'];
+        $this->blogID = $params['blogID'];
+        $this->schoolCode = $params['schoolCode'];
+        $this->email = $params['email'];
+        $this->site1Name = $params['site1Name'];
+        $this->site1Address = $params['site1Address'];
+        $this->site1City = $params['site1City'];
+        $this->site1PostalCode = $params['site1PostalCode'];
+        $this->site1Firstname = $params['site1Firstname'];
+        $this->site1Lastname = $params['site1Lastname'];
+        $this->site1Phone = $params['site1Phone'];
+        $this->site1HoursStart = $params['site1HoursStart'];
+        $this->site1HoursEnd = $params['site1HoursEnd'];
+        $this->site2Name = $params['site2Name'];
+        $this->site2Address = $params['site2Address'];
+        $this->site2City = $params['site2City'];
+        $this->site2PostalCode = $params['site2PostalCode'];
+        $this->site2Firstname = $params['site2Firstname'];
+        $this->site2Lastname = $params['site2Lastname'];
+        $this->site2Phone = $params['site2Phone'];
+        $this->site2HoursStart = $params['site2HoursStart'];
+        $this->site2HoursEnd = $params['site2HoursEnd'];
+        $this->site3Name = $params['site3Name'];
+        $this->site3Address = $params['site3Address'];
+        $this->site3City = $params['site3City'];
+        $this->site3PostalCode = $params['site3PostalCode'];
+        $this->site3Firstname = $params['site3Firstname'];
+        $this->site3Lastname = $params['site3Lastname'];
+        $this->site3Phone = $params['site3Phone'];
+        $this->site3HoursStart = $params['site3HoursStart'];
+        $this->site3HoursEnd = $params['site3HoursEnd'];
+        $this->site4Name = $params['site4Name'];
+        $this->site4Address = $params['site4Address'];
+        $this->site4City = $params['site4City'];
+        $this->site4PostalCode = $params['site4PostalCode'];
+        $this->site4Firstname = $params['site4Firstname'];
+        $this->site4Lastname = $params['site4Lastname'];
+        $this->site4Phone = $params['site4Phone'];
+        $this->site4HoursStart = $params['site4HoursStart'];
+        $this->site4HoursEnd = $params['site4HoursEnd'];
+    }
+
     public function getID() {
         return $this->ID;
     }

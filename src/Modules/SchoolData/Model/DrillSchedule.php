@@ -151,8 +151,7 @@ class DrillSchedule {
         return $instance;
     }
 
-    public function __construct($params = [])
-    {
+    public function __construct($params = []) {
         $this->ID = $params['ID'];
         $this->content = $params['content'];
         $this->title = $params['title'];

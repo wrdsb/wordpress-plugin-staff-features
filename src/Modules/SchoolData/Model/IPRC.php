@@ -151,6 +151,28 @@ class IPRC {
         return $instance;
     }
 
+    public function __construct($params = []) {
+        $this->ID = $params['ID'];
+        $this->content = $params['content'];
+        $this->title = $params['title'];
+        $this->excerpt = $params['excerpt'];
+        $this->blogID = $params['blogID'];
+        $this->schoolCode = $params['schoolCode'];
+        $this->email = $params['email'];
+        $this->principalFirstname = $params['principalFirstname'];
+        $this->principalLastname = $params['principalLastname'];
+        $this->teacher1Firstname = $params['teacher1Firstname'];
+        $this->teacher1Lastname = $params['teacher1Lastname'];
+        $this->teacher2Firstname = $params['teacher2Firstname'];
+        $this->teacher2Lastname = $params['teacher2Lastname'];
+        $this->teacher3Firstname = $params['teacher3Firstname'];
+        $this->teacher3Lastname = $params['teacher3Lastname'];
+        $this->teacher4Firstname = $params['teacher4Firstname'];
+        $this->teacher4Lastname = $params['teacher4Lastname'];
+        $this->teacher5Firstname = $params['teacher5Firstname'];
+        $this->teacher5Lastname = $params['teacher5Lastname'];
+    }
+
     public function getID() {
         return $this->ID;
     }
