@@ -54,7 +54,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
         <?php if (!WPCore::currentUserCanViewContent()) { ?>
             <?php //echo PermissionDenied::cannotView(); ?>
         
-        <?php } elseif (!Module::currentUserCanEdit()) { ?>
+        <?php } elseif (!Module::userCanEditGuard()) { ?>
             <?php echo PermissionDenied::cannotEdit(); ?>
 
         <?php } else { ?>

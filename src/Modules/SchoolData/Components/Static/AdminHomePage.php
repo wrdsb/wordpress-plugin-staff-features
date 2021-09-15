@@ -4,10 +4,8 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 
-$schoolDataAdminEnabled = Module::schoolDataAdminEnabled();
-
+$featureCheck = Module::featureGuard('SchoolDataAdmin');
 $accessCheck = WPCore::currentUserCanViewContent();
-$featureCheck = $schoolDataAdminEnabled;
 
 $page_title = "School Data Admin";
 

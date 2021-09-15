@@ -81,7 +81,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                 <p>School Data includes team composition, dates for fire and bomb drills and evacuation sites.</p>
 
 
-                <?php if (Module::currentUserCanEdit()) { ?>
+                <?php if (Module::userCanEditGuard()) { ?>
 
                 <p>Each school year, Principals are required to submit the following information relating to their schools:</p>
                 

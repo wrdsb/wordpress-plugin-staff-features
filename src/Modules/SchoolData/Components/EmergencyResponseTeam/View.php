@@ -86,7 +86,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
             <div class="col-sm-9 col-lg-9" role="main">
 				<!-- CONTENT -->
 				<h1><?php echo $page_title; ?></h1>
-                <?php if (Module::currentUserCanEdit()) { ?>
+                <?php if (Module::userCanEditGuard()) { ?>
                     <p><button onclick="location.href='./edit/';"><a href="./edit/">Update this Information</a></button></p>
                 <?php } ?>
 
@@ -277,7 +277,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 					</fieldset>
 				</form>
 
-                <?php if (Module::currentUserCanEdit()) { ?>
+                <?php if (Module::userCanEditGuard()) { ?>
                     <p><button onclick="location.href='./edit/';"><a href="./edit/">Update this Information</a></button></p>
                 <?php } ?>
 				<!-- /CONTENT -->
