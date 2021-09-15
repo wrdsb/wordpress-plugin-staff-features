@@ -43,6 +43,7 @@ class SchoolDataModule {
 
     public static function featureGuard($featureName) {
         switch ($featureName) {
+
             case 'SchoolData':
                 $schoolCode = self::getSchoolCode();
 
@@ -71,6 +72,7 @@ class SchoolDataModule {
         $sitePrivacy = WPCore::getOption('blog_public');
         
         switch ($sitePrivacy) {
+
             case '-2':
                 if (! WPCore::isUserLoggedIn()) {
                     return false;
@@ -80,6 +82,7 @@ class SchoolDataModule {
                     }
                 }
                 break;
+
             case '-3':
                 if (! WPCore::isUserLoggedIn()) {
                     return false;
@@ -89,6 +92,7 @@ class SchoolDataModule {
                     }
                 }
                 break;
+
             default:
                 if (! WPCore::isUserLoggedIn()) {
                     return false;
