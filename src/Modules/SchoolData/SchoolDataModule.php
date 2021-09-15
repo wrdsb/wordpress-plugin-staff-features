@@ -41,17 +41,64 @@ class SchoolDataModule {
         $this->addActions();
     }
 
-    public static function schoolDataAdminEnabled() {
-        $schoolDataAdminEnabled = WPCore::getOption('schoolDataAdminEnabled');
+    public static function featureGuard($featureName) {
+        switch ($featureName) {
+            case 'SchoolData':
+                $schoolCode = WPCore::getOption('wrdsb_school_code', false);
 
-        if ('true' === $schoolDataAdminEnabled) {
-            return true;
+                if ($schoolCode) {
+                    return true;
+                }
+                break;
+            
+            case 'SchoolDataAdmin':
+                $schoolDataAdminEnabled = WPCore::getOption('schoolDataAdminEnabled', false);
+
+                if ('true' === $schoolDataAdminEnabled) {
+                    return true;
+                }
+                break;
+
+            default:
+                return false;
+                break;
         }
 
         return false;
     }
 
-    public static function currentUserCanEdit() {
+    public static function userCanViewGuard() {
+        $sitePrivacy = WPCore::getOption('blog_public');
+        
+        switch ($sitePrivacy) {
+            case '-2':
+                if (! WPCore::isUserLoggedIn()) {
+                    return false;
+                } else {
+                    if (! WPCore::currentUserCan('read')) {
+                        return false;
+                    }
+                }
+                break;
+            case '-3':
+                if (! WPCore::isUserLoggedIn()) {
+                    return false;
+                } else {
+                    if (! WPCore::currentUserCan('manage_options')) {
+                        return false;
+                    }
+                }
+                break;
+            default:
+                if (! WPCore::isUserLoggedIn()) {
+                    return false;
+                }
+                break;
+        }
+        return true;
+    }
+
+    public static function userCanEditGuard() {
         $currentUser = WPCore::getCurrentUser();
         $userID = $currentUser->ID;
 
