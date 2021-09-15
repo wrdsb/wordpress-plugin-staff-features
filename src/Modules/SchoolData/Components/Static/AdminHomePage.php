@@ -5,7 +5,7 @@ use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as Permi
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 
 $featureCheck = Module::featureGuard('SchoolDataAdmin');
-$accessCheck = WPCore::currentUserCanViewContent();
+$accessCheck = Module::userCanViewGuard();
 
 $page_title = "School Data Admin";
 

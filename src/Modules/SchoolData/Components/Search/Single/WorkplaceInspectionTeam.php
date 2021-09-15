@@ -26,7 +26,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 <div class="container-top">
     <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if (! WPCore::currentUserCanViewContent()) { ?>
+    <?php if (! Module::userCanViewGuard()) { ?>
         <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
         <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
@@ -55,7 +55,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 <div class="container">
     <div class="row">
-        <?php if (!WPCore::currentUserCanViewContent()) { ?>
+        <?php if (!Module::userCanViewGuard()) { ?>
             <?php //echo PermissionDenied::cannotView(); ?>
 
         <?php } else { ?>

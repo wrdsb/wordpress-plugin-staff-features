@@ -24,7 +24,7 @@ $audit = SCISTeamSearch::audit();
 <div class="container-top">
     <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if (! WPCore::currentUserCanViewContent()) { ?>
+    <?php if (! Module::userCanViewGuard()) { ?>
         <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
         <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
@@ -50,7 +50,7 @@ $audit = SCISTeamSearch::audit();
 
 <div class="container">
     <div class="row">
-        <?php if (!WPCore::currentUserCanViewContent()) { ?>
+        <?php if (!Module::userCanViewGuard()) { ?>
             <?php //echo PermissionDenied::cannotView(); ?>
 
         <?php } else { ?>
