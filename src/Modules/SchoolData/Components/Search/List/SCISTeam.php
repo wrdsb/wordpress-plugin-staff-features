@@ -70,14 +70,199 @@ $list = SCISTeamSearch::list();
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Code</span>
+                                    <span class="column-title">School Code</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Name</span>
+                                    <span class="column-title">School Name</span>
                                 </div>
                             </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Last Updated</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Administrator Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Administrator Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Administrator IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Paraprofessional Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Paraprofessional Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Paraprofessional IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Parent Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Parent Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Parent IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Community Member Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Community Member Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Community Member IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Student 1 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Student 1 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Student 1 IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Student 2 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Student2Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Student 2 IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 1 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 1 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 1 IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 2 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 2 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 2 IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 3 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 3 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 3 IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 4 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 4 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 4 IE Liasion</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 5 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 5 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Optional 5 IE Liasion</span>
+                                </div>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +271,43 @@ $list = SCISTeamSearch::list();
                                 <tr>
                                     <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/scis-team/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
+                                    <td><?php echo $post->post_modified; ?></td>
+                                    <td><?php echo $post->administratorFirstname; ?></td>
+                                    <td><?php echo $post->administratorLastname; ?></td>
+                                    <td><?php echo $post->administratorIELiasion; ?></td>
+                                    <td><?php echo $post->teacherFirstname; ?></td>
+                                    <td><?php echo $post->teacherLastname; ?></td>
+                                    <td><?php echo $post->teacherIELiasion; ?></td>
+                                    <td><?php echo $post->paraprofessionalFirstname; ?></td>
+                                    <td><?php echo $post->paraprofessionalLastname; ?></td>
+                                    <td><?php echo $post->paraprofessionalIELiasion; ?></td>
+                                    <td><?php echo $post->parentFirstname; ?></td>
+                                    <td><?php echo $post->parentLastname; ?></td>
+                                    <td><?php echo $post->parentIELiasion; ?></td>
+                                    <td><?php echo $post->communityMemberFirstname; ?></td>
+                                    <td><?php echo $post->communityMemberLastname; ?></td>
+                                    <td><?php echo $post->communityMemberIELiasion; ?></td>
+                                    <td><?php echo $post->student1Firstname; ?></td>
+                                    <td><?php echo $post->student1Lastname; ?></td>
+                                    <td><?php echo $post->student1IELiasion; ?></td>
+                                    <td><?php echo $post->student2Firstname; ?></td>
+                                    <td><?php echo $post->student2Lastname; ?></td>
+                                    <td><?php echo $post->student2IELiasion; ?></td>
+                                    <td><?php echo $post->optional1Firstname; ?></td>
+                                    <td><?php echo $post->optional1Lastname; ?></td>
+                                    <td><?php echo $post->optional1IELiasion; ?></td>
+                                    <td><?php echo $post->optional2Firstname; ?></td>
+                                    <td><?php echo $post->optional2Lastname; ?></td>
+                                    <td><?php echo $post->optional2IELiasion; ?></td>
+                                    <td><?php echo $post->optional3Firstname; ?></td>
+                                    <td><?php echo $post->optional3Lastname; ?></td>
+                                    <td><?php echo $post->optional3IELiasion; ?></td>
+                                    <td><?php echo $post->optional4Firstname; ?></td>
+                                    <td><?php echo $post->optional4Lastname; ?></td>
+                                    <td><?php echo $post->optional4IELiasion; ?></td>
+                                    <td><?php echo $post->optional5Firstname; ?></td>
+                                    <td><?php echo $post->optional5Lastname; ?></td>
+                                    <td><?php echo $post->optional5IELiasion; ?></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>

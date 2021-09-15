@@ -70,14 +70,79 @@ $list = IPRCSearch::list();
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Code</span>
+                                    <span class="column-title">School Code</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Name</span>
+                                    <span class="column-title">School Name</span>
                                 </div>
                             </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Last Updated</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 1 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 1 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 2 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 2 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 3 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 3 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 4 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 4 Lastname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 5 Firstname</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Teacher 5 Lastname</span>
+                                </div>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +151,19 @@ $list = IPRCSearch::list();
                                 <tr>
                                     <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/iprc/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
+                                    <td><?php echo $post->post_modified; ?></td>
+                                    <td><?php echo $post->principalFirstname; ?></td>
+                                    <td><?php echo $post->principalLastname; ?></td>
+                                    <td><?php echo $post->teacher1Firstname; ?></td>
+                                    <td><?php echo $post->teacher1Lastname; ?></td>
+                                    <td><?php echo $post->teacher2Firstname; ?></td>
+                                    <td><?php echo $post->teacher2Lastname; ?></td>
+                                    <td><?php echo $post->teacher3Firstname; ?></td>
+                                    <td><?php echo $post->teacher3Lastname; ?></td>
+                                    <td><?php echo $post->teacher4Firstname; ?></td>
+                                    <td><?php echo $post->teacher4Lastname; ?></td>
+                                    <td><?php echo $post->teacher5Firstname; ?></td>
+                                    <td><?php echo $post->teacher5Lastname; ?></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>

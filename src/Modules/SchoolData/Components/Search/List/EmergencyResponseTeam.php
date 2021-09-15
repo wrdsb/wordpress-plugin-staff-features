@@ -60,7 +60,6 @@ $list = EmergencyResponseTeamSearch::list();
                     </div>
                     <div class="download-buttons" style="float:right">
                         <span id="button-copy" class="nav-item"></span>
-                        <span id="button-csv-visible" class="nav-item"></span>
                         <span id="button-csv-all" class="nav-item"></span>
                     </div>
                 </div>
@@ -70,14 +69,319 @@ $list = EmergencyResponseTeamSearch::list();
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Code</span>
+                                    <span class="column-title">School Code</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Name</span>
+                                    <span class="column-title">School Name</span>
                                 </div>
                             </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Last Updated</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Exiry 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">FirstAid Expiry 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Firstname 12</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Lastname 12</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">CPR Expiry 12</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">First Aid Expiry 12</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">BMS Expiry 12</span>
+                                </div>
+                            </td>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,6 +390,67 @@ $list = EmergencyResponseTeamSearch::list();
                                 <tr>
                                     <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/emergency-response-team/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
+                                    <td><?php echo $post->post_modified; ?></td>
+                                    <td><?php echo $post->firstname1; ?></td>
+                                    <td><?php echo $post->lastname1; ?></td>
+                                    <td><?php echo $post->cprExpiry1; ?></td>
+                                    <td><?php echo $post->firstAidExpiry1; ?></td>
+                                    <td><?php echo $post->bmsExpiry1; ?></td>
+                                    <td><?php echo $post->firstname2; ?></td>
+                                    <td><?php echo $post->lastname2; ?></td>
+                                    <td><?php echo $post->cprExpiry2; ?></td>
+                                    <td><?php echo $post->firstAidExpiry2; ?></td>
+                                    <td><?php echo $post->bmsExpiry2; ?></td>
+                                    <td><?php echo $post->firstname3; ?></td>
+                                    <td><?php echo $post->lastname3; ?></td>
+                                    <td><?php echo $post->cprExpiry3; ?></td>
+                                    <td><?php echo $post->firstAidExpiry3; ?></td>
+                                    <td><?php echo $post->bmsExpiry3; ?></td>
+                                    <td><?php echo $post->firstname4; ?></td>
+                                    <td><?php echo $post->lastname4; ?></td>
+                                    <td><?php echo $post->cprExpiry4; ?></td>
+                                    <td><?php echo $post->firstAidExpiry4; ?></td>
+                                    <td><?php echo $post->bmsExpiry4; ?></td>
+                                    <td><?php echo $post->firstname5; ?></td>
+                                    <td><?php echo $post->lastname5; ?></td>
+                                    <td><?php echo $post->cprExpiry5; ?></td>
+                                    <td><?php echo $post->firstAidExpiry5; ?></td>
+                                    <td><?php echo $post->bmsExpiry5; ?></td>
+                                    <td><?php echo $post->firstname6; ?></td>
+                                    <td><?php echo $post->lastname6; ?></td>
+                                    <td><?php echo $post->cprExpiry6; ?></td>
+                                    <td><?php echo $post->firstAidExpiry6; ?></td>
+                                    <td><?php echo $post->bmsExpiry6; ?></td>
+                                    <td><?php echo $post->firstname7; ?></td>
+                                    <td><?php echo $post->lastname7; ?></td>
+                                    <td><?php echo $post->cprExpiry7; ?></td>
+                                    <td><?php echo $post->firstAidExpiry7; ?></td>
+                                    <td><?php echo $post->bmsExpiry7; ?></td>
+                                    <td><?php echo $post->firstname8; ?></td>
+                                    <td><?php echo $post->lastname8; ?></td>
+                                    <td><?php echo $post->cprExpiry8; ?></td>
+                                    <td><?php echo $post->firstAidExpiry8; ?></td>
+                                    <td><?php echo $post->bmsExpiry8; ?></td>
+                                    <td><?php echo $post->firstname9; ?></td>
+                                    <td><?php echo $post->lastname9; ?></td>
+                                    <td><?php echo $post->cprExpiry9; ?></td>
+                                    <td><?php echo $post->firstAidExpiry9; ?></td>
+                                    <td><?php echo $post->bmsExpiry9; ?></td>
+                                    <td><?php echo $post->firstname10; ?></td>
+                                    <td><?php echo $post->lastname10; ?></td>
+                                    <td><?php echo $post->cprExpiry10; ?></td>
+                                    <td><?php echo $post->firstAidExpiry10; ?></td>
+                                    <td><?php echo $post->bmsExpiry10; ?></td>
+                                    <td><?php echo $post->firstname11; ?></td>
+                                    <td><?php echo $post->lastname11; ?></td>
+                                    <td><?php echo $post->cprExpiry11; ?></td>
+                                    <td><?php echo $post->firstAidExpiry11; ?></td>
+                                    <td><?php echo $post->bmsExpiry11; ?></td>
+                                    <td><?php echo $post->firstname12; ?></td>
+                                    <td><?php echo $post->lastname12; ?></td>
+                                    <td><?php echo $post->cprExpiry12; ?></td>
+                                    <td><?php echo $post->firstAidExpiry12; ?></td>
+                                    <td><?php echo $post->bmsExpiry12; ?></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>

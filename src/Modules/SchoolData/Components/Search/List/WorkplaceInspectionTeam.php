@@ -70,12 +70,137 @@ $list = WorkplaceInspectionTeamSearch::list();
                         <tr>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Code</span>
+                                    <span class="column-title">School Code</span>
                                 </div>
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
-                                    <span class="column-title">Name</span>
+                                    <span class="column-title">School Name</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Last Updated</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal Firstname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal Lastname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal Affiliation</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Principal HS Contact</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Custodian Firstname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Custodian Lastname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Custodian Affiliation</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Custodian HS Contact</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 1 Firstname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 1 Lastname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 1 Affiliation</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 1 HS Contact</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 2 Firstname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 2 Lastname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 2 Affiliation</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 2 HS Contact</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 3 Firstname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 3 Lastname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 3 Affiliation</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 3 HS Contact</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 4 Firstname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 4 Lastname</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 4 Affiliation</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Staff Member 4 HS Contact</span>
                                 </div>
                             </th>
                         </tr>
@@ -86,6 +211,31 @@ $list = WorkplaceInspectionTeamSearch::list();
                                 <tr>
                                     <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/workplace-inspection-team/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
+                                    <td><?php echo $post->post_modified; ?></td>
+                                    <td><?php echo $post->principalFirstname; ?></td>
+                                    <td><?php echo $post->principalLastname; ?></td>
+                                    <td><?php echo $post->principalAffiliation; ?></td>
+                                    <td><?php echo $post->principalHSContact; ?></td>
+                                    <td><?php echo $post->custodianFirstname; ?></td>
+                                    <td><?php echo $post->custodianLastname; ?></td>
+                                    <td><?php echo $post->custodianAffiliation; ?></td>
+                                    <td><?php echo $post->custodianHSContact; ?></td>
+                                    <td><?php echo $post->staffMember1Firstname; ?></td>
+                                    <td><?php echo $post->staffMember1Lastname; ?></td>
+                                    <td><?php echo $post->staffMember1Affiliation; ?></td>
+                                    <td><?php echo $post->staffMember1HSContact; ?></td>
+                                    <td><?php echo $post->staffMember2Firstname; ?></td>
+                                    <td><?php echo $post->staffMember2Lastname; ?></td>
+                                    <td><?php echo $post->staffMember2Affiliation; ?></td>
+                                    <td><?php echo $post->staffMember2HSContact; ?></td>
+                                    <td><?php echo $post->staffMember3Firstname; ?></td>
+                                    <td><?php echo $post->staffMember3Lastname; ?></td>
+                                    <td><?php echo $post->staffMember3Affiliation; ?></td>
+                                    <td><?php echo $post->staffMember3HSContact; ?></td>
+                                    <td><?php echo $post->staffMember4Firstname; ?></td>
+                                    <td><?php echo $post->staffMember4Lastname; ?></td>
+                                    <td><?php echo $post->staffMember4Affiliation; ?></td>
+                                    <td><?php echo $post->staffMember4HSContact; ?></td>
                                 </tr>
                             <?php } ?>
                         <?php } ?>
