@@ -1,11 +1,11 @@
 <?php
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
-use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
+use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
 
 $featureCheck = Module::featureGuard('SchoolDataAdmin');
-$accessCheck = Module::userCanViewGuard();
+$viewCheck = Module::userCanViewGuard();
 
 $page_title = "School Data Admin";
 
@@ -21,7 +21,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 <div class="container-top">
     <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if (!$accessCheck) { ?>
+    <?php if (!$viewCheck) { ?>
         <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
         <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
@@ -45,10 +45,10 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 
 <div class="container">
     <div class="row">
-        <?php if ($accessCheck && !$featureCheck) { ?>
+        <?php if ($viewCheck && !$featureCheck) { ?>
             <?php echo PermissionDenied::featureUnavailable(); ?>
         
-        <?php } elseif ($accessCheck && $featureCheck) {?>
+        <?php } elseif ($viewCheck && $featureCheck) {?>
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">

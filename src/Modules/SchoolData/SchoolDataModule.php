@@ -44,7 +44,7 @@ class SchoolDataModule {
     public static function featureGuard($featureName) {
         switch ($featureName) {
             case 'SchoolData':
-                $schoolCode = WPCore::getOption('wrdsb_school_code', false);
+                $schoolCode = self::getSchoolCode();
 
                 if ($schoolCode) {
                     return true;
@@ -115,6 +115,11 @@ class SchoolDataModule {
         }
 
         return false;
+    }
+
+    public static function getSchoolCode() {
+        $schoolCode = WPCore::getOption('wrdsb_school_code', false);
+        return strtolower($schoolCode);
     }
 
     public static function isSchoolAdmin(int $userID) {
