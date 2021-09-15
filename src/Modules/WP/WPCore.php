@@ -142,4 +142,8 @@ class WPCore
         }
         return false;
     }
+
+    public static function isUserLoggedIn() {
+        return is_user_logged_in();
+    }
 }
