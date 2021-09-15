@@ -23,4 +23,10 @@ class PermissionDenied {
 
         return $output;
     }
+
+    public static function featureUnavailable() {
+        $output = "The feature you've requested is unavailable here.";
+
+        return $output;
+    }
 }

@@ -4,6 +4,11 @@ use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 
+$schoolDataAdminEnabled = Module::schoolDataAdminEnabled();
+
+$accessCheck = WPCore::currentUserCanViewContent();
+$featureCheck = $schoolDataAdminEnabled;
+
 $page_title = "School Data Admin";
 
 function setCustomTitle() {
@@ -18,7 +23,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 <div class="container-top">
     <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if (! WPCore::currentUserCanViewContent()) { ?>
+    <?php if (!$accessCheck) { ?>
         <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
         <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
@@ -39,10 +44,13 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
     <?php } ?>
 </div>
 
-<?php if (WPCore::currentUserCanViewContent()) { ?>
-    <div class="container">
-        <div class="row">
 
+<div class="container">
+    <div class="row">
+        <?php if ($accessCheck && !$featureCheck) { ?>
+            <?php echo PermissionDenied::featureUnavailable(); ?>
+        
+        <?php } elseif ($accessCheck && $featureCheck) {?>
             <div class="col-sm-3 col-lg-3" role="complementary">
                 <div class="navbar my-sub-navbar" id="section_navigation" role="navigation">
                     <div class="sub-navbar-header">
@@ -96,8 +104,8 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 				<h1><?php echo $page_title; ?></h1>
                 <!-- /CONTENT -->
             </div>
-        </div>
+        <?php } ?>
     </div>
-<?php } ?>
+</div>
 
 <?php WPCore::getFooter();

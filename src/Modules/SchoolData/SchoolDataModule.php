@@ -41,6 +41,16 @@ class SchoolDataModule {
         $this->addActions();
     }
 
+    public static function schoolDataAdminEnabled() {
+        $schoolDataAdminEnabled = WPCore::getOption('schoolDataAdminEnabled');
+
+        if ('true' === $schoolDataAdminEnabled) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function currentUserCanEdit() {
         $currentUser = WPCore::getCurrentUser();
         $userID = $currentUser->ID;
