@@ -80,6 +80,11 @@ $list = DrillScheduleSearch::list();
                             </th>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Last Updated</span>
+                                </div>
+                            </th>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">Drill 1 Date</span>
                                 </div>
                             </th>
@@ -146,6 +151,7 @@ $list = DrillScheduleSearch::list();
                                 <tr>
                                     <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/drill-schedule/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
+                                    <td><?php echo $post->post_modified; ?></td>
                                     <td><?php echo $post->fireDrill1Date; ?></td>
                                     <td><?php echo $post->fireDrill1Time; ?></td>
                                     <td><?php echo $post->fireDrill2Date; ?></td>

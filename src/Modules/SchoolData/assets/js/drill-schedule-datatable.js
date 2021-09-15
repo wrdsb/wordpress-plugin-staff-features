@@ -12,54 +12,17 @@
             var table = $('#school-data-drill-schedule-table').DataTable({
                 dom: '<"dataTables_header"Bi>t<"dataTables_footer"i>',
                 columnDefs: [
-                    {
-                        "targets": [ 2 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 3 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 4 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 5 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 6 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 7 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 8 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 9 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 10 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 11 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 12 ],
-                        "visible": false
-                    },
-                    {
-                        "targets": [ 13 ],
-                        "visible": false
-                    },
+                    {"targets": [3], "visible": false},
+                    {"targets": [4], "visible": false},
+                    {"targets": [5], "visible": false},
+                    {"targets": [6], "visible": false},
+                    {"targets": [7], "visible": false},
+                    {"targets": [8], "visible": false},
+                    {"targets": [9], "visible": false},
+                    {"targets": [10], "visible": false},
+                    {"targets": [11], "visible": false},
+                    {"targets": [12], "visible": false},
+                    {"targets": [13], "visible": false},
                 ],
                 buttons: [
                     'columnsToggle',
@@ -75,7 +38,7 @@
                 buttons: [
                     {
                         extend: 'copy',
-                        text: 'Copy to clipboard',
+                        text: 'Copy all forms to clipboard',
                         exportOptions: {
                             columns: ':visible',
                             modifier: {
@@ -90,31 +53,31 @@
             });
             table.buttons('copy', null).containers().appendTo('#button-copy');
     
-            new $.fn.dataTable.Buttons(table, {
-                name: 'csv-visible',
-                buttons: [
-                    {
-                        extend: 'csv',
-                        text: 'Save current view as CSV',
-                        exportOptions: {
-                            columns: ':visible',
-                            modifier: {
-                                search: 'applied',
-                                order: 'applied'
-                            }
-                        },
-                        filename: document.title.replace(/\W+/g, '-').toLowerCase()
-                    }
-                ]
-            });
-            table.buttons('csv-visible', null).containers().appendTo('#button-csv-visible');
+            //new $.fn.dataTable.Buttons(table, {
+                //name: 'csv-visible',
+                //buttons: [
+                    //{
+                        //extend: 'csv',
+                        //text: 'Save current view as CSV',
+                        //exportOptions: {
+                            //columns: ':visible',
+                            //modifier: {
+                                //search: 'applied',
+                                //order: 'applied'
+                            //}
+                        //},
+                        //filename: document.title.replace(/\W+/g, '-').toLowerCase()
+                    //}
+                //]
+            //});
+            //table.buttons('csv-visible', null).containers().appendTo('#button-csv-visible');
     
             new $.fn.dataTable.Buttons(table, {
                 name: 'csv-all',
                 buttons: [
                     {
                         extend: 'csv',
-                        text: 'Save all columns as CSV',
+                        text: 'Export all forms to CSV',
                         exportOptions: {
                             modifier: {
                                 search: 'applied',
