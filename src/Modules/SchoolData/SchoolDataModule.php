@@ -60,6 +60,54 @@ class SchoolDataModule {
                 }
                 break;
 
+            case 'SchoolDataAdminDrillSchedule':
+                $schoolDataAdminDrillScheduleEnabled = WPCore::getOption('schoolDataAdminDrillScheduleEnabled', false);
+
+                if ('true' === $schoolDataAdminDrillScheduleEnabled) {
+                    return true;
+                }
+                break;
+
+            case 'SchoolDataAdminEmergencyResponseTeam':
+                $schoolDataAdminEmergencyResponseTeamEnabled = WPCore::getOption('schoolDataAdminEmergencyResponseTeamEnabled', false);
+
+                if ('true' === $schoolDataAdminEmergencyResponseTeamEnabled) {
+                    return true;
+                }
+                break;
+
+            case 'SchoolDataAdminEvacuationSites':
+                $schoolDataAdminEvacuationSitesEnabled = WPCore::getOption('schoolDataAdminEvacuationSitesEnabled', false);
+
+                if ('true' === $schoolDataAdminEvacuationSitesEnabled) {
+                    return true;
+                }
+                break;
+
+            case 'SchoolDataAdminIPRC':
+                $schoolDataAdminIPRCEnabled = WPCore::getOption('schoolDataAdminIPRCEnabled', false);
+
+                if ('true' === $schoolDataAdminIPRCEnabled) {
+                    return true;
+                }
+                break;
+
+            case 'SchoolDataAdminSCISTeam':
+                $schoolDataAdminSCISTeamEnabled = WPCore::getOption('schoolDataAdminSCISTeamEnabled', false);
+
+                if ('true' === $schoolDataAdminSCISTeamEnabled) {
+                    return true;
+                }
+                break;
+
+            case 'SchoolDataAdminWorkplaceInspectionTeam':
+                $schoolDataAdminWorkplaceInspectionTeamEnabled = WPCore::getOption('schoolDataAdminWorkplaceInspectionTeamEnabled', false);
+
+                if ('true' === $schoolDataAdminWorkplaceInspectionTeamEnabled) {
+                    return true;
+                }
+                break;
+
             default:
                 return false;
                 break;
