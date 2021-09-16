@@ -8,6 +8,7 @@ use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as Permi
 $featureCheck = Module::featureGuard('SchoolDataAdmin');
 $viewCheck = Module::userCanViewGuard();
 
+$schoolDataAdminAuditsEnabled = Module::featureGuard('SchoolDataAdminAudits');
 $schoolDataAdminDrillScheduleEnabled = Module::featureGuard('SchoolDataAdminDrillSchedule');
 $schoolDataAdminEmergencyResponseTeamEnabled = Module::featureGuard('SchoolDataAdminEmergencyResponseTeam');
 $schoolDataAdminEvacuationSitesEnabled = Module::featureGuard('SchoolDataAdminEvacuationSites');
@@ -97,35 +98,25 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                             </ul>
                         </div>
                     </div>
-                    <div class="collapse sub-navbar-collapse">
-                        <div class="sub-menu-heading">
-                            <span>Audits</span>
-                        </div>
-                        <div class="sub-menu-items">
-                            <ul>
+                    <?php if ($schoolDataAdminAuditsEnabled) { ?>
+                        <div class="collapse sub-navbar-collapse">
+                            <div class="sub-menu-heading">
+                                <span>Audits</span>
+                            </div>
+                            <div class="sub-menu-items">
                                 <ul>
-                                    <?php if($schoolDataAdminDrillScheduleEnabled) { ?>
+                                    <ul>
                                         <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/drill-schedule/">Drill Schedule</a></li>
-                                    <?php } ?>
-                                    <?php if($schoolDataAdminEmergencyResponseTeamEnabled) { ?>
                                         <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/emergency-response-team/">Emergency Response Team</a></li>
-                                    <?php } ?>
-                                    <?php if($schoolDataAdminEvacuationSitesEnabled) { ?>
                                         <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/evacuation-sites/">Evacuation Sites</a></li>
-                                    <?php } ?>
-                                    <?php if($schoolDataAdminIPRCEnabled) { ?>
                                         <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/iprc/">IPRC</a></li>
-                                    <?php } ?>
-                                    <?php if($schoolDataAdminSCISTeamEnabled) { ?>
                                         <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/scis-team">SCIS Team</a></li>
-                                    <?php } ?>
-                                    <?php if($schoolDataAdminWorkplaceInspectionTeamEnabled) { ?>
                                         <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/workplace-inspection-team/">Workplace Inspection Team</a></li>
-                                    <?php } ?>
+                                    </ul>
                                 </ul>
-                            </ul>
+                            </div>
                         </div>
-                    </div>
+                    <?php } ?>
                 </div>
             </div>
 
