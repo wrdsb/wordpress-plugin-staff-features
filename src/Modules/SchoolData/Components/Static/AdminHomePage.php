@@ -1,5 +1,6 @@
 <?php
 namespace WRDSB\Staff\Modules\SchoolData\Components;
+
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
 use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;

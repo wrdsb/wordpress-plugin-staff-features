@@ -2,8 +2,14 @@
 namespace WRDSB\Staff\Modules\SchoolData\Components;
 
 use WRDSB\Staff\Modules\WP\WPCore as WPCore;
+use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
+use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as PermissionDenied;
+
 use WRDSB\Staff\Modules\SchoolData\Model\SchoolsList as SchoolsList;
 use WRDSB\Staff\Modules\SchoolData\Model\SCISTeamSearch as SCISTeamSearch;
+
+$featureCheck = Module::featureGuard('SchoolDataAdminSCISTeam');
+$viewCheck = Module::userCanViewGuard();
 
 $page_title = "SCIS Team List";
 
@@ -22,7 +28,7 @@ $list = SCISTeamSearch::list();
 <div class="container-top">
     <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if (! Module::userCanViewGuard()) { ?>
+    <?php if ($viewCheck) { ?>
         <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
         <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>
@@ -48,10 +54,10 @@ $list = SCISTeamSearch::list();
 
 <div class="container">
     <div class="row">
-        <?php if (!Module::userCanViewGuard()) { ?>
-            <?php //echo PermissionDenied::cannotView(); ?>
-
-        <?php } else { ?>
+        <?php if ($viewCheck && !$featureCheck) { ?>
+            <?php echo PermissionDenied::featureUnavailable(); ?>
+        
+        <?php } elseif ($viewCheck && $featureCheck) {?>
             <div class="col-sm-12 col-lg-12" role="main">
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
