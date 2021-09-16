@@ -9,7 +9,7 @@ use WRDSB\Staff\Modules\SchoolData\Model\SchoolsList as SchoolsList;
 use WRDSB\Staff\Modules\SchoolData\Model\PrincipalsList as PrincipalsList;
 use WRDSB\Staff\Modules\SchoolData\Model\EmergencyResponseTeamSearch as EmergencyResponseTeamSearch;
 
-$featureCheck = Module::featureGuard('SchoolDataAdminEmergencyResponseTeam');
+$featureCheck = Module::featureGuard('SchoolDataAdminAudits');
 $viewCheck = Module::userCanViewGuard();
 
 $page_title = "Emergency Response Team Audit";
@@ -30,7 +30,7 @@ $audit = EmergencyResponseTeamSearch::audit();
 <div class="container-top">
     <?php WPCore::getTemplatePart('partials/header', 'masthead'); ?>
 
-    <?php if ($viewCheck) { ?>
+    <?php if (! $viewCheck) { ?>
         <?php WPCore::getTemplatePart('partials/content', 'unauthorized'); ?>
     <?php } else { ?>
         <?php WPCore::getTemplatePart('partials/header', 'navbar'); ?>

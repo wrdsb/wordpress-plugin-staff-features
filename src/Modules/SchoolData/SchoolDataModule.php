@@ -60,6 +60,14 @@ class SchoolDataModule {
                 }
                 break;
 
+            case 'SchoolDataAdminAudits':
+                $schoolDataAdminAuditsEnabled = WPCore::getOption('schoolDataAdminAuditsEnabled', false);
+
+                if ('true' === $schoolDataAdminAuditsEnabled) {
+                    return true;
+                }
+                break;
+
             case 'SchoolDataAdminDrillSchedule':
                 $schoolDataAdminDrillScheduleEnabled = WPCore::getOption('schoolDataAdminDrillScheduleEnabled', false);
 
