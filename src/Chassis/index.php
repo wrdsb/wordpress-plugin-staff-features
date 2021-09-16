@@ -72,7 +72,7 @@ $container['plugin_name'] = 'wrdsb-staff';
 $container['version'] = '1.6.0';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
-
+$container['schoolDataAdminEnabled'] = (get_option('schoolDataAdminEnabled', false) == 'true') ? true : false;
 
 $enabledModules = [
     'ContentSearchModule',
@@ -81,6 +81,10 @@ $enabledModules = [
 if ($container['schoolCode']) {
     $enabledModules[] = 'ClassListsModule';
     $enabledModules[] = 'QuartermasterModule';
+    $enabledModules[] = 'SchoolDataModule';
+}
+
+if ($container['schoolDataAdminEnabled']) {
     $enabledModules[] = 'SchoolDataModule';
 }
 
