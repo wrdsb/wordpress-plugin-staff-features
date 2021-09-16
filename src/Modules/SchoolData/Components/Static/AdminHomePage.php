@@ -8,6 +8,13 @@ use WRDSB\Staff\Modules\SchoolData\Components\Partials\PermissionDenied as Permi
 $featureCheck = Module::featureGuard('SchoolDataAdmin');
 $viewCheck = Module::userCanViewGuard();
 
+$schoolDataAdminDrillScheduleEnabled = Module::featureGuard('SchoolDataAdminDrillSchedule');
+$schoolDataAdminEmergencyResponseTeamEnabled = Module::featureGuard('SchoolDataAdminEmergencyResponseTeam');
+$schoolDataAdminEvacuationSitesEnabled = Module::featureGuard('SchoolDataAdminEvacuationSites');
+$schoolDataAdminIPRCEnabled = Module::featureGuard('SchoolDataAdminIPRC');
+$schoolDataAdminSCISTeamEnabled = Module::featureGuard('SchoolDataAdminSCISTeam');
+$schoolDataAdminWorkplaceInspectionTeamEnabled = Module::featureGuard('SchoolDataAdminWorkplaceInspectionTeam');
+
 $page_title = "School Data Admin";
 
 function setCustomTitle() {
@@ -68,12 +75,24 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <div class="sub-menu-items">
                             <ul>
                                 <ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/drill-schedule/">Drill Schedule</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/emergency-response-team/">Emergency Response Team</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/evacuation-sites/">Evacuation Sites</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/iprc/">IPRC</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/scis-team">SCIS Team</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/workplace-inspection-team/">Workplace Inspection Team</a></li>
+                                    <?php if($schoolDataAdminDrillScheduleEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/drill-schedule/">Drill Schedule</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminEmergencyResponseTeamEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/emergency-response-team/">Emergency Response Team</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminEvacuationSitesEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/evacuation-sites/">Evacuation Sites</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminIPRCEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/iprc/">IPRC</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminSCISTeamEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/scis-team">SCIS Team</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminWorkplaceInspectionTeamEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/lists/workplace-inspection-team/">Workplace Inspection Team</a></li>
+                                    <?php } ?>
                                 </ul>
                             </ul>
                         </div>
@@ -85,12 +104,24 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                         <div class="sub-menu-items">
                             <ul>
                                 <ul>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/drill-schedule/">Drill Schedule</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/emergency-response-team/">Emergency Response Team</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/evacuation-sites/">Evacuation Sites</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/iprc/">IPRC</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/scis-team">SCIS Team</a></li>
-                                    <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/workplace-inspection-team/">Workplace Inspection Team</a></li>
+                                    <?php if($schoolDataAdminDrillScheduleEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/drill-schedule/">Drill Schedule</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminEmergencyResponseTeamEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/emergency-response-team/">Emergency Response Team</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminEvacuationSitesEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/evacuation-sites/">Evacuation Sites</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminIPRCEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/iprc/">IPRC</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminSCISTeamEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/scis-team">SCIS Team</a></li>
+                                    <?php } ?>
+                                    <?php if($schoolDataAdminWorkplaceInspectionTeamEnabled) { ?>
+                                        <li><a href="<?php echo WPCore::homeURL(); ?>/school-data/audits/workplace-inspection-team/">Workplace Inspection Team</a></li>
+                                    <?php } ?>
                                 </ul>
                             </ul>
                         </div>
