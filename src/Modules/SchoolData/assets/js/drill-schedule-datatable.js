@@ -25,7 +25,7 @@
                     {"targets": [13], "visible": false},
                 ],
                 buttons: [
-                    'columnsToggle',
+                    //'columnsToggle',
                 ],
                 lengthMenu: [[-1], ["All"]],
                 responsive: true
