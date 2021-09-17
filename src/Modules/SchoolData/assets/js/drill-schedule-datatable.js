@@ -23,6 +23,7 @@
                     {"targets": [11], "visible": false},
                     {"targets": [12], "visible": false},
                     {"targets": [13], "visible": false},
+                    {"targets": [14], "visible": false},
                 ],
                 buttons: [
                     //'columnsToggle',
