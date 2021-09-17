@@ -23,6 +23,20 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 $schools = SchoolsList::all();
 $principals = PrincipalsList::all();
 $audit = DrillScheduleSearch::audit();
+
+$principalEmails = array();
+foreach ($audit['bad'] as $schoolCode => $schoolName) {
+    $principalEmails[] = $principals[strtolower($schoolCode)] . ', ';
+}
+
+$totalEmails                = count($principalEmails);
+$lastEmail                  = $totalEmails - 1;
+$principalEmails[$lastEmail] = str_replace(',', '', $principalEmails[$lastEmail]);
+
+$emailsList = '';
+foreach ($principalEmails as $email) {
+    $emailsList .= $email;
+}
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -64,6 +78,10 @@ $audit = DrillScheduleSearch::audit();
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
 
+                <h2>Principals with Outstanding Forms:</h2>
+                <div><?php echo $emailsList; ?></div>
+
+                <h2>Outstanding Forms by School</h2>
                 <table id="sample-data-table" class="table">
                     <thead>
                         <tr>
@@ -90,37 +108,6 @@ $audit = DrillScheduleSearch::audit();
                                 <td><?php echo strtoupper($schoolCode); ?></td>
                                 <td><?php echo $schoolName; ?></td>
                                 <td><?php echo $principals[strtolower($schoolCode)]; ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
-
-                <table id="sample-data-table" class="table">
-                    <thead>
-                        <tr>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Code</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Name</span>
-                                </div>
-                            </th>
-                            <th class="secondary-text">
-                                <div class="table-header">
-                                    <span class="column-title">Last Update</span>
-                                </div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($audit['good'] as $schoolCode => $post) { ?>
-                            <tr>
-                            <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/drill-schedule/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
-                                <td><?php echo $schools[strtolower($schoolCode)]; ?></td>
-                                <td><?php echo $post->post_modified; ?></td>
                             </tr>
                         <?php } ?>
                     </tbody>

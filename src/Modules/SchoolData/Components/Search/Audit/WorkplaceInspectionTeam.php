@@ -23,6 +23,20 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 $schools = SchoolsList::all();
 $principals = PrincipalsList::all();
 $audit = WorkplaceInspectionTeamSearch::audit();
+
+$principalEmails = array();
+foreach ($audit['bad'] as $schoolCode => $schoolName) {
+    $principalEmails[] = $principals[strtolower($schoolCode)] . ', ';
+}
+
+$totalEmails                = count($principalEmails);
+$lastEmail                  = $totalEmails - 1;
+$principalEmails[$lastEmail] = str_replace(',', '', $principalEmails[$lastEmail]);
+
+$emailsList = '';
+foreach ($principalEmails as $email) {
+    $emailsList .= $email;
+}
 ?>
 
 <?php WPCore::getHeader(); ?>
@@ -64,6 +78,10 @@ $audit = WorkplaceInspectionTeamSearch::audit();
                 <!-- CONTENT -->
                 <h1><?php echo $page_title; ?></h1>
 
+                <h2>Principals with Outstanding Forms:</h2>
+                <div><?php echo $emailsList; ?></div>
+
+                <h2>Outstanding Forms by School</h2>
                 <table id="sample-data-table" class="table">
                     <thead>
                         <tr>
