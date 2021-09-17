@@ -1,3 +1,10 @@
+# 1.7.0
+* Add School Data admin section
+** Audits for each School Data form, listing schools who have not submitted forms and principal names and email addresses for those schools
+** Lists of forms of each type, with drill-down into each school's form
+** Lists are available only to those workspaces where the list is enabled (via wp-options)
+** Audits are available only to the Corporate Services workspace (enabled via wp-options)
+
 # 1.6.0
 * Add "School Data" module
 ** This module replaces the current "WRDSB School Team Reporting" website on the Staff Intranet.
