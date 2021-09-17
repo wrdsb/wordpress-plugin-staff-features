@@ -125,7 +125,12 @@ class SchoolsList {
             'wlm' => 'Williamsburg',
             'wls' => 'Wilson Avenue',
             'wcp' => 'Winston Churchill',
-            'wpk' => 'Woodland Park'
+            'wpk' => 'Woodland Park',
+
+            'alc' => 'Alternative Education - Choices',
+            'alu' => 'Alternative Education - U-turn',
+            'cac' => 'Continuing Education',
+            'utr' => 'Rosemount'
         ];
 
         return $schools;
