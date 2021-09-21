@@ -6,7 +6,7 @@ use WRDSB\Staff\Modules\SchoolData\SchoolDataModule as Module;
 use WRDSB\Staff\Modules\SchoolData\Model\DrillSchedule as Model;
 
 //$apiKey = Module::getCodexSearchKey();
-$schoolCode = strtoupper(WModule::getSchoolCode());
+$schoolCode = strtoupper(Module::getSchoolCode());
 $current_user = WPCore::getCurrentUser();
 $current_time = WPCore::currentTime();
 $currentInstance = Model::getInstance();
