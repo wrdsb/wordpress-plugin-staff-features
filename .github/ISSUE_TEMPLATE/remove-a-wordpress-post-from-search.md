@@ -12,15 +12,18 @@ assignees: suzannezc
 
 - [ ] in search, hover over the wrong search result to get the post_id (id=XXXX)
 
-## add a record to Azure Search to remove it from display
+## Update or add a record to Azure Search to remove it from display
 
 - [ ] https://portal.azure.com/
 - [ ] Go to wrdsb-lamson (Azure cosmos db) > Data Explorer
 - [ ] Choose wp-posts
-- [ ] Create a new item
-
+- [ ] search for the post record 
+> - [ ] SELECT * FROM c WHERE c.id = "staff.wrdsb.ca_`site slug`_`post_id`"
+- [ ] If the record exists, set "post_status" = "trash"
+- [ ] if no record exists:
+> - [ ] create a new item:
 {
-    "id": "staff.wrdsb.ca_eguide_`post_id`",
+    "id": "staff.wrdsb.ca_`site_slug`_`post_id`",
     "post_id": `post_id`,
     "site_url": "staff.wrdsb.ca/`site slug`",
     "site_domain": "staff.wrdsb.ca",
@@ -39,5 +42,5 @@ assignees: suzannezc
     "lamson_syndication_targets": []
 }
 
-- [ ] save item
+> - [ ] save item
 - [ ] verify search results have changed (hourly on the 30)
