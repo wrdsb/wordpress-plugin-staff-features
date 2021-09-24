@@ -11,6 +11,7 @@ assignees: suzannezc
 ## Identify the post_id, site slug
 
 - [ ] in search, hover over the wrong search result to get the post_id (id=XXXX)
+- [ ] record the details in the title of the issue
 
 ## Update or add a record to Azure Search to remove it from display
 
@@ -44,3 +45,5 @@ assignees: suzannezc
 
 > - [ ] save item
 - [ ] verify search results have changed (hourly on the 30)
+- [ ] record the ticket number in a comment
+- [ ] close this issue
