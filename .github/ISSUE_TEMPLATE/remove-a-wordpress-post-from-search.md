@@ -8,10 +8,9 @@ assignees: suzannezc
 
 ---
 
-## Identify the post_id, site_id, site slug
+## Identify the post_id, site slug
 
 - [ ] in search, hover over the wrong search result to get the post_id (id=XXXX)
-- [ ] in network admin > sites get the site_id and site slug for the website
 
 ## add a record to Azure Search to remove it from display
 
@@ -21,7 +20,7 @@ assignees: suzannezc
 - [ ] Create a new item
 
 {
-    "id": "staff.wrdsb.ca_eguide_`site_ID`",
+    "id": "staff.wrdsb.ca_eguide_`post_id`",
     "post_id": `post_id`,
     "site_url": "staff.wrdsb.ca/`site slug`",
     "site_domain": "staff.wrdsb.ca",
