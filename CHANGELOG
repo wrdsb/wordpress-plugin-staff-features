@@ -1,3 +1,7 @@
+# 1.7.1
+* Merge pull request #95: Update SchoolsList.php
+* Fix permission bug in Quartermaster: subscribers could view form to create new asset assignments, but REST permissions denied creation. Backend permissions updated to allow all subscribers to create new asset assignments.
+
 # 1.7.0
 * Add School Data admin section
 ** Audits for each School Data form, listing schools who have not submitted forms and principal names and email addresses for those schools
