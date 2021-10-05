@@ -307,7 +307,25 @@ class AssetAssignment extends WP_REST_Controller {
      * @return boolean
      */
     public function createItemPermissionsCheck(WP_REST_Request $request): bool {
-        return $this->updateItemPermissionsCheck($request);
+        if (WPCore::currentUserCan('setup_network')) {
+            return true;
+        }
+
+        $user = WPCore::getCurrentUser();
+        if (empty($user)) return false;
+
+        $blogID = $this->getBlogID($request);
+        if ($blogID === '') return false;
+        
+        WPCore::switchToBlog($blogID);
+		
+        if (WPCore::currentUserCanViewContent()) {
+            WPCore::restoreCurrentBlog();
+            return true;
+        }
+
+        WPCore::restoreCurrentBlog();
+        return false;
     }
 
     /**
