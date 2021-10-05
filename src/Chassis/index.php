@@ -39,7 +39,7 @@ use \WRDSB\Staff\Modules\SchoolData\Model\WorkplaceInspectionTeam as WorkplaceIn
  * Plugin Name:       WRDSB Staff Features
  * Plugin URI:        https://github.com/wrdsb/wordpress-plugin-staff-features
  * Description:       An omnibus plugin to provide features unique to our wrdsbstaff WordPress install.
- * Version:           1.7.0
+ * Version:           1.7.1
  * Author:            WRDSB
  * Author URI:        https://github.com/wrdsb
  * License:           GPL-3.0+
@@ -69,7 +69,7 @@ $container['plugin_name'] = 'wrdsb-staff';
  * Current plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
  */
-$container['version'] = '1.7.0';
+$container['version'] = '1.7.1';
 
 $container['schoolCode'] = get_option('wrdsb_school_code', false);
 $container['schoolDataAdminEnabled'] = (get_option('schoolDataAdminEnabled', false) == 'true') ? true : false;
