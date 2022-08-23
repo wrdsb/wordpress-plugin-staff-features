@@ -94,7 +94,7 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
                     <li>Safe, Caring, and Inclusive Schools</li>
                 </ul>
                 
-                <p><strong>This information is due by Friday, Sept. 17, 2021.</strong></p>
+                <p><strong>This information is due by Friday, Sept. 16, 2022.</strong></p>
 
                 <p>To update the information for any collection of data, go to that data page and choose the "Update this Information" button and change the data. This button is only visible to you.</p>
 

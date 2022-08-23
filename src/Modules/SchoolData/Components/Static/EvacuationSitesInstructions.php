@@ -102,7 +102,6 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 					<li><a href="https://staff.wrdsb.ca/school-teams/iprc/">Identification, Placement and Review Committee</a> Membership</li>
 					<li><a href="https://staff.wrdsb.ca/school-teams/scis/">Safe, Caring, and Inclusive Schools</a></li>
 				</ul>
-				<p><strong>This information is due by Friday, Sept. 18, 2020. </strong> Please contact <a href="mailto:mary_hingley@wrdsb.ca">Mary Hingley</a>, ext. 4438, if you have difficulty accessing the reporting tool.</p>
                 <!-- /CONTENT -->
             </div>
         </div>
