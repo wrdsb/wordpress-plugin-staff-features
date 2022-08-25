@@ -25,6 +25,8 @@ class PrincipalsList {
             'alu' => 'Joe Bell &#60;joe_bell@wrdsb.ca&#62;',
             'cac' => 'Joe Bell &#60;joe_bell@wrdsb.ca&#62;',
             'utr' => 'Joe Bell &#60;joe_bell@wrdsb.ca&#62;',
+            'acc' => 'Joe Bell &#60;joe_bell@wrdsb.ca&#62;',
+            'acw' => 'Joe Bell &#60;joe_bell@wrdsb.ca&#62;',
 
             'ark' => 'Tatania Stroud &#60;tatania_stroud@wrdsb.ca&#62;',
             'abe' => 'Barb Brown &#60;barb_brown@wrdsb.ca&#62;',
@@ -96,6 +98,7 @@ class PrincipalsList {
             'nam' => 'Afrim Ficic &#60;afrim_ficic@wrdsb.ca&#62;',
             'ndd' => 'Katie Brown &#60;katie_brown@wrdsb.ca&#62;',
             'nlw' => 'Dave Glebe &#60;dave_glebe@wrdsb.ca&#62;',
+            'oak' => 'Jeff Johnson &#60;jeff_johnson@wrdsb.ca&#62;',
             'pkm' => 'Andy Lavell &#60;andy_lavell@wrdsb.ca&#62;',
             'pkw' => 'Melissa Stacey &#60;melissa_stacey@wrdsb.ca&#62;',
             'pio' => 'Tracy Tait &#60;tracy_tait@wrdsb.ca&#62;',
