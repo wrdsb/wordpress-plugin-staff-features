@@ -79,7 +79,7 @@ class PrincipalsList {
             'jdp' => 'Liz Arbuckle &#60;liz_arbuckle@wrdsb.ca&#62;',
             'jma' => 'Pamela Mustin &#60;pamela_mustin@wrdsb.ca&#62;',
             'kea' => 'Scott Dowling &#60;scott_dowling@wrdsb.ca&#62;',
-            'ked' => '',
+            'ked' => 'Roopam Dhillon',
             'lkw' => 'Julie Jackson Sinclair &#60;julie_jacksonsinclair@wrdsb.ca&#62;',
             'lrw' => 'Leisa Kuntz &#60;leisa_kuntz@wrdsb.ca&#62;',
             'lau' => 'Matthew Cain &#60;matthew_cain@wrdsb.ca&#62;',
