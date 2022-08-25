@@ -31,8 +31,10 @@ class EmergencyResponseTeamSearch {
 
         foreach ($search->results as $post) {
             if (strtoupper($post->schoolCode) != "DSPS") {
-                $good[strtoupper($post->schoolCode)] = $post;
-                unset($bad[strtolower($post->schoolCode)]);
+                if ($post->post_modified > '2022-07-01 00:00:00') {
+                    $good[strtoupper($post->schoolCode)] = $post;
+                    unset($bad[strtolower($post->schoolCode)]);
+                }
             }
         }
 
