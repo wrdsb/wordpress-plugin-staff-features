@@ -861,6 +861,284 @@ class EmergencyResponseTeam {
         return $this->bmsExpiry12;
     }
 
+    public function displayRole1() {
+        $role = $this->getRole1();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole2() {
+        $role = $this->getRole2();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole3() {
+        $role = $this->getRole3();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole4() {
+        $role = $this->getRole4();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole5() {
+        $role = $this->getRole5();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole6() {
+        $role = $this->getRole6();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole7() {
+        $role = $this->getRole7();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole8() {
+        $role = $this->getRole8();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole9() {
+        $role = $this->getRole9();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole10() {
+        $role = $this->getRole10();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole11() {
+        $role = $this->getRole11();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+    public function displayRole12() {
+        $role = $this->getRole12();
+        switch ($role) {
+            case 'administrator':
+                return 'Administrator';
+                break;
+            case 'custodial':
+                return 'Custodial Staff';
+                break;
+            case 'dece':
+                return 'DECE';
+                break;
+            case 'paraprofessional':
+                return 'Paraprofessional (EA,CYW)';
+                break;
+            case 'secretary':
+                return 'School Secretary';
+                break;
+            case 'teacher':
+                return 'Teacher';
+                break;
+        }
+    }
+
+
     public function toWPPostArray() {
         $postArray = array(
             'ID'      => $this->ID,
