@@ -115,9 +115,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-1" id="label-lastname-1">Lastname<span class="sr-only"> 1</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname1(); ?>" id="lastname-1" name="lastname1" aria-invalid="false" aria-labelledby="label-lastname-1"><br />
 						<label for="email-1" id="label-email-1">Email<span class="sr-only"> 1</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail1(); ?>" id="email-1" name="email1" aria-invalid="false" aria-labelledby="label-email-1"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail1(); ?>" id="email-1" name="email1" aria-invalid="false" aria-labelledby="label-email-1">
 						<label for="role-1" id="label-role-1">Role<span class="sr-only"> 1</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole1(); ?>" id="role-1" name="role1" aria-invalid="false" aria-labelledby="label-role-1"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole1(); ?>" id="role-1" name="role1" aria-invalid="false" aria-labelledby="label-role-1"><br />
 						<label for="cpr-expiry-1" id="label-cpr-expiry-1">CPR Expiry<span class="sr-only"> 1</span></label>
 						<input disabled id="cpr-expiry-1" name="cprExpiry1" aria-invalid="false" aria-labelledby="label-cpr-expiry-1" type="date" value="<?php echo $currentInstance->getCPRExpiry1(); ?>"><br />
 						<label for="first-aid-expiry-1" id="label-first-aid-expiry-1">First Aid Expiry<span class="sr-only"> 1</span></label>
@@ -133,9 +133,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-2" id="label-lastname-2">Lastname<span class="sr-only"> 2</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname2(); ?>" id="lastname-2" name="lastname2" aria-invalid="false" aria-labelledby="label-lastname-2"><br />
 						<label for="email-2" id="label-email-2">Email<span class="sr-only"> 2</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail2(); ?>" id="email-2" name="email2" aria-invalid="false" aria-labelledby="label-email-2"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail2(); ?>" id="email-2" name="email2" aria-invalid="false" aria-labelledby="label-email-2">
 						<label for="role-2" id="label-role-2">Role<span class="sr-only"> 2</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole2(); ?>" id="role-2" name="role2" aria-invalid="false" aria-labelledby="label-role-2"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole2(); ?>" id="role-2" name="role2" aria-invalid="false" aria-labelledby="label-role-2"><br />
 						<label for="cpr-expiry-2" id="label-cpr-expiry-2">CPR Expiry<span class="sr-only"> 2</span></label>
 						<input disabled id="cpr-expiry-2" name="cprExpiry2" aria-invalid="false" aria-labelledby="label-cpr-expiry-2" type="date" value="<?php echo $currentInstance->getCPRExpiry2(); ?>"><br />
 						<label for="first-aid-expiry-2" id="label-first-aid-expiry-2">First Aid Expiry<span class="sr-only"> 2</span></label>
@@ -151,9 +151,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-3" id="label-lastname-3">Lastname<span class="sr-only"> 3</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname3(); ?>" id="lastname-3" name="lastname3" aria-invalid="false" aria-labelledby="label-lastname-3"><br />
 						<label for="email-3" id="label-email-3">Email<span class="sr-only"> 3</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail3(); ?>" id="email-3" name="email3" aria-invalid="false" aria-labelledby="label-email-3"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail3(); ?>" id="email-3" name="email3" aria-invalid="false" aria-labelledby="label-email-3">
 						<label for="role-3" id="label-role-3">Role<span class="sr-only"> 3</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole3(); ?>" id="role-3" name="role3" aria-invalid="false" aria-labelledby="label-role-3"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole3(); ?>" id="role-3" name="role3" aria-invalid="false" aria-labelledby="label-role-3"><br />
 						<label for="cpr-expiry-3" id="label-cpr-expiry-3">CPR Expiry<span class="sr-only"> 3</span></label>
 						<input disabled id="cpr-expiry-3" name="cprExpiry3" aria-invalid="false" aria-labelledby="label-cpr-expiry-3" type="date" value="<?php echo $currentInstance->getCPRExpiry3(); ?>"><br />
 						<label for="first-aid-expiry-3" id="label-first-aid-expiry-3">First Aid Expiry<span class="sr-only"> 3</span></label>
@@ -169,9 +169,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-4" id="label-lastname-4">Lastname<span class="sr-only"> 4</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname4(); ?>" id="lastname-4" name="lastname4" aria-invalid="false" aria-labelledby="label-lastname-4"><br />
 						<label for="email-4" id="label-email-4">Email<span class="sr-only"> 4</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail4(); ?>" id="email-4" name="email4" aria-invalid="false" aria-labelledby="label-email-4"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail4(); ?>" id="email-4" name="email4" aria-invalid="false" aria-labelledby="label-email-4">
 						<label for="role-4" id="label-role-4">Role<span class="sr-only"> 4</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole4(); ?>" id="role-4" name="role4" aria-invalid="false" aria-labelledby="label-role-4"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole4(); ?>" id="role-4" name="role4" aria-invalid="false" aria-labelledby="label-role-4"><br />
 						<label for="cpr-expiry-4" id="label-cpr-expiry-4">CPR Expiry<span class="sr-only"> 4</span></label>
 						<input disabled id="cpr-expiry-4" name="cprExpiry4" aria-invalid="false" aria-labelledby="label-cpr-expiry-4" type="date" value="<?php echo $currentInstance->getCPRExpiry4(); ?>"><br />
 						<label for="first-aid-expiry-4" id="label-first-aid-expiry-4">First Aid Expiry<span class="sr-only"> 4</span></label>
@@ -187,9 +187,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-5" id="label-lastname-5">Lastname<span class="sr-only"> 5</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname5(); ?>" id="lastname-5" name="lastname5" aria-invalid="false" aria-labelledby="label-lastname-5"><br />
 						<label for="email-5" id="label-email-5">Email<span class="sr-only"> 5</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail5(); ?>" id="email-5" name="email5" aria-invalid="false" aria-labelledby="label-email-5"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail5(); ?>" id="email-5" name="email5" aria-invalid="false" aria-labelledby="label-email-5">
 						<label for="role-5" id="label-role-5">Role<span class="sr-only"> 5</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole5(); ?>" id="role-5" name="role5" aria-invalid="false" aria-labelledby="label-role-5"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole5(); ?>" id="role-5" name="role5" aria-invalid="false" aria-labelledby="label-role-5"><br />
 						<label for="cpr-expiry-5" id="label-cpr-expiry-5">CPR Expiry<span class="sr-only"> 5</span></label>
 						<input disabled id="cpr-expiry-5" name="cprExpiry5" aria-invalid="false" aria-labelledby="label-cpr-expiry-5" type="date" value="<?php echo $currentInstance->getCPRExpiry5(); ?>"><br />
 						<label for="first-aid-expiry-5" id="label-first-aid-expiry-5">First Aid Expiry<span class="sr-only"> 5</span></label>
@@ -205,9 +205,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-6" id="label-lastname-6">Lastname<span class="sr-only"> 6</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname6(); ?>" id="lastname-6" name="lastname6" aria-invalid="false" aria-labelledby="label-lastname-6"><br />
 						<label for="email-6" id="label-email-6">Email<span class="sr-only"> 6</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail6(); ?>" id="email-6" name="email6" aria-invalid="false" aria-labelledby="label-email-6"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail6(); ?>" id="email-6" name="email6" aria-invalid="false" aria-labelledby="label-email-6">
 						<label for="role-6" id="label-role-6">Role<span class="sr-only"> 6</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole6(); ?>" id="role-6" name="role6" aria-invalid="false" aria-labelledby="label-role-6"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole6(); ?>" id="role-6" name="role6" aria-invalid="false" aria-labelledby="label-role-6"><br />
 						<label for="cpr-expiry-6" id="label-cpr-expiry-6">CPR Expiry<span class="sr-only"> 6</span></label>
 						<input disabled id="cpr-expiry-6" name="cprExpiry6" aria-invalid="false" aria-labelledby="label-cpr-expiry-6" type="date" value="<?php echo $currentInstance->getCPRExpiry6(); ?>"><br />
 						<label for="first-aid-expiry-6" id="label-first-aid-expiry-6">First Aid Expiry<span class="sr-only"> 6</span></label>
@@ -223,9 +223,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-7" id="label-lastname-7">Lastname<span class="sr-only"> 7</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname7(); ?>" id="lastname-7" name="lastname7" aria-invalid="false" aria-labelledby="label-lastname-7"><br />
 						<label for="email-7" id="label-email-7">Email<span class="sr-only"> 7</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail7(); ?>" id="email-7" name="email7" aria-invalid="false" aria-labelledby="label-email-7"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail7(); ?>" id="email-7" name="email7" aria-invalid="false" aria-labelledby="label-email-7">
 						<label for="role-7" id="label-role-7">Email<span class="sr-only"> 7</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole7(); ?>" id="role-7" name="role7" aria-invalid="false" aria-labelledby="label-role-7"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole7(); ?>" id="role-7" name="role7" aria-invalid="false" aria-labelledby="label-role-7"><br />
 						<label for="cpr-expiry-7" id="label-cpr-expiry-7">CPR Expiry<span class="sr-only"> 7</span></label>
 						<input disabled id="cpr-expiry-7" name="cprExpiry7" aria-invalid="false" aria-labelledby="label-cpr-expiry-7" type="date" value="<?php echo $currentInstance->getCPRExpiry7(); ?>"><br />
 						<label for="first-aid-expiry-7" id="label-first-aid-expiry-7">First Aid Expiry<span class="sr-only"> 7</span></label>
@@ -241,9 +241,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-8" id="label-lastname-8">Lastname<span class="sr-only"> 8</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname8(); ?>" id="lastname-8" name="lastname8" aria-invalid="false" aria-labelledby="label-lastname-8"><br />
 						<label for="email-8" id="label-email-8">Email<span class="sr-only"> 8</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail8(); ?>" id="email-8" name="email8" aria-invalid="false" aria-labelledby="label-email-8"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail8(); ?>" id="email-8" name="email8" aria-invalid="false" aria-labelledby="label-email-8">
 						<label for="role-8" id="label-email-8">Role<span class="sr-only"> 8</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole8(); ?>" id="role-8" name="role8" aria-invalid="false" aria-labelledby="label-role-8"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole8(); ?>" id="role-8" name="role8" aria-invalid="false" aria-labelledby="label-role-8"><br />
 						<label for="cpr-expiry-8" id="label-cpr-expiry-8">CPR Expiry<span class="sr-only"> 8</span></label>
 						<input disabled id="cpr-expiry-8" name="cprExpiry8" aria-invalid="false" aria-labelledby="label-cpr-expiry-8" type="date" value="<?php echo $currentInstance->getCPRExpiry8(); ?>"><br />
 						<label for="first-aid-expiry-8" id="label-first-aid-expiry-8">First Aid Expiry<span class="sr-only"> 8</span></label>
@@ -259,9 +259,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-9" id="label-lastname-9">Lastname<span class="sr-only"> 9</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname9(); ?>" id="lastname-9" name="lastname9" aria-invalid="false" aria-labelledby="label-lastname-9"><br />
 						<label for="email-9" id="label-email-9">Email<span class="sr-only"> 9</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail9(); ?>" id="email-9" name="email9" aria-invalid="false" aria-labelledby="label-email-9"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail9(); ?>" id="email-9" name="email9" aria-invalid="false" aria-labelledby="label-email-9">
 						<label for="role-9" id="label-role-9">Role<span class="sr-only"> 9</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole9(); ?>" id="role-9" name="role9" aria-invalid="false" aria-labelledby="label-role-9"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole9(); ?>" id="role-9" name="role9" aria-invalid="false" aria-labelledby="label-role-9"><br />
 						<label for="cpr-expiry-9" id="label-cpr-expiry-9">CPR Expiry<span class="sr-only"> 9</span></label>
 						<input disabled id="cpr-expiry-9" name="cprExpiry9" aria-invalid="false" aria-labelledby="label-cpr-expiry-9" type="date" value="<?php echo $currentInstance->getCPRExpiry9(); ?>"><br />
 						<label for="first-aid-expiry-9" id="label-first-aid-expiry-9">First Aid Expiry<span class="sr-only"> 9</span></label>
@@ -277,9 +277,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-10" id="label-lastname-10">Lastname<span class="sr-only"> 10</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname10(); ?>" id="lastname-10" name="lastname10" aria-invalid="false" aria-labelledby="label-lastname-10"><br />
 						<label for="email-10" id="label-email-10">Email<span class="sr-only"> 10</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail10(); ?>" id="email-10" name="email10" aria-invalid="false" aria-labelledby="label-email-10"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail10(); ?>" id="email-10" name="email10" aria-invalid="false" aria-labelledby="label-email-10">
 						<label for="role-10" id="label-role-10">Role<span class="sr-only"> 10</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole10(); ?>" id="role-10" name="role10" aria-invalid="false" aria-labelledby="label-role-10"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole10(); ?>" id="role-10" name="role10" aria-invalid="false" aria-labelledby="label-role-10"><br />
 						<label for="cpr-expiry-10" id="label-cpr-expiry-10">CPR Expiry<span class="sr-only"> 10</span></label>
 						<input disabled id="cpr-expiry-10" name="cprExpiry10" aria-invalid="false" aria-labelledby="label-cpr-expiry-10" type="date" value="<?php echo $currentInstance->getCPRExpiry10(); ?>"><br />
 						<label for="first-aid-expiry-10" id="label-first-aid-expiry-10">First Aid Expiry<span class="sr-only"> 10</span></label>
@@ -295,9 +295,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-11" id="label-lastname-11">Lastname<span class="sr-only"> 11</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname11(); ?>" id="lastname-11" name="lastname11" aria-invalid="false" aria-labelledby="label-lastname-11"><br />
 						<label for="email-11" id="label-email-11">Email<span class="sr-only"> 11</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail11(); ?>" id="email-11" name="email11" aria-invalid="false" aria-labelledby="label-email-11"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail11(); ?>" id="email-11" name="email11" aria-invalid="false" aria-labelledby="label-email-11">
 						<label for="role-11" id="label-role-11">Role<span class="sr-only"> 11</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole11(); ?>" id="role-11" name="role11" aria-invalid="false" aria-labelledby="label-role-11"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole11(); ?>" id="role-11" name="role11" aria-invalid="false" aria-labelledby="label-role-11"><br />
 						<label for="cpr-expiry-11" id="label-cpr-expiry-11">CPR Expiry<span class="sr-only"> 11</span></label>
 						<input disabled id="cpr-expiry-11" name="cprExpiry11" aria-invalid="false" aria-labelledby="label-cpr-expiry-11" type="date" value="<?php echo $currentInstance->getCPRExpiry11(); ?>"><br />
 						<label for="first-aid-expiry-11" id="label-first-aid-expiry-11">First Aid Expiry<span class="sr-only"> 11</span></label>
@@ -313,9 +313,9 @@ WPCore::addFilter('pre_get_document_title', '\WRDSB\Staff\Modules\SchoolData\Com
 						<label for="lastname-12" id="label-lastname-12">Lastname<span class="sr-only"> 12</span></label>
 						<input disabled type="text" value="<?php echo $currentInstance->getLastname12(); ?>" id="lastname-12" name="lastname12" aria-invalid="false" aria-labelledby="label-lastname-12"><br />
 						<label for="email-12" id="label-email-12">Email<span class="sr-only"> 12</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getEmail12(); ?>" id="email-12" name="email12" aria-invalid="false" aria-labelledby="label-email-12"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->getEmail12(); ?>" id="email-12" name="email12" aria-invalid="false" aria-labelledby="label-email-12">
 						<label for="role-12" id="label-role-12">Role<span class="sr-only"> 12</span></label>
-						<input disabled type="text" value="<?php echo $currentInstance->getRole12(); ?>" id="role-12" name="role12" aria-invalid="false" aria-labelledby="label-role-12"><br />
+						<input disabled type="text" value="<?php echo $currentInstance->displayRole12(); ?>" id="role-12" name="role12" aria-invalid="false" aria-labelledby="label-role-12"><br />
 						<label for="cpr-expiry-12" id="label-cpr-expiry-12">CPR Expiry<span class="sr-only"> 12</span></label>
 						<input disabled id="cpr-expiry-12" name="cprExpiry12" aria-invalid="false" aria-labelledby="label-cpr-expiry-12" type="date" value="<?php echo $currentInstance->getCPRExpiry12(); ?>"><br />
 						<label for="first-aid-expiry-12" id="label-first-aid-expiry-12">First Aid Expiry<span class="sr-only"> 12</span></label>
