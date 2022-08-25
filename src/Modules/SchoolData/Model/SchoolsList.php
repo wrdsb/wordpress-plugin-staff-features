@@ -91,6 +91,7 @@ class SchoolsList {
             'nam' => 'N A MacEachern',
             'ndd' => 'New Dundee',
             'nlw' => 'Northlake Woods',
+            'oak' => 'Oak Creek',
             'pkm' => 'Park Manor',
             'pkw' => 'Parkway',
             'pio' => 'Pioneer Park',
@@ -133,7 +134,9 @@ class SchoolsList {
             'alc' => 'Alternative Education - Choices',
             'alu' => 'Alternative Education - U-turn',
             'cac' => 'Continuing Education',
-            'utr' => 'Rosemount'
+            'utr' => 'Rosemount',
+            'acc' => 'Alt. Ed. Cambridge',
+            'acw' => 'Alt. Ed. Waterloo'
         ];
 
         return $schools;
