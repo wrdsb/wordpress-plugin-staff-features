@@ -100,6 +100,16 @@ $list = EmergencyResponseTeamSearch::list();
                             </td>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Email 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 1</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">CPR Expiry 1</span>
                                 </div>
                             </td>
@@ -121,6 +131,16 @@ $list = EmergencyResponseTeamSearch::list();
                             <th class="secondary-text">
                                 <div class="table-header">
                                     <span class="column-title">Lastname 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Email 2</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 2</span>
                                 </div>
                             </td>
                             <th class="secondary-text">
@@ -150,6 +170,16 @@ $list = EmergencyResponseTeamSearch::list();
                             </td>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Email 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 3</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">CPR Expiry 3</span>
                                 </div>
                             </td>
@@ -171,6 +201,16 @@ $list = EmergencyResponseTeamSearch::list();
                             <th class="secondary-text">
                                 <div class="table-header">
                                     <span class="column-title">Lastname 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Email 4</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 4</span>
                                 </div>
                             </td>
                             <th class="secondary-text">
@@ -200,6 +240,16 @@ $list = EmergencyResponseTeamSearch::list();
                             </td>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Email 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 5</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">CPR Expiry 5</span>
                                 </div>
                             </td>
@@ -221,6 +271,16 @@ $list = EmergencyResponseTeamSearch::list();
                             <th class="secondary-text">
                                 <div class="table-header">
                                     <span class="column-title">Lastname 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Email 6</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 6</span>
                                 </div>
                             </td>
                             <th class="secondary-text">
@@ -250,6 +310,16 @@ $list = EmergencyResponseTeamSearch::list();
                             </td>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Email 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 7</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">CPR Expiry 7</span>
                                 </div>
                             </td>
@@ -271,6 +341,16 @@ $list = EmergencyResponseTeamSearch::list();
                             <th class="secondary-text">
                                 <div class="table-header">
                                     <span class="column-title">Lastname 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Email 8</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 8</span>
                                 </div>
                             </td>
                             <th class="secondary-text">
@@ -300,6 +380,16 @@ $list = EmergencyResponseTeamSearch::list();
                             </td>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Email 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 9</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">CPR Expiry 9</span>
                                 </div>
                             </td>
@@ -321,6 +411,16 @@ $list = EmergencyResponseTeamSearch::list();
                             <th class="secondary-text">
                                 <div class="table-header">
                                     <span class="column-title">Lastname 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Email 10</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 10</span>
                                 </div>
                             </td>
                             <th class="secondary-text">
@@ -350,6 +450,16 @@ $list = EmergencyResponseTeamSearch::list();
                             </td>
                             <th class="secondary-text">
                                 <div class="table-header">
+                                    <span class="column-title">Email 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 11</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
                                     <span class="column-title">CPR Expiry 11</span>
                                 </div>
                             </td>
@@ -371,6 +481,16 @@ $list = EmergencyResponseTeamSearch::list();
                             <th class="secondary-text">
                                 <div class="table-header">
                                     <span class="column-title">Lastname 12</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Email 12</span>
+                                </div>
+                            </td>
+                            <th class="secondary-text">
+                                <div class="table-header">
+                                    <span class="column-title">Role 12</span>
                                 </div>
                             </td>
                             <th class="secondary-text">
@@ -397,63 +517,99 @@ $list = EmergencyResponseTeamSearch::list();
                                     <td><a href="<?php echo WPCore::homeURL(); ?>/school-data/single/emergency-response-team/<?php echo strtolower($post->schoolCode); ?>/"><?php echo strtoupper($post->schoolCode); ?></a></td>
                                     <td><?php echo $schools[strtolower($post->schoolCode)]; ?></td>
                                     <td><?php echo $post->post_modified; ?></td>
+
                                     <td><?php echo $post->firstname1; ?></td>
                                     <td><?php echo $post->lastname1; ?></td>
+                                    <td><?php echo $post->email1; ?></td>
+                                    <td><?php echo $post->role1; ?></td>
                                     <td><?php echo $post->cprExpiry1; ?></td>
                                     <td><?php echo $post->firstAidExpiry1; ?></td>
                                     <td><?php echo $post->bmsExpiry1; ?></td>
+
                                     <td><?php echo $post->firstname2; ?></td>
                                     <td><?php echo $post->lastname2; ?></td>
+                                    <td><?php echo $post->email2; ?></td>
+                                    <td><?php echo $post->role2; ?></td>
                                     <td><?php echo $post->cprExpiry2; ?></td>
                                     <td><?php echo $post->firstAidExpiry2; ?></td>
                                     <td><?php echo $post->bmsExpiry2; ?></td>
+
                                     <td><?php echo $post->firstname3; ?></td>
                                     <td><?php echo $post->lastname3; ?></td>
+                                    <td><?php echo $post->email3; ?></td>
+                                    <td><?php echo $post->role3; ?></td>
                                     <td><?php echo $post->cprExpiry3; ?></td>
                                     <td><?php echo $post->firstAidExpiry3; ?></td>
                                     <td><?php echo $post->bmsExpiry3; ?></td>
+
                                     <td><?php echo $post->firstname4; ?></td>
                                     <td><?php echo $post->lastname4; ?></td>
+                                    <td><?php echo $post->email4; ?></td>
+                                    <td><?php echo $post->role4; ?></td>
                                     <td><?php echo $post->cprExpiry4; ?></td>
                                     <td><?php echo $post->firstAidExpiry4; ?></td>
                                     <td><?php echo $post->bmsExpiry4; ?></td>
+
                                     <td><?php echo $post->firstname5; ?></td>
                                     <td><?php echo $post->lastname5; ?></td>
+                                    <td><?php echo $post->email5; ?></td>
+                                    <td><?php echo $post->role5; ?></td>
                                     <td><?php echo $post->cprExpiry5; ?></td>
                                     <td><?php echo $post->firstAidExpiry5; ?></td>
                                     <td><?php echo $post->bmsExpiry5; ?></td>
+
                                     <td><?php echo $post->firstname6; ?></td>
                                     <td><?php echo $post->lastname6; ?></td>
+                                    <td><?php echo $post->email6; ?></td>
+                                    <td><?php echo $post->role6; ?></td>
                                     <td><?php echo $post->cprExpiry6; ?></td>
                                     <td><?php echo $post->firstAidExpiry6; ?></td>
                                     <td><?php echo $post->bmsExpiry6; ?></td>
+
                                     <td><?php echo $post->firstname7; ?></td>
                                     <td><?php echo $post->lastname7; ?></td>
+                                    <td><?php echo $post->email7; ?></td>
+                                    <td><?php echo $post->role7; ?></td>
                                     <td><?php echo $post->cprExpiry7; ?></td>
                                     <td><?php echo $post->firstAidExpiry7; ?></td>
                                     <td><?php echo $post->bmsExpiry7; ?></td>
+
                                     <td><?php echo $post->firstname8; ?></td>
                                     <td><?php echo $post->lastname8; ?></td>
+                                    <td><?php echo $post->email8; ?></td>
+                                    <td><?php echo $post->role8; ?></td>
                                     <td><?php echo $post->cprExpiry8; ?></td>
                                     <td><?php echo $post->firstAidExpiry8; ?></td>
                                     <td><?php echo $post->bmsExpiry8; ?></td>
+
                                     <td><?php echo $post->firstname9; ?></td>
                                     <td><?php echo $post->lastname9; ?></td>
+                                    <td><?php echo $post->email9; ?></td>
+                                    <td><?php echo $post->role9; ?></td>
                                     <td><?php echo $post->cprExpiry9; ?></td>
                                     <td><?php echo $post->firstAidExpiry9; ?></td>
                                     <td><?php echo $post->bmsExpiry9; ?></td>
+
                                     <td><?php echo $post->firstname10; ?></td>
                                     <td><?php echo $post->lastname10; ?></td>
+                                    <td><?php echo $post->email10; ?></td>
+                                    <td><?php echo $post->role10; ?></td>
                                     <td><?php echo $post->cprExpiry10; ?></td>
                                     <td><?php echo $post->firstAidExpiry10; ?></td>
                                     <td><?php echo $post->bmsExpiry10; ?></td>
+
                                     <td><?php echo $post->firstname11; ?></td>
                                     <td><?php echo $post->lastname11; ?></td>
+                                    <td><?php echo $post->email11; ?></td>
+                                    <td><?php echo $post->role11; ?></td>
                                     <td><?php echo $post->cprExpiry11; ?></td>
                                     <td><?php echo $post->firstAidExpiry11; ?></td>
                                     <td><?php echo $post->bmsExpiry11; ?></td>
+
                                     <td><?php echo $post->firstname12; ?></td>
                                     <td><?php echo $post->lastname12; ?></td>
+                                    <td><?php echo $post->email12; ?></td>
+                                    <td><?php echo $post->role12; ?></td>
                                     <td><?php echo $post->cprExpiry12; ?></td>
                                     <td><?php echo $post->firstAidExpiry12; ?></td>
                                     <td><?php echo $post->bmsExpiry12; ?></td>
